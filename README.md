@@ -44,21 +44,19 @@ cd W:\PROJECTS\ROADSENSE
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
-# 2. Install dependencies
-pip install -r requirements.txt
+# 2. Install RoadSense and its dependencies (editable install)
+pip install -e .
 
 # 3. Run the app
-python -m roadsense
+python -m roadsense      # or just:  roadsense
 ```
 
 On macOS/Linux the same works with `python3 -m venv .venv && source .venv/bin/activate`.
 
-Alternatively, install as a package (adds a `roadsense` launcher):
-
-```powershell
-pip install -e .
-roadsense
-```
+> `pip install -e .` reads the dependencies from `pyproject.toml` **and** puts the
+> `roadsense` package on the path, so both `python -m roadsense` and the `roadsense`
+> launcher work. (`requirements.txt` is provided for reference and installs the runtime
+> dependencies only — it does not install the package itself.)
 
 ### First run with no hardware
 
