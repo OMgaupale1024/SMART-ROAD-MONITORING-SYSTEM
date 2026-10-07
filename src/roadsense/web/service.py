@@ -31,7 +31,7 @@ import zipfile
 from contextlib import contextmanager
 from datetime import datetime
 from enum import Enum
-from typing import Any, Callable, Dict, Iterator, List, Optional, Set
+from typing import Any, Callable, Dict, Iterator, List, Optional
 
 import serial
 import serial.tools.list_ports
@@ -87,9 +87,10 @@ class WebTelemetryManager:
         self.recent_raw_lines: List[str] = []
         self.recent_events: List[Dict[str, Any]] = []
 
-        # WebSocket subscribers
-        self._subscribers: Set[asyncio.Queue] = set()
+        # WebSocket subscribers: each client's bounded queue -> messages dropped because it was full
+        self._subscribers: Dict[asyncio.Queue, int] = {}
         self._loop: Optional[asyncio.AbstractEventLoop] = None
+        self.ws_dropped_messages = 0
 
     def set_event_loop(self, loop: asyncio.AbstractEventLoop) -> None:
         self._loop = loop
@@ -261,6 +262,7 @@ class WebTelemetryManager:
             "total_packets_received": self.total_packets_received,
             "total_events_detected": self.total_events_detected,
             "malformed_lines": self.malformed_line_count,
+            "ws_dropped_messages": self.ws_dropped_messages,
             "latest_packet": self.latest_packet,
         }
 
@@ -476,19 +478,46 @@ class WebTelemetryManager:
     # --- WebSocket Broadcasting ---
 
     def register_subscriber(self, queue: asyncio.Queue) -> None:
-        self._subscribers.add(queue)
+        self._subscribers[queue] = 0
 
     def remove_subscriber(self, queue: asyncio.Queue) -> None:
-        self._subscribers.discard(queue)
+        dropped = self._subscribers.pop(queue, 0)
+        if dropped:
+            log.warning("Slow WebSocket client disconnected; %d stale messages were dropped for it", dropped)
 
     def _broadcast_status(self) -> None:
         self._broadcast({"type": "status", "status": self.get_status()})
 
     def _broadcast(self, data: Dict[str, Any]) -> None:
+        """Hand `data` to every client. Never blocks or raises into the calling (source) thread."""
         if not self._subscribers or not self._loop:
             return
         for q in list(self._subscribers):
             try:
-                self._loop.call_soon_threadsafe(q.put_nowait, data)
-            except Exception:
-                pass
+                self._loop.call_soon_threadsafe(self._enqueue, q, data)
+            except RuntimeError:
+                pass  # event loop already closed: the server is shutting down
+
+    def _enqueue(self, q: asyncio.Queue, data: Dict[str, Any]) -> None:
+        """Queue `data` for one client. Runs on the event loop, the only place queues are touched.
+
+        A full queue means the client reads slower than telemetry arrives. Its queued packets are
+        stale (the newest one carries the current readings and recording counts), so they are
+        dropped; status and hello messages are kept. Only a queue holding no packets at all loses
+        its oldest message, and a status message is a full snapshot that any later one replaces.
+        """
+        if q not in self._subscribers:
+            return  # client disconnected after this was scheduled
+        if q.full():
+            backlog = [q.get_nowait() for _ in range(q.qsize())]
+            kept = [m for m in backlog if m["type"] != "packet"]
+            if len(kept) == len(backlog):  # no packets to drop
+                kept = kept[1:]
+            for m in kept:
+                q.put_nowait(m)
+            dropped = len(backlog) - len(kept)
+            if not self._subscribers[q]:
+                log.warning("WebSocket client too slow; dropping its stale telemetry")
+            self._subscribers[q] += dropped
+            self.ws_dropped_messages += dropped
+        q.put_nowait(data)

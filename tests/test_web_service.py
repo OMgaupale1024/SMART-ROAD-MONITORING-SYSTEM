@@ -4,6 +4,7 @@ packets and requests race.
 Interleavings are forced with a Gate: the first call of a repository method parks its thread
 inside the call (inside the manager's locks) until released, while another thread races it.
 """
+import asyncio
 import os
 import sqlite3
 import threading
@@ -309,3 +310,93 @@ def test_shutdown_saves_buffered_telemetry_and_ends_the_session(tmp_path):
     with Database(path) as db:
         assert TelemetryRepository(db.conn).count(sid) == 3
         assert SessionRepository(db.conn).get(sid).ended_at is not None
+
+
+@pytest.fixture
+def loop():
+    """An event loop collecting the errors it would otherwise only log (e.g. QueueFull)."""
+    loop = asyncio.new_event_loop()
+    loop.errors = []
+    loop.set_exception_handler(lambda _, context: loop.errors.append(context))
+    yield loop
+    if not loop.is_running():  # a failed test may leave it running on its thread
+        loop.close()
+
+
+def drain(queue):
+    return [queue.get_nowait() for _ in range(queue.qsize())]
+
+
+def test_slow_websocket_client_gets_newest_telemetry_and_every_status(mgr, loop):
+    mgr.set_event_loop(loop)
+    slow, fast = asyncio.Queue(maxsize=5), asyncio.Queue(maxsize=5)
+    mgr.register_subscriber(slow)
+    mgr.register_subscriber(fast)
+    fast_seen = []
+
+    def pump():  # run the queued deliveries; the fast client reads, the slow one never does
+        loop.run_until_complete(asyncio.sleep(0))
+        fast_seen.extend(drain(fast))
+        assert slow.qsize() <= 5
+
+    sid = mgr.start_recording("drive")["session_id"]
+    for i in range(40):
+        feed(mgr, f"T,{i},1200,300,25.0,NORMAL")
+        if i == 20:
+            feed(mgr, "HELLO,ROADSENSE,1")
+        pump()
+    mgr.stop_recording()
+    pump()
+
+    assert loop.errors == []  # no QueueFull escaped into the loop
+    assert [m["type"] for m in fast_seen] == ["status"] + ["packet"] * 21 + ["hello"] + ["packet"] * 19 + ["status"]
+    assert mgr.telemetry.count(sid) == 40  # recording kept every packet
+
+    backlog = drain(slow)
+    assert [m["type"] for m in backlog if m["type"] != "packet"] == ["status", "hello", "status"]
+    assert backlog[0]["status"]["is_recording"] and not backlog[-1]["status"]["is_recording"]
+    assert [m for m in backlog if m["type"] == "packet"][-1]["packet"]["arduino_time_ms"] == 39
+    assert mgr.get_status()["ws_dropped_messages"] > 0
+
+    feed(mgr, "T,99,1200,300,25.0,NORMAL")  # drained: live telemetry reaches it again
+    pump()
+    assert drain(slow)[0]["packet"]["arduino_time_ms"] == 99
+
+    for i in range(100, 106):  # overflow a queue of packets only: all stale ones go at once
+        feed(mgr, f"T,{i},1200,300,25.0,NORMAL")
+    pump()
+    assert [m["packet"]["arduino_time_ms"] for m in drain(slow)] == [105]
+
+    for _ in range(6):  # no packets to drop: the oldest status snapshot makes room
+        mgr._broadcast_status()
+    pump()
+    assert [m["type"] for m in drain(slow)] == ["status"] * 5
+    assert loop.errors == []
+
+
+def test_slow_websocket_client_does_not_disturb_the_source_or_recording(mgr, loop, monkeypatch):
+    monkeypatch.setattr(service, "SIM_PERIOD_S", 0.001)
+    loop_thread = threading.Thread(target=loop.run_forever, daemon=True)
+    loop_thread.start()
+    mgr.set_event_loop(loop)
+    slow = asyncio.Queue(maxsize=3)
+    mgr.register_subscriber(slow)  # never read, like a stalled browser tab
+
+    sid = mgr.start_recording("drive")["session_id"]
+    mgr.start_simulator()
+    wait_for(lambda: mgr.total_packets_received >= 100)
+    assert worker_threads() == ["RoadSenseSimWorker"]
+    assert mgr.get_status()["source"] == "SIMULATOR"
+
+    seen = mgr.total_packets_received
+    wait_for(lambda: mgr.total_packets_received >= seen + 100)  # still streaming
+    stopped = mgr.stop_recording()
+    assert stopped["telemetry_count"] + stopped["event_count"] >= 200  # T rows + E events
+    assert mgr.telemetry.count(sid) == stopped["telemetry_count"]
+
+    mgr.shutdown()
+    loop.call_soon_threadsafe(loop.stop)
+    finish(loop_thread)
+    assert worker_threads() == []
+    assert loop.errors == []
+    assert slow.qsize() <= 3
