@@ -1,16 +1,28 @@
-# RoadSense Desktop
+# RoadSense
 
-A native Windows desktop application for the **RoadSense car-in-a-box** road-condition
-monitoring prototype. It connects directly to an **Arduino UNO over USB serial**, shows
-live sensor data and the current road condition, records sessions locally, and exports
-data to CSV.
+Software for the **RoadSense car-in-a-box** road-condition monitoring prototype. It
+connects directly to an **Arduino UNO over USB serial**, shows live sensor data and the
+current road condition, records sessions locally, and exports data to CSV. Two front-ends
+share the same protocol parser and SQLite storage:
 
-> Local-only prototype. **No** mobile app, Bluetooth, GPS, cloud sync, Mapbox, or wireless
-> — those are later phases. Everything here runs on a PC wired to the Arduino by USB.
+- **Desktop app** (PySide6) — `python -m roadsense`
+- **Web dashboard** (FastAPI, in the browser on the same PC) — `python -m roadsense.web`
+
+> Local-only prototype (v0.1.0). Everything here runs on a PC wired to the Arduino by USB.
+
+## Status
+
+**Implemented:** Arduino firmware (MPU6050, HC-SR04, SSD1306 OLED, LED, buzzer); serial
+protocol v1 at 115200 baud; desktop app; local web dashboard; built-in simulator; SQLite
+session recording; CSV export (ZIP of the same CSVs from the web dashboard).
+
+**Not implemented (possible later phases):** GPS/location, maps, mobile app, Bluetooth or
+wireless links, cloud sync, Raspberry Pi integration, camera/computer vision, ML-based
+classification.
 
 ---
 
-## What it does
+## What the desktop app does
 
 - Lists available COM ports and connects to the Arduino (default **115200** baud).
 - Receives live telemetry and shows **AY**, **shock**, **road distance** (cm or `NA`),
@@ -30,12 +42,17 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
 
 ## Requirements
 
-- **Python 3.10+** (developed and tested on 3.10; 3.11+ also fine).
+- **Python 3.10+** (developed on 3.10 / Windows; also tested on 3.12 / macOS).
 - Windows 10/11 (the app is Windows-first but not deliberately Windows-only).
 - An Arduino UNO running the firmware in `firmware/roadsense_arduino.ino` (optional — a
-  built-in Simulation Mode lets you run the app with no hardware).
+  built-in simulator lets you run either front-end with no hardware).
 
-## Install & run (Windows / PowerShell)
+## Install & run
+
+`pyproject.toml` is the single source of dependencies. Pick the extras you need:
+`desktop` (PySide6, pyqtgraph), `web` (FastAPI, Uvicorn, websockets), `dev` (pytest).
+
+Windows / PowerShell:
 
 ```powershell
 cd W:\PROJECTS\ROADSENSE
@@ -44,29 +61,39 @@ cd W:\PROJECTS\ROADSENSE
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 
-# 2. Install RoadSense and its dependencies (editable install)
-pip install -e .
+# 2. Install RoadSense with both front-ends (editable install)
+pip install -e ".[desktop,web]"
 
-# 3. Run the app
-python -m roadsense      # or just:  roadsense
+# 3. Run one of them
+python -m roadsense        # desktop app (or just:  roadsense)
+python -m roadsense.web    # web dashboard at http://127.0.0.1:8000
 ```
 
-On macOS/Linux the same works with `python3 -m venv .venv && source .venv/bin/activate`.
+macOS / Linux:
 
-> `pip install -e .` reads the dependencies from `pyproject.toml` **and** puts the
-> `roadsense` package on the path, so both `python -m roadsense` and the `roadsense`
-> launcher work. (`requirements.txt` is provided for reference and installs the runtime
-> dependencies only — it does not install the package itself.)
+```bash
+python3.12 -m venv .venv    # any Python 3.10+; macOS's built-in python3 may be older
+source .venv/bin/activate
+pip install -e ".[desktop,web]"
+python -m roadsense        # desktop app
+python -m roadsense.web    # web dashboard
+```
+
+> The editable install also puts the `roadsense` package on the path, so both
+> `python -m ...` commands work from any directory.
 
 ### First run with no hardware
 
-The app opens and works without an Arduino. To see it live, enable
-**Tools → Developer Simulation Mode** (off by default; a loud banner appears while it is on
-and the data is clearly labelled synthetic). Turn it off to return to real serial mode.
+- **Desktop:** opens and works without an Arduino. To see it live, enable
+  **Tools → Developer Simulation Mode** (off by default; a loud banner appears while it is on
+  and the data is clearly labelled synthetic). Turn it off to return to real serial mode.
+- **Web dashboard:** opens your browser and currently **starts its built-in simulator
+  automatically** (synthetic data, shown as *SIMULATOR ACTIVE*). Pick the Arduino's port in
+  the dashboard to switch to real serial data. API docs: `http://127.0.0.1:8000/docs`.
 
 ---
 
-## Using it with the Arduino
+## Using it with the Arduino (desktop app)
 
 1. Plug the Arduino UNO into the PC by USB.
 2. Open RoadSense Desktop.
@@ -131,10 +158,10 @@ Override with the `ROADSENSE_DATA_DIR` environment variable if needed.
 ## Testing
 
 Automated tests cover the protocol parser, storage, session recording, and CSV export
-(no GUI or hardware needed):
+(no GUI or hardware needed; the web test is skipped unless the `web` extra is installed):
 
 ```powershell
-pip install pytest
+pip install -e ".[desktop,web,dev]"
 python -m pytest
 ```
 
@@ -165,6 +192,10 @@ src/roadsense/
   session_service.py recording logic (buffer + persist)
   export_service.py CSV export
   ui/               PySide6 widgets (dashboard, panels, history, styles)
+  web/              web dashboard (python -m roadsense.web)
+    server.py       FastAPI app: REST API, /ws/telemetry WebSocket, static UI
+    service.py      serial/simulator reader, recording, ZIP export
+    static/         HTML/CSS/JS front-end
 tools/serial_sim.py test-only serial writer (virtual COM pair)
 tests/              pytest suite
 docs/serial-protocol.md
@@ -172,8 +203,11 @@ docs/serial-protocol.md
 
 Separation is intentional: UI ⟂ serial I/O ⟂ parsing ⟂ storage ⟂ business logic ⟂ export.
 
-## Limitations (v1)
+## Limitations
 
 - No GPS, speed, battery, or map data — that hardware does not exist in this version.
 - Road-condition classification is done on the Arduino; the app does not re-classify.
 - Firmware shock thresholds are un-calibrated placeholders (see Calibration above).
+- The web dashboard loads fonts, icons, and Chart.js from public CDNs, so it needs an
+  internet connection to render fully.
+- The web API has no authentication and listens on `127.0.0.1` only — local use only.

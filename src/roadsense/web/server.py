@@ -16,9 +16,10 @@ from fastapi.responses import FileResponse, HTMLResponse, Response, StreamingRes
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from roadsense import __version__
 from roadsense.web.service import WebTelemetryManager
 
-app = FastAPI(title="RoadSense Web Dashboard", version="1.0.0")
+app = FastAPI(title="RoadSense Web Dashboard", version=__version__)
 
 app.add_middleware(
     CORSMiddleware,

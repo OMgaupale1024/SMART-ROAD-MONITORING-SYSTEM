@@ -19,10 +19,11 @@ dist/
 *.sqlite
 *.sqlite3
 
-# CSV exports produced at runtime
+# Exports produced at runtime (desktop CSVs, web session ZIPs)
 telemetry.csv
 events.csv
 session_metadata.csv
+roadsense_session_*.zip
 
 # remember plugin state (self-ignored, but be explicit)
 .remember/

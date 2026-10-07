@@ -1,6 +1,0 @@
-# RoadSense Desktop runtime dependencies (Python 3.10+)
-PySide6>=6.6
-pyserial>=3.5
-pyqtgraph>=0.13
-# pyqtgraph pulls in numpy automatically.
-# For tests: pip install pytest   (or: pip install -e ".[dev]")

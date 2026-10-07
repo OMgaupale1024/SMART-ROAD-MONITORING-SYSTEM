@@ -1,5 +1,9 @@
 """Storage round-trips, survives restart, cascades cleanly, and reports NA as NULL."""
+import sqlite3
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
+
+import pytest
 
 from roadsense.database import Database
 from roadsense.models import Packet
@@ -100,3 +104,14 @@ def test_restart_persists(tmp_path):
     assert SessionRepository(db2.conn).get(s.id).name == "persist me"
     assert EventRepository(db2.conn).count(s.id) == 1
     db2.close()
+
+
+def test_connection_is_thread_bound_unless_shared():
+    desktop = Database(":memory:")  # default: UI-thread only, sqlite3's safe default
+    web = Database(":memory:", check_same_thread=False)  # web server serializes access itself
+    with ThreadPoolExecutor(max_workers=1) as other_thread:
+        with pytest.raises(sqlite3.ProgrammingError):
+            other_thread.submit(desktop.conn.execute, "SELECT 1").result()
+        other_thread.submit(web.conn.execute, "SELECT 1").result()
+    desktop.close()
+    web.close()

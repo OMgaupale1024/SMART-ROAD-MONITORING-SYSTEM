@@ -1,7 +1,11 @@
-"""SQLite storage. One connection, used only from the main/UI thread.
+"""SQLite storage. One connection per Database.
 
-The serial worker never touches the database; it hands packets to the UI thread via
-Qt signals, and persistence happens there. So check_same_thread stays at its safe default.
+Desktop: the connection is used only from the main/UI thread. The serial worker never
+touches the database; it hands packets to the UI thread via Qt signals, and persistence
+happens there. So check_same_thread stays at its safe default.
+
+Web: request and worker threads share the connection, so the server opts in with
+check_same_thread=False and serializes every access behind its own lock.
 """
 from __future__ import annotations
 
@@ -49,7 +53,7 @@ CREATE INDEX IF NOT EXISTS idx_events_session ON events(session_id);
 
 
 class Database:
-    def __init__(self, path: Optional[Union[str, Path]] = None, check_same_thread: bool = False):
+    def __init__(self, path: Optional[Union[str, Path]] = None, check_same_thread: bool = True):
         if path is None:
             path = paths.database_path()
         self.path = str(path)

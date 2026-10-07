@@ -9,12 +9,19 @@ description = "RoadSense Desktop — USB-serial road-condition monitor for the c
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "PySide6>=6.6",
     "pyserial>=3.5",
-    "pyqtgraph>=0.13",
 ]
 
 [project.optional-dependencies]
+desktop = [
+    "PySide6>=6.6",
+    "pyqtgraph>=0.13",
+]
+web = [
+    "fastapi>=0.141",
+    "uvicorn>=0.52",
+    "websockets>=16",  # uvicorn's WebSocket backend for /ws/telemetry
+]
 dev = ["pytest>=7.0"]
 
 [project.gui-scripts]
@@ -22,6 +29,9 @@ roadsense = "roadsense.app:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"roadsense.web" = ["static/*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
