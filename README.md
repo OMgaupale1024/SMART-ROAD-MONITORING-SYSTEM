@@ -249,6 +249,7 @@ Both front-ends share the parser (`protocol.py`), the SQLite layer (`database.py
 - Firmware shock thresholds are un-calibrated placeholders (see Calibration above).
 - The desktop app and the web dashboard are separate programs. A serial port can be open in
   only one of them at a time; both use the same SQLite file by default.
-- The web dashboard loads fonts, icons, and Chart.js from public CDNs, so it needs an
-  internet connection to render fully.
+- The web dashboard page loads Chart.js, fonts and icons from public CDNs. Without internet
+  access the page does not start its live view (no charts, no live stream); the server and
+  its API still work.
 - The web API has no authentication and listens on `127.0.0.1` only — local use only.
