@@ -1,11 +1,14 @@
 """Web server: lifecycle, REST and WebSocket contracts of the FastAPI app."""
 import io
 import json
+import re
 import socket
 import sqlite3
 import threading
 import time
 import zipfile
+from html.parser import HTMLParser
+from urllib.parse import urljoin, urlsplit
 
 import pytest
 
@@ -83,6 +86,56 @@ def test_dashboard_and_read_endpoints_respond(client, monkeypatch):
     assert client.get("/api/sessions").json() == {"sessions": []}
     assert client.get("/api/ports").json() == {"ports": [
         {"port": "/dev/cu.usbmodem1101", "description": "Arduino Uno", "hwid": "USB VID:PID=2341:0043"}]}
+
+
+class AssetRefs(HTMLParser):
+    """Collect what the browser must fetch to render the page: scripts and stylesheets."""
+
+    def __init__(self):
+        super().__init__()
+        self.refs = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "script" and attrs.get("src"):
+            self.refs.append(attrs["src"])
+        elif tag == "link" and attrs.get("href") and "stylesheet" in attrs.get("rel", "").split():
+            self.refs.append(attrs["href"])
+
+
+def is_remote(url):
+    return bool(urlsplit(url).netloc)  # http://, https:// and protocol-relative //host
+
+
+def test_dashboard_loads_every_asset_from_this_server(client):
+    """No CDN: the page, its scripts, stylesheets and the fonts they load all come from RoadSense.
+    Plain hyperlinks (e.g. to /docs) are navigation, not dependencies, so they are not checked."""
+    parser = AssetRefs()
+    parser.feed(client.get("/").text)
+    assert "/static/vendor/chart.js/chart.umd.js" in parser.refs
+    assert not [ref for ref in parser.refs if is_remote(ref)]
+
+    fetched = []
+    for ref in parser.refs:
+        response = client.get(ref)
+        assert response.status_code == 200, ref
+        fetched.append(ref)
+        if ref.endswith(".css"):  # fonts and @imports a stylesheet pulls in
+            for url in re.findall(r"url\(['\"]?([^'\")]+)", response.text):
+                if not url.startswith("data:"):
+                    assert not is_remote(url), url
+                    assert client.get(urljoin(ref, url)).status_code == 200, url
+                    fetched.append(url)
+    assert any(url.endswith(".woff2") for url in fetched)  # the icon font
+    assert not re.search(r"https?://", client.get("/static/app.js").text)
+
+
+def test_dashboard_starts_even_if_charts_fail():
+    """A browser can't run here, so this pins the guard itself: a chart error is logged and
+    startup goes on to open the WebSocket. (Checked in a real browser for v0.2.1.)"""
+    app_js = (server.STATIC_DIR / "app.js").read_text()
+    assert re.search(r"try \{\s*initCharts\(\);\s*\} catch \(err\) \{[^}]*console\.error", app_js)
+    assert app_js.index("initCharts();") < app_js.index("initWebSocket();\n")
 
 
 def test_simulator_endpoints_switch_the_source(client):

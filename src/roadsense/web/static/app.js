@@ -75,7 +75,12 @@ const audio = new HazardAudio();
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initAudioToggle();
-  initCharts();
+  try {
+    initCharts();
+  } catch (err) {
+    // Charts are only one view: telemetry, source and recording controls must still start
+    console.error('RoadSense charts failed to initialize; continuing without them:', err);
+  }
   initCanvasVisualizer();
   initWebSocket();
   scanComPorts();
@@ -389,7 +394,7 @@ function clearTerminal() {
 // --- Real-time Chart.js Setup ---
 function initCharts() {
   Chart.defaults.color = '#94a3b8';
-  Chart.defaults.font.family = 'JetBrains Mono, Inter, sans-serif';
+  Chart.defaults.font.family = "ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace";
 
   // 1. Shock & AY Chart
   const ctxShock = document.getElementById('shockChart').getContext('2d');

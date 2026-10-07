@@ -35,9 +35,10 @@
   --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.6);
   --shadow-glow: 0 0 25px var(--color-cyan-glow);
 
-  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* System fonts: nothing to download, so the dashboard renders the same offline */
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 }
 
 *, *::before, *::after {
