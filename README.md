@@ -8,17 +8,24 @@ share the same protocol parser and SQLite storage:
 - **Desktop app** (PySide6) — `python -m roadsense`
 - **Web dashboard** (FastAPI, in the browser on the same PC) — `python -m roadsense.web`
 
-> Local-only prototype (v0.1.0). Everything here runs on a PC wired to the Arduino by USB.
+> Local-only prototype (v0.2.0). Everything here runs on a PC wired to the Arduino by USB.
 
 ## Status
 
-**Implemented:** Arduino firmware (MPU6050, HC-SR04, SSD1306 OLED, LED, buzzer); serial
-protocol v1 at 115200 baud; desktop app; local web dashboard; built-in simulator; SQLite
-session recording; CSV export (ZIP of the same CSVs from the web dashboard).
+**Implemented:**
 
-**Not implemented (possible later phases):** GPS/location, maps, mobile app, Bluetooth or
-wireless links, cloud sync, Raspberry Pi integration, camera/computer vision, ML-based
-classification.
+- Arduino UNO firmware: MPU6050 accelerometer, HC-SR04 ultrasonic distance, SSD1306 OLED,
+  status LED and buzzer; road conditions classified on the Arduino.
+- Serial protocol v1 (newline-terminated CSV at 115200 baud) with a strict parser.
+- Desktop app (PySide6) with live plots, session recording and event history.
+- Local web dashboard (FastAPI): REST API, live WebSocket telemetry, recording, session
+  history; starts with **no telemetry source** until you pick the Arduino or the simulator.
+- Built-in simulators (clearly labelled synthetic in both front-ends).
+- SQLite session recording; CSV export (desktop) and a ZIP of the same CSVs (web).
+
+**Planned, not implemented:** GPS/location, maps, mobile app, Bluetooth or wireless links,
+cloud sync, Raspberry Pi integration, camera/computer vision, ML/AI classification or
+prediction, safer-route suggestions.
 
 ---
 
@@ -38,6 +45,21 @@ classification.
 The Arduino is the authority for classifying road conditions; the app displays and stores
 them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is ever faked.
 
+## What the web dashboard does
+
+- Runs at `http://127.0.0.1:8000` (`python -m roadsense.web` opens your browser).
+- Starts with **no telemetry source**. You choose one, and only one runs at a time:
+  - **Arduino:** *Hardware COM & Terminal* tab → pick the port → **Connect Hardware**.
+  - **Simulator:** **Start Simulator** on that tab, or a *Smooth / Bumpy / Highway* profile
+    on the dashboard. **Stop Simulator** returns to no source.
+- The header pill always says which source is live: *NO SOURCE*, *ARDUINO: \<port\>*, or
+  *SIMULATOR ACTIVE* (amber, with simulated readings labelled synthetic — never "Arduino").
+- Live telemetry over a WebSocket: gauges, shock and distance charts, a road visualizer,
+  the hazard event log and the raw serial lines.
+- Records sessions to the same SQLite database as the desktop app; lists past sessions and
+  downloads each as a ZIP of `telemetry.csv`, `events.csv`, `session_metadata.csv`.
+- REST API documentation at `http://127.0.0.1:8000/docs`.
+
 ---
 
 ## Requirements
@@ -50,7 +72,7 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
 ## Install & run
 
 `pyproject.toml` is the single source of dependencies. Pick the extras you need:
-`desktop` (PySide6, pyqtgraph), `web` (FastAPI, Uvicorn, websockets), `dev` (pytest).
+`desktop` (PySide6, pyqtgraph), `web` (FastAPI, Uvicorn, websockets), `dev` (pytest, httpx2).
 
 Windows / PowerShell:
 
@@ -87,9 +109,9 @@ python -m roadsense.web    # web dashboard
 - **Desktop:** opens and works without an Arduino. To see it live, enable
   **Tools → Developer Simulation Mode** (off by default; a loud banner appears while it is on
   and the data is clearly labelled synthetic). Turn it off to return to real serial mode.
-- **Web dashboard:** opens your browser and currently **starts its built-in simulator
-  automatically** (synthetic data, shown as *SIMULATOR ACTIVE*). Pick the Arduino's port in
-  the dashboard to switch to real serial data. API docs: `http://127.0.0.1:8000/docs`.
+- **Web dashboard:** opens with *NO SOURCE* and no data. Click **Start Simulator** (or a
+  simulation profile) for synthetic data, shown as *SIMULATOR ACTIVE*; connect the Arduino's
+  port instead for real serial data.
 
 ---
 
@@ -117,9 +139,9 @@ python -m roadsense.web    # web dashboard
 Wiring: MPU6050 on I2C (`0x68`), SSD1306 OLED on I2C (`0x3C`), HC-SR04 `TRIG=D9` `ECHO=D10`,
 status LED on `D6`, buzzer on `D7`.
 
-> **Close the Arduino IDE Serial Monitor before connecting from RoadSense Desktop** — a COM
-> port can only be open in one program at a time (otherwise you'll get an "access denied"
-> error, which the app reports clearly).
+> **Close the Arduino IDE Serial Monitor before connecting from RoadSense** (desktop or web) —
+> a COM port can only be open in one program at a time (otherwise you'll get an "access
+> denied" error, which the app reports clearly).
 
 ### Calibration
 
@@ -157,8 +179,11 @@ Override with the `ROADSENSE_DATA_DIR` environment variable if needed.
 
 ## Testing
 
-Automated tests cover the protocol parser, storage, session recording, and CSV export
-(no GUI or hardware needed; the web test is skipped unless the `web` extra is installed):
+Automated tests need no GUI or hardware. They cover the protocol parser, storage, session
+recording and CSV export, plus the web server: REST endpoints, the WebSocket stream, the
+startup/shutdown lifecycle, source switching (including a pseudo-terminal standing in for
+the Arduino on macOS/Linux), and concurrency regression tests for recording while packets
+arrive. The web tests are skipped unless the `web` and `dev` extras are installed.
 
 ```powershell
 pip install -e ".[desktop,web,dev]"
@@ -203,11 +228,27 @@ docs/serial-protocol.md
 
 Separation is intentional: UI ⟂ serial I/O ⟂ parsing ⟂ storage ⟂ business logic ⟂ export.
 
+### Architecture
+
+Both front-ends share the parser (`protocol.py`), the SQLite layer (`database.py`,
+`repositories.py`), the recording logic (`session_service.py`) and the CSV export.
+
+- **Desktop:** the serial reader runs on a background `QThread` and hands packets to the UI
+  thread through Qt signals (Simulation Mode emits the same signals from a UI-thread timer).
+  All database work happens on the UI thread.
+- **Web:** `server.py` is the FastAPI app (UI, REST API, `/ws/telemetry`).
+  `WebTelemetryManager` in `service.py` runs at most one source thread (serial or simulator)
+  and records through `SessionService`. One lock guards the database and recording state;
+  a second lock only serializes source changes. Packets and status changes are pushed to the
+  browser over the WebSocket.
+
 ## Limitations
 
 - No GPS, speed, battery, or map data — that hardware does not exist in this version.
 - Road-condition classification is done on the Arduino; the app does not re-classify.
 - Firmware shock thresholds are un-calibrated placeholders (see Calibration above).
+- The desktop app and the web dashboard are separate programs. A serial port can be open in
+  only one of them at a time; both use the same SQLite file by default.
 - The web dashboard loads fonts, icons, and Chart.js from public CDNs, so it needs an
   internet connection to render fully.
 - The web API has no authentication and listens on `127.0.0.1` only — local use only.
