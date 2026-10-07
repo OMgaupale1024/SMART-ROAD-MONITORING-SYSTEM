@@ -3,29 +3,43 @@
 Handles:
 - Serial port connection and background thread reading
 - Simulation mode generation
-- SQLite database session persistence and CSV export
+- SQLite session recording (via SessionService) and CSV/ZIP export
 - WebSocket subscriber broadcasting at 10 Hz
+
+Threads: packets arrive on the source thread (serial or simulator) and on request threads
+(simulator trigger); recording and queries arrive on request threads. One lock, ``_lock``,
+guards the SQLite connection and all recording state, and nothing else is ever acquired
+while it is held. Each recording transition (start, stop, flush) runs inside a single
+critical section, so buffered rows are always written to the session that owned them.
 """
 from __future__ import annotations
 
 import asyncio
 import io
+import logging
 import math
 import random
+import sqlite3
 import threading
 import time
 import zipfile
+from contextlib import contextmanager
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Set
+from typing import Any, Dict, Iterator, List, Optional, Set
 
 import serial
 import serial.tools.list_ports
 
 from roadsense.database import Database
-from roadsense.export_service import export_session, target_files
+from roadsense.export_service import export_session
 from roadsense.models import ConnectionStatus, Hello, Packet, distance_str
 from roadsense.protocol import MalformedMessage, parse_line
 from roadsense.repositories import EventRepository, SessionRepository, TelemetryRepository
+from roadsense.session_service import SessionService
+
+log = logging.getLogger(__name__)
+
+FLUSH_INTERVAL_S = 1.0  # longest that recorded telemetry waits in memory before reaching SQLite
 
 
 class WebTelemetryManager:
@@ -34,7 +48,11 @@ class WebTelemetryManager:
         self.sessions = SessionRepository(self.db.conn)
         self.telemetry = TelemetryRepository(self.db.conn)
         self.events = EventRepository(self.db.conn)
-        self._db_lock = threading.Lock()
+        self.recorder = SessionService(self.sessions, self.telemetry, self.events)
+        # ponytail: one lock serializes DB reads (e.g. a ZIP export) with packet persistence;
+        # give exports their own read connection if they ever stall live telemetry.
+        self._lock = threading.Lock()
+        self._last_flush = time.monotonic()
 
         # Connection & Source state
         self.connection_status: str = ConnectionStatus.DISCONNECTED.value
@@ -52,16 +70,6 @@ class WebTelemetryManager:
         self._sim_stop_event = threading.Event()
         self._sim_rng = random.Random()
         self._sim_profile = "normal"  # normal, bumpy, city_potholes, highway
-
-        # Recording state
-        self.active_session_id: Optional[int] = None
-        self.active_session_name: Optional[str] = None
-        self.session_started_at: Optional[datetime] = None
-        self._telemetry_buffer: List[Packet] = []
-        self._buffer_lock = threading.Lock()
-        self._last_flush_time = time.monotonic()
-        self.session_telemetry_count = 0
-        self.session_event_count = 0
 
         # Real-time metrics
         self.latest_packet: Optional[Dict[str, Any]] = None
@@ -172,73 +180,74 @@ class WebTelemetryManager:
         self._process_packet_data("E", t_ms, ay, shock, dist, status)
         return {"status": "ok", "triggered": event_type}
 
-    def start_recording(self, name: str, notes: str = "") -> Dict[str, Any]:
-        """Start recording session into SQLite database."""
-        if self.active_session_id is not None:
-            self.stop_recording()
+    @contextmanager
+    def _db(self) -> Iterator[None]:
+        """Hold the lock for the connection + recording state; undo a half-done write."""
+        with self._lock:
+            try:
+                yield
+            except sqlite3.Error:
+                self.db.conn.rollback()
+                raise
 
-        started_at = datetime.now()
-        name = name.strip() or f"Drive_{started_at.strftime('%Y%m%d_%H%M%S')}"
-        with self._db_lock:
-            with self._buffer_lock:
-                session = self.sessions.create(name=name, notes=notes, started_at=started_at)
-                self.active_session_id = session.id
-                self.active_session_name = session.name
-                self.session_started_at = session.started_at
-                self._telemetry_buffer = []
-                self.session_telemetry_count = 0
-                self.session_event_count = 0
+    def start_recording(self, name: str, notes: str = "") -> Dict[str, Any]:
+        """Start recording session into SQLite database (ending any current one first)."""
+        name = name.strip() or f"Drive_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        with self._db():
+            if self.recorder.is_recording:
+                self.recorder.stop()
+            session = self.recorder.start(name, notes)
+            self._last_flush = time.monotonic()
 
         return {
             "status": "ok",
-            "session_id": self.active_session_id,
-            "session_name": self.active_session_name,
-            "started_at": started_at.isoformat(),
+            "session_id": session.id,
+            "session_name": session.name,
+            "started_at": session.started_at.isoformat(),
         }
 
     def stop_recording(self) -> Dict[str, Any]:
-        """Stop current recording session and flush buffer."""
-        if self.active_session_id is None:
-            return {"status": "noop", "message": "No active recording session"}
-
-        sid = self.active_session_id
-        name = self.active_session_name
-        self._flush_telemetry_buffer(force=True)
-
-        ended_at = datetime.now()
-        with self._db_lock:
-            with self._buffer_lock:
-                self.sessions.end(sid, ended_at=ended_at)
-                self.active_session_id = None
-                self.active_session_name = None
-                self.session_started_at = None
+        """Stop current recording session, saving its buffered telemetry first."""
+        with self._db():
+            if not self.recorder.is_recording:
+                return {"status": "noop", "message": "No active recording session"}
+            finished = self.recorder.stop()
+            telemetry_count, event_count = self.recorder.data_point_count, self.recorder.event_count
 
         return {
             "status": "ok",
-            "session_id": sid,
-            "session_name": name,
-            "ended_at": ended_at.isoformat(),
-            "telemetry_count": self.session_telemetry_count,
-            "event_count": self.session_event_count,
+            "session_id": finished.id,
+            "session_name": finished.name,
+            "ended_at": finished.ended_at.isoformat(),
+            "telemetry_count": telemetry_count,
+            "event_count": event_count,
         }
+
+    def shutdown(self) -> None:
+        """Stop the source, save telemetry still buffered for a recording, close the database."""
+        self.stop_simulator()
+        self.disconnect_serial()
+        try:
+            self.stop_recording()
+        finally:
+            self.db.close()
 
     def get_status(self) -> Dict[str, Any]:
         """Return current status payload."""
-        rec_duration = 0.0
-        if self.session_started_at:
-            rec_duration = (datetime.now() - self.session_started_at).total_seconds()
+        active = self.recorder.active
+        rec_duration = (datetime.now() - active.started_at).total_seconds() if active else 0.0
 
         return {
             "connection_status": self.connection_status,
             "is_simulator": self.is_simulator,
             "active_port": self.active_port,
             "active_baud": self.active_baud,
-            "is_recording": self.active_session_id is not None,
-            "active_session_id": self.active_session_id,
-            "active_session_name": self.active_session_name,
+            "is_recording": active is not None,
+            "active_session_id": active.id if active else None,
+            "active_session_name": active.name if active else None,
             "session_duration_sec": round(rec_duration, 1),
-            "session_telemetry_count": self.session_telemetry_count,
-            "session_event_count": self.session_event_count,
+            "session_telemetry_count": self.recorder.data_point_count,
+            "session_event_count": self.recorder.event_count,
             "total_packets_received": self.total_packets_received,
             "total_events_detected": self.total_events_detected,
             "malformed_lines": self.malformed_line_count,
@@ -247,7 +256,7 @@ class WebTelemetryManager:
 
     def list_sessions(self) -> List[Dict[str, Any]]:
         """List all historical sessions from SQLite."""
-        with self._db_lock:
+        with self._lock:
             session_list = self.sessions.list()
             res = []
             for s in session_list:
@@ -273,7 +282,7 @@ class WebTelemetryManager:
 
     def get_session_events(self, session_id: int) -> List[Dict[str, Any]]:
         """Get all events recorded for a session."""
-        with self._db_lock:
+        with self._lock:
             evts = self.events.list(session_id=session_id, newest_first=True)
             return [
                 {
@@ -294,7 +303,7 @@ class WebTelemetryManager:
     def export_session_zip(self, session_id: int) -> bytes:
         """Export session CSVs as a single in-memory ZIP file."""
         import tempfile
-        with self._db_lock:
+        with self._lock:
             with tempfile.TemporaryDirectory() as tmpdir:
                 paths = export_session(self.sessions, self.telemetry, self.events, session_id, tmpdir)
                 buf = io.BytesIO()
@@ -419,16 +428,18 @@ class WebTelemetryManager:
             }
             self.latest_packet = payload
 
-            # Handle active recording
-            if self.active_session_id is not None:
-                with self._buffer_lock:
-                    if parsed.kind == "T":
-                        self._telemetry_buffer.append(parsed)
-                        self.session_telemetry_count += 1
-                    elif parsed.kind == "E":
-                        with self._db_lock:
-                            self.events.add(self.active_session_id, parsed)
-                        self.session_event_count += 1
+            # Persist while recording: batches of 20 rows (SessionService), at least every second
+            recording = False
+            try:
+                with self._db():
+                    recording = self.recorder.is_recording
+                    if recording:
+                        self.recorder.handle_packet(parsed)
+                        if time.monotonic() - self._last_flush >= FLUSH_INTERVAL_S:
+                            self.recorder.flush()
+                            self._last_flush = time.monotonic()
+            except sqlite3.Error:
+                log.exception("Recording write failed; live telemetry continues")
 
             if parsed.kind == "E":
                 self.total_events_detected += 1
@@ -436,18 +447,14 @@ class WebTelemetryManager:
                 if len(self.recent_events) > 30:
                     self.recent_events.pop()
 
-            # Flush telemetry buffer periodically (e.g., every 1 sec or 20 items)
-            if time.monotonic() - self._last_flush_time > 1.0 or len(self._telemetry_buffer) >= 20:
-                self._flush_telemetry_buffer()
-
             # Broadcast packet to all connected websockets
             self._broadcast({
                 "type": "packet",
                 "packet": payload,
-                "is_recording": self.active_session_id is not None,
+                "is_recording": recording,
                 "session_counts": {
-                    "telemetry": self.session_telemetry_count,
-                    "events": self.session_event_count,
+                    "telemetry": self.recorder.data_point_count,
+                    "events": self.recorder.event_count,
                 },
             })
 
@@ -455,19 +462,6 @@ class WebTelemetryManager:
         dist_field = "NA" if distance is None else distance
         raw = f"{kind},{t_ms},{ay},{shock},{dist_field},{status}"
         self._handle_incoming_raw_line(raw)
-
-    def _flush_telemetry_buffer(self, force: bool = False) -> None:
-        if self.active_session_id is None:
-            return
-        with self._buffer_lock:
-            if not self._telemetry_buffer:
-                return
-            to_save = list(self._telemetry_buffer)
-            self._telemetry_buffer.clear()
-            self._last_flush_time = time.monotonic()
-
-        with self._db_lock:
-            self.telemetry.add_many(self.active_session_id, to_save)
 
     # --- WebSocket Broadcasting ---
 

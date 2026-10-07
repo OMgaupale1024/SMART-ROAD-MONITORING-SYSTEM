@@ -65,8 +65,7 @@ async def startup_event():
 
 @app.on_event("shutdown")
 def shutdown_event():
-    manager.stop_simulator()
-    manager.disconnect_serial()
+    manager.shutdown()
 
 
 # --- REST Endpoints ---
