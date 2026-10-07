@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "roadsense-desktop"
-version = "0.2.0"
+version = "0.2.1"
 description = "RoadSense Desktop — USB-serial road-condition monitor for the car-in-a-box prototype"
 readme = "README.md"
 requires-python = ">=3.10"
