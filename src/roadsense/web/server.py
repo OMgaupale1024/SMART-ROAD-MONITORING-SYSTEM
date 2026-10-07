@@ -2,34 +2,36 @@
 from __future__ import annotations
 
 import asyncio
-import io
-import os
-import sys
 import threading
 import webbrowser
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, HTMLResponse, Response, StreamingResponse
+from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from roadsense import __version__
 from roadsense.web.service import WebTelemetryManager
 
-app = FastAPI(title="RoadSense Web Dashboard", version=__version__)
+manager: Optional[WebTelemetryManager] = None  # one per app run, created by lifespan()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
-manager = WebTelemetryManager()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global manager
+    manager = WebTelemetryManager()
+    manager.set_event_loop(asyncio.get_running_loop())
+    try:
+        yield  # no telemetry source until the user connects the Arduino or starts the simulator
+    finally:
+        manager.shutdown()
+
+
+# The UI is served from this app, so it is same-origin: no CORS middleware.
+app = FastAPI(title="RoadSense Web Dashboard", version=__version__, lifespan=lifespan)
 
 # Static directory path
 STATIC_DIR = Path(__file__).parent / "static"
@@ -53,19 +55,6 @@ class TriggerEventRequest(BaseModel):
 class StartRecordingRequest(BaseModel):
     name: str = ""
     notes: str = ""
-
-
-@app.on_event("startup")
-async def startup_event():
-    loop = asyncio.get_running_loop()
-    manager.set_event_loop(loop)
-    # Auto-start simulator by default so user sees rich live data immediately upon opening!
-    manager.start_simulator(profile="normal")
-
-
-@app.on_event("shutdown")
-def shutdown_event():
-    manager.shutdown()
 
 
 # --- REST Endpoints ---

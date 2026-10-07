@@ -22,7 +22,10 @@ web = [
     "uvicorn>=0.52",
     "websockets>=16",  # uvicorn's WebSocket backend for /ws/telemetry
 ]
-dev = ["pytest>=7.0"]
+dev = [
+    "pytest>=7.0",
+    "httpx2>=2.0",  # what Starlette's (and so FastAPI's) TestClient uses
+]
 
 [project.gui-scripts]
 roadsense = "roadsense.app:main"

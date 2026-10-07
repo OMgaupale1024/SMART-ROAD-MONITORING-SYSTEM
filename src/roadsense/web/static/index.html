@@ -34,8 +34,8 @@
       <div class="nav-status-group">
         <!-- Hardware / Sim Connection Pill -->
         <div class="status-pill" id="connectionPill">
-          <span class="status-led led-green" id="connLed"></span>
-          <span class="status-label" id="connLabel">SIMULATOR ACTIVE</span>
+          <span class="status-led led-red" id="connLed"></span>
+          <span class="status-label" id="connLabel">NO SOURCE</span>
         </div>
 
         <!-- Recording Indicator -->
@@ -79,16 +79,16 @@
       <section class="tab-content active" id="tab-dashboard">
         
         <!-- Hero Road Condition Banner -->
-        <div class="hero-condition-card" id="heroConditionCard">
+        <div class="hero-condition-card state-idle" id="heroConditionCard">
           <div class="hero-condition-left">
             <div class="condition-pulse-ring" id="heroPulseRing"></div>
             <div class="condition-icon-box" id="heroIconBox">
-              <i class="fa-solid fa-shield-halved" id="heroStatusIcon"></i>
+              <i class="fa-solid fa-plug" id="heroStatusIcon"></i>
             </div>
             <div class="condition-text-group">
-              <div class="condition-badge-label">REAL-TIME CLASSIFICATION (ARDUINO AUTHORITY)</div>
-              <div class="condition-main-status status-normal" id="heroStatusText">NORMAL ROAD</div>
-              <div class="condition-sub-desc" id="heroStatusSub">Road profile smooth. Low vertical acceleration detected.</div>
+              <div class="condition-badge-label" id="classificationLabel">REAL-TIME CLASSIFICATION (ARDUINO AUTHORITY)</div>
+              <div class="condition-main-status status-normal" id="heroStatusText">NO TELEMETRY</div>
+              <div class="condition-sub-desc" id="heroStatusSub">Connect the Arduino or start the simulator to see live road conditions.</div>
             </div>
           </div>
 
@@ -199,7 +199,7 @@
                 <div><span>Events Logged:</span> <strong class="font-mono" id="valTotalEvents">0</strong></div>
               </div>
               <div class="metric-footer">
-                <span id="sourceDesc">Virtual Serial Feed</span>
+                <span id="sourceDesc">No telemetry source connected</span>
                 <span class="text-success"><i class="fa-solid fa-circle-check"></i> Clean</span>
               </div>
             </div>
@@ -437,7 +437,7 @@
                   <i class="fa-solid fa-link-slash"></i> Disconnect
                 </button>
                 <button class="btn btn-secondary" id="btnToggleSim" onclick="toggleSimulationMode()">
-                  <i class="fa-solid fa-laptop-code"></i> Switch to Simulation Mode
+                  <i class="fa-solid fa-laptop-code"></i> Start Simulator
                 </button>
               </div>
             </div>
@@ -479,7 +479,7 @@
         <span>•</span>
         <span>Rate: ~10 Hz</span>
         <span>•</span>
-        <a href="http://127.0.0.1:8000/docs" target="_blank" class="text-cyan">FastAPI OpenAPI Docs</a>
+        <a href="/docs" target="_blank" class="text-cyan">FastAPI OpenAPI Docs</a>
       </div>
     </footer>
 

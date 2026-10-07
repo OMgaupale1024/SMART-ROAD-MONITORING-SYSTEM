@@ -446,6 +446,10 @@ body {
   color: var(--color-rose);
   text-shadow: 0 0 30px var(--color-rose-glow);
 }
+.hero-condition-card.state-idle .condition-main-status {
+  color: var(--text-muted);
+  text-shadow: none;
+}
 
 .condition-sub-desc {
   font-size: 0.9rem;

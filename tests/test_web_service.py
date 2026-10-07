@@ -1,8 +1,10 @@
-"""Web telemetry manager: recording stays consistent while packets and requests race.
+"""Web telemetry manager: sources run only on request, and recording stays consistent while
+packets and requests race.
 
 Interleavings are forced with a Gate: the first call of a repository method parks its thread
 inside the call (inside the manager's locks) until released, while another thread races it.
 """
+import os
 import sqlite3
 import threading
 import time
@@ -11,6 +13,7 @@ import pytest
 
 from roadsense.database import Database
 from roadsense.repositories import SessionRepository, TelemetryRepository
+from roadsense.web import service
 from roadsense.web.service import WebTelemetryManager
 
 T = "T,100,1200,300,25.0,NORMAL"
@@ -82,6 +85,77 @@ def wait_for(condition, timeout=5.0):
 
 def total_telemetry_rows(mgr):
     return mgr.db.conn.execute("SELECT COUNT(*) FROM telemetry").fetchone()[0]
+
+
+def worker_threads():
+    names = ("RoadSenseSimWorker", "RoadSenseSerialWorker")
+    return [t.name for t in threading.enumerate() if t.name in names and t.is_alive()]
+
+
+def test_starts_with_no_source_and_no_telemetry(mgr):
+    status = mgr.get_status()
+    assert (status["source"], status["is_simulator"], status["connection_status"]) == (
+        "NONE", False, "Disconnected")
+    assert status["total_packets_received"] == 0
+    assert worker_threads() == []
+
+
+def test_simulator_runs_only_between_explicit_start_and_stop(mgr, monkeypatch):
+    monkeypatch.setattr(service, "SIM_PERIOD_S", 0.005)
+    mgr.start_simulator("normal")
+    status = mgr.get_status()
+    assert (status["source"], status["is_simulator"], status["active_port"]) == ("SIMULATOR", True, None)
+    wait_for(lambda: mgr.total_packets_received >= 3)
+
+    mgr.start_simulator("bumpy")  # restart: the previous run must end, not keep streaming
+    assert worker_threads() == ["RoadSenseSimWorker"]
+
+    mgr.stop_simulator()
+    status = mgr.get_status()
+    assert (status["source"], status["connection_status"]) == ("NONE", "Disconnected")
+    assert worker_threads() == []  # joined, so no packet can follow the stop
+
+
+def test_failed_serial_connect_reports_an_error_and_no_source(mgr):
+    assert mgr.connect_serial("/dev/roadsense-test-no-such-port")["status"] == "error"
+    status = mgr.get_status()
+    assert (status["source"], status["connection_status"], status["active_port"]) == ("NONE", "Error", None)
+    assert worker_threads() == []
+
+
+@pytest.fixture
+def serial_device():
+    """A pseudo-terminal standing in for the Arduino's USB serial port: (port path, writer fd)."""
+    if not hasattr(os, "openpty"):
+        pytest.skip("needs a POSIX pseudo-terminal")
+    controller, device = os.openpty()
+    yield os.ttyname(device), controller
+    os.close(controller)
+    os.close(device)
+
+
+def test_serial_source_streams_until_disconnected(mgr, serial_device):
+    port, arduino = serial_device
+    assert mgr.connect_serial(port)["status"] == "ok"
+    status = mgr.get_status()
+    assert (status["source"], status["is_simulator"], status["active_port"]) == ("ARDUINO", False, port)
+    os.write(arduino, b"HELLO,ROADSENSE,1\nT,10,100,5,12.0,NORMAL\n")
+    wait_for(lambda: mgr.total_packets_received == 1)
+
+    mgr.disconnect_serial()
+    status = mgr.get_status()
+    assert (status["source"], status["connection_status"], status["active_port"]) == (
+        "NONE", "Disconnected", None)
+    assert worker_threads() == []
+
+
+def test_starting_the_simulator_replaces_the_serial_source(mgr, serial_device):
+    port, _ = serial_device
+    mgr.connect_serial(port)
+    mgr.start_simulator()
+    status = mgr.get_status()
+    assert (status["source"], status["active_port"]) == ("SIMULATOR", None)  # never "Arduino"
+    assert worker_threads() == ["RoadSenseSimWorker"]
 
 
 def test_only_packets_inside_a_recording_are_persisted(mgr):

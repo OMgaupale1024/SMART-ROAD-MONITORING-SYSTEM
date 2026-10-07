@@ -16,6 +16,7 @@ const state = {
   recordingStartTime: null,
   recordingTimerInterval: null,
   simProfile: 'normal',
+  source: 'NONE', // NONE | ARDUINO | SIMULATOR, as reported by the server
   chartShock: null,
   chartDistance: null,
   maxChartPoints: 40,
@@ -135,7 +136,6 @@ function initWebSocket() {
 
   state.ws.onopen = () => {
     state.wsConnected = true;
-    updateConnectionUI('CONNECTED', false);
     appendTerminalLine('[SYSTEM] Connected to RoadSense WebSocket telemetry stream.', 'term-system');
   };
 
@@ -150,7 +150,7 @@ function initWebSocket() {
 
   state.ws.onclose = () => {
     state.wsConnected = false;
-    updateConnectionUI('DISCONNECTED', false);
+    updateConnectionUI('NONE', 'Disconnected');
     appendTerminalLine('[SYSTEM] WebSocket disconnected. Retrying in 2s...', 'term-err');
     setTimeout(initWebSocket, 2000);
   };
@@ -174,6 +174,8 @@ function handleWebSocketMessage(data) {
     if (data.is_recording !== undefined) {
       updateRecordingUI(data.is_recording, data.session_counts);
     }
+  } else if (data.type === 'status') {
+    updateStatusFields(data.status); // source or recording changed
   } else if (data.type === 'hello') {
     appendTerminalLine(`HELLO: Firmware Version ${data.version} connected`, 'term-hello');
   }
@@ -231,7 +233,7 @@ function updateHeroStatus(status, shock) {
   const desc = document.getElementById('heroStatusSub');
   const icon = document.getElementById('heroStatusIcon');
 
-  card.classList.remove('state-speedbreaker', 'state-pothole');
+  card.classList.remove('state-speedbreaker', 'state-pothole', 'state-idle');
 
   if (status === 'POTHOLE') {
     card.classList.add('state-pothole');
@@ -243,40 +245,65 @@ function updateHeroStatus(status, shock) {
     text.textContent = 'SPEED BREAKER DETECTED';
     desc.textContent = `Upward bump compression detected (${shock.toLocaleString()} raw).`;
     icon.className = 'fa-solid fa-wave-square';
-  } else {
+  } else if (status === 'NORMAL') {
     text.textContent = 'NORMAL ROAD';
     desc.textContent = 'Road surface within standard parameters. Low vertical vibration.';
     icon.className = 'fa-solid fa-shield-halved';
+  } else {
+    card.classList.add('state-idle');
+    text.textContent = 'NO TELEMETRY';
+    desc.textContent = 'Connect the Arduino or start the simulator to see live road conditions.';
+    icon.className = 'fa-solid fa-plug';
   }
 }
 
 function updateStatusFields(statusObj) {
-  updateConnectionUI(statusObj.connection_status, statusObj.is_simulator, statusObj.active_port);
+  updateConnectionUI(statusObj.source, statusObj.connection_status, statusObj.active_port);
+  updateRecordingUI(statusObj.is_recording, {
+    telemetry: statusObj.session_telemetry_count,
+    events: statusObj.session_event_count,
+  });
   if (statusObj.is_recording) {
+    document.getElementById('recSessionId').textContent =
+      `#${statusObj.active_session_id} (${statusObj.active_session_name})`;
     startTimerUI(statusObj.session_duration_sec);
   } else {
     stopTimerUI();
   }
 }
 
-function updateConnectionUI(connStatus, isSim, portName) {
+function updateConnectionUI(source, connStatus, portName) {
+  state.source = source;
   const led = document.getElementById('connLed');
   const label = document.getElementById('connLabel');
   const sourceDesc = document.getElementById('sourceDesc');
+  const classification = document.getElementById('classificationLabel');
 
-  if (isSim) {
-    led.className = 'status-led led-green';
+  if (source === 'SIMULATOR') {
+    led.className = 'status-led led-yellow';
     label.textContent = 'SIMULATOR ACTIVE';
-    sourceDesc.textContent = 'Virtual Synthetic Stream';
-  } else if (connStatus === 'Connected') {
-    led.className = 'status-led led-green';
-    label.textContent = `HARDWARE: ${portName || 'SERIAL'}`;
-    sourceDesc.textContent = `Arduino USB (${portName})`;
+    sourceDesc.textContent = 'Synthetic telemetry (not real hardware)';
+    classification.textContent = 'SIMULATED CLASSIFICATION (SYNTHETIC DATA)';
+  } else if (source === 'ARDUINO') {
+    const live = connStatus === 'Connected';
+    led.className = `status-led ${live ? 'led-green' : 'led-red'}`;
+    label.textContent = live ? `ARDUINO: ${portName}` : `ARDUINO: ${connStatus.toUpperCase()}`;
+    sourceDesc.textContent = `Hardware telemetry (Arduino USB ${portName})`;
+    classification.textContent = 'REAL-TIME CLASSIFICATION (ARDUINO AUTHORITY)';
   } else {
     led.className = 'status-led led-red';
-    label.textContent = 'DISCONNECTED';
-    sourceDesc.textContent = 'No Hardware Feed';
+    label.textContent = 'NO SOURCE';
+    sourceDesc.textContent = 'No telemetry source connected';
+    classification.textContent = 'REAL-TIME CLASSIFICATION (ARDUINO AUTHORITY)';
+    updateHeroStatus(null);
   }
+
+  const isArduino = source === 'ARDUINO';
+  document.getElementById('btnConnectSerial').style.display = isArduino ? 'none' : 'inline-flex';
+  document.getElementById('btnDisconnectSerial').style.display = isArduino ? 'inline-flex' : 'none';
+  document.getElementById('btnToggleSim').innerHTML = source === 'SIMULATOR'
+    ? '<i class="fa-solid fa-stop"></i> Stop Simulator'
+    : '<i class="fa-solid fa-laptop-code"></i> Start Simulator';
 }
 
 // --- Event Log Table ---
@@ -874,11 +901,15 @@ function disconnectHardwareSerial() {
 }
 
 function toggleSimulationMode() {
-  fetch('/api/simulator/start', {
+  const running = state.source === 'SIMULATOR';
+  fetch(running ? '/api/simulator/stop' : '/api/simulator/start', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ profile: 'normal' }),
+    body: JSON.stringify({ profile: state.simProfile }),
   }).then(() => {
-    appendTerminalLine('[SYSTEM] Switched to Developer Simulation Mode.', 'term-system');
+    appendTerminalLine(
+      running ? '[SYSTEM] Simulator stopped.' : '[SYSTEM] Simulator started (synthetic telemetry).',
+      'term-system',
+    );
   });
 }

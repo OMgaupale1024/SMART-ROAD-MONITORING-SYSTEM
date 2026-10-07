@@ -7,10 +7,15 @@ Handles:
 - WebSocket subscriber broadcasting at 10 Hz
 
 Threads: packets arrive on the source thread (serial or simulator) and on request threads
-(simulator trigger); recording and queries arrive on request threads. One lock, ``_lock``,
-guards the SQLite connection and all recording state, and nothing else is ever acquired
-while it is held. Each recording transition (start, stop, flush) runs inside a single
-critical section, so buffered rows are always written to the session that owned them.
+(simulator trigger); recording and queries arrive on request threads. Two locks, never held
+together:
+
+- ``_lock`` guards the SQLite connection and all recording state. Each recording transition
+  (start, stop, flush) runs inside one critical section, so buffered rows are always written
+  to the session that owned them.
+- ``_source_lock`` serializes source changes (connect/disconnect, simulator start/stop) so at
+  most one worker thread exists. Workers never take it; a stop joins the old worker while
+  holding it, which is safe because nothing holding ``_lock`` ever waits on it.
 """
 from __future__ import annotations
 
@@ -25,7 +30,8 @@ import time
 import zipfile
 from contextlib import contextmanager
 from datetime import datetime
-from typing import Any, Dict, Iterator, List, Optional, Set
+from enum import Enum
+from typing import Any, Callable, Dict, Iterator, List, Optional, Set
 
 import serial
 import serial.tools.list_ports
@@ -40,6 +46,14 @@ from roadsense.session_service import SessionService
 log = logging.getLogger(__name__)
 
 FLUSH_INTERVAL_S = 1.0  # longest that recorded telemetry waits in memory before reaching SQLite
+SIM_PERIOD_S = 0.1  # simulator packet period: 10 Hz, the firmware's telemetry rate
+
+
+class Source(str, Enum):
+    """Where live telemetry comes from. Only an open serial port counts as the Arduino."""
+    NONE = "NONE"
+    ARDUINO = "ARDUINO"
+    SIMULATOR = "SIMULATOR"
 
 
 class WebTelemetryManager:
@@ -54,22 +68,16 @@ class WebTelemetryManager:
         self._lock = threading.Lock()
         self._last_flush = time.monotonic()
 
-        # Connection & Source state
+        # Telemetry source: nothing streams until the user connects serial or starts the simulator
+        self.source = Source.NONE
         self.connection_status: str = ConnectionStatus.DISCONNECTED.value
-        self.is_simulator: bool = False
         self.active_port: Optional[str] = None
         self.active_baud: int = 115200
-
-        # Hardware serial thread controls
+        self._source_lock = threading.Lock()
+        self._source_stop: Optional[threading.Event] = None  # one per run, so a stale worker can't resume
+        self._source_thread: Optional[threading.Thread] = None
         self._serial_port: Optional[serial.Serial] = None
-        self._serial_thread: Optional[threading.Thread] = None
-        self._serial_stop_event = threading.Event()
-
-        # Simulator state
-        self._sim_thread: Optional[threading.Thread] = None
-        self._sim_stop_event = threading.Event()
         self._sim_rng = random.Random()
-        self._sim_profile = "normal"  # normal, bumpy, city_potholes, highway
 
         # Real-time metrics
         self.latest_packet: Optional[Dict[str, Any]] = None
@@ -99,74 +107,73 @@ class WebTelemetryManager:
         ]
 
     def connect_serial(self, port: str, baud: int = 115200) -> Dict[str, Any]:
-        """Connect to a physical hardware Arduino over USB serial."""
-        self.stop_simulator()
-        self.disconnect_serial()
-
-        self.connection_status = ConnectionStatus.CONNECTING.value
-        self.active_port = port
-        self.active_baud = baud
-        self._serial_stop_event.clear()
-
-        try:
-            ser = serial.Serial(port=port, baudrate=baud, timeout=1.0)
-            ser.reset_input_buffer()
-            self._serial_port = ser
-            self.connection_status = ConnectionStatus.CONNECTED.value
-            self.is_simulator = False
-
-            self._serial_thread = threading.Thread(
-                target=self._serial_worker_loop, daemon=True, name="RoadSenseSerialWorker"
-            )
-            self._serial_thread.start()
-            return {"status": "ok", "message": f"Connected to {port} at {baud} baud"}
-        except Exception as e:
-            self.connection_status = ConnectionStatus.ERROR.value
-            return {"status": "error", "message": str(e)}
+        """Connect to a physical hardware Arduino over USB serial, replacing any current source."""
+        with self._source_lock:
+            self._stop_source()
+            self.connection_status = ConnectionStatus.CONNECTING.value
+            try:
+                ser = serial.Serial(port=port, baudrate=baud, timeout=1.0)
+                ser.reset_input_buffer()
+            except Exception as e:
+                self.connection_status = ConnectionStatus.ERROR.value
+                self._broadcast_status()
+                return {"status": "error", "message": str(e)}
+            self._serial_port, self.active_baud = ser, baud
+            self._start_source(Source.ARDUINO, self._serial_worker_loop, ser, "RoadSenseSerialWorker", port)
+        return {"status": "ok", "message": f"Connected to {port} at {baud} baud"}
 
     def disconnect_serial(self) -> Dict[str, Any]:
-        """Close physical serial port."""
-        self._serial_stop_event.set()
-        if self._serial_port and self._serial_port.is_open:
+        """Close the physical serial port; a running simulator is left alone."""
+        with self._source_lock:
+            if self.source is not Source.SIMULATOR:
+                self._stop_source()
+                self._broadcast_status()
+        return {"status": "ok", "message": "Serial port disconnected"}
+
+    def start_simulator(self, profile: str = "normal") -> Dict[str, Any]:
+        """Start the built-in synthetic telemetry generator, replacing any current source."""
+        with self._source_lock:
+            self._stop_source()
+            self._start_source(Source.SIMULATOR, self._simulator_worker_loop, profile, "RoadSenseSimWorker")
+        return {"status": "ok", "message": "Simulator started"}
+
+    def stop_simulator(self) -> Dict[str, Any]:
+        """Stop the simulator; a serial connection is left alone."""
+        with self._source_lock:
+            if self.source is Source.SIMULATOR:
+                self._stop_source()
+                self._broadcast_status()
+        return {"status": "ok", "message": "Simulator stopped"}
+
+    def _start_source(self, source: Source, worker: Callable, arg: Any, name: str,
+                      port: Optional[str] = None) -> None:
+        """Stream from `source` on a fresh worker thread. Caller holds _source_lock."""
+        stop = threading.Event()
+        self.source, self.active_port = source, port
+        self.connection_status = ConnectionStatus.CONNECTED.value
+        self._source_stop = stop
+        self._source_thread = threading.Thread(target=worker, args=(arg, stop), daemon=True, name=name)
+        self._broadcast_status()  # before the first packet, so clients learn the source first
+        self._source_thread.start()
+
+    def _stop_source(self) -> None:
+        """End the current source and wait for its worker to exit. Caller holds _source_lock."""
+        if self._source_stop is not None:
+            self._source_stop.set()
+        if self._serial_port is not None:
             try:
                 self._serial_port.close()
             except Exception:
                 pass
-        self._serial_port = None
-        if not self.is_simulator:
-            self.connection_status = ConnectionStatus.DISCONNECTED.value
-            self.active_port = None
-        return {"status": "ok", "message": "Serial port disconnected"}
-
-    def start_simulator(self, profile: str = "normal") -> Dict[str, Any]:
-        """Start the built-in synthetic telemetry generator."""
-        self.disconnect_serial()
-        self.stop_simulator()
-
-        self.is_simulator = True
-        self.connection_status = ConnectionStatus.CONNECTED.value
-        self.active_port = "SIMULATOR (Virtual Arduino)"
-        self._sim_profile = profile
-        self._sim_stop_event.clear()
-
-        self._sim_thread = threading.Thread(
-            target=self._simulator_worker_loop, daemon=True, name="RoadSenseSimWorker"
-        )
-        self._sim_thread.start()
-        return {"status": "ok", "message": "Simulator started"}
-
-    def stop_simulator(self) -> Dict[str, Any]:
-        """Stop the simulator."""
-        self._sim_stop_event.set()
-        if self.is_simulator:
-            self.is_simulator = False
-            self.connection_status = ConnectionStatus.DISCONNECTED.value
-            self.active_port = None
-        return {"status": "ok", "message": "Simulator stopped"}
+        if self._source_thread is not None:
+            self._source_thread.join(timeout=2.0)
+        self._source_stop = self._source_thread = self._serial_port = None
+        self.source, self.active_port = Source.NONE, None
+        self.connection_status = ConnectionStatus.DISCONNECTED.value
 
     def trigger_sim_event(self, event_type: str) -> Dict[str, Any]:
         """Manually trigger a synthetic POTHOLE or SPEED_BREAKER event."""
-        if not self.is_simulator:
+        if self.source is not Source.SIMULATOR:
             return {"status": "error", "message": "Simulator is not active"}
 
         t_ms = int(time.monotonic() * 1000) % 1000000
@@ -199,6 +206,7 @@ class WebTelemetryManager:
             session = self.recorder.start(name, notes)
             self._last_flush = time.monotonic()
 
+        self._broadcast_status()
         return {
             "status": "ok",
             "session_id": session.id,
@@ -214,6 +222,7 @@ class WebTelemetryManager:
             finished = self.recorder.stop()
             telemetry_count, event_count = self.recorder.data_point_count, self.recorder.event_count
 
+        self._broadcast_status()
         return {
             "status": "ok",
             "session_id": finished.id,
@@ -225,8 +234,8 @@ class WebTelemetryManager:
 
     def shutdown(self) -> None:
         """Stop the source, save telemetry still buffered for a recording, close the database."""
-        self.stop_simulator()
-        self.disconnect_serial()
+        with self._source_lock:
+            self._stop_source()
         try:
             self.stop_recording()
         finally:
@@ -238,8 +247,9 @@ class WebTelemetryManager:
         rec_duration = (datetime.now() - active.started_at).total_seconds() if active else 0.0
 
         return {
+            "source": self.source.value,
             "connection_status": self.connection_status,
-            "is_simulator": self.is_simulator,
+            "is_simulator": self.source is Source.SIMULATOR,
             "active_port": self.active_port,
             "active_baud": self.active_baud,
             "is_recording": active is not None,
@@ -314,40 +324,40 @@ class WebTelemetryManager:
 
     # --- Internal Background Loops ---
 
-    def _serial_worker_loop(self) -> None:
-        """Reads lines from physical serial port in real time."""
-        while not self._serial_stop_event.is_set():
-            if not self._serial_port or not self._serial_port.is_open:
-                break
+    def _serial_worker_loop(self, ser: serial.Serial, stop: threading.Event) -> None:
+        """Reads lines from the physical serial port until `stop` is set."""
+        while not stop.is_set() and ser.is_open:
             try:
-                line_bytes = self._serial_port.readline()
+                line_bytes = ser.readline()
                 if not line_bytes:
                     continue
                 line = line_bytes.decode("utf-8", errors="replace").strip()
                 if not line:
                     continue
                 self._handle_incoming_raw_line(line)
-            except Exception as e:
+            except Exception:
+                if stop.is_set():
+                    break  # the port was closed on purpose, not an error
                 self.connection_status = ConnectionStatus.ERROR.value
-                time.sleep(0.5)
+                stop.wait(0.5)
 
-    def _simulator_worker_loop(self) -> None:
-        """Generates realistic ~10Hz synthetic telemetry."""
+    def _simulator_worker_loop(self, profile: str, stop: threading.Event) -> None:
+        """Generates realistic ~10Hz synthetic telemetry until `stop` is set."""
         t0 = time.monotonic()
         counter = 0
         prev_ay = 0
 
-        while not self._sim_stop_event.is_set():
+        while not stop.is_set():
             counter += 1
             t_ms = int((time.monotonic() - t0) * 1000)
             
             # Base vibration & road noise based on profile
-            if self._sim_profile == "highway":
+            if profile == "highway":
                 noise = self._sim_rng.gauss(0, 100)
                 ay = int(800 * math.sin(counter / 12.0) + noise)
                 pothole_thresh = 0.995
                 breaker_thresh = 0.985
-            elif self._sim_profile == "bumpy":
+            elif profile == "bumpy":
                 noise = self._sim_rng.gauss(0, 500)
                 ay = int(2200 * math.sin(counter / 6.0) + noise)
                 pothole_thresh = 0.96
@@ -385,7 +395,7 @@ class WebTelemetryManager:
                 raw_e = f"E,{t_ms},{ay},{shock},{dist_field},{status}"
                 self._handle_incoming_raw_line(raw_e)
 
-            time.sleep(0.1)  # 10 Hz rate
+            stop.wait(SIM_PERIOD_S)  # returns at once on stop
 
     def _handle_incoming_raw_line(self, line: str) -> None:
         """Parses line, updates metrics, records to DB, and broadcasts."""
@@ -470,6 +480,9 @@ class WebTelemetryManager:
 
     def remove_subscriber(self, queue: asyncio.Queue) -> None:
         self._subscribers.discard(queue)
+
+    def _broadcast_status(self) -> None:
+        self._broadcast({"type": "status", "status": self.get_status()})
 
     def _broadcast(self, data: Dict[str, Any]) -> None:
         if not self._subscribers or not self._loop:
