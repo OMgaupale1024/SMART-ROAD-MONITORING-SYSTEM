@@ -1,5 +1,7 @@
 """Web server: lifecycle, REST and WebSocket contracts of the FastAPI app."""
 import io
+import json
+import socket
 import sqlite3
 import threading
 import time
@@ -142,6 +144,26 @@ def test_websocket_reports_source_and_recording_changes(client, monkeypatch):
         assert recv(ws)["status"]["is_recording"] is True
         client.post("/api/recording/stop")
         assert recv(ws)["status"]["is_recording"] is False
+
+
+def test_server_stops_promptly_after_an_idle_dashboard_disconnects(tmp_path, monkeypatch):
+    uvicorn = pytest.importorskip("uvicorn")
+    from websockets.sync.client import connect
+
+    monkeypatch.setenv("ROADSENSE_DATA_DIR", str(tmp_path))
+    sock = socket.socket()
+    sock.bind(("127.0.0.1", 0))
+    port = sock.getsockname()[1]
+    real_server = uvicorn.Server(uvicorn.Config(server.app, log_level="warning"))
+    thread = threading.Thread(target=real_server.run, kwargs={"sockets": [sock]}, daemon=True)
+    thread.start()
+    wait_for(lambda: real_server.started)
+
+    with connect(f"ws://127.0.0.1:{port}/ws/telemetry") as ws:  # no source, so nothing streams
+        assert json.loads(ws.recv(timeout=5))["type"] == "init"
+    real_server.should_exit = True  # what Ctrl+C does
+    thread.join(5)
+    assert not thread.is_alive(), "server still waiting on the closed dashboard's WebSocket"
 
 
 def test_api_is_not_shared_with_other_origins(client):

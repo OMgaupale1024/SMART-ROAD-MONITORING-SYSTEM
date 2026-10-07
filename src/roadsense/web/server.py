@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket
 from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -149,23 +149,29 @@ async def websocket_telemetry(websocket: WebSocket):
     queue: asyncio.Queue = asyncio.Queue(maxsize=100)
     manager.register_subscriber(queue)
 
-    # Send initial status
+    async def forward() -> None:
+        try:
+            await websocket.send_json({
+                "type": "init",
+                "status": manager.get_status(),
+                "raw_history": manager.recent_raw_lines,
+                "recent_events": manager.recent_events,
+            })
+            while True:
+                await websocket.send_json(await queue.get())
+        except Exception:
+            pass  # client gone; the receive loop below sees the disconnect
+
+    sender = asyncio.create_task(forward())
     try:
-        await websocket.send_json({
-            "type": "init",
-            "status": manager.get_status(),
-            "raw_history": manager.recent_raw_lines,
-            "recent_events": manager.recent_events,
-        })
-        while True:
-            # Drain queue or await next item
-            item = await queue.get()
-            await websocket.send_json(item)
-    except WebSocketDisconnect:
-        pass
+        # The dashboard never sends anything. Listening is how a closed tab is noticed while no
+        # telemetry flows; otherwise this handler (and server shutdown) waits on the queue forever.
+        while (await websocket.receive())["type"] != "websocket.disconnect":
+            pass
     except Exception:
         pass
     finally:
+        sender.cancel()
         manager.remove_subscriber(queue)
 
 
