@@ -8,7 +8,8 @@ share the same protocol parser and SQLite storage:
 - **Desktop app** (PySide6) — `python -m roadsense`
 - **Web dashboard** (FastAPI, in the browser on the same PC) — `python -m roadsense.web`
 
-> Local-only prototype (v0.2.0). Everything here runs on a PC wired to the Arduino by USB.
+> Local-first prototype (v0.2.1). Everything here runs on a PC wired to the Arduino by USB,
+> with no internet connection needed.
 
 ## Status
 
@@ -20,6 +21,7 @@ share the same protocol parser and SQLite storage:
 - Desktop app (PySide6) with live plots, session recording and event history.
 - Local web dashboard (FastAPI): REST API, live WebSocket telemetry, recording, session
   history; starts with **no telemetry source** until you pick the Arduino or the simulator.
+  Works offline: its scripts, styles and icons ship with RoadSense (since v0.2.1).
 - Built-in simulators (clearly labelled synthetic in both front-ends).
 - SQLite session recording; CSV export (desktop) and a ZIP of the same CSVs (web).
 
@@ -58,6 +60,12 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
   the hazard event log and the raw serial lines.
 - Records sessions to the same SQLite database as the desktop app; lists past sessions and
   downloads each as a ZIP of `telemetry.csv`, `events.csv`, `session_metadata.csv`.
+- Works without internet access: Chart.js and the Font Awesome icons are bundled in
+  `web/static/vendor/` (with their licenses) and text uses system fonts, so the page only
+  ever talks to the local RoadSense server.
+- A browser tab that falls behind (e.g. a busy laptop) skips stale telemetry and catches up
+  to the newest reading; status changes still reach it. It never slows the Arduino or
+  simulator stream, recording, or other tabs.
 - REST API documentation at `http://127.0.0.1:8000/docs`.
 
 ---
@@ -220,7 +228,7 @@ src/roadsense/
   web/              web dashboard (python -m roadsense.web)
     server.py       FastAPI app: REST API, /ws/telemetry WebSocket, static UI
     service.py      serial/simulator reader, recording, ZIP export
-    static/         HTML/CSS/JS front-end
+    static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js + icons
 tools/serial_sim.py test-only serial writer (virtual COM pair)
 tests/              pytest suite
 docs/serial-protocol.md
@@ -240,7 +248,9 @@ Both front-ends share the parser (`protocol.py`), the SQLite layer (`database.py
   `WebTelemetryManager` in `service.py` runs at most one source thread (serial or simulator)
   and records through `SessionService`. One lock guards the database and recording state;
   a second lock only serializes source changes. Packets and status changes are pushed to the
-  browser over the WebSocket.
+  browser over the WebSocket through a bounded queue per client; when a client's queue is
+  full its stale packets are dropped (counted in `/api/status` as `ws_dropped_messages`)
+  while status messages are kept, and the source thread never waits on a client.
 
 ## Limitations
 
@@ -249,7 +259,6 @@ Both front-ends share the parser (`protocol.py`), the SQLite layer (`database.py
 - Firmware shock thresholds are un-calibrated placeholders (see Calibration above).
 - The desktop app and the web dashboard are separate programs. A serial port can be open in
   only one of them at a time; both use the same SQLite file by default.
-- The web dashboard page loads Chart.js, fonts and icons from public CDNs. Without internet
-  access the page does not start its live view (no charts, no live stream); the server and
-  its API still work.
+- The API documentation page (`/docs`) is FastAPI's Swagger UI, which loads from a CDN, so
+  it needs internet access. The dashboard itself does not.
 - The web API has no authentication and listens on `127.0.0.1` only — local use only.
