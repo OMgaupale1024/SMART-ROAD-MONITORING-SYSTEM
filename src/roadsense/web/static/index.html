@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoadSense | Smart Road Condition Monitoring System</title>
+  <meta name="description" content="Real-time telemetry, pothole and speed breaker classification, SQLite session recording, and hardware diagnostic suite for RoadSense.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-background-glow glow-cyan"></div>
+  <div class="app-background-glow glow-purple"></div>
+
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+      <div class="brand-section">
+        <div class="brand-logo-wrap">
+          <div class="radar-pulse"></div>
+          <i class="fa-solid fa-car-burst logo-icon"></i>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">ROADSENSE <span class="badge-version">v1.0 LIVE</span></div>
+          <div class="brand-subtitle">Smart Road Monitoring & Telemetry System</div>
+        </div>
+      </div>
+
+      <!-- Live Status Indicators -->
+      <div class="nav-status-group">
+        <!-- Hardware / Sim Connection Pill -->
+        <div class="status-pill" id="connectionPill">
+          <span class="status-led led-green" id="connLed"></span>
+          <span class="status-label" id="connLabel">SIMULATOR ACTIVE</span>
+        </div>
+
+        <!-- Recording Indicator -->
+        <div class="status-pill recording-pill inactive" id="recordingPill">
+          <span class="record-dot"></span>
+          <span id="recordingText">STANDBY</span>
+          <span class="record-timer" id="recordingTimer" style="display:none;">00:00</span>
+        </div>
+
+        <!-- Audio Alert Toggle -->
+        <button class="nav-icon-btn" id="audioToggleBtn" title="Toggle Hazard Chimes" aria-label="Toggle Sound">
+          <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="nav-tabs-bar" role="tablist">
+      <button class="tab-btn active" data-tab="tab-dashboard" role="tab" aria-selected="true">
+        <i class="fa-solid fa-gauge-high"></i> Live Telemetry HUD
+      </button>
+      <button class="tab-btn" data-tab="tab-visualizer" role="tab" aria-selected="false">
+        <i class="fa-solid fa-road"></i> Suspension & Road Visualizer
+      </button>
+      <button class="tab-btn" data-tab="tab-events" role="tab" aria-selected="false">
+        <i class="fa-solid fa-triangle-exclamation"></i> Hazard Events Log
+        <span class="tab-counter" id="eventBadgeCount">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-sessions" data-tab-action="loadSessions" role="tab" aria-selected="false">
+        <i class="fa-solid fa-database"></i> Session Recording & SQLite
+      </button>
+      <button class="tab-btn" data-tab="tab-diagnostics" role="tab" aria-selected="false">
+        <i class="fa-solid fa-microchip"></i> Hardware COM & Terminal
+      </button>
+    </nav>
+
+    <!-- Content Sections -->
+    <main class="main-content">
+      
+      <!-- TAB 1: LIVE DASHBOARD HUD -->
+      <section class="tab-content active" id="tab-dashboard">
+        
+        <!-- Hero Road Condition Banner -->
+        <div class="hero-condition-card" id="heroConditionCard">
+          <div class="hero-condition-left">
+            <div class="condition-pulse-ring" id="heroPulseRing"></div>
+            <div class="condition-icon-box" id="heroIconBox">
+              <i class="fa-solid fa-shield-halved" id="heroStatusIcon"></i>
+            </div>
+            <div class="condition-text-group">
+              <div class="condition-badge-label">REAL-TIME CLASSIFICATION (ARDUINO AUTHORITY)</div>
+              <div class="condition-main-status status-normal" id="heroStatusText">NORMAL ROAD</div>
+              <div class="condition-sub-desc" id="heroStatusSub">Road profile smooth. Low vertical acceleration detected.</div>
+            </div>
+          </div>
+
+          <!-- Quick Hardware / Sim Controls -->
+          <div class="hero-condition-right">
+            <div class="quick-sim-controls">
+              <span class="control-group-title"><i class="fa-solid fa-sliders"></i> Test Simulations:</span>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline active" id="btnSimNormal" onclick="setSimProfile('normal')">Smooth</button>
+                <button class="btn btn-sm btn-outline" id="btnSimBumpy" onclick="setSimProfile('bumpy')">Bumpy</button>
+                <button class="btn btn-sm btn-outline" id="btnSimHighway" onclick="setSimProfile('highway')">Highway</button>
+              </div>
+              <div class="btn-group mt-1">
+                <button class="btn btn-sm btn-danger" onclick="triggerEvent('POTHOLE')">
+                  <i class="fa-solid fa-bolt"></i> Pothole Test
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="triggerEvent('SPEED_BREAKER')">
+                  <i class="fa-solid fa-wave-square"></i> Speed Breaker Test
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Telemetry Gauges Row -->
+        <div class="metrics-grid">
+          
+          <!-- Metric 1: Shock Magnitude -->
+          <div class="metric-card glass-panel" id="cardShock">
+            <div class="metric-header">
+              <span class="metric-title"><i class="fa-solid fa-heart-pulse"></i> Shock Magnitude</span>
+              <span class="metric-tag tag-cyan">|ΔAY| Rate</span>
+            </div>
+            <div class="metric-body">
+              <div class="metric-value-wrap">
+                <span class="metric-number font-mono" id="valShock">0</span>
+                <span class="metric-unit">raw</span>
+              </div>
+              <!-- Shock Level Bar -->
+              <div class="gauge-bar-track">
+                <div class="gauge-bar-fill fill-shock" id="barShock" style="width: 5%;"></div>
+              </div>
+              <div class="metric-footer">
+                <span>Normal: &lt;8,000</span>
+                <span>Hazard: &gt;15,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metric 2: Vertical Acceleration AY -->
+          <div class="metric-card glass-panel" id="cardAy">
+            <div class="metric-header">
+              <span class="metric-title"><i class="fa-solid fa-arrows-up-down"></i> Vertical Accel (AY)</span>
+              <span class="metric-tag tag-purple">MPU6050</span>
+            </div>
+            <div class="metric-body">
+              <div class="metric-value-wrap">
+                <span class="metric-number font-mono" id="valAy">0</span>
+                <span class="metric-unit">LSB</span>
+              </div>
+              <!-- Bipolar AY Bar -->
+              <div class="gauge-bar-track bipolar-track">
+                <div class="bipolar-center-line"></div>
+                <div class="gauge-bar-fill fill-ay" id="barAy" style="width: 50%;"></div>
+              </div>
+              <div class="metric-footer">
+                <span>-20,000</span>
+                <span>0</span>
+                <span>+20,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metric 3: Road Clearance Distance -->
+          <div class="metric-card glass-panel" id="cardDistance">
+            <div class="metric-header">
+              <span class="metric-title"><i class="fa-solid fa-ruler-vertical"></i> Ultrasonic Clearance</span>
+              <span class="metric-tag tag-emerald">HC-SR04</span>
+            </div>
+            <div class="metric-body">
+              <div class="metric-value-wrap">
+                <span class="metric-number font-mono" id="valDistance">--</span>
+                <span class="metric-unit" id="unitDistance">cm</span>
+              </div>
+              <div class="gauge-bar-track">
+                <div class="gauge-bar-fill fill-distance" id="barDistance" style="width: 30%;"></div>
+              </div>
+              <div class="metric-footer">
+                <span>Ground: 0 cm</span>
+                <span>Timeout: NA</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metric 4: System Throughput -->
+          <div class="metric-card glass-panel" id="cardStream">
+            <div class="metric-header">
+              <span class="metric-title"><i class="fa-solid fa-satellite-dish"></i> Telemetry Stream</span>
+              <span class="metric-tag tag-blue" id="packetRateTag">10 Hz</span>
+            </div>
+            <div class="metric-body">
+              <div class="metric-value-wrap">
+                <span class="metric-number font-mono" id="valTotalPackets">0</span>
+                <span class="metric-unit">packets</span>
+              </div>
+              <div class="stream-stats-grid">
+                <div><span>Arduino Time:</span> <strong class="font-mono" id="valArdTime">0 ms</strong></div>
+                <div><span>Events Logged:</span> <strong class="font-mono" id="valTotalEvents">0</strong></div>
+              </div>
+              <div class="metric-footer">
+                <span id="sourceDesc">Virtual Serial Feed</span>
+                <span class="text-success"><i class="fa-solid fa-circle-check"></i> Clean</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Real-Time Waveform Charts -->
+        <div class="charts-grid">
+          
+          <!-- Chart 1: Shock & AY Real-time Oscilloscope -->
+          <div class="chart-panel glass-panel">
+            <div class="chart-header">
+              <div class="chart-title">
+                <i class="fa-solid fa-chart-line text-cyan"></i> Real-Time Shock & Vibration Oscilloscope
+              </div>
+              <div class="chart-actions">
+                <span class="legend-badge legend-shock"><span class="dot"></span> Shock</span>
+                <span class="legend-badge legend-ay"><span class="dot"></span> AY Acceleration</span>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="shockChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 2: Ultrasonic Distance Profile -->
+          <div class="chart-panel glass-panel">
+            <div class="chart-header">
+              <div class="chart-title">
+                <i class="fa-solid fa-water-ladder text-emerald"></i> Ultrasonic Road Clearance Profile (cm)
+              </div>
+              <div class="chart-actions">
+                <span class="legend-badge legend-distance"><span class="dot"></span> Road Distance</span>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="distanceChart"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- TAB 2: SUSPENSION & ROAD VISUALIZER -->
+      <section class="tab-content" id="tab-visualizer">
+        <div class="visualizer-container glass-panel">
+          <div class="visualizer-header">
+            <div>
+              <h3><i class="fa-solid fa-truck-monster text-cyan"></i> Dynamic Vehicle Suspension & Road Reaction Simulator</h3>
+              <p class="text-muted">Live kinetic physics simulation responding directly to the real-time AY shock & ultrasonic telemetry stream.</p>
+            </div>
+            <div class="visualizer-controls">
+              <label class="switch-wrap">
+                <input type="checkbox" id="chkAutoDrive" checked>
+                <span class="slider round"></span>
+              </label>
+              <span class="switch-label">Continuous Road Motion</span>
+            </div>
+          </div>
+
+          <div class="canvas-wrapper">
+            <canvas id="roadCanvas" width="1000" height="380"></canvas>
+          </div>
+
+          <div class="visualizer-stats-row">
+            <div class="v-stat-card">
+              <span class="label">Chassis Pitch Angle</span>
+              <span class="val font-mono" id="visPitch">0.0°</span>
+            </div>
+            <div class="v-stat-card">
+              <span class="label">Suspension Compression</span>
+              <span class="val font-mono" id="visSusp">0 mm</span>
+            </div>
+            <div class="v-stat-card">
+              <span class="label">Ultrasonic Beam Range</span>
+              <span class="val font-mono" id="visBeam">-- cm</span>
+            </div>
+            <div class="v-stat-card">
+              <span class="label">Current Obstacle</span>
+              <span class="val font-mono text-cyan" id="visObstacle">None (Clear Road)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: HAZARD EVENTS LOG -->
+      <section class="tab-content" id="tab-events">
+        <div class="events-panel glass-panel">
+          <div class="events-header">
+            <div>
+              <h3><i class="fa-solid fa-triangle-exclamation text-amber"></i> Road Condition Events Log</h3>
+              <p class="text-muted">High-priority anomaly events ('E' packets) triggered by the Arduino firmware classification.</p>
+            </div>
+            <div class="events-filter-bar">
+              <button class="btn btn-sm btn-outline active" onclick="filterEventTable('ALL')">All Events</button>
+              <button class="btn btn-sm btn-outline text-danger" onclick="filterEventTable('POTHOLE')">Potholes Only</button>
+              <button class="btn btn-sm btn-outline text-warning" onclick="filterEventTable('SPEED_BREAKER')">Speed Breakers Only</button>
+              <button class="btn btn-sm btn-secondary" onclick="clearLocalEventLog()"><i class="fa-solid fa-trash-can"></i> Clear Feed</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table" id="eventsTable">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Type</th>
+                  <th>Shock Magnitude</th>
+                  <th>Vertical AY</th>
+                  <th>Clearance</th>
+                  <th>Firmware Time</th>
+                  <th>Raw Packet</th>
+                </tr>
+              </thead>
+              <tbody id="eventsTableBody">
+                <tr class="empty-row">
+                  <td colspan="7"><i class="fa-solid fa-shield-heart"></i> No hazard events detected yet. Road is clear!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: SESSION RECORDING & SQLITE -->
+      <section class="tab-content" id="tab-sessions">
+        <div class="sessions-layout">
+          
+          <!-- Active Session Card -->
+          <div class="glass-panel session-recorder-card">
+            <h3><i class="fa-solid fa-circle-dot text-danger"></i> Session Recorder (SQLite)</h3>
+            <p class="text-muted">Persist high-frequency telemetry and detected events directly to the local SQLite database.</p>
+            
+            <div class="recording-form">
+              <div class="form-group">
+                <label for="sessionNameInput">Session Name</label>
+                <input type="text" id="sessionNameInput" class="form-control" placeholder="e.g. Highway_Route_Test_1">
+              </div>
+              <div class="form-group">
+                <label for="sessionNotesInput">Drive Notes & Road Metadata</label>
+                <textarea id="sessionNotesInput" class="form-control" rows="2" placeholder="Test notes, road conditions, chassis setup..."></textarea>
+              </div>
+              
+              <div class="recorder-actions">
+                <button class="btn btn-success btn-lg" id="btnStartRecording" onclick="startRecordingSession()">
+                  <i class="fa-solid fa-play"></i> Start Recording
+                </button>
+                <button class="btn btn-danger btn-lg" id="btnStopRecording" onclick="stopRecordingSession()" style="display:none;">
+                  <i class="fa-solid fa-stop"></i> Stop & Save Session
+                </button>
+              </div>
+
+              <div class="active-session-stats" id="activeSessionStats" style="display:none;">
+                <div class="rec-live-badge"><span class="dot"></span> RECORDING IN PROGRESS</div>
+                <div class="rec-stats-row">
+                  <div><span>Session ID:</span> <strong id="recSessionId">--</strong></div>
+                  <div><span>Duration:</span> <strong id="recDuration">00:00</strong></div>
+                  <div><span>Telemetry Rows:</span> <strong id="recTeleCount">0</strong></div>
+                  <div><span>Events:</span> <strong id="recEventCount">0</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historical Sessions List -->
+          <div class="glass-panel historical-sessions-card">
+            <div class="session-list-header">
+              <h3><i class="fa-solid fa-folder-open text-cyan"></i> Recorded Sessions Database</h3>
+              <button class="btn btn-sm btn-outline" onclick="loadSessionsList()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+            </div>
+            
+            <div class="table-responsive">
+              <table class="custom-table" id="sessionsTable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Session Name</th>
+                    <th>Date & Time</th>
+                    <th>Duration</th>
+                    <th>Telemetry</th>
+                    <th>Events</th>
+                    <th>CSV Export</th>
+                  </tr>
+                </thead>
+                <tbody id="sessionsTableBody">
+                  <tr>
+                    <td colspan="7" class="text-center py-4">Loading sessions from SQLite...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 5: HARDWARE COM & TERMINAL -->
+      <section class="tab-content" id="tab-diagnostics">
+        <div class="diagnostics-grid">
+          
+          <!-- Serial Port Connection Card -->
+          <div class="glass-panel hw-connection-card">
+            <h3><i class="fa-solid fa-plug text-cyan"></i> Arduino Hardware Serial Connection</h3>
+            <p class="text-muted">Connect your wired Arduino UNO USB COM port (115200 baud standard protocol).</p>
+
+            <div class="hw-form">
+              <div class="form-group">
+                <label for="comPortSelect">Select Serial COM Port</label>
+                <div class="input-with-btn">
+                  <select id="comPortSelect" class="form-control">
+                    <option value="">Scanning for COM ports...</option>
+                  </select>
+                  <button class="btn btn-outline" onclick="scanComPorts()" title="Scan for devices">
+                    <i class="fa-solid fa-rotate"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="baudRateSelect">Baud Rate</label>
+                <select id="baudRateSelect" class="form-control">
+                  <option value="115200" selected>115200 (Default Firmware Rate)</option>
+                  <option value="9600">9600</option>
+                  <option value="57600">57600</option>
+                </select>
+              </div>
+
+              <div class="hw-actions">
+                <button class="btn btn-primary" id="btnConnectSerial" onclick="connectHardwareSerial()">
+                  <i class="fa-solid fa-link"></i> Connect Hardware
+                </button>
+                <button class="btn btn-danger" id="btnDisconnectSerial" onclick="disconnectHardwareSerial()" style="display:none;">
+                  <i class="fa-solid fa-link-slash"></i> Disconnect
+                </button>
+                <button class="btn btn-secondary" id="btnToggleSim" onclick="toggleSimulationMode()">
+                  <i class="fa-solid fa-laptop-code"></i> Switch to Simulation Mode
+                </button>
+              </div>
+            </div>
+
+            <div class="protocol-info-box mt-3">
+              <h4><i class="fa-solid fa-circle-info"></i> Serial Protocol Spec</h4>
+              <code>HELLO,ROADSENSE,1</code><br>
+              <code>T,&lt;ms&gt;,&lt;ay&gt;,&lt;shock&gt;,&lt;dist|NA&gt;,&lt;status&gt;</code> (10 Hz)<br>
+              <code>E,&lt;ms&gt;,&lt;ay&gt;,&lt;shock&gt;,&lt;dist|NA&gt;,&lt;status&gt;</code> (Event)
+            </div>
+          </div>
+
+          <!-- Raw Serial Terminal Card -->
+          <div class="glass-panel raw-terminal-card">
+            <div class="terminal-header">
+              <div class="terminal-title">
+                <i class="fa-solid fa-terminal text-emerald"></i> Live Serial Terminal Stream
+              </div>
+              <div class="terminal-actions">
+                <span class="badge-tag tag-cyan" id="termLinesCount">0 lines</span>
+                <button class="btn btn-xs btn-outline" onclick="clearTerminal()"><i class="fa-solid fa-broom"></i></button>
+              </div>
+            </div>
+            <div class="terminal-body font-mono" id="rawTerminalFeed">
+              <div class="term-line term-system">[SYSTEM] RoadSense Terminal initialized. Awaiting packet stream...</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>RoadSense Car-In-A-Box Smart Road Condition Monitoring System</div>
+      <div class="footer-meta">
+        <span>SQLite WAL: Active</span>
+        <span>•</span>
+        <span>Rate: ~10 Hz</span>
+        <span>•</span>
+        <a href="http://127.0.0.1:8000/docs" target="_blank" class="text-cyan">FastAPI OpenAPI Docs</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

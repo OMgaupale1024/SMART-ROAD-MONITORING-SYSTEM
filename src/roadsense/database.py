@@ -49,11 +49,11 @@ CREATE INDEX IF NOT EXISTS idx_events_session ON events(session_id);
 
 
 class Database:
-    def __init__(self, path: Optional[Union[str, Path]] = None):
+    def __init__(self, path: Optional[Union[str, Path]] = None, check_same_thread: bool = False):
         if path is None:
             path = paths.database_path()
         self.path = str(path)
-        self.conn = sqlite3.connect(self.path)
+        self.conn = sqlite3.connect(self.path, check_same_thread=check_same_thread)
         self.conn.row_factory = sqlite3.Row
         self.conn.execute("PRAGMA foreign_keys = ON")
         if self.path != ":memory:":
