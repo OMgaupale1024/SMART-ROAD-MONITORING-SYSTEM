@@ -30,9 +30,9 @@ IMPORTABLE EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838
 
 WorldInfo {
   info [
-    "RoadSense Digital Twin - baseline highway world (Phase 1)."
-    "Derived from the Webots R2025b highway_overtake sample (Cyberbotics Ltd., Apache License 2.0): renamed, tree file path changed."
-    "The main vehicle uses distance-sensors and a front radar in order to overtake the other vehicles controlled by SUMO."
+    "RoadSense Digital Twin - highway world with the EGO_ROADSENSE car."
+    "Derived from the Webots R2025b highway_overtake sample (Cyberbotics Ltd., Apache License 2.0) and modified for RoadSense, see simulation/webots/THIRD_PARTY_NOTICES.md."
+    "EGO_ROADSENSE runs the RoadSense controller roadsense_ego (the sample's distance-sensor overtaking plus local telemetry). SUMO drives the other vehicles."
   ]
   title "RoadSense Highway"
   ERP 0.6
@@ -104,7 +104,7 @@ Viewpoint {
   orientation 0.08528277688299951 0.04475102797397983 -0.9953512914857731 2.8168366661369832
   position -31.097304247693778 12.815313353949962 5.237916914776733
   near 1
-  follow "vehicle"
+  follow "EGO_ROADSENSE"
   followSmoothness 0
   lensFlare LensFlare {
   }
@@ -167,7 +167,8 @@ StraightRoadSegment {
 DEF WEBOTS_VEHICLE0 LincolnMKZ {
   translation -40 6.71 0.4
   rotation 0 0 -1 3.14159
-  controller "highway_overtake"
+  name "EGO_ROADSENSE"
+  controller "roadsense_ego"
   sensorsSlotFront [
     DEF FRONT_RIGHT_LIDAR IbeoLux {
       translation -0.225167 0.71 0
@@ -366,6 +367,11 @@ DEF WEBOTS_VEHICLE0 LincolnMKZ {
     GPS {
       translation 5.03 0 0
       rotation 0 0 1 3.14159
+    }
+    GPS {
+      name "telemetry gps"
+    }
+    InertialUnit {
     }
   ]
 }
