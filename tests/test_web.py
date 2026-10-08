@@ -1,13 +1,20 @@
 """Web server: lifecycle, REST and WebSocket contracts of the FastAPI app."""
 import io
 import json
+import os
 import re
+import signal
 import socket
 import sqlite3
+import subprocess
+import sys
 import threading
 import time
+import urllib.request
 import zipfile
 from html.parser import HTMLParser
+from pathlib import Path
+from types import SimpleNamespace
 from urllib.parse import urljoin, urlsplit
 
 import pytest
@@ -19,7 +26,12 @@ from fastapi.testclient import TestClient
 from serial.tools.list_ports_common import ListPortInfo
 
 import roadsense
+from roadsense.database import Database
+from roadsense.repositories import SessionRepository, TelemetryRepository
+from roadsense.web import __main__ as cli
 from roadsense.web import server, service
+
+SRC = Path(__file__).resolve().parents[1] / "src"
 
 
 @pytest.fixture
@@ -72,9 +84,17 @@ def test_server_starts_with_no_source_and_shuts_down_cleanly(tmp_path, monkeypat
 
 
 def test_dashboard_and_read_endpoints_respond(client, monkeypatch):
-    port = ListPortInfo("/dev/cu.usbmodem1101")
-    port.description, port.hwid = "Arduino Uno", "USB VID:PID=2341:0043"
-    monkeypatch.setattr(service.serial.tools.list_ports, "comports", lambda: [port])
+    ports = []
+    for device, description in [
+        ("COM3", "Arduino Uno (COM3)"),  # Windows
+        ("/dev/ttyUSB0", "USB2.0-Serial"),  # Linux: CH340-based UNO clone
+        ("/dev/ttyACM0", "Arduino Uno"),  # Linux (Raspberry Pi): genuine UNO
+        ("/dev/cu.usbmodem1101", "Arduino Uno"),  # macOS
+    ]:
+        port = ListPortInfo(device)
+        port.description, port.hwid = description, "USB VID:PID=2341:0043"
+        ports.append(port)
+    monkeypatch.setattr(service.serial.tools.list_ports, "comports", lambda: ports)
 
     page = client.get("/")
     assert page.status_code == 200 and "text/html" in page.headers["content-type"]
@@ -84,8 +104,11 @@ def test_dashboard_and_read_endpoints_respond(client, monkeypatch):
     assert client.get("/openapi.json").json()["info"]["version"] == roadsense.__version__
     assert client.get("/api/status").json()["source"] == "NONE"
     assert client.get("/api/sessions").json() == {"sessions": []}
-    assert client.get("/api/ports").json() == {"ports": [
-        {"port": "/dev/cu.usbmodem1101", "description": "Arduino Uno", "hwid": "USB VID:PID=2341:0043"}]}
+    listed = client.get("/api/ports").json()["ports"]
+    assert [(p["port"], p["description"]) for p in listed] == [
+        ("/dev/cu.usbmodem1101", "Arduino Uno"), ("/dev/ttyACM0", "Arduino Uno"),
+        ("/dev/ttyUSB0", "USB2.0-Serial"), ("COM3", "Arduino Uno (COM3)")]
+    assert {p["hwid"] for p in listed} == {"USB VID:PID=2341:0043"}
 
 
 class AssetRefs(HTMLParser):
@@ -227,3 +250,103 @@ def test_api_is_not_shared_with_other_origins(client):
         headers={"Origin": "http://example.com", "Access-Control-Request-Method": "POST"},
     )
     assert "access-control-allow-origin" not in preflight.headers
+
+
+def test_cli_listens_on_this_computer_only_unless_told_otherwise(monkeypatch):
+    calls = []
+    monkeypatch.setattr(cli, "run_web", lambda **kwargs: calls.append(kwargs))
+    cli.main([])
+    cli.main(["--host", "0.0.0.0", "--port", "8080", "--no-browser"])  # Raspberry Pi on the LAN
+    assert calls == [
+        {"host": "127.0.0.1", "port": 8000, "open_browser": True},
+        {"host": "0.0.0.0", "port": 8080, "open_browser": False},
+    ]
+
+
+def test_run_web_opens_a_browser_only_when_asked_and_warns_about_lan_access(monkeypatch, capsys):
+    import uvicorn
+
+    served, opened = [], []
+    monkeypatch.setattr(uvicorn, "run", lambda app, **kwargs: served.append((kwargs["host"], kwargs["port"])))
+    monkeypatch.setattr(server.threading, "Timer", lambda _delay, open_page: SimpleNamespace(start=open_page))
+    monkeypatch.setattr(server.webbrowser, "open", opened.append)
+
+    server.run_web(host="0.0.0.0", port=8080, open_browser=False)  # headless edge gateway
+    server.run_web(host="0.0.0.0", port=8081)
+    lan = capsys.readouterr().out
+    server.run_web()
+    local = capsys.readouterr().out
+
+    assert served == [("0.0.0.0", 8080), ("0.0.0.0", 8081), ("127.0.0.1", 8000)]
+    assert opened == ["http://127.0.0.1:8081", "http://127.0.0.1:8000"]  # never http://0.0.0.0
+    assert "There is no login" in lan and "There is no login" not in local
+
+
+def subprocess_env(**extra):
+    """The environment for running this checkout's roadsense in a child process."""
+    path = os.pathsep.join(filter(None, [str(SRC), os.environ.get("PYTHONPATH")]))
+    return dict(os.environ, PYTHONPATH=path, **extra)
+
+
+def test_web_runtime_never_imports_the_desktop_gui():
+    """A Raspberry Pi installs only the web extra, so the web runtime must not need PySide6 or
+    pyqtgraph, even where they happen to be installed."""
+    code = ("import sys\n"
+            "sys.modules.update(PySide6=None, pyqtgraph=None)\n"  # importing either now fails
+            "import roadsense.web.__main__, roadsense.web.server\n")
+    result = subprocess.run([sys.executable, "-c", code], env=subprocess_env(),
+                            capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+
+
+def free_port():
+    with socket.socket() as sock:
+        sock.bind(("127.0.0.1", 0))
+        return sock.getsockname()[1]
+
+
+def api(port, path, body=None):
+    request = urllib.request.Request(
+        f"http://127.0.0.1:{port}/api/{path}", data=None if body is None else json.dumps(body).encode(),
+        headers={"Content-Type": "application/json"})
+    no_proxy = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    with no_proxy.open(request, timeout=5) as response:
+        return json.load(response)
+
+
+def answers(port):
+    try:
+        return bool(api(port, "status"))
+    except OSError:
+        return False
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX signals")
+@pytest.mark.parametrize("sig", [signal.SIGINT, signal.SIGTERM], ids=["SIGINT", "SIGTERM"])
+def test_signal_stops_the_server_and_saves_the_recording(tmp_path, sig):
+    """Ctrl+C, and `systemctl stop` (SIGTERM), on the real process: the source stops, buffered
+    telemetry reaches SQLite, the session is ended and the process exits."""
+    port = free_port()
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "roadsense.web", "--port", str(port), "--no-browser"],
+        env=subprocess_env(ROADSENSE_DATA_DIR=str(tmp_path)),
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    try:
+        wait_for(lambda: proc.poll() is not None or answers(port), timeout=60)  # a Pi starts slower
+        assert proc.poll() is None, proc.communicate()[0]
+        api(port, "simulator/start", {})
+        sid = api(port, "recording/start", {"name": "drive"})["session_id"]
+        wait_for(lambda: api(port, "status")["session_telemetry_count"] >= 3)
+        proc.send_signal(sig)
+        output = proc.communicate(timeout=30)[0]
+    finally:
+        if proc.poll() is None:
+            proc.kill()
+            proc.communicate()
+
+    # uvicorn re-raises SIGTERM once shut down; systemd counts that as a clean stop
+    assert proc.returncode == (0 if sig == signal.SIGINT else -signal.SIGTERM), output
+    assert "Application shutdown complete" in output and "Traceback" not in output, output
+    with Database(tmp_path / "roadsense.db") as db:
+        assert SessionRepository(db.conn).get(sid).ended_at is not None
+        assert TelemetryRepository(db.conn).count(sid) >= 3

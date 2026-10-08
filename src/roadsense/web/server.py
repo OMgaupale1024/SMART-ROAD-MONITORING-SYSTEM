@@ -190,8 +190,13 @@ def serve_index():
 def run_web(host: str = "127.0.0.1", port: int = 8000, open_browser: bool = True):
     import uvicorn
 
-    url = f"http://{host}:{port}"
-    print(f"[RoadSense Web] Smart Road Monitoring System Web Server running at: {url}")
+    # 0.0.0.0 means "every interface", not an address a browser can open; this computer is 127.0.0.1
+    url = f"http://{'127.0.0.1' if host == '0.0.0.0' else host}:{port}"
+    print(f"[RoadSense Web] Smart Road Monitoring System Web Server running at: {url}", flush=True)
+    if host not in ("127.0.0.1", "localhost"):
+        print(f"[RoadSense Web] Listening on {host}: other devices on the network can open "
+              f"http://<this computer's IP address>:{port}. There is no login, so anyone who can "
+              "reach it can use RoadSense.", flush=True)
 
     if open_browser:
         threading.Timer(1.2, lambda: webbrowser.open(url)).start()
