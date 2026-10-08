@@ -14,15 +14,22 @@
 #
 # Modified for RoadSense (2026): copied from the Webots R2025b highway_overtake sample controller
 # and renamed; the driving logic is unchanged. Added EGO_ROADSENSE telemetry (telemetry GPS and
-# inertial unit, printed once per simulated second); removed the unused camera lookup.
+# inertial unit, printed once per simulated second); removed the unused camera lookup. Added
+# nearby-vehicle perception: two radars, tracked every radar cycle, printed once per simulated second.
 
-"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry."""
+"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry and perception."""
 
 from vehicle import Driver
 
+import perception
 import telemetry
+import tracking
 
 TELEMETRY_PERIOD_S = 1.0  # simulated seconds between telemetry lines
+PERCEPTION_PERIOD_S = 1.0  # simulated seconds between perception summaries
+# Radar sampling period, the SUMO step: SUMO moves its cars every 200 ms, and a Webots radar computes the
+# range rate from the movement between two refreshes, so a shorter period sees cars stand still, then jump.
+RADAR_PERIOD_MS = 200
 
 sensorsNames = [
     "front",
@@ -116,6 +123,21 @@ inertialUnit.enable(timestep)
 nextTelemetry = TELEMETRY_PERIOD_S
 previousTelemetry = None  # (timestamp, speed) of the last telemetry record
 
+# perception: the RoadSense radars (front and rear), tracked in the world frame placed by the telemetry sensors
+radars = {name: driver.getDevice(name) for name in perception.RADARS}
+for radar in radars.values():
+    radar.enable(RADAR_PERIOD_MS)
+tracker = tracking.Tracker()
+nextRadarCycle = RADAR_PERIOD_MS / 1000.0
+nextPerception = PERCEPTION_PERIOD_S
+
+
+def ego_pose():
+    """EGO_ROADSENSE's world (x, y, yaw) from the telemetry GPS and the inertial unit."""
+    x, y, _ = telemetryGps.getValues()
+    return x, y, inertialUnit.getRollPitchYaw()[2]
+
+
 while driver.step() != -1:
     # adjust speed according to front vehicle
     frontDistance = sensors["front"].getValue()
@@ -176,3 +198,18 @@ while driver.step() != -1:
                                        currentLane)
         previousTelemetry = (now, groundSpeed)
         print(telemetry.format_line(record))
+    # perception: track every radar cycle, print once per PERCEPTION_PERIOD_S of simulated time
+    if now >= nextRadarCycle - 1e-6:
+        nextRadarCycle += RADAR_PERIOD_MS / 1000.0
+        pose = ego_pose()
+        detections = []
+        for name, radar in radars.items():
+            targets = [(target.distance, target.azimuth, target.speed) for target in radar.getTargets()]
+            limits = (radar.getMinRange(), radar.getMaxRange(), radar.getHorizontalFov())
+            detections += perception.radar_detections(name, targets, limits, now, pose)
+        tracker.update(now, detections)
+    if now >= nextPerception - 1e-6:
+        nextPerception += PERCEPTION_PERIOD_S
+        pose, egoVelocity = ego_pose(), telemetryGps.getSpeedVector()[:2]
+        print(perception.format_summary(now, [perception.track_report(track, now, pose, egoVelocity)
+                                              for track in tracker.confirmed]))

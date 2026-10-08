@@ -8,10 +8,10 @@ Version 2.0, reproduced below. Paths are relative to `simulation/webots/`.
 
 | File | Webots source | Changes |
 | --- | --- | --- |
-| `worlds/roadsense_highway.wbt` | `projects/vehicles/worlds/highway_overtake.wbt` | Renamed; new title and info; tree-file path; the main car is named `EGO_ROADSENSE`, runs `roadsense_ego` and has a telemetry GPS and an inertial unit; the viewpoint follows it |
+| `worlds/roadsense_highway.wbt` | `projects/vehicles/worlds/highway_overtake.wbt` | Renamed; new title and info; tree-file path; the main car is named `EGO_ROADSENSE`, runs `roadsense_ego` and has a telemetry GPS, an inertial unit and two radars (`radar front`, `radar rear`) whose signal and noise settings are copied from the sample's radar; the viewpoint follows it |
 | `worlds/roadsense_highway_net/` | `projects/vehicles/worlds/highway_overtake_net/` | None (copies of `sumo.sumocfg`, `sumo.net.xml`, `sumo.rou.xml`) |
 | `worlds/forest/roadsense_highway/1.forest` | `projects/vehicles/worlds/forest/highway_overtake/1.forest` | None |
-| `controllers/roadsense_ego/roadsense_ego.py` | `projects/vehicles/controllers/highway_overtake/highway_overtake.py` | Renamed; telemetry added; unused camera lookup removed |
+| `controllers/roadsense_ego/roadsense_ego.py` | `projects/vehicles/controllers/highway_overtake/highway_overtake.py` | Renamed; telemetry and radar perception added; unused camera lookup removed |
 
 The vehicle, road and sensor models (PROTO files) are not copied: Webots downloads them from its
 repository under the [Webots assets license](https://cyberbotics.com/webots_assets_license).

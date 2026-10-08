@@ -32,7 +32,7 @@ WorldInfo {
   info [
     "RoadSense Digital Twin - highway world with the EGO_ROADSENSE car."
     "Derived from the Webots R2025b highway_overtake sample (Cyberbotics Ltd., Apache License 2.0) and modified for RoadSense, see simulation/webots/THIRD_PARTY_NOTICES.md."
-    "EGO_ROADSENSE runs the RoadSense controller roadsense_ego (the sample's distance-sensor overtaking plus local telemetry). SUMO drives the other vehicles."
+    "EGO_ROADSENSE runs the RoadSense controller roadsense_ego (the sample's distance-sensor overtaking plus local telemetry and radar perception). SUMO drives the other vehicles."
   ]
   title "RoadSense Highway"
   ERP 0.6
@@ -280,6 +280,20 @@ DEF WEBOTS_VEHICLE0 LincolnMKZ {
       controller "radar_target_tracker"
       supervisor TRUE
     }
+    Radar {
+      translation 0.11 0 0
+      name "radar front"
+      maxRange 150
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
   ]
   sensorsSlotRear [
     DEF REAR DistanceSensor {
@@ -325,6 +339,20 @@ DEF WEBOTS_VEHICLE0 LincolnMKZ {
       rotation 0 0 1 -0.7915953071795858
       name "ibeo 4"
       useExtendedFieldOfView TRUE
+    }
+    Radar {
+      translation 0.1 0 0
+      name "radar rear"
+      maxRange 100
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
     }
   ]
   sensorsSlotTop [
