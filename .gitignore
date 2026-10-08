@@ -25,6 +25,9 @@ events.csv
 session_metadata.csv
 roadsense_session_*.zip
 
+# Webots window layout, rewritten each time a world closes
+*.wbproj
+
 # remember plugin state (self-ignored, but be explicit)
 .remember/
 

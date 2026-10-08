@@ -357,6 +357,7 @@ src/roadsense/
     static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js + icons
 deploy/roadsense.service  optional systemd unit (Raspberry Pi)
 tools/serial_sim.py test-only serial writer (virtual COM pair)
+simulation/webots/  Webots digital twin: baseline highway with SUMO traffic (its own README)
 tests/              pytest suite
 docs/serial-protocol.md
 ```
