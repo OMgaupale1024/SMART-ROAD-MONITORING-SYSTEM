@@ -19,6 +19,11 @@ HELLO,ROADSENSE,1
 - Field 2 is always `ROADSENSE`.
 - Field 3 is the protocol/firmware version (`1`).
 
+Opening the UNO's serial port restarts it, so this line arrives about 2 s after every connect.
+The web dashboard treats a port as the RoadSense Arduino only once this line (or, if it went
+missing, a valid `T`/`E` line) arrives within 5 s, and refuses a `HELLO` with any other
+version, also if one arrives later.
+
 ### Telemetry — `T`, ~10 per second
 
 ```

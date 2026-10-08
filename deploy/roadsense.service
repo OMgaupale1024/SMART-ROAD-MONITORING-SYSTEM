@@ -1,0 +1,30 @@
+# RoadSense edge gateway: an OPTIONAL example systemd unit for a Raspberry Pi.
+#
+# It starts the RoadSense web dashboard at boot, serves it to the local network, and opens
+# no browser. Nothing installs it for you: follow "Start RoadSense at boot" in README.md.
+#
+# Replace both placeholders before installing:
+#   <user>        the non-root account that runs RoadSense; it must be allowed to open the
+#                 Arduino's serial port (on Raspberry Pi OS: a member of the dialout group)
+#   <roadsense>   absolute path of the RoadSense checkout, with its .venv inside
+#
+# The database goes to ~<user>/.local/share/RoadSense/ unless ROADSENSE_DATA_DIR says otherwise.
+
+[Unit]
+Description=RoadSense edge gateway (web dashboard on the local network)
+After=network.target
+
+[Service]
+Type=exec
+User=<user>
+WorkingDirectory=<roadsense>
+ExecStart=<roadsense>/.venv/bin/python -m roadsense.web --host 0.0.0.0 --port 8000 --no-browser
+# Log lines reach the journal as they happen (journalctl -u roadsense)
+Environment=PYTHONUNBUFFERED=1
+#Environment=ROADSENSE_DATA_DIR=/absolute/path/writable/by/that/user
+# A stop (SIGTERM) saves buffered telemetry and ends the recording first; restart only on a crash
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

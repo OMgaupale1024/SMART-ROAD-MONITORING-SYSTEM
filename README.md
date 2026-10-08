@@ -6,10 +6,13 @@ current road condition, records sessions locally, and exports data to CSV. Two f
 share the same protocol parser and SQLite storage:
 
 - **Desktop app** (PySide6) — `python -m roadsense`
-- **Web dashboard** (FastAPI, in the browser on the same PC) — `python -m roadsense.web`
+- **Web dashboard** (FastAPI, in a browser) — `python -m roadsense.web`, on the PC wired to
+  the Arduino, or headless on a **Raspberry Pi** in the vehicle that serves the dashboard to
+  phones and laptops on the local network
 
-> Local-first prototype (v0.2.1). Everything here runs on a PC wired to the Arduino by USB,
-> with no internet connection needed.
+> Local-first prototype. Latest release: v0.2.1. `main` adds the Raspberry Pi edge gateway
+> described below, which becomes v0.3.0 once it has been validated on a real Raspberry Pi.
+> Nothing needs an internet connection at runtime.
 
 ## Status
 
@@ -24,10 +27,15 @@ share the same protocol parser and SQLite storage:
   Works offline: its scripts, styles and icons ship with RoadSense (since v0.2.1).
 - Built-in simulators (clearly labelled synthetic in both front-ends).
 - SQLite session recording; CSV export (desktop) and a ZIP of the same CSVs (web).
+- Raspberry Pi edge gateway (on `main`, awaiting hardware validation): the web runtime runs
+  headless on ARM64 Linux without the desktop extra, can serve the dashboard to the local
+  network, accepts a serial port as the Arduino only after its handshake, reports an
+  unplugged Arduino instead of claiming it is still connected, and stops cleanly on Ctrl+C or
+  SIGTERM; an optional systemd unit starts it at boot.
 
-**Planned, not implemented:** GPS/location, maps, mobile app, Bluetooth or wireless links,
-cloud sync, Raspberry Pi integration, camera/computer vision, ML/AI classification or
-prediction, safer-route suggestions.
+**Planned, not implemented:** GPS/location, geospatial road events, maps, camera and
+computer vision, sensor fusion, road-risk prediction, safer routing, ML/AI classification,
+mobile app, Bluetooth or wireless links to the Arduino, cloud sync.
 
 ---
 
@@ -49,9 +57,16 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
 
 ## What the web dashboard does
 
-- Runs at `http://127.0.0.1:8000` (`python -m roadsense.web` opens your browser).
+- Runs at `http://127.0.0.1:8000` and opens your browser. Options:
+  `--host` (default `127.0.0.1`, this computer only; `0.0.0.0` lets every device on the
+  network in, see [Raspberry Pi edge gateway](#raspberry-pi-edge-gateway)), `--port`
+  (default `8000`), `--no-browser`.
 - Starts with **no telemetry source**. You choose one, and only one runs at a time:
-  - **Arduino:** *Hardware COM & Terminal* tab → pick the port → **Connect Hardware**.
+  - **Arduino:** *Hardware COM & Terminal* tab → pick the port → **Connect Hardware**. The
+    port counts as the Arduino only once the device identifies itself (its
+    `HELLO,ROADSENSE,1` handshake, or valid telemetry) within 5 s; any other device is
+    disconnected again with an error saying why. If the Arduino is unplugged, the source
+    returns to *NO SOURCE* and the reason appears in the terminal panel.
   - **Simulator:** **Start Simulator** on that tab, or a *Smooth / Bumpy / Highway* profile
     on the dashboard. **Stop Simulator** returns to no source.
 - The header pill always says which source is live: *NO SOURCE*, *ARDUINO: \<port\>*, or
@@ -73,7 +88,9 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
 ## Requirements
 
 - **Python 3.10+** (developed on 3.10 / Windows; also tested on 3.12 / macOS).
-- Windows 10/11 (the app is Windows-first but not deliberately Windows-only).
+- Windows 10/11 (the app is Windows-first but not deliberately Windows-only). The web
+  dashboard also runs on Linux, including 64-bit Raspberry Pi OS (see
+  [Raspberry Pi edge gateway](#raspberry-pi-edge-gateway)).
 - An Arduino UNO running the firmware in `firmware/roadsense_arduino.ino` (optional — a
   built-in simulator lets you run either front-end with no hardware).
 
@@ -136,6 +153,107 @@ python -m roadsense.web    # web dashboard
 6. Review events under the **Event History** tab; export with **Export Session…**.
 7. Click **Disconnect** (or just close the app) to stop safely.
 
+## Raspberry Pi edge gateway
+
+A Raspberry Pi can take the PC's place in the vehicle. The Arduino plugs into the Pi by USB;
+the Pi runs the web dashboard headless (no monitor, no desktop app, no internet) and records
+sessions to its own SQLite database; a laptop or phone on the same network opens the
+dashboard in a browser.
+
+```
+Arduino UNO ──USB serial──► Raspberry Pi: python -m roadsense.web ──Wi-Fi / LAN──► browser
+```
+
+> **Not yet validated on Raspberry Pi hardware.** This setup is tested on macOS, with
+> pseudo-terminals standing in for the Arduino; it is released as v0.3.0 once it has run on
+> a real Pi with the Arduino.
+
+**1. Install** (once; this step needs internet). Use Raspberry Pi OS (64-bit) or another
+ARM64 Linux with Python 3.10 or newer (`python3 --version`; Raspberry Pi OS Bookworm ships
+3.11). Install only the `web` extra: the desktop extra (PySide6, pyqtgraph) is neither needed
+nor installed, and every web dependency has a prebuilt ARM64 wheel, so nothing is compiled.
+
+```bash
+sudo apt install git python3-venv   # only if they are missing (administrator setup)
+git clone https://github.com/OMgaupale1024/SMART-ROAD-MONITORING-SYSTEM.git roadsense
+cd roadsense
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[web]"             # ".[web,dev]" to also run the test suite
+```
+
+**2. Let your user open the Arduino's serial port.** On Linux a serial port belongs to a
+group, and only its members (and root) may open it:
+
+```bash
+ls -l /dev/ttyACM* /dev/ttyUSB*    # e.g.  crw-rw---- 1 root dialout ... /dev/ttyACM0
+groups                             # is that group listed (dialout on Raspberry Pi OS)?
+sudo usermod -aG dialout "$USER"   # if not (administrator setup), then log out and back in
+```
+
+The first user that Raspberry Pi OS creates is normally in `dialout` already. Don't run
+RoadSense with `sudo` or `chmod` the device; without the group RoadSense reports
+*Permission denied* and names the fix.
+
+**3. Connect the Arduino and find its port.** Plug the UNO into the Pi by USB. A genuine UNO
+appears as `/dev/ttyACM0`, most CH340-based clones as `/dev/ttyUSB0`:
+
+```bash
+python -m serial.tools.list_ports -v
+```
+
+Other entries such as `/dev/ttyAMA0` are the Pi's own serial ports, not the Arduino.
+
+**4. Start RoadSense for the local network:**
+
+```bash
+python -m roadsense.web --host 0.0.0.0 --no-browser
+```
+
+`--host 0.0.0.0` listens on every network interface so other devices can connect (the default
+`127.0.0.1` accepts only the Pi itself); `--no-browser` skips opening a browser; `--port`
+changes the default port 8000.
+
+> **Security:** with `--host 0.0.0.0`, anyone who can reach the Pi over the network can see
+> the dashboard and control RoadSense: switch the telemetry source, start and stop
+> recordings, download sessions. There is no login in this version. Use a network you trust,
+> such as the vehicle's own Wi-Fi hotspot, never a public one.
+
+**5. Open the dashboard from another device.** Find the Pi's address with `hostname -I` on
+the Pi (e.g. `192.168.1.42`) and open `http://192.168.1.42:8000` on a laptop or phone on the
+same network (`http://<hostname>.local:8000` also works where mDNS is available). The page,
+its scripts and icons, and the live WebSocket all come from the Pi, so the network needs no
+internet access. Then, on the *Hardware COM & Terminal* tab: **Refresh** → pick
+`/dev/ttyACM0` → **Connect Hardware**.
+
+- The UNO restarts when its port opens and identifies itself about 2 s later with
+  `HELLO,ROADSENSE,1`; only then is the source *ARDUINO*. A device that sends no RoadSense
+  handshake or telemetry within 5 s, or announces another protocol version, is disconnected
+  with an error that says why.
+- If the Arduino is unplugged, the source returns to *NO SOURCE*, with the reason in the
+  terminal panel and in `/api/status` (`"connection_status": "Connection lost"`,
+  `"last_error"`). A recording in progress stays open. RoadSense does not reconnect on its
+  own: plug the Arduino back in and click **Connect Hardware** again.
+
+**6. Stop RoadSense** with **Ctrl+C**, or SIGTERM (what `systemctl stop` sends). Either one
+stops the source, saves telemetry still buffered for a recording, ends that recording and
+closes the database before the process exits. The database lives in the home directory of
+the user running RoadSense (see [Where data is stored](#where-data-is-stored)); nothing
+needs root.
+
+**7. Start RoadSense at boot (optional).** `deploy/roadsense.service` is an example systemd
+unit: it runs the command from step 4 as your (non-root) user, and restarts RoadSense only if
+it crashes. Nothing installs it automatically; to install it by hand:
+
+```bash
+sudo cp deploy/roadsense.service /etc/systemd/system/roadsense.service
+sudo nano /etc/systemd/system/roadsense.service   # replace <user> and <roadsense>
+sudo systemctl daemon-reload
+sudo systemctl enable --now roadsense             # start now and at every boot
+journalctl -u roadsense -f                        # follow its log
+sudo systemctl disable --now roadsense            # stop it and take it out of the boot
+```
+
 ## Uploading the firmware
 
 1. Open `firmware/roadsense_arduino.ino` in the Arduino IDE.
@@ -179,9 +297,11 @@ The SQLite database lives in your OS application-data directory, **not** beside 
 
 - Windows: `%LOCALAPPDATA%\RoadSense\roadsense.db`
 - macOS: `~/Library/Application Support/RoadSense/roadsense.db`
-- Linux: `~/.local/share/RoadSense/roadsense.db`
+- Linux (including Raspberry Pi): `~/.local/share/RoadSense/roadsense.db`, or
+  `$XDG_DATA_HOME/RoadSense/` when that is set
 
-Override with the `ROADSENSE_DATA_DIR` environment variable if needed.
+Override with the `ROADSENSE_DATA_DIR` environment variable if needed. RoadSense creates the
+directory on first use; the user running it only needs write access there, never root.
 
 ---
 
@@ -189,14 +309,19 @@ Override with the `ROADSENSE_DATA_DIR` environment variable if needed.
 
 Automated tests need no GUI or hardware. They cover the protocol parser, storage, session
 recording and CSV export, plus the web server: REST endpoints, the WebSocket stream, the
-startup/shutdown lifecycle, source switching (including a pseudo-terminal standing in for
-the Arduino on macOS/Linux), and concurrency regression tests for recording while packets
+startup/shutdown lifecycle (including a real server process stopped with SIGINT and
+SIGTERM), the command-line options, the serial handshake, unplugging and every source
+switch (a pseudo-terminal stands in for the Arduino on macOS/Linux), a check that the web
+runtime never imports PySide6, and concurrency regression tests for recording while packets
 arrive. The web tests are skipped unless the `web` and `dev` extras are installed.
 
 ```powershell
 pip install -e ".[desktop,web,dev]"
 python -m pytest
 ```
+
+No test needs the desktop extra, so a web-only install such as the Raspberry Pi runs the
+whole suite after `pip install -e ".[web,dev]"`.
 
 ### Testing the real serial path without an Arduino
 
@@ -226,9 +351,11 @@ src/roadsense/
   export_service.py CSV export
   ui/               PySide6 widgets (dashboard, panels, history, styles)
   web/              web dashboard (python -m roadsense.web)
+    __main__.py     command line: --host, --port, --no-browser
     server.py       FastAPI app: REST API, /ws/telemetry WebSocket, static UI
     service.py      serial/simulator reader, recording, ZIP export
     static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js + icons
+deploy/roadsense.service  optional systemd unit (Raspberry Pi)
 tools/serial_sim.py test-only serial writer (virtual COM pair)
 tests/              pytest suite
 docs/serial-protocol.md
@@ -247,18 +374,31 @@ Both front-ends share the parser (`protocol.py`), the SQLite layer (`database.py
 - **Web:** `server.py` is the FastAPI app (UI, REST API, `/ws/telemetry`).
   `WebTelemetryManager` in `service.py` runs at most one source thread (serial or simulator)
   and records through `SessionService`. One lock guards the database and recording state;
-  a second lock only serializes source changes. Packets and status changes are pushed to the
-  browser over the WebSocket through a bounded queue per client; when a client's queue is
-  full its stale packets are dropped (counted in `/api/status` as `ws_dropped_messages`)
-  while status messages are kept, and the source thread never waits on a client.
+  a second lock only serializes source changes. A serial port becomes the source only after
+  the device identifies itself; its worker thread owns the port, and if the Arduino is
+  unplugged it closes the port and ends the source with the reason. Packets and status
+  changes are pushed to the browser over the WebSocket through a bounded queue per client;
+  when a client's queue is full its stale packets are dropped (counted in `/api/status` as
+  `ws_dropped_messages`) while status messages are kept, and the source thread never waits
+  on a client.
 
 ## Limitations
 
 - No GPS, speed, battery, or map data — that hardware does not exist in this version.
 - Road-condition classification is done on the Arduino; the app does not re-classify.
 - Firmware shock thresholds are un-calibrated placeholders (see Calibration above).
-- The desktop app and the web dashboard are separate programs. A serial port can be open in
-  only one of them at a time; both use the same SQLite file by default.
+- The desktop app and the web dashboard are separate programs, and both use the same SQLite
+  file by default. Connect only one of them to the Arduino: Windows lets a serial port be
+  open in one program at a time, but Linux and macOS don't, and while the web dashboard
+  locks the port it opens, the desktop app does not.
 - The API documentation page (`/docs`) is FastAPI's Swagger UI, which loads from a CDN, so
   it needs internet access. The dashboard itself does not.
-- The web API has no authentication and listens on `127.0.0.1` only — local use only.
+- The web API has no authentication. It listens on `127.0.0.1` (this computer only) unless
+  started with `--host 0.0.0.0`, which lets every device that can reach the computer over
+  the network view and control RoadSense.
+- After the Arduino is unplugged, RoadSense does not reconnect by itself; connect again from
+  the dashboard.
+- Most Raspberry Pi models have no battery-backed clock. Offline, with no network time, the
+  Pi's clock can be wrong after a boot, and recorded timestamps follow it.
+- Cutting the Pi's power (e.g. with the ignition) instead of stopping RoadSense loses up to
+  the last second of buffered telemetry and leaves that recording without an end time.
