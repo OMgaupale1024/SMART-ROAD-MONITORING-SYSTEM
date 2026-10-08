@@ -1,10 +1,13 @@
-"""Storage round-trips, survives restart, cascades cleanly, and reports NA as NULL."""
+"""Storage round-trips, survives restart, cascades cleanly, reports NA as NULL, and lives in
+the user's own data directory."""
+import os
 import sqlite3
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 
 import pytest
 
+from roadsense import paths
 from roadsense.database import Database
 from roadsense.models import Packet
 from roadsense.repositories import EventRepository, SessionRepository, TelemetryRepository
@@ -115,3 +118,20 @@ def test_connection_is_thread_bound_unless_shared():
         other_thread.submit(web.conn.execute, "SELECT 1").result()
     desktop.close()
     web.close()
+
+
+@pytest.mark.skipif(os.name != "posix", reason="Linux paths")
+def test_linux_database_lives_in_the_users_data_dir(tmp_path, monkeypatch):
+    """On a Raspberry Pi the database goes to ~/.local/share/RoadSense (or $XDG_DATA_HOME),
+    created on first use by the user running RoadSense: no root, nothing beside the code."""
+    monkeypatch.setattr(paths.sys, "platform", "linux")
+    monkeypatch.delenv("ROADSENSE_DATA_DIR", raising=False)
+    monkeypatch.delenv("XDG_DATA_HOME", raising=False)
+    monkeypatch.setenv("HOME", str(tmp_path))
+    assert paths.database_path() == tmp_path / ".local" / "share" / "RoadSense" / "roadsense.db"
+
+    monkeypatch.setenv("XDG_DATA_HOME", str(tmp_path / "xdg"))
+    with Database() as db:
+        SessionRepository(db.conn).create("drive")
+    created = tmp_path / "xdg" / "RoadSense" / "roadsense.db"
+    assert created.is_file() and created.stat().st_uid == os.getuid()
