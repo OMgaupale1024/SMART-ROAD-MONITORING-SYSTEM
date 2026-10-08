@@ -14,12 +14,14 @@ together:
   (start, stop, flush) runs inside one critical section, so buffered rows are always written
   to the session that owned them.
 - ``_source_lock`` serializes source changes (connect/disconnect, simulator start/stop) so at
-  most one worker thread exists. Workers never take it; a stop joins the old worker while
-  holding it, which is safe because nothing holding ``_lock`` ever waits on it.
+  most one worker thread exists. A stop joins the old worker while holding it, which is safe
+  because nothing holding ``_lock`` ever waits on it, and a worker takes it only to end its
+  own failed source (Arduino unplugged), giving up as soon as it is told to stop.
 """
 from __future__ import annotations
 
 import asyncio
+import errno
 import io
 import logging
 import math
@@ -28,10 +30,10 @@ import sqlite3
 import threading
 import time
 import zipfile
-from contextlib import contextmanager
+from contextlib import contextmanager, suppress
 from datetime import datetime
 from enum import Enum
-from typing import Any, Callable, Dict, Iterator, List, Optional
+from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple
 
 import serial
 import serial.tools.list_ports
@@ -39,7 +41,7 @@ import serial.tools.list_ports
 from roadsense.database import Database
 from roadsense.export_service import export_session
 from roadsense.models import ConnectionStatus, Hello, Packet, distance_str
-from roadsense.protocol import MalformedMessage, parse_line
+from roadsense.protocol import PROTOCOL_VERSION, MalformedMessage, parse_line
 from roadsense.repositories import EventRepository, SessionRepository, TelemetryRepository
 from roadsense.session_service import SessionService
 
@@ -47,13 +49,58 @@ log = logging.getLogger(__name__)
 
 FLUSH_INTERVAL_S = 1.0  # longest that recorded telemetry waits in memory before reaching SQLite
 SIM_PERIOD_S = 0.1  # simulator packet period: 10 Hz, the firmware's telemetry rate
+READ_TIMEOUT_S = 0.2  # a serial read returns this often, so a stopped worker exits promptly
+# The UNO restarts when its port opens and sends HELLO about 2 s later; raise this for a board
+# that takes longer.
+HANDSHAKE_TIMEOUT_S = 5.0
+MAX_LINE_BYTES = 1024  # protocol lines are under 60 bytes; this much without a newline is noise
 
 
 class Source(str, Enum):
-    """Where live telemetry comes from. Only an open serial port counts as the Arduino."""
+    """Where live telemetry comes from. Only a port that identified itself counts as the Arduino."""
     NONE = "NONE"
     ARDUINO = "ARDUINO"
     SIMULATOR = "SIMULATOR"
+
+
+class HandshakeError(Exception):
+    """The device on the port is not a RoadSense Arduino this version can use."""
+
+
+def _check_protocol(hello: Hello, port: Optional[str]) -> None:
+    if hello.version != PROTOCOL_VERSION:
+        raise HandshakeError(
+            f"{port} speaks RoadSense serial protocol version {hello.version!r}, but this RoadSense "
+            f"understands version {PROTOCOL_VERSION}. Upload firmware/roadsense_arduino.ino from "
+            "this RoadSense release to the Arduino.")
+
+
+def _open_error(port: str, exc: Exception) -> str:
+    """Why `port` would not open, and what to do about it."""
+    code = getattr(exc, "errno", None)
+    if code in (errno.EACCES, errno.EPERM):
+        return (f"Permission denied for {port}. On Linux the user running RoadSense must be in the "
+                f"group that owns the port (usually 'dialout'; check with: ls -l {port}), then log "
+                "out and back in. See the Raspberry Pi section of the README.")
+    if code in (errno.EBUSY, errno.EAGAIN):
+        return (f"{port} is in use by another program (another RoadSense, or a serial monitor). "
+                "Close it and connect again.")
+    if code == errno.ENOENT:
+        return f"{port} was not found. Is the Arduino plugged in? Refresh the port list."
+    return f"Could not open {port}: {exc}"
+
+
+def _read_lines(ser: serial.Serial, pending: bytearray) -> List[str]:
+    """Wait up to the port's timeout for data; return the lines it completes.
+
+    `pending` carries a partial line from one call to the next, so a line is never split.
+    """
+    pending += ser.read(ser.in_waiting or 1)
+    *lines, rest = pending.split(b"\n")
+    if len(rest) > MAX_LINE_BYTES:  # never a protocol line: pass it on to be rejected as one
+        lines, rest = lines + [rest], b""
+    pending[:] = rest
+    return [line.decode("utf-8", errors="replace").strip() for line in lines]
 
 
 class WebTelemetryManager:
@@ -71,12 +118,12 @@ class WebTelemetryManager:
         # Telemetry source: nothing streams until the user connects serial or starts the simulator
         self.source = Source.NONE
         self.connection_status: str = ConnectionStatus.DISCONNECTED.value
+        self.last_error: Optional[str] = None  # why the last connect failed or the Arduino was lost
         self.active_port: Optional[str] = None
         self.active_baud: int = 115200
         self._source_lock = threading.Lock()
         self._source_stop: Optional[threading.Event] = None  # one per run, so a stale worker can't resume
         self._source_thread: Optional[threading.Thread] = None
-        self._serial_port: Optional[serial.Serial] = None
         self._sim_rng = random.Random()
 
         # Real-time metrics
@@ -108,20 +155,69 @@ class WebTelemetryManager:
         ]
 
     def connect_serial(self, port: str, baud: int = 115200) -> Dict[str, Any]:
-        """Connect to a physical hardware Arduino over USB serial, replacing any current source."""
+        """Connect to the Arduino over USB serial, replacing any current source.
+
+        The port becomes the ARDUINO source only once the device on it identifies itself as the
+        RoadSense firmware; otherwise it is closed again and the error says why.
+        """
         with self._source_lock:
             self._stop_source()
             self.connection_status = ConnectionStatus.CONNECTING.value
+            self._broadcast_status()
             try:
-                ser = serial.Serial(port=port, baudrate=baud, timeout=1.0)
-                ser.reset_input_buffer()
-            except Exception as e:
-                self.connection_status = ConnectionStatus.ERROR.value
-                self._broadcast_status()
-                return {"status": "error", "message": str(e)}
-            self._serial_port, self.active_baud = ser, baud
-            self._start_source(Source.ARDUINO, self._serial_worker_loop, ser, "RoadSenseSerialWorker", port)
+                # exclusive: unlike Windows, Linux and macOS let a second program open the port
+                # too, and the two would each get half of the stream
+                ser = serial.Serial(port=port, baudrate=baud, timeout=READ_TIMEOUT_S, exclusive=True)
+            except (serial.SerialException, OSError, ValueError) as exc:
+                return self._connect_failed(_open_error(port, exc))
+            try:
+                lines, pending = self._identify(ser, port, baud)
+            except HandshakeError as exc:
+                with suppress(OSError):
+                    ser.close()
+                return self._connect_failed(str(exc))
+            self.active_baud = baud
+            self._start_source(Source.ARDUINO, self._serial_worker_loop, (ser, port, lines, pending),
+                               "RoadSenseSerialWorker", port)
         return {"status": "ok", "message": f"Connected to {port} at {baud} baud"}
+
+    def _identify(self, ser: serial.Serial, port: str, baud: int) -> Tuple[List[str], bytearray]:
+        """Read from a just-opened port until the device proves to be the RoadSense Arduino.
+
+        Proof is the firmware's HELLO,ROADSENSE,1 (sent when the UNO restarts, which opening the
+        port causes) or, if that went missing, a valid telemetry line. Malformed lines, such as
+        noise from the restart, are skipped. Returns the lines from the proof on, and any partial
+        line, for the worker to stream. Caller holds _source_lock.
+        """
+        pending = bytearray()
+        last = ""
+        deadline = time.monotonic() + HANDSHAKE_TIMEOUT_S
+        while time.monotonic() < deadline:
+            try:
+                lines = _read_lines(ser, pending)
+            except (serial.SerialException, OSError) as exc:
+                raise HandshakeError(
+                    f"Lost the serial connection to {port} during the handshake: {exc}") from exc
+            for i, line in enumerate(lines):
+                try:
+                    message = parse_line(line)
+                except MalformedMessage:
+                    last = line
+                    continue
+                if isinstance(message, Hello):
+                    _check_protocol(message, port)
+                if message is not None:
+                    return lines[i:], pending
+        heard = f"last line received: {last[:60]!r}" if last else "nothing received"
+        raise HandshakeError(
+            f"No RoadSense handshake from {port} within {HANDSHAKE_TIMEOUT_S:g} s ({heard}). Is it "
+            f"the Arduino running the RoadSense firmware at {baud} baud?")
+
+    def _connect_failed(self, message: str) -> Dict[str, Any]:
+        """Report a failed connect: no source, and the reason. Caller holds _source_lock."""
+        self.connection_status, self.last_error = ConnectionStatus.ERROR.value, message
+        self._broadcast_status()
+        return {"status": "error", "message": message}
 
     def disconnect_serial(self) -> Dict[str, Any]:
         """Close the physical serial port; a running simulator is left alone."""
@@ -158,19 +254,33 @@ class WebTelemetryManager:
         self._source_thread.start()
 
     def _stop_source(self) -> None:
-        """End the current source and wait for its worker to exit. Caller holds _source_lock."""
+        """End the current source and wait for its worker to exit (a serial worker closes its
+        port on the way out). Caller holds _source_lock."""
         if self._source_stop is not None:
             self._source_stop.set()
-        if self._serial_port is not None:
-            try:
-                self._serial_port.close()
-            except Exception:
-                pass
-        if self._source_thread is not None:
+        if self._source_thread is not None and self._source_thread is not threading.current_thread():
             self._source_thread.join(timeout=2.0)
-        self._source_stop = self._source_thread = self._serial_port = None
+        self._source_stop = self._source_thread = None
         self.source, self.active_port = Source.NONE, None
-        self.connection_status = ConnectionStatus.DISCONNECTED.value
+        self.connection_status, self.last_error = ConnectionStatus.DISCONNECTED.value, None
+
+    def _end_failed_source(self, stop: threading.Event, status: ConnectionStatus, message: str) -> None:
+        """Called by a worker whose source failed: end that source and say why.
+
+        A source change may be stopping this worker at the same moment; it holds _source_lock
+        while it joins the worker, so wait for the lock only while `stop` is still clear.
+        """
+        while not self._source_lock.acquire(timeout=0.05):
+            if stop.is_set():
+                return
+        try:
+            if self._source_stop is stop:  # still the current source
+                self._stop_source()
+                self.connection_status, self.last_error = status.value, message
+                self._broadcast_status()
+                log.warning(message)
+        finally:
+            self._source_lock.release()
 
     def trigger_sim_event(self, event_type: str) -> Dict[str, Any]:
         """Manually trigger a synthetic POTHOLE or SPEED_BREAKER event."""
@@ -250,6 +360,7 @@ class WebTelemetryManager:
         return {
             "source": self.source.value,
             "connection_status": self.connection_status,
+            "last_error": self.last_error,
             "is_simulator": self.source is Source.SIMULATOR,
             "active_port": self.active_port,
             "active_baud": self.active_baud,
@@ -326,22 +437,31 @@ class WebTelemetryManager:
 
     # --- Internal Background Loops ---
 
-    def _serial_worker_loop(self, ser: serial.Serial, stop: threading.Event) -> None:
-        """Reads lines from the physical serial port until `stop` is set."""
-        while not stop.is_set() and ser.is_open:
-            try:
-                line_bytes = ser.readline()
-                if not line_bytes:
-                    continue
-                line = line_bytes.decode("utf-8", errors="replace").strip()
-                if not line:
-                    continue
-                self._handle_incoming_raw_line(line)
-            except Exception:
-                if stop.is_set():
-                    break  # the port was closed on purpose, not an error
-                self.connection_status = ConnectionStatus.ERROR.value
-                stop.wait(0.5)
+    def _serial_worker_loop(self, link: Tuple[serial.Serial, str, List[str], bytearray],
+                            stop: threading.Event) -> None:
+        """Stream the identified Arduino until `stop` is set.
+
+        The worker owns the port and closes it on the way out. If the Arduino is unplugged (or
+        reports an unsupported protocol), the source ends with the reason; it is not retried.
+        """
+        ser, port, lines, pending = link
+        failure = None
+        try:
+            while not stop.is_set():
+                for line in lines:
+                    if line:
+                        self._handle_incoming_raw_line(line)
+                lines = _read_lines(ser, pending)
+        except HandshakeError as exc:
+            failure = (ConnectionStatus.ERROR, str(exc))
+        except (serial.SerialException, OSError) as exc:
+            failure = (ConnectionStatus.LOST,
+                       f"Lost the serial connection to {port}. Was the Arduino unplugged? [{exc}]")
+        finally:
+            with suppress(OSError):
+                ser.close()
+        if failure and not stop.is_set():
+            self._end_failed_source(stop, *failure)
 
     def _simulator_worker_loop(self, profile: str, stop: threading.Event) -> None:
         """Generates realistic ~10Hz synthetic telemetry until `stop` is set."""
@@ -400,7 +520,10 @@ class WebTelemetryManager:
             stop.wait(SIM_PERIOD_S)  # returns at once on stop
 
     def _handle_incoming_raw_line(self, line: str) -> None:
-        """Parses line, updates metrics, records to DB, and broadcasts."""
+        """Parses line, updates metrics, records to DB, and broadcasts.
+
+        Raises HandshakeError for a HELLO from firmware that speaks another protocol version.
+        """
         now = datetime.now()
         self.recent_raw_lines.append(line)
         if len(self.recent_raw_lines) > 50:
@@ -416,7 +539,8 @@ class WebTelemetryManager:
             return
 
         if isinstance(parsed, Hello):
-            # Handshake received
+            # Handshake received (the first one, or again after the Arduino restarted)
+            _check_protocol(parsed, self.active_port)
             self._broadcast({
                 "type": "hello",
                 "version": parsed.version,

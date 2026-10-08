@@ -15,6 +15,8 @@ from typing import Optional, Union
 
 from .models import Hello, Packet, VALID_STATUSES
 
+PROTOCOL_VERSION = "1"  # the HELLO version this parser understands
+
 
 class MalformedMessage(ValueError):
     """Raised for a line that cannot be parsed into a valid message."""

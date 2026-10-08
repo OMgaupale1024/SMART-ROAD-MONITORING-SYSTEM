@@ -9,8 +9,10 @@ import os
 import sqlite3
 import threading
 import time
+from contextlib import contextmanager, nullcontext
 
 import pytest
+import serial
 
 from roadsense.database import Database
 from roadsense.repositories import SessionRepository, TelemetryRepository
@@ -118,29 +120,98 @@ def test_simulator_runs_only_between_explicit_start_and_stop(mgr, monkeypatch):
 
 
 def test_failed_serial_connect_reports_an_error_and_no_source(mgr):
-    assert mgr.connect_serial("/dev/roadsense-test-no-such-port")["status"] == "error"
+    result = mgr.connect_serial("/dev/roadsense-test-no-such-port")
+    assert result["status"] == "error" and "not found" in result["message"]
     status = mgr.get_status()
     assert (status["source"], status["connection_status"], status["active_port"]) == ("NONE", "Error", None)
+    assert status["last_error"] == result["message"]
     assert worker_threads() == []
 
 
+@pytest.mark.skipif(os.name != "posix" or os.geteuid() == 0, reason="needs file permissions that bind")
+def test_permission_denied_port_says_how_to_get_access(mgr, tmp_path):
+    port = tmp_path / "ttyACM0"
+    port.touch(mode=0o000)  # what /dev/ttyACM0 is to a Linux user outside its group
+    result = mgr.connect_serial(str(port))
+    assert result["status"] == "error"
+    assert "Permission denied" in result["message"] and "dialout" in result["message"]
+    assert mgr.get_status()["source"] == "NONE"
+
+
+class FakeArduino:
+    """A pseudo-terminal standing in for the Arduino's USB serial port.
+
+    Opening a UNO's port restarts it, and it greets the new reader with HELLO. Opening this one
+    doesn't, so `greeting` repeats a line until the connect waiting for it has returned.
+    """
+
+    def __init__(self):
+        self.controller, self._device = os.openpty()
+        self.port = os.ttyname(self._device)
+
+    def write(self, data):
+        os.write(self.controller, data)
+
+    @contextmanager
+    def greeting(self, line=b"HELLO,ROADSENSE,1\n"):
+        done = threading.Event()
+
+        def repeat():
+            while not done.wait(0.01):
+                self.write(line)
+
+        thread = threading.Thread(target=repeat, daemon=True)
+        thread.start()
+        try:
+            yield
+        finally:
+            done.set()
+            thread.join()
+
+    def unplug(self):
+        os.close(self.controller)  # the reader's next read fails, as when the USB cable is pulled
+        self.controller = None
+
+    def close(self):
+        if self.controller is not None:
+            os.close(self.controller)
+        os.close(self._device)
+
+
 @pytest.fixture
-def serial_device():
-    """A pseudo-terminal standing in for the Arduino's USB serial port: (port path, writer fd)."""
+def arduino():
     if not hasattr(os, "openpty"):
         pytest.skip("needs a POSIX pseudo-terminal")
-    controller, device = os.openpty()
-    yield os.ttyname(device), controller
-    os.close(controller)
-    os.close(device)
+    fake = FakeArduino()
+    yield fake
+    fake.close()
 
 
-def test_serial_source_streams_until_disconnected(mgr, serial_device):
-    port, arduino = serial_device
-    assert mgr.connect_serial(port)["status"] == "ok"
+def connect(mgr, arduino):
+    with arduino.greeting():
+        result = mgr.connect_serial(arduino.port)
+    assert result["status"] == "ok", result
+
+
+def port_is_free(port):
+    """Nothing holds the port: RoadSense opens it exclusively, and so does this."""
+    try:
+        serial.Serial(port, exclusive=True).close()
+        return True
+    except serial.SerialException:
+        return False
+
+
+def open_fds():
+    return len(os.listdir("/dev/fd"))
+
+
+def test_serial_source_streams_until_disconnected(mgr, arduino):
+    connect(mgr, arduino)
     status = mgr.get_status()
-    assert (status["source"], status["is_simulator"], status["active_port"]) == ("ARDUINO", False, port)
-    os.write(arduino, b"HELLO,ROADSENSE,1\nT,10,100,5,12.0,NORMAL\n")
+    assert (status["source"], status["is_simulator"], status["active_port"], status["connection_status"]) == (
+        "ARDUINO", False, arduino.port, "Connected")
+    arduino.write(b"T,10,100,5,12.0,NORMAL\n")
     wait_for(lambda: mgr.total_packets_received == 1)
 
     mgr.disconnect_serial()
@@ -148,15 +219,132 @@ def test_serial_source_streams_until_disconnected(mgr, serial_device):
     assert (status["source"], status["connection_status"], status["active_port"]) == (
         "NONE", "Disconnected", None)
     assert worker_threads() == []
+    assert port_is_free(arduino.port)  # the worker closed it on the way out
 
 
-def test_starting_the_simulator_replaces_the_serial_source(mgr, serial_device):
-    port, _ = serial_device
-    mgr.connect_serial(port)
+def test_starting_the_simulator_replaces_the_serial_source(mgr, arduino):
+    connect(mgr, arduino)
     mgr.start_simulator()
     status = mgr.get_status()
     assert (status["source"], status["active_port"]) == ("SIMULATOR", None)  # never "Arduino"
     assert worker_threads() == ["RoadSenseSimWorker"]
+    assert port_is_free(arduino.port)
+
+
+def test_arduino_is_identified_through_restart_noise_or_by_its_telemetry(mgr, arduino):
+    with arduino.greeting(b"\xff\x00\x13#\nHELLO,ROADSENSE,1\n"):  # noise is skipped, not fatal
+        assert mgr.connect_serial(arduino.port)["status"] == "ok"
+    mgr.disconnect_serial()
+
+    with arduino.greeting(b"T,5,100,5,NA,NORMAL\n"):  # HELLO missed: valid telemetry proves it too
+        assert mgr.connect_serial(arduino.port)["status"] == "ok"
+    assert mgr.get_status()["source"] == "ARDUINO"
+    wait_for(lambda: mgr.total_packets_received >= 1)  # the line that identified it is kept
+
+
+@pytest.mark.parametrize("greeting, reason", [
+    (None, "nothing received"),
+    (b"Temperature: 21.5 C\n", "last line received: 'Temperature: 21.5 C'"),  # another sketch
+    (b"HELLO,ROADSENSE,2\n", "protocol version '2'"),
+])
+def test_other_serial_devices_never_become_the_arduino(mgr, arduino, monkeypatch, greeting, reason):
+    monkeypatch.setattr(service, "HANDSHAKE_TIMEOUT_S", 1.0)
+    with arduino.greeting(greeting) if greeting else nullcontext():
+        result = mgr.connect_serial(arduino.port)
+    assert result["status"] == "error" and reason in result["message"], result
+    status = mgr.get_status()
+    assert (status["source"], status["connection_status"], status["active_port"]) == ("NONE", "Error", None)
+    assert status["last_error"] == result["message"]
+    assert mgr.total_packets_received == 0
+    assert worker_threads() == []
+    assert port_is_free(arduino.port)
+
+
+def test_unplugged_arduino_ends_the_source_and_can_be_reconnected(mgr, arduino, loop):
+    mgr.set_event_loop(loop)
+    updates = asyncio.Queue()
+    mgr.register_subscriber(updates)
+    sid = mgr.start_recording("drive")["session_id"]
+    fds = open_fds()
+    connect(mgr, arduino)
+    arduino.write(b"T,10,100,5,12.0,NORMAL\n")
+    wait_for(lambda: mgr.total_packets_received == 1)
+
+    arduino.unplug()
+    wait_for(lambda: worker_threads() == [])  # the worker ends its source, then exits
+    status = mgr.get_status()
+    assert (status["source"], status["active_port"]) == ("NONE", None)  # not left claiming the Arduino
+    assert status["connection_status"] == "Connection lost" and arduino.port in status["last_error"]
+    assert status["is_recording"]  # the session stays open for the reconnect
+    assert open_fds() == fds - 1  # the port is closed; only the unplugged end is gone
+    loop.run_until_complete(asyncio.sleep(0))
+    assert drain(updates)[-1]["status"]["connection_status"] == "Connection lost"  # dashboards learn it
+
+    replugged = FakeArduino()  # a fresh device node, as after plugging the cable back in
+    try:
+        connect(mgr, replugged)
+        replugged.write(b"T,20,100,5,12.0,NORMAL\n")
+        wait_for(lambda: mgr.total_packets_received == 2)
+        assert mgr.get_status()["last_error"] is None
+        stopped = mgr.stop_recording()
+        assert mgr.telemetry.count(sid) == stopped["telemetry_count"] == 2
+        mgr.disconnect_serial()
+    finally:
+        replugged.close()
+
+
+def test_every_source_transition_keeps_one_worker_and_a_consistent_recording(mgr, arduino, monkeypatch):
+    monkeypatch.setattr(service, "SIM_PERIOD_S", 0.005)
+    sid = mgr.start_recording("drive")["session_id"]
+
+    def arduino_source():
+        connect(mgr, arduino)
+        seen = mgr.total_packets_received
+        arduino.write(b"T,10,100,5,12.0,NORMAL\nE,10,-6800,18000,42.0,POTHOLE\n")
+        wait_for(lambda: mgr.total_packets_received == seen + 2)
+
+    def simulator_source():
+        mgr.start_simulator()
+        seen = mgr.total_packets_received
+        wait_for(lambda: mgr.total_packets_received >= seen + 3)
+
+    workers = {"NONE": [], "ARDUINO": ["RoadSenseSerialWorker"], "SIMULATOR": ["RoadSenseSimWorker"]}
+    for step, source in [
+        (arduino_source, "ARDUINO"),  # NONE -> ARDUINO
+        (mgr.disconnect_serial, "NONE"),  # ARDUINO -> NONE
+        (simulator_source, "SIMULATOR"),  # NONE -> SIMULATOR
+        (mgr.stop_simulator, "NONE"),  # SIMULATOR -> NONE
+        (simulator_source, "SIMULATOR"),
+        (arduino_source, "ARDUINO"),  # SIMULATOR -> ARDUINO
+        (simulator_source, "SIMULATOR"),  # ARDUINO -> SIMULATOR
+        (mgr.stop_simulator, "NONE"),
+    ]:
+        step()
+        assert mgr.get_status()["source"] == source
+        assert worker_threads() == workers[source]
+    assert port_is_free(arduino.port)
+
+    stopped = mgr.stop_recording()
+    assert stopped["event_count"] >= 2  # at least the Arduino's two POTHOLE events
+    persisted = (mgr.telemetry.count(sid), mgr.events.count(sid))
+    assert persisted == (stopped["telemetry_count"], stopped["event_count"])
+
+
+def test_repeated_connects_leak_no_threads_or_ports(mgr, arduino, monkeypatch):
+    monkeypatch.setattr(service, "READ_TIMEOUT_S", 0.01)
+    handshake_timeout = service.HANDSHAKE_TIMEOUT_S
+    threads, fds = threading.active_count(), open_fds()
+    for _ in range(10):
+        connect(mgr, arduino)
+        monkeypatch.setattr(service, "HANDSHAKE_TIMEOUT_S", 0.05)
+        assert mgr.connect_serial(arduino.port)["status"] == "error"  # silent now: no handshake
+        monkeypatch.setattr(service, "HANDSHAKE_TIMEOUT_S", handshake_timeout)
+        connect(mgr, arduino)
+        mgr.start_simulator()
+        assert worker_threads() == ["RoadSenseSimWorker"]
+    mgr.stop_simulator()
+    assert (threading.active_count(), open_fds()) == (threads, fds)
+    assert port_is_free(arduino.port)
 
 
 def test_only_packets_inside_a_recording_are_persisted(mgr):

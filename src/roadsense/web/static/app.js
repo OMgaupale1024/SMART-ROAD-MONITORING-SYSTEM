@@ -17,6 +17,7 @@ const state = {
   recordingTimerInterval: null,
   simProfile: 'normal',
   source: 'NONE', // NONE | ARDUINO | SIMULATOR, as reported by the server
+  lastError: null, // the server's last_error already shown in the terminal
   chartShock: null,
   chartDistance: null,
   maxChartPoints: 40,
@@ -264,6 +265,11 @@ function updateHeroStatus(status, shock) {
 
 function updateStatusFields(statusObj) {
   updateConnectionUI(statusObj.source, statusObj.connection_status, statusObj.active_port);
+  // Why a connect failed or the Arduino was lost (e.g. unplugged): shown once per new reason
+  if (statusObj.last_error && statusObj.last_error !== state.lastError) {
+    appendTerminalLine(`[SYSTEM] ${statusObj.last_error}`, 'term-err');
+  }
+  state.lastError = statusObj.last_error;
   updateRecordingUI(statusObj.is_recording, {
     telemetry: statusObj.session_telemetry_count,
     events: statusObj.session_event_count,
