@@ -5,8 +5,9 @@ Repository-owned Webots simulation for the RoadSense Digital Twin: a highway wit
 (Phase 2), the vehicles around it, seen by its own radars and tracked (Phase 3), and where those
 vehicles are heading and how risky that is: predicted trajectories, time to collision and a risk
 level (Phase 4), and the potholes on the road, seen by a simulated hazard camera and kept in a local
-hazard map (Phase 5). Not here yet: any response to a risk or a hazard (nothing brakes or steers),
-sharing hazards with other vehicles, or any link to the RoadSense backend, database or dashboard.
+hazard map (Phase 5), and one unified safety recommendation (Phase 6). Recommendations never
+feed the driving controls. Not here yet: active response, sharing hazards with other vehicles,
+or any link from this simulation to the RoadSense backend, database or dashboard.
 
 | Tool   | Version used                                                                |
 | ------ | --------------------------------------------------------------------------- |
@@ -31,6 +32,7 @@ controllers/roadsense_ego/
   risk.py                            conflicts, time to collision, risk levels, ego safety state
   hazards.py                         road-hazard detection record; the simulated hazard sensor
   hazard_map.py                      persistent local hazard map, queries, snapshot
+  safety.py                          unified risk, primary threat, action, target speed and reason
                                      (all but roadsense_ego.py: no Webots imports)
 THIRD_PARTY_NOTICES.md               what comes from Webots, what changed, Apache-2.0 text
 ```
@@ -379,6 +381,100 @@ Over 250 simulated seconds, replayed through the same code against the potholes'
 each pothole became exactly one hazard, `PH_001` to `PH_004`, first seen 59–62 m ahead and mapped
 within 0.13 m. Each got 11–13 detections without a duplicate and turned `behind` in the cycle the
 car passed it. All four were still in the map at the end, 3.7–4.4 km behind.
+
+## Unified safety recommendations (Phase 6)
+
+`safety.decide(timestamp, ego_speed_mps, assessments, reports, hazard_snapshot,
+adjacent_lanes=(), policy=Policy())` consumes ordinary RoadSense records from `risk.assess`,
+`perception.track_report` and `HazardMap.snapshot`. It imports no Webots APIs and changes no
+input. The controller evaluates it at 5 Hz and prints one `[RoadSense:DECISION]` line at 1 Hz,
+after the existing vehicle safety and hazard summaries. `unifiedSafetyState` is available locally
+for a future consumer; no endpoint, dashboard or control connection is added.
+
+This is an **academic recommendation baseline**, not certified braking or lane-change logic.
+The existing sample controller continues to drive exactly as before, even when the recommended
+speed is zero. Its nominal 80 km/h limit initializes `safety.Policy.nominal_speed_kmh`.
+
+### Road urgency and target speed
+
+Only ACTIVE potholes strictly ahead in the ego or adjacent lanes enter the dynamic threat list.
+The lookahead is `max(30 m, ego_speed × 8 s)`. Behind, off-road, unknown-lane, further-lane and
+out-of-range hazards remain in the persistent map but do not produce current warnings.
+Adjacent-lane hazards and confidence below 0.6 give CAUTION / MONITOR without reducing speed.
+
+For a confident ego-lane pothole, the baseline assumes a crossing speed `c` of 70%, 45% or 20%
+of nominal speed for LOW, MEDIUM or HIGH severity. These are tuning assumptions, not measured
+safe crossing speeds. With current speed `v` in m/s, reaction time `r = 1 s` and comfortable
+deceleration `a = 3 m/s²`, the distance needed to reach that crossing speed is:
+
+`d_comfortable = v*r + max(0, v² − c²)/(2*a)`
+
+If speeding above `c` within this distance, MEDIUM/HIGH potholes become HIGH urgency; LOW remains
+CAUTION. SLOW_DOWN becomes BRAKE for HIGH urgency inside the corresponding distance computed
+with strong deceleration `6 m/s²`. Potholes alone do not produce CRITICAL or emergency braking.
+The approach target varies continuously with distance `d`:
+
+`u = max(c, sqrt((a*r)² + c² + 2*a*d) − a*r)`
+
+The target is capped by nominal speed and current speed for a confident ego-lane hazard, then
+converted to km/h and rounded to one decimal. At most one unified action is emitted. All
+concurrent hazard speed caps are respected without replacing an imminent collision action.
+
+### Vehicle priority and actions
+
+Vehicle collision levels and TTC come unchanged from Phase 4. HIGH/CRITICAL collision warnings
+(normally TTC ≤ 3 s, including young HIGH tracks) always take priority over potholes. A HIGH
+pothole takes priority over a CAUTION vehicle conflict; a CAUTION vehicle takes priority over
+CAUTION road threats. Road ties use urgency, lower target speed, ego-lane relevance, distance,
+then stable hazard id. The nearest relevant hazard is reported separately from the primary.
+
+The stable string-valued `Action` enum is `MAINTAIN`, `MONITOR`, `SLOW_DOWN`, `BRAKE`,
+`EMERGENCY_BRAKE`, `CONSIDER_LANE_CHANGE`. Vehicle CAUTION recommends SLOW_DOWN, HIGH recommends
+BRAKE, CRITICAL recommends EMERGENCY_BRAKE with target zero. For the first two, the target is
+`max(0, v − a*max(reaction_time, 3 − TTC))`, capped by nominal speed, using comfortable/strong
+`a` respectively. This is an urgency-based speed reduction, not a collision-free speed solution;
+it does not optimize the braking response for a rear-end threat.
+
+### Lane-change gating
+
+For a confident MEDIUM/HIGH ego-lane pothole more than four seconds away, and no vehicle
+conflict or BRAKE recommendation, a known adjacent driving lane can be considered. The caller
+must supply lane availability; the default is unknown, so no lane change is suggested. The
+Webots adapter supplies only this world's three driving lanes, excluding the pedestrian lane,
+and only while the ego is centred in a lane and not already overtaking.
+
+A candidate lane is blocked by a relevant pothole, any track last observed over 0.5 s ago, or
+traffic whose current-to-four-second projected position overlaps the maneuver corridor. The
+corridor spans the ego lane through the destination lane, includes assumed vehicle widths,
+and requires longitudinal clearance of `max(15 m, 2*v)`. This deliberately overestimates
+occupancy; it is recommendation gating, not path planning or proof that blind spots are clear.
+
+### UnifiedSafetyState (plain dictionary)
+
+| Field | Meaning |
+| --- | --- |
+| `timestamp` | Simulation/sensor time, seconds |
+| `overall_risk` | SAFE, CAUTION, HIGH or CRITICAL driving urgency |
+| `primary_threat` | Null, or `{type: vehicle/road_hazard, id, reason}` |
+| `recommended_action` | One Action string |
+| `recommended_speed_kmh` | Finite target in `[0, nominal_speed_kmh]` |
+| `recommended_lane` | Null, left_lane or right_lane; only with CONSIDER_LANE_CHANGE |
+| `reason` | Explanation of the current recommendation |
+| `vehicle_safety` | Existing Phase 4 timestamp, overall_risk, most_critical_track, minimum_ttc_s, active_conflicts |
+| `road_safety` | relevant_hazards count, nearest_hazard id/null, dynamic hazards list |
+
+Each dynamic hazard contains `hazard_id`, `type`, `severity`, `confidence`, `distance_m`,
+`longitudinal_m`, `lateral_m`, `lane_relation`, `urgency`, `time_to_hazard_s` (null at rest),
+`recommended_action`, `recommended_speed_kmh`, and `reason`. Its action describes the road
+response in isolation; the top-level action is the single prioritized recommendation.
+
+Required malformed data raises `ValueError`, rather than silently generating SAFE. The caller
+is responsible for current, consistent sensor snapshots and sensor-health handling. Numbers
+are finite and bounded at the decision boundary; `json.dumps(state, allow_nan=False)` works.
+The map's world coordinates, observation counts and persistent records remain separate.
+
+Run `venv/bin/python -m pytest tests/test_ego_safety.py -q` without Webots. See
+[Phase 6 validation](PHASE6_VALIDATION.md) for observed demo sequences and performance.
 
 ## Run on macOS
 

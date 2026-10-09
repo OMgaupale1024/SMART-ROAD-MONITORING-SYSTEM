@@ -19,7 +19,8 @@
 # Added trajectory prediction and collision risk for the tracks, every radar cycle, printed once per
 # simulated second; the driving logic doesn't use them. Added road hazards: a hazard camera's object
 # recognition, every radar cycle, into a local hazard map, printed once per simulated second and when a
-# hazard is discovered; the driving logic doesn't use it either.
+# hazard is discovered; the driving logic doesn't use it either. Added unified safety recommendations
+# every radar cycle, printed once per simulated second; no recommendations feed the driving logic.
 
 """RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception, risk and
 road hazards."""
@@ -31,6 +32,7 @@ import hazards
 import perception
 import prediction
 import risk
+import safety
 import telemetry
 import tracking
 
@@ -144,6 +146,7 @@ reports, assessments = [], []  # the confirmed tracks and their collision risk, 
 hazardCamera = driver.getDevice("hazard camera")
 hazardCamera.recognitionEnable(RADAR_PERIOD_MS)
 hazardMap = hazard_map.HazardMap(driver.getName())
+safetyPolicy = safety.Policy(nominal_speed_kmh=maxSpeed)
 
 
 def ego_pose():
@@ -230,8 +233,22 @@ while driver.step() != -1:
         objects = [(tuple(o.position), o.model) for o in hazardCamera.getRecognitionObjects()]
         for hazard in hazardMap.update(hazards.simulated_detections(objects, now, pose)):
             print(hazard_map.format_event(now, hazard, pose))
+        hazardSnapshot = hazardMap.snapshot(now, pose)
+        # This world's three driving lanes; lane 3 is reserved for pedestrians. No suggestion while merging.
+        laneIndex = perception.lane_index(pose[1])
+        adjacentLanes = []
+        if laneIndex in (0, 1, 2) and overtakingSide is None:
+            laneCentre = perception.CARRIAGEWAY_Y[0] + (laneIndex + 0.5) * perception.LANE_WIDTH_M
+            if abs(pose[1] - laneCentre) < 0.6:
+                if laneIndex > 0:
+                    adjacentLanes.append("left_lane")
+                if laneIndex < 2:
+                    adjacentLanes.append("right_lane")
+        unifiedSafetyState = safety.decide(now, telemetryGps.getSpeed(), assessments, reports,
+                                           hazardSnapshot, adjacentLanes, safetyPolicy)
     if now >= nextPerception - 1e-6:
         nextPerception += PERCEPTION_PERIOD_S
         print(perception.format_summary(now, reports))
         print(risk.format_summary(now, reports, assessments))
-        print(hazard_map.format_summary(hazardMap.snapshot(now, pose)))
+        print(hazard_map.format_summary(hazardSnapshot))
+        print(safety.format_decision(unifiedSafetyState))

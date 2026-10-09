@@ -359,7 +359,7 @@ src/roadsense/
     static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js + icons
 deploy/roadsense.service  optional systemd unit (Raspberry Pi)
 tools/serial_sim.py test-only serial writer (virtual COM pair)
-simulation/webots/  Webots digital twin: highway, SUMO traffic, potholes, EGO_ROADSENSE car with radar tracking, collision risk and a hazard map (its own README)
+simulation/webots/  Webots digital twin: highway, SUMO traffic, potholes, EGO_ROADSENSE car with radar tracking, collision risk, a hazard map and unified safety recommendations (its own README)
 tests/              pytest suite
 docs/serial-protocol.md
 ```
