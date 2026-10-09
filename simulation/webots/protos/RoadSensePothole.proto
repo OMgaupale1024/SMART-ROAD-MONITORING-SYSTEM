@@ -1,0 +1,64 @@
+#VRML_SIM R2025b utf8
+# template language: javascript
+# A RoadSense road hazard for the digital twin: a pothole, drawn as a dark, irregular patch just above the road
+# surface. The road isn't deformed and the pothole has no bounding object, so vehicles drive over it unaffected.
+# EGO_ROADSENSE's `hazard camera` recognizes it (recognitionColors) and reads its label, the Solid's model:
+# "pothole severity=<severity> length=<size x> width=<size y> depth=<size z>".
+
+PROTO RoadSensePothole [
+  field SFVec3f    translation 0 0 0.01  # on the road, which roadsense_highway.wbt draws at z = 0.01
+  field SFRotation rotation    0 0 1 0
+  field SFString   name        "pothole"  # the simulation's name for it, not a RoadSense hazard id
+  field SFString{"LOW", "MEDIUM", "HIGH"} severity "MEDIUM"
+  field SFVec3f    size        0.8 0.6 0.04  # length (along x), width (along y) and depth, in m
+]
+{
+  %<
+    // an ellipse with a few bumps, as a fan of triangles around the centre
+    const length = fields.size.value.x;
+    const width = fields.size.value.y;
+    const n = 14;
+    let outline = [];
+    for (let i = 0; i < n; ++i) {
+      const a = 2 * Math.PI * i / n;
+      const r = 0.5 * (1 + 0.12 * Math.sin(3 * a + 0.5) + 0.07 * Math.cos(5 * a));
+      outline.push([length * r * Math.cos(a), width * r * Math.sin(a)]);
+    }
+  >%
+  Solid {
+    translation IS translation
+    rotation IS rotation
+    name IS name
+    model "pothole severity=%<= fields.severity.value >% length=%<= length >% width=%<= width >% depth=%<= fields.size.value.z >%"
+    recognitionColors [
+      0.2 0.18 0.16
+    ]
+    children [
+      %< for (const [scale, z, grey] of [[1.0, 0.004, 0.45], [0.75, 0.006, 0.03]]) { >%  # the broken edge, then the hole
+        Shape {
+          appearance PBRAppearance {
+            baseColor %<= grey >% %<= grey * 0.9 >% %<= grey * 0.8 >%
+            roughness 1
+            metalness 0
+          }
+          geometry IndexedFaceSet {
+            coord Coordinate {
+              point [
+                0 0 %<= z >%
+                %< for (const [x, y] of outline) { >%
+                  %<= scale * x >% %<= scale * y >% %<= z >%
+                %< } >%
+              ]
+            }
+            coordIndex [
+              %< for (let i = 1; i <= n; ++i) { >%
+                0 %<= i >% %<= i % n + 1 >% -1
+              %< } >%
+            ]
+          }
+          castShadows FALSE
+        }
+      %< } >%
+    ]
+  }
+}

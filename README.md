@@ -314,8 +314,8 @@ SIGTERM), the command-line options, the serial handshake, unplugging and every s
 switch (a pseudo-terminal stands in for the Arduino on macOS/Linux), a check that the web
 runtime never imports PySide6, and concurrency regression tests for recording while packets
 arrive. The web tests are skipped unless the `web` and `dev` extras are installed. The digital
-twin's ego-car telemetry, perception, tracking, prediction and risk helpers are tested too, without
-Webots.
+twin's ego-car telemetry, perception, tracking, prediction, risk and road-hazard helpers are tested
+too, without Webots.
 
 ```powershell
 pip install -e ".[desktop,web,dev]"
@@ -359,7 +359,7 @@ src/roadsense/
     static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js + icons
 deploy/roadsense.service  optional systemd unit (Raspberry Pi)
 tools/serial_sim.py test-only serial writer (virtual COM pair)
-simulation/webots/  Webots digital twin: highway, SUMO traffic, EGO_ROADSENSE car with radar tracking and collision risk (its own README)
+simulation/webots/  Webots digital twin: highway, SUMO traffic, potholes, EGO_ROADSENSE car with radar tracking, collision risk and a hazard map (its own README)
 tests/              pytest suite
 docs/serial-protocol.md
 ```

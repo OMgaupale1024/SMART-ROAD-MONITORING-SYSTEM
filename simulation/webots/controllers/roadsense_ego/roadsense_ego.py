@@ -17,12 +17,17 @@
 # inertial unit, printed once per simulated second); removed the unused camera lookup. Added
 # nearby-vehicle perception: two radars, tracked every radar cycle, printed once per simulated second.
 # Added trajectory prediction and collision risk for the tracks, every radar cycle, printed once per
-# simulated second; the driving logic doesn't use them.
+# simulated second; the driving logic doesn't use them. Added road hazards: a hazard camera's object
+# recognition, every radar cycle, into a local hazard map, printed once per simulated second and when a
+# hazard is discovered; the driving logic doesn't use it either.
 
-"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception and risk."""
+"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception, risk and
+road hazards."""
 
 from vehicle import Driver
 
+import hazard_map
+import hazards
 import perception
 import prediction
 import risk
@@ -135,6 +140,10 @@ tracker = tracking.Tracker()
 nextRadarCycle = RADAR_PERIOD_MS / 1000.0
 nextPerception = PERCEPTION_PERIOD_S
 reports, assessments = [], []  # the confirmed tracks and their collision risk, as of the latest radar cycle
+# road hazards: the hazard camera's object recognition (simulated pothole sensing), read every radar cycle
+hazardCamera = driver.getDevice("hazard camera")
+hazardCamera.recognitionEnable(RADAR_PERIOD_MS)
+hazardMap = hazard_map.HazardMap(driver.getName())
 
 
 def ego_pose():
@@ -203,7 +212,8 @@ while driver.step() != -1:
                                        currentLane)
         previousTelemetry = (now, groundSpeed)
         print(telemetry.format_line(record))
-    # perception, prediction and risk every radar cycle, printed once per PERCEPTION_PERIOD_S of simulated time
+    # perception, prediction, risk and road hazards every radar cycle, printed once per PERCEPTION_PERIOD_S of
+    # simulated time
     # (a multiple of the radar period, so the print follows a radar cycle in the same step)
     if now >= nextRadarCycle - 1e-6:
         nextRadarCycle += RADAR_PERIOD_MS / 1000.0
@@ -217,7 +227,11 @@ while driver.step() != -1:
         egoVelocity = telemetryGps.getSpeedVector()[:2]
         reports = [perception.track_report(track, now, pose, egoVelocity) for track in tracker.confirmed]
         assessments = [risk.assess(report, prediction.predict(report)) for report in reports]
+        objects = [(tuple(o.position), o.model) for o in hazardCamera.getRecognitionObjects()]
+        for hazard in hazardMap.update(hazards.simulated_detections(objects, now, pose)):
+            print(hazard_map.format_event(now, hazard, pose))
     if now >= nextPerception - 1e-6:
         nextPerception += PERCEPTION_PERIOD_S
         print(perception.format_summary(now, reports))
         print(risk.format_summary(now, reports, assessments))
+        print(hazard_map.format_summary(hazardMap.snapshot(now, pose)))

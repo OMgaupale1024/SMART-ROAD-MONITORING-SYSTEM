@@ -4,8 +4,9 @@ Repository-owned Webots simulation for the RoadSense Digital Twin: a highway wit
 (Phase 1) and one RoadSense car, `EGO_ROADSENSE`, that drives itself and prints local telemetry
 (Phase 2), the vehicles around it, seen by its own radars and tracked (Phase 3), and where those
 vehicles are heading and how risky that is: predicted trajectories, time to collision and a risk
-level (Phase 4). Not here yet: hazard detection, collision avoidance (nothing brakes or steers for
-a risk), or any link to the RoadSense backend, database or dashboard.
+level (Phase 4), and the potholes on the road, seen by a simulated hazard camera and kept in a local
+hazard map (Phase 5). Not here yet: any response to a risk or a hazard (nothing brakes or steers),
+sharing hazards with other vehicles, or any link to the RoadSense backend, database or dashboard.
 
 | Tool   | Version used                                                                |
 | ------ | --------------------------------------------------------------------------- |
@@ -19,6 +20,8 @@ worlds/
   roadsense_highway.wbt              the world
   roadsense_highway_net/             SUMO network, routes and config (loaded from <world>_net/)
   forest/roadsense_highway/1.forest  tree positions, read relative to the world
+protos/
+  RoadSensePothole.proto             the simulation's pothole
 controllers/roadsense_ego/
   roadsense_ego.py                   EGO_ROADSENSE's controller
   telemetry.py                       telemetry record and console line (no Webots imports)
@@ -26,6 +29,8 @@ controllers/roadsense_ego/
   tracking.py                        nearby-vehicle tracker
   prediction.py                      track trajectories (constant velocity)
   risk.py                            conflicts, time to collision, risk levels, ego safety state
+  hazards.py                         road-hazard detection record; the simulated hazard sensor
+  hazard_map.py                      persistent local hazard map, queries, snapshot
                                      (all but roadsense_ego.py: no Webots imports)
 THIRD_PARTY_NOTICES.md               what comes from Webots, what changed, Apache-2.0 text
 ```
@@ -61,6 +66,7 @@ The ego car is the world's Lincoln MKZ:
   `inertial unit`.
 - Added for perception: `radar front` and `radar rear`, see [Perception](#perception). What it
   makes of the tracks: [Prediction and risk](#prediction-and-risk).
+- Added for road hazards: `hazard camera`, see [Road hazards](#road-hazards).
 
 ### Telemetry
 
@@ -263,6 +269,117 @@ at 8 m/s went from `CAUTION` (TTC 4.4 s) to `HIGH` (2.4 s), then back to `SAFE` 
 controller had slowed down, and a car cutting in front at the start was `CRITICAL` (TTC 0.6 s)
 while the controller braked hard.
 
+### Road hazards
+
+`EGO_ROADSENSE` finds the potholes on the road ahead with a simulated hazard camera and keeps them
+in a local hazard map, where they stay after it has passed them. `hazards.py` and `hazard_map.py`
+don't depend on Webots, so a real camera, an IMU or another vehicle can feed the same map later.
+The driving logic ignores the hazards: nothing brakes, steers or slows down for a pothole.
+
+**Potholes** (`protos/RoadSensePothole.proto`, RoadSense's own PROTO): a dark, irregular patch with
+a lighter broken edge, drawn just above the road, with a `severity` (`LOW`, `MEDIUM` or `HIGH`) and
+a `size` (length, width, depth). The road isn't deformed and the pothole has no bounding object,
+so vehicles drive over it unaffected: it is a semantic hazard. The world has four, placed where
+`EGO_ROADSENSE` meets them in its first minute:
+
+| Simulation object | World x, y      | Lane                                          | Severity | Size (m)          | Found at |
+| ----------------- | --------------- | --------------------------------------------- | -------- | ----------------- | -------- |
+| `POTHOLE_A`       | −470, 3.3       | next to the median (`EGO_ROADSENSE`'s from 15 s) | `HIGH`   | 1.4 × 1.0, 8 cm deep | ~20 s    |
+| `POTHOLE_B`       | −700, 6.9       | middle                                        | `MEDIUM` | 0.9 × 0.7, 4 cm   | ~31 s    |
+| `POTHOLE_C`       | −950, 3.0       | next to the median                            | `LOW`    | 0.6 × 0.45, 2 cm  | ~42 s    |
+| `POTHOLE_D`       | −1200, 10.7     | right                                         | `MEDIUM` | 1.0 × 0.8, 5 cm   | ~53 s    |
+
+The severities follow the depth, as pavement-distress ratings often do: under 2.5 cm `LOW`,
+2.5–5 cm `MEDIUM`, deeper `HIGH`.
+
+**Simulated hazard sensor** (simulation only). `hazard camera` sits on the roof
+(`sensorsSlotTop`, 1.61 m ahead of the car's origin, facing forward): a Webots `Camera` with object
+recognition, 0.87 rad (50°) wide, up to 60 m, not through a vehicle in the way. It is never
+rendered (recognition works without enabling the camera). Its 512 × 256 resolution matters only
+because Webots drops recognized objects smaller than a pixel, and Webots sizes a pothole by its
+bounding sphere: at that resolution every pothole counts up to 60 m. Each recognized pothole comes
+with its label, the PROTO's `model` (`pothole severity=HIGH length=1.4 width=1 depth=0.08`), and
+`hazards.simulated_detections` turns it into a detection on the ground using the car's pose.
+Everything else the camera recognizes (vehicles, the road, the barriers) is ignored. A pothole in
+the car's lane is seen from 60 m until about 7 m ahead, when it drops below the camera's view; one
+in another lane leaves the side of the view sooner. At 80 km/h that is about a dozen detections.
+
+**Detection** (`hazards.HazardDetection`): `timestamp`, `source` (`webots_simulated_road_sensor`),
+`hazard_type` (`pothole`), `world_x`, `world_y`, `severity`, `confidence` (0.9 for the
+simulation's detections) and `dimensions` (`length_m`, `width_m`, `depth_m`, or `None`).
+
+**Hazard map** (`hazard_map.HazardMap`):
+
+- A detection within 2 m of a hazard of its type is that hazard (lanes are 3.75 m apart);
+  otherwise it is a new hazard. Malformed detections are skipped.
+- RoadSense numbers the hazards in the order it finds them: `PH_001`, `PH_002`… for potholes
+  (`HZ_001`… for other types). Ids are never reused; the simulation's names aren't used.
+- Each further detection moves the position to the mean of all, updates `last_seen_s` and the
+  dimensions, keeps the highest severity reported, and raises the confidence: it closes 0.1 × the
+  detection's confidence of the gap to 1, up to 0.99. A pothole goes from 0.90 to about 0.97.
+- Nothing is removed: every hazard's `status` is `ACTIVE`.
+
+Road-hazard severity (`LOW`, `MEDIUM`, `HIGH`) is a property of the road, not a collision risk:
+`risk.py` doesn't use it.
+
+| Hazard field                  | Unit | Value                                                     |
+| ----------------------------- | ---- | --------------------------------------------------------- |
+| `hazard_id`                   |      | `PH_001`, `PH_002`…                                       |
+| `type`                        |      | `pothole`                                                 |
+| `world_position` (`x`, `y`)   | m    | the mean of its detections, world frame                   |
+| `severity`                    |      | the highest reported                                      |
+| `confidence`                  |      | 0 to 0.99                                                 |
+| `dimensions`                  | m    | `length_m`, `width_m`, `depth_m`, or `None`               |
+| `first_seen_s`, `last_seen_s` | s    | simulation time                                           |
+| `observation_count`           |      | detections merged into it                                 |
+| `source_vehicle`              |      | `EGO_ROADSENSE`                                           |
+| `source`                      |      | the sensor of its latest detection                        |
+| `status`                      |      | `ACTIVE`                                                  |
+
+**Relative to `EGO_ROADSENSE`.** The map stores world positions; where a hazard is relative to
+the car is worked out from the car's current pose when asked: `longitudinal_m` and `lateral_m` in
+the ego frame (x ahead, y left, origin at the rear axle), `distance_m`, `bearing_deg`,
+`direction` (`ahead` or `behind` the rear axle) and `lane_relation`: `ego_lane`, `left_lane`,
+`right_lane`, `other_lane` (further over), `off_road` (off `EGO_ROADSENSE`'s carriageway) or
+`unknown` (`EGO_ROADSENSE` off it), from this world's lanes in `perception.py`.
+
+**Queries:** `get(hazard_id)`, `active_hazards()`, `nearest_hazard(pose)` (ahead or behind),
+`hazards_ahead(pose, max_distance_m=None)` (nearest first) and `snapshot(t, pose)`: the whole map
+as plain dicts, lists and numbers, each hazard with its relative state, ready for JSON:
+
+```json
+{"timestamp": 31.0, "source_vehicle": "EGO_ROADSENSE", "hazards": [
+  {"hazard_id": "PH_001", "type": "pothole", "world_position": {"x": -469.96, "y": 3.42},
+   "severity": "HIGH", "confidence": 0.968, "dimensions": {"length_m": 1.4, "width_m": 1.0, "depth_m": 0.08},
+   "first_seen_s": 20.4, "last_seen_s": 22.8, "observation_count": 13, "source_vehicle": "EGO_ROADSENSE",
+   "source": "webots_simulated_road_sensor", "status": "ACTIVE",
+   "relative": {"longitudinal_m": -175.38, "lateral_m": -0.22, "distance_m": 175.38, "bearing_deg": -179.9,
+                "lane_relation": "ego_lane", "direction": "behind"}},
+  {"hazard_id": "PH_002", …, "relative": {"longitudinal_m": 54.67, "lateral_m": -3.79, …}}]}
+```
+
+The controller prints a line as soon as it finds a hazard:
+
+```
+[RoadSense:HAZARD_EVENT] t=20.4s discovered PH_001 type=pothole severity=HIGH distance=60.2m lane=ego_lane conf=0.90
+```
+
+and, once per simulated second after the safety summary, the map: its size, the nearest hazard
+ahead and one line per hazard:
+
+```
+[RoadSense:HAZARD] t=31.0s map=2 ahead=1 nearest_ahead=PH_002@54.8m severity=MEDIUM lane=right_lane
+  PH_001 pothole behind 175.4m ego_lane   HIGH   conf=0.97 obs=13
+  PH_002 pothole ahead   54.8m right_lane MEDIUM conf=0.91 obs=2
+```
+
+`tests/test_ego_hazards.py` tests detections, the map and the output without Webots.
+
+Over 250 simulated seconds, replayed through the same code against the potholes' true positions:
+each pothole became exactly one hazard, `PH_001` to `PH_004`, first seen 59–62 m ahead and mapped
+within 0.13 m. Each got 11–13 detections without a duplicate and turned `behind` in the cycle the
+car passed it. All four were still in the map at the end, 3.7–4.4 km behind.
+
 ## Run on macOS
 
 From the repository root:
@@ -307,3 +424,7 @@ Don't edit Webots' own files under `/Applications/Webots.app` to remove these wa
   lane change's conflict start and end about half a second to a second late.
 - A radar target has no size: a bus or truck is taken for a 5 m car, so its conflict comes a few
   tenths of a second late at highway closing speeds.
+- The hazard camera reads the simulation's labels, so it never misses, invents or misjudges a
+  pothole in view; positions are off by about 0.1 m (Webots places a recognized object at its
+  bounding sphere's centre). Nothing is ever removed from the hazard map.
+- Hazard lane relations use this world's straight carriageway, like the vehicles'.

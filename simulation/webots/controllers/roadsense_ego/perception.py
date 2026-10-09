@@ -73,7 +73,7 @@ def radar_detections(name, targets, limits, t, pose):
     return detections
 
 
-def _lane(world_y):
+def lane_index(world_y):
     """Lane index on EGO_ROADSENSE's carriageway, 0 next to the median and counting rightwards; None off it."""
     low, high = CARRIAGEWAY_Y
     return int((world_y - low) // LANE_WIDTH_M) if low <= world_y < high else None
@@ -81,7 +81,7 @@ def _lane(world_y):
 
 def lane_relation(target_world_y, ego_world_y):
     """ego_lane, left_lane, right_lane, or other (further away, off the carriageway, or oncoming)."""
-    target, ego = _lane(target_world_y), _lane(ego_world_y)
+    target, ego = lane_index(target_world_y), lane_index(ego_world_y)
     if target is None or ego is None:
         return "other"
     return {0: "ego_lane", -1: "left_lane", 1: "right_lane"}.get(target - ego, "other")
