@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Tab Navigation ---
 function initTabs() {
-  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabButtons = document.querySelectorAll('.tab-btn[data-tab]'); // not the Autonomy link
   const tabContents = document.querySelectorAll('.tab-content');
 
   tabButtons.forEach(btn => {

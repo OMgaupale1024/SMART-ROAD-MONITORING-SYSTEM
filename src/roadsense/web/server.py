@@ -235,6 +235,12 @@ def serve_index():
     return HTMLResponse("<h1>RoadSense Web Dashboard loading...</h1>")
 
 
+@app.get("/autonomy")
+def serve_autonomy():
+    """The 3D view of the digital twin's live state (/ws/live)."""
+    return FileResponse(STATIC_DIR / "autonomy" / "index.html")
+
+
 def run_web(host: str = "127.0.0.1", port: int = 8000, open_browser: bool = True):
     import uvicorn
 

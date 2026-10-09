@@ -1,7 +1,8 @@
 # RoadSense Live State (`roadsense.live.v1`)
 
 The Webots digital twin can stream RoadSense's state to the RoadSense web server, which keeps the
-latest state and passes it on to any number of WebSocket clients, such as the future 3D dashboard.
+latest state and passes it on to any number of WebSocket clients, such as the 3D dashboard at
+`/autonomy` ([autonomy-dashboard.md](autonomy-dashboard.md)).
 Each message is one **snapshot**: everything RoadSense worked out in one 200 ms processing cycle —
 the car, the tracked vehicles with their predicted paths and collision risk, the hazard map and the
 unified safety recommendation. A client only draws it; it computes no tracking, prediction, TTC,

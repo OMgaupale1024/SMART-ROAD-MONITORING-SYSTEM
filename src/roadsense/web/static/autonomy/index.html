@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoadSense Autonomy</title>
+  <meta name="description" content="Live 3D view of what RoadSense perceives and recommends in the Webots digital twin.">
+  <!-- Every asset is served locally, like the telemetry dashboard: no internet connection needed. -->
+  <link rel="stylesheet" href="/static/autonomy/autonomy.css">
+  <link rel="icon" href="data:,">
+  <script type="module" src="/static/autonomy/main.js"></script>
+</head>
+<body data-status="CONNECTING">
+  <header class="bar">
+    <h1 class="brand">RoadSense Autonomy</h1>
+    <a class="nav-link" href="/">Telemetry dashboard</a>
+    <div class="bar-end">
+      <div class="status" role="status">
+        <span class="status-dot" aria-hidden="true"></span><span id="statusText">CONNECTING</span>
+      </div>
+      <div class="sim-time" title="Simulation time of the latest snapshot">
+        <span class="unit">t</span> <span id="simTime" class="num">—</span> <span class="unit">s</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="view" aria-label="3D view of the road around EGO_ROADSENSE">
+      <canvas id="scene" role="img" aria-label="EGO_ROADSENSE with the tracked vehicles, their predicted paths and the mapped potholes"></canvas>
+      <div class="labels" id="labels" aria-hidden="true"></div>
+      <div class="notice" id="notice" hidden>
+        <p class="notice-title" id="noticeTitle"></p>
+        <p class="notice-text" id="noticeText"></p>
+        <code class="notice-code" id="noticeCode" hidden></code>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <section class="block safety" id="safety" data-risk="">
+        <h2>Safety decision</h2>
+        <p class="risk-word" id="safetyRisk" aria-live="polite">—</p>
+        <p class="action" id="safetyAction">—</p>
+        <dl class="pairs">
+          <div><dt>Target speed</dt><dd><span class="num" id="safetyTarget">—</span> <span class="unit">km/h</span></dd></div>
+          <div><dt>Recommended lane</dt><dd id="safetyLane">—</dd></div>
+        </dl>
+        <p class="reason" id="safetyReason"></p>
+      </section>
+
+      <section class="block threat" id="threat" data-risk="">
+        <h2>Primary threat</h2>
+        <div class="threat-head">
+          <p class="threat-id" id="threatId">None</p>
+          <p class="chip" id="threatRisk" hidden></p>
+        </div>
+        <p class="threat-facts" id="threatFacts"></p>
+      </section>
+
+      <section class="block hazards">
+        <h2>Hazard map <span class="count num" id="hazardCount">0</span></h2>
+        <ol class="hazard-list" id="hazardList"></ol>
+        <p class="empty" id="hazardEmpty">No hazards mapped yet.</p>
+      </section>
+
+      <section class="block events">
+        <h2>Events</h2>
+        <ol class="event-list" id="eventList"></ol>
+        <p class="empty" id="eventEmpty">Changes in risk, hazards and recommendations appear here.</p>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="strip" aria-label="Instruments">
+    <div class="gauge gauge-speed">
+      <span class="gauge-label">Speed</span>
+      <span class="gauge-value"><span class="num" id="mSpeed">—</span> <span class="unit">km/h</span></span>
+    </div>
+    <div class="gauge">
+      <span class="gauge-label">Target speed</span>
+      <span class="gauge-value"><span class="num" id="mTarget">—</span> <span class="unit">km/h</span></span>
+    </div>
+    <div class="gauge">
+      <span class="gauge-label">Minimum TTC</span>
+      <span class="gauge-value"><span class="num" id="mTtc">—</span></span>
+    </div>
+    <div class="gauge">
+      <span class="gauge-label">Tracks</span>
+      <span class="gauge-value"><span class="num" id="mTracks">—</span></span>
+    </div>
+    <div class="gauge">
+      <span class="gauge-label">Mapped hazards</span>
+      <span class="gauge-value"><span class="num" id="mHazards">—</span></span>
+    </div>
+    <div class="gauge">
+      <span class="gauge-label">Lane</span>
+      <span class="gauge-value"><span class="num" id="mLane">—</span> <span class="unit" id="mLaneNote"></span></span>
+    </div>
+  </footer>
+</body>
+</html>

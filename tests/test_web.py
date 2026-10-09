@@ -153,6 +153,40 @@ def test_dashboard_loads_every_asset_from_this_server(client):
     assert not re.search(r"https?://", client.get("/static/app.js").text)
 
 
+def test_autonomy_page_and_every_module_it_imports_come_from_this_server(client):
+    """The 3D page's scripts are ES modules: follow their imports (and three.js's own) as a browser would."""
+    page = client.get("/autonomy")
+    assert page.status_code == 200 and "text/html" in page.headers["content-type"]
+    parser = AssetRefs()
+    parser.feed(page.text)
+    assert "/static/autonomy/main.js" in parser.refs
+    pending, fetched = list(parser.refs), set()
+    while pending:
+        ref = pending.pop()
+        assert not is_remote(ref), ref
+        if ref in fetched:
+            continue
+        response = client.get(ref)
+        assert response.status_code == 200, ref
+        fetched.add(ref)
+        if ref.endswith(".js"):
+            assert "javascript" in response.headers["content-type"], ref  # browsers refuse modules served otherwise
+            for spec in re.findall(r"""\bfrom\s*["']([^"']+)["']|\bimport\s*\(?\s*["']([^"']+)["']""", response.text):
+                spec = "".join(spec)
+                assert spec.startswith((".", "/")) or is_remote(spec), f"{ref} imports {spec!r}: no import map here"
+                pending.append(spec if is_remote(spec) else urljoin(ref, spec))
+    assert {"/static/autonomy/live.js", "/static/autonomy/view.js", "/static/autonomy/scene.js",
+            "/static/vendor/three/three.module.min.js", "/static/vendor/three/three.core.min.js"} <= fetched
+    for ref in fetched:
+        if ref.startswith("/static/autonomy/"):
+            assert not re.search(r"https?://", client.get(ref).text), ref
+
+
+def test_dashboard_and_autonomy_page_link_to_each_other(client):
+    assert 'href="/autonomy"' in client.get("/").text
+    assert 'href="/"' in client.get("/autonomy").text
+
+
 def test_dashboard_starts_even_if_charts_fail():
     """A browser can't run here, so this pins the guard itself: a chart error is logged and
     startup goes on to open the WebSocket. (Checked in a real browser for v0.2.1.)"""

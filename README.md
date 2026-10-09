@@ -75,7 +75,7 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
   the hazard event log and the raw serial lines.
 - Records sessions to the same SQLite database as the desktop app; lists past sessions and
   downloads each as a ZIP of `telemetry.csv`, `events.csv`, `session_metadata.csv`.
-- Works without internet access: Chart.js and the Font Awesome icons are bundled in
+- Works without internet access: Chart.js, three.js and the Font Awesome icons are bundled in
   `web/static/vendor/` (with their licenses) and text uses system fonts, so the page only
   ever talks to the local RoadSense server.
 - A browser tab that falls behind (e.g. a busy laptop) skips stale telemetry and catches up
@@ -86,6 +86,11 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
   processing cycle to `/api/live-state`; `GET /api/live-state` returns the latest and the
   `/ws/live` WebSocket streams them to any number of clients. See
   [docs/live-state.md](docs/live-state.md).
+- **Autonomy 3D** (`/autonomy`, also in the tab bar): that live state drawn in 3D around the
+  digital twin's car: the lanes, the tracked vehicles with their predicted paths, TTC and risk,
+  the mapped potholes, and RoadSense's safety decision, primary threat and recent events. It
+  draws what RoadSense sends and decides nothing itself. See
+  [docs/autonomy-dashboard.md](docs/autonomy-dashboard.md).
 
 ---
 
@@ -320,6 +325,10 @@ runtime never imports PySide6, and concurrency regression tests for recording wh
 arrive. The web tests are skipped unless the `web` and `dev` extras are installed. The digital
 twin's ego-car telemetry, perception, tracking, prediction, risk, road-hazard, safety and live-state
 helpers are tested too, without Webots, as are the live-state routes and stream, end to end.
+The 3D dashboard's JavaScript (snapshot checks, connection states, the mapping to the 3D view,
+labels, the event feed, the WebSocket's life) has its own tests on recorded snapshots, run with
+Node's built-in test runner: `node --test tests/js/` (Node 22.7 or later; `pytest` runs them
+too when it finds Node).
 
 ```powershell
 pip install -e ".[desktop,web,dev]"
@@ -361,14 +370,16 @@ src/roadsense/
     server.py       FastAPI app: REST API, /ws/telemetry and /ws/live WebSockets, static UI
     service.py      serial/simulator reader, recording, ZIP export
     live.py         the digital twin's latest live state and its WebSocket clients
-    static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js + icons
+    static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js, three.js + icons
+      autonomy/     the 3D dashboard (/autonomy): live.js, view.js, scene.js, main.js
 deploy/roadsense.service  optional systemd unit (Raspberry Pi)
 tools/serial_sim.py test-only serial writer (virtual COM pair)
 tools/live_listen.py prints the live-state stream (no dashboard needed)
 simulation/webots/  Webots digital twin: highway, SUMO traffic, potholes, EGO_ROADSENSE car with radar tracking, collision risk, a hazard map and unified safety recommendations, streamed live to the web server (its own README)
-tests/              pytest suite
+tests/              pytest suite; tests/js/ the 3D dashboard's Node tests
 docs/serial-protocol.md
 docs/live-state.md   live-state snapshot, routes and coordinates
+docs/autonomy-dashboard.md  the 3D dashboard: running it, what it shows, its states
 ```
 
 Separation is intentional: UI ⟂ serial I/O ⟂ parsing ⟂ storage ⟂ business logic ⟂ export.

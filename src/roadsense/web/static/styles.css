@@ -311,6 +311,9 @@ body {
   white-space: nowrap;
   transition: all 0.2s ease;
 }
+a.tab-btn {
+  text-decoration: none;
+}
 .tab-btn:hover {
   color: var(--text-primary);
   background: rgba(255, 255, 255, 0.05);
