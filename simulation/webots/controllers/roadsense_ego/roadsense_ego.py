@@ -16,12 +16,16 @@
 # and renamed; the driving logic is unchanged. Added EGO_ROADSENSE telemetry (telemetry GPS and
 # inertial unit, printed once per simulated second); removed the unused camera lookup. Added
 # nearby-vehicle perception: two radars, tracked every radar cycle, printed once per simulated second.
+# Added trajectory prediction and collision risk for the tracks, every radar cycle, printed once per
+# simulated second; the driving logic doesn't use them.
 
-"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry and perception."""
+"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception and risk."""
 
 from vehicle import Driver
 
 import perception
+import prediction
+import risk
 import telemetry
 import tracking
 
@@ -130,6 +134,7 @@ for radar in radars.values():
 tracker = tracking.Tracker()
 nextRadarCycle = RADAR_PERIOD_MS / 1000.0
 nextPerception = PERCEPTION_PERIOD_S
+reports, assessments = [], []  # the confirmed tracks and their collision risk, as of the latest radar cycle
 
 
 def ego_pose():
@@ -198,7 +203,8 @@ while driver.step() != -1:
                                        currentLane)
         previousTelemetry = (now, groundSpeed)
         print(telemetry.format_line(record))
-    # perception: track every radar cycle, print once per PERCEPTION_PERIOD_S of simulated time
+    # perception, prediction and risk every radar cycle, printed once per PERCEPTION_PERIOD_S of simulated time
+    # (a multiple of the radar period, so the print follows a radar cycle in the same step)
     if now >= nextRadarCycle - 1e-6:
         nextRadarCycle += RADAR_PERIOD_MS / 1000.0
         pose = ego_pose()
@@ -208,8 +214,10 @@ while driver.step() != -1:
             limits = (radar.getMinRange(), radar.getMaxRange(), radar.getHorizontalFov())
             detections += perception.radar_detections(name, targets, limits, now, pose)
         tracker.update(now, detections)
+        egoVelocity = telemetryGps.getSpeedVector()[:2]
+        reports = [perception.track_report(track, now, pose, egoVelocity) for track in tracker.confirmed]
+        assessments = [risk.assess(report, prediction.predict(report)) for report in reports]
     if now >= nextPerception - 1e-6:
         nextPerception += PERCEPTION_PERIOD_S
-        pose, egoVelocity = ego_pose(), telemetryGps.getSpeedVector()[:2]
-        print(perception.format_summary(now, [perception.track_report(track, now, pose, egoVelocity)
-                                              for track in tracker.confirmed]))
+        print(perception.format_summary(now, reports))
+        print(risk.format_summary(now, reports, assessments))

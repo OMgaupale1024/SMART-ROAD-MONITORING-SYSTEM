@@ -2,9 +2,10 @@
 
 Repository-owned Webots simulation for the RoadSense Digital Twin: a highway with SUMO traffic
 (Phase 1) and one RoadSense car, `EGO_ROADSENSE`, that drives itself and prints local telemetry
-(Phase 2) and the vehicles around it, seen by its own radars and tracked (Phase 3). Not here yet:
-hazard detection, trajectory prediction, time-to-collision, collision avoidance, or any link to the
-RoadSense backend, database or dashboard.
+(Phase 2), the vehicles around it, seen by its own radars and tracked (Phase 3), and where those
+vehicles are heading and how risky that is: predicted trajectories, time to collision and a risk
+level (Phase 4). Not here yet: hazard detection, collision avoidance (nothing brakes or steers for
+a risk), or any link to the RoadSense backend, database or dashboard.
 
 | Tool   | Version used                                                                |
 | ------ | --------------------------------------------------------------------------- |
@@ -22,7 +23,10 @@ controllers/roadsense_ego/
   roadsense_ego.py                   EGO_ROADSENSE's controller
   telemetry.py                       telemetry record and console line (no Webots imports)
   perception.py                      radar targets to detections, ego/world frames, lanes, track record
-  tracking.py                        nearby-vehicle tracker (perception.py and tracking.py: no Webots imports)
+  tracking.py                        nearby-vehicle tracker
+  prediction.py                      track trajectories (constant velocity)
+  risk.py                            conflicts, time to collision, risk levels, ego safety state
+                                     (all but roadsense_ego.py: no Webots imports)
 THIRD_PARTY_NOTICES.md               what comes from Webots, what changed, Apache-2.0 text
 ```
 
@@ -55,7 +59,8 @@ The ego car is the world's Lincoln MKZ:
   free neighbouring lane. SUMO drives all the other traffic.
 - Added for telemetry: `telemetry gps` at the car's origin (the centre of the rear axle) and an
   `inertial unit`.
-- Added for perception: `radar front` and `radar rear`, see [Perception](#perception).
+- Added for perception: `radar front` and `radar rear`, see [Perception](#perception). What it
+  makes of the tracks: [Prediction and risk](#prediction-and-risk).
 
 ### Telemetry
 
@@ -178,6 +183,86 @@ hook that is not in the repository, the tracks seen in the latest cycle were wit
 (one standard deviation) in position and distance, 0.13 m/s in range rate and 0.45 m/s in
 relative velocity, and 99 % had the right lane relation. No track switched to another vehicle.
 
+### Prediction and risk
+
+Every radar cycle, after tracking, the controller predicts where each confirmed track is going
+and rates the risk of a collision with `EGO_ROADSENSE`. `prediction.py` and `risk.py` read only
+track records (`perception.track_report`), so any source of such tracks can use them. The driving
+logic ignores the result: nothing brakes, steers or changes speed for a risk.
+
+**Prediction** (`prediction.py`) is a constant-velocity baseline: the relative position moves on
+at the relative velocity, as if both cars keep their current velocity over the ground. It gives
+the position every 0.5 s up to 5 s ahead, in the ego frame of the record's time:
+
+```python
+{"track_id": "TRACK_039", "model": "constant_velocity",
+ "trajectory": [{"t_s": 0.5, "longitudinal_m": 21.55, "lateral_m": 0.0}, …, {"t_s": 5.0, …}]}
+```
+
+A track without a finite position and velocity gets an empty trajectory, so no rating.
+
+**Safety envelope.** `EGO_ROADSENSE`'s body box (the Lincoln MKZ's 4.9 m × 1.8 m, centred
+1.44 m ahead of its origin), grown by the size of a typical car (5 m × 1.9 m: a radar target is a
+point near the middle of a vehicle, without a size) and a 0.25 m safety buffer. A vehicle's
+centre inside the envelope means the two bodies are within 0.25 m of each other. The values are
+constants at the top of `risk.py`. A larger buffer flagged cars passing in the next lane: tracks
+are within about 0.4 m.
+
+**Conflict, TTC, CPA** (`risk.py`). The predicted path is the track's position now, then its
+trajectory points, joined by straight lines, so another prediction model can replace constant
+velocity without changing `risk.py`.
+
+- Conflict: the path enters the envelope within the trajectory, 5 s.
+- `ttc_s`: the time until it enters. For a car ahead in the lane, the bumper gap less the buffer,
+  divided by the closing speed; for a car merging or crossing, when it is inside on both axes. A
+  car closing from behind gets one too. `None` without a conflict within 5 s: pulling away,
+  keeping pace, passing in another lane, crossing ahead or behind.
+- `time_to_cpa_s`, `min_separation_m`: the closest point of approach, when and how close the
+  vehicle's centre comes to `EGO_ROADSENSE`'s centre within 5 s.
+- `closing`: the two centres are getting closer.
+
+**Risk levels**, by the time to the conflict:
+
+| Risk       | When                                                            |
+| ---------- | --------------------------------------------------------------- |
+| `SAFE`     | no conflict within 5 s                                          |
+| `CAUTION`  | conflict within 5 s                                             |
+| `HIGH`     | conflict within 3 s (forward-collision warnings sound at 2–3 s) |
+| `CRITICAL` | conflict within 1.5 s, or already inside the envelope           |
+
+A track seen for less than 1 s is rated at most `HIGH`. Its velocity comes from under a second
+of detections: against Webots' ground truth it was off by 0.9 m/s (one standard deviation) at
+0.4–0.6 s old and 0.4 m/s from 1 s on, and once a car leaving the blind spot came out moving
+sideways at 2.6 m/s instead of 0.
+
+**Safety record** (`risk.assess`), per track: `track_id`, `prediction_model`, `ttc_s`,
+`time_to_cpa_s`, `min_separation_m`, `closing`, `conflict`, `risk` and the `trajectory`.
+
+**Ego safety state** (`risk.ego_safety`): `timestamp`, `overall_risk` (the highest),
+`most_critical_track` (highest risk, then soonest conflict; `None` if there's none),
+`minimum_ttc_s` and `active_conflicts`.
+
+Once per simulated second, after the perception summary, the controller prints the safety state
+and one line per vehicle in conflict, most critical first:
+
+```
+[RoadSense:SAFETY] t=70.0s risk=HIGH conflicts=1 min_ttc=2.4s critical=TRACK_039
+  TRACK_039 ahead   25.5m ego_lane rel_vel=(-7.9,+0.0)m/s TTC=2.4s CPA=0.1m@3.1s HIGH
+```
+
+`tests/test_ego_risk.py` tests prediction and risk without Webots.
+
+Over 250 simulated seconds, replayed through the same code against Webots' ground truth (through
+a temporary supervisor hook that is not in the repository), 99.7 % of the track cycles got the
+risk level that the true positions and velocities give, and the TTC was within 0.4 s (one
+standard deviation). One, two and three seconds ahead, the predicted position was a median 0.5,
+0.7 and 1.0 m from where the track then was (0.4, 0.5 and 0.6 m while both cars held their
+speed and lane). Most of the larger errors came from `EGO_ROADSENSE` braking or accelerating,
+which constant velocity doesn't foresee. Naturally occurring cases: a car approached from 41 m
+at 8 m/s went from `CAUTION` (TTC 4.4 s) to `HIGH` (2.4 s), then back to `SAFE` once the
+controller had slowed down, and a car cutting in front at the start was `CRITICAL` (TTC 0.6 s)
+while the controller braked hard.
+
 ## Run on macOS
 
 From the repository root:
@@ -216,3 +301,9 @@ Don't edit Webots' own files under `/Applications/Webots.app` to remove these wa
   the car, gets a new track id when it reappears. The median guardrail hides most oncoming cars;
   one seen under it for less than 0.4 s is never confirmed, so never reported.
 - Lane relation is only for this world's straight carriageway (see `CARRIAGEWAY_Y`).
+- Constant-velocity prediction doesn't foresee braking, accelerating or the end of a lane change.
+  A car merging into the lane is predicted to keep moving sideways, so for a moment it can seem
+  to cross the lane rather than settle in it. The tracker's 1.5 s velocity window also makes a
+  lane change's conflict start and end about half a second to a second late.
+- A radar target has no size: a bus or truck is taken for a 5 m car, so its conflict comes a few
+  tenths of a second late at highway closing speeds.
