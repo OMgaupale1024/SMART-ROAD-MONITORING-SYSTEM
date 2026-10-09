@@ -21,14 +21,18 @@
 # recognition, every radar cycle, into a local hazard map, printed once per simulated second and when a
 # hazard is discovered; the driving logic doesn't use it either. Added unified safety recommendations
 # every radar cycle, printed once per simulated second; no recommendations feed the driving logic.
+# Added optional live-state publishing to the RoadSense web server (ROADSENSE_LIVE_PUBLISH=1), from a
+# background thread that the control loop never waits for.
 
-"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception, risk and
-road hazards."""
+"""RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception, risk,
+road hazards, safety recommendations and an optional live-state stream."""
 
 from vehicle import Driver
 
 import hazard_map
 import hazards
+import live_publisher
+import live_state
 import perception
 import prediction
 import risk
@@ -147,6 +151,11 @@ hazardCamera = driver.getDevice("hazard camera")
 hazardCamera.recognitionEnable(RADAR_PERIOD_MS)
 hazardMap = hazard_map.HazardMap(driver.getName())
 safetyPolicy = safety.Policy(nominal_speed_kmh=maxSpeed)
+# live state for the RoadSense web server, if ROADSENSE_LIVE_PUBLISH asks for it: one snapshot per publication
+# period, sent by a background thread; the algorithms above never wait for the network
+liveConfig = live_publisher.config_from_environment()
+livePublisher = live_publisher.LivePublisher(liveConfig.url, liveConfig.timeout_s) if liveConfig else None
+liveRunId, liveSequence, nextLive, previousLive, liveState = live_state.new_run_id(), 0, 0.0, None, None
 
 
 def ego_pose():
@@ -246,9 +255,25 @@ while driver.step() != -1:
                     adjacentLanes.append("right_lane")
         unifiedSafetyState = safety.decide(now, telemetryGps.getSpeed(), assessments, reports,
                                            hazardSnapshot, adjacentLanes, safetyPolicy)
+        if livePublisher and now >= nextLive - 1e-6:  # this cycle's records, as one snapshot
+            nextLive += liveConfig.period_s
+            liveSequence += 1
+            liveSpeed = telemetryGps.getSpeed()
+            liveEgo = telemetry.make_record(now, driver.getName(), telemetryGps.getValues(), liveSpeed, pose[2],
+                                            driver.getSteeringAngle(), previousLive,
+                                            "lane_keep" if overtakingSide is None else "lane_change", currentLane)
+            previousLive = (now, liveSpeed)
+            liveState = live_state.build(now, liveEgo, reports, assessments, hazardSnapshot, unifiedSafetyState,
+                                         pose, liveRunId, liveSequence)
+            livePublisher.publish(live_state.encode(liveState))
     if now >= nextPerception - 1e-6:
         nextPerception += PERCEPTION_PERIOD_S
         print(perception.format_summary(now, reports))
         print(risk.format_summary(now, reports, assessments))
         print(hazard_map.format_summary(hazardSnapshot))
         print(safety.format_decision(unifiedSafetyState))
+
+# the simulation is over: tell the web server's clients, if it can be reached within a second
+if livePublisher and liveState:
+    livePublisher.publish(live_state.encode(live_state.finished(liveState)))
+    livePublisher.close()

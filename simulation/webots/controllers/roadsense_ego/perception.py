@@ -20,7 +20,9 @@ EDGE_MARGIN_RAD = 0.005  # azimuths this close to the edge of the field of view 
 # median, on the driver's left) and y = 16.25, in four 3.75 m lanes. SUMO keeps the outer lane (y > 12.5) for
 # pedestrians; its cars drive at y = 10.87, 7.03 and 3.18.
 CARRIAGEWAY_Y = (1.25, 16.25)
+CARRIAGEWAY_HEADING = math.pi  # EGO_ROADSENSE's direction of travel on it, toward -x
 LANE_WIDTH_M = 3.75
+DRIVING_LANES = 3  # lanes 0 to 2; SUMO keeps lane 3, the outer one, for pedestrians
 
 
 class Detection(NamedTuple):

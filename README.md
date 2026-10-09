@@ -82,6 +82,10 @@ them. Ultrasonic `NA` (timeout) is preserved honestly everywhere — no value is
   to the newest reading; status changes still reach it. It never slows the Arduino or
   simulator stream, recording, or other tabs.
 - REST API documentation at `http://127.0.0.1:8000/docs`.
+- Relays the Webots digital twin's live RoadSense state: the simulation POSTs one snapshot per
+  processing cycle to `/api/live-state`; `GET /api/live-state` returns the latest and the
+  `/ws/live` WebSocket streams them to any number of clients. See
+  [docs/live-state.md](docs/live-state.md).
 
 ---
 
@@ -314,8 +318,8 @@ SIGTERM), the command-line options, the serial handshake, unplugging and every s
 switch (a pseudo-terminal stands in for the Arduino on macOS/Linux), a check that the web
 runtime never imports PySide6, and concurrency regression tests for recording while packets
 arrive. The web tests are skipped unless the `web` and `dev` extras are installed. The digital
-twin's ego-car telemetry, perception, tracking, prediction, risk and road-hazard helpers are tested
-too, without Webots.
+twin's ego-car telemetry, perception, tracking, prediction, risk, road-hazard, safety and live-state
+helpers are tested too, without Webots, as are the live-state routes and stream, end to end.
 
 ```powershell
 pip install -e ".[desktop,web,dev]"
@@ -354,14 +358,17 @@ src/roadsense/
   ui/               PySide6 widgets (dashboard, panels, history, styles)
   web/              web dashboard (python -m roadsense.web)
     __main__.py     command line: --host, --port, --no-browser
-    server.py       FastAPI app: REST API, /ws/telemetry WebSocket, static UI
+    server.py       FastAPI app: REST API, /ws/telemetry and /ws/live WebSockets, static UI
     service.py      serial/simulator reader, recording, ZIP export
+    live.py         the digital twin's latest live state and its WebSocket clients
     static/         HTML/CSS/JS front-end; vendor/ holds bundled Chart.js + icons
 deploy/roadsense.service  optional systemd unit (Raspberry Pi)
 tools/serial_sim.py test-only serial writer (virtual COM pair)
-simulation/webots/  Webots digital twin: highway, SUMO traffic, potholes, EGO_ROADSENSE car with radar tracking, collision risk, a hazard map and unified safety recommendations (its own README)
+tools/live_listen.py prints the live-state stream (no dashboard needed)
+simulation/webots/  Webots digital twin: highway, SUMO traffic, potholes, EGO_ROADSENSE car with radar tracking, collision risk, a hazard map and unified safety recommendations, streamed live to the web server (its own README)
 tests/              pytest suite
 docs/serial-protocol.md
+docs/live-state.md   live-state snapshot, routes and coordinates
 ```
 
 Separation is intentional: UI ⟂ serial I/O ⟂ parsing ⟂ storage ⟂ business logic ⟂ export.
@@ -384,6 +391,9 @@ Both front-ends share the parser (`protocol.py`), the SQLite layer (`database.py
   when a client's queue is full its stale packets are dropped (counted in `/api/status` as
   `ws_dropped_messages`) while status messages are kept, and the source thread never waits
   on a client.
+- **Live state:** `LiveStateHub` in `live.py` checks each snapshot the Webots digital twin POSTs,
+  keeps the latest in memory and offers it to every `/ws/live` client through a one-slot queue,
+  so a slow client skips to the newest snapshot. It runs on the event loop, with no thread or lock.
 
 ## Limitations
 

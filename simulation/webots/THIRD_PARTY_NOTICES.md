@@ -11,7 +11,7 @@ Version 2.0, reproduced below. Paths are relative to `simulation/webots/`.
 | `worlds/roadsense_highway.wbt` | `projects/vehicles/worlds/highway_overtake.wbt` | Renamed; new title and info; tree-file path; the main car is named `EGO_ROADSENSE`, runs `roadsense_ego` and has a telemetry GPS, an inertial unit, two radars (`radar front`, `radar rear`) whose signal and noise settings are copied from the sample's radar, and a `hazard camera`; the viewpoint follows it; four RoadSense potholes (`RoadSensePothole`, RoadSense's own PROTO) |
 | `worlds/roadsense_highway_net/` | `projects/vehicles/worlds/highway_overtake_net/` | None (copies of `sumo.sumocfg`, `sumo.net.xml`, `sumo.rou.xml`) |
 | `worlds/forest/roadsense_highway/1.forest` | `projects/vehicles/worlds/forest/highway_overtake/1.forest` | None |
-| `controllers/roadsense_ego/roadsense_ego.py` | `projects/vehicles/controllers/highway_overtake/highway_overtake.py` | Renamed; telemetry, radar perception, trajectory prediction, collision risk, road hazards and unified safety recommendations added; unused camera lookup removed; driving logic unchanged |
+| `controllers/roadsense_ego/roadsense_ego.py` | `projects/vehicles/controllers/highway_overtake/highway_overtake.py` | Renamed; telemetry, radar perception, trajectory prediction, collision risk, road hazards, unified safety recommendations and optional live-state publishing added; unused camera lookup removed; driving logic unchanged |
 
 The vehicle, road and sensor models (PROTO files) are not copied: Webots downloads them from its
 repository under the [Webots assets license](https://cyberbotics.com/webots_assets_license).

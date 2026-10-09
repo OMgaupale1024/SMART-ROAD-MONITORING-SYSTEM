@@ -8,21 +8,24 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, WebSocket
+from fastapi import FastAPI, HTTPException, Request, WebSocket
 from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from roadsense import __version__
+from roadsense.web import live
 from roadsense.web.service import WebTelemetryManager
 
 manager: Optional[WebTelemetryManager] = None  # one per app run, created by lifespan()
+live_hub: Optional[live.LiveStateHub] = None  # the simulation's latest live state, also one per app run
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global manager
+    global manager, live_hub
     manager = WebTelemetryManager()
+    live_hub = live.LiveStateHub()
     manager.set_event_loop(asyncio.get_running_loop())
     try:
         yield  # no telemetry source until the user connects the Arduino or starts the simulator
@@ -173,6 +176,51 @@ async def websocket_telemetry(websocket: WebSocket):
     finally:
         sender.cancel()
         manager.remove_subscriber(queue)
+
+
+# --- Live RoadSense state from the Webots digital twin (docs/live-state.md) ---
+# async handlers: the hub and its client queues belong to the event loop
+
+
+@app.post("/api/live-state")
+async def ingest_live_state(request: Request):
+    if int(request.headers.get("content-length") or 0) > live.MAX_BYTES:
+        raise HTTPException(status_code=413, detail="live state over %d bytes" % live.MAX_BYTES)
+    try:
+        return live_hub.ingest(await request.body())
+    except live.LiveStateError as e:
+        raise HTTPException(status_code=e.status, detail=str(e))
+
+
+@app.get("/api/live-state")
+async def get_live_state():
+    if live_hub.latest_json is None:
+        raise HTTPException(status_code=404, detail="No live state received yet")
+    return Response(content=live_hub.latest_json, media_type="application/json")
+
+
+@app.websocket("/ws/live")
+async def websocket_live(websocket: WebSocket):
+    await websocket.accept()
+    queue = live_hub.subscribe()
+
+    async def forward() -> None:
+        try:
+            while True:
+                await websocket.send_text(await queue.get())
+        except Exception:
+            pass  # client gone; the receive loop below sees the disconnect
+
+    sender = asyncio.create_task(forward())
+    try:
+        # Clients send nothing; listening is how a closed tab is noticed while no state arrives.
+        while (await websocket.receive())["type"] != "websocket.disconnect":
+            pass
+    except Exception:
+        pass
+    finally:
+        sender.cancel()
+        live_hub.unsubscribe(queue)
 
 
 # Serve Static UI files

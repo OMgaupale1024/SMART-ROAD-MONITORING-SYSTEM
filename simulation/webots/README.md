@@ -6,8 +6,10 @@ Repository-owned Webots simulation for the RoadSense Digital Twin: a highway wit
 vehicles are heading and how risky that is: predicted trajectories, time to collision and a risk
 level (Phase 4), and the potholes on the road, seen by a simulated hazard camera and kept in a local
 hazard map (Phase 5), and one unified safety recommendation (Phase 6). Recommendations never
-feed the driving controls. Not here yet: active response, sharing hazards with other vehicles,
-or any link from this simulation to the RoadSense backend, database or dashboard.
+feed the driving controls. The controller can stream all of this, one snapshot per processing
+cycle, to the RoadSense web server for live clients (Phase 7, see [Live state](#live-state)). Not
+here yet: active response, sharing hazards with other vehicles, the 3D dashboard, or any link to the
+RoadSense database.
 
 | Tool   | Version used                                                                |
 | ------ | --------------------------------------------------------------------------- |
@@ -33,6 +35,8 @@ controllers/roadsense_ego/
   hazards.py                         road-hazard detection record; the simulated hazard sensor
   hazard_map.py                      persistent local hazard map, queries, snapshot
   safety.py                          unified risk, primary threat, action, target speed and reason
+  live_state.py                      one cycle's records as a roadsense.live.v1 JSON snapshot
+  live_publisher.py                  optional background POST of snapshots to the web server
                                      (all but roadsense_ego.py: no Webots imports)
 THIRD_PARTY_NOTICES.md               what comes from Webots, what changed, Apache-2.0 text
 ```
@@ -475,6 +479,21 @@ The map's world coordinates, observation counts and persistent records remain se
 
 Run `venv/bin/python -m pytest tests/test_ego_safety.py -q` without Webots. See
 [Phase 6 validation](PHASE6_VALIDATION.md) for observed demo sequences and performance.
+
+## Live state
+
+With `ROADSENSE_LIVE_PUBLISH=1` in the environment that starts Webots, the controller sends the
+RoadSense web server (`python -m roadsense.web`) one `roadsense.live.v1` snapshot per 200 ms
+processing cycle: the car, the lanes around it, the tracks with their predicted trajectories and
+collision risk, the hazard map and the unified recommendation, all from that cycle. The server keeps
+the latest one (`GET /api/live-state`) and streams each to WebSocket clients (`/ws/live`);
+`python tools/live_listen.py` prints the stream. The schema, the coordinates, the routes and how to
+run it all are in [docs/live-state.md](../../docs/live-state.md).
+
+`live_state.py` only gathers records the cycle already made; `live_publisher.py` sends them from a
+background thread, newest snapshot only, so the control loop never waits for the network. Without
+the variable nothing is sent; with it and no server, the console says so once and the simulation
+carries on. `tests/test_ego_live.py` and `tests/test_web_live.py` test both ends without Webots.
 
 ## Run on macOS
 
