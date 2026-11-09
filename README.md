@@ -263,6 +263,27 @@ journalctl -u roadsense -f                        # follow its log
 sudo systemctl disable --now roadsense            # stop it and take it out of the boot
 ```
 
+## Edge vision benchmark (Raspberry Pi 5)
+
+First step toward camera detection on the Pi: `tools/bench_detector.py` runs a YOLO detector
+over a recorded road video and reports how fast it runs on this machine: detector latency
+(mean / p95), frames per second, and whether that keeps up with the video's own frame rate.
+On a Pi it also reports the CPU temperature and whether the Pi throttled. Nothing here is wired
+into the dashboard yet.
+
+```bash
+pip install -e ".[vision]"                               # Ultralytics (pulls in PyTorch, OpenCV)
+yolo export model=yolo11n.pt format=ncnn imgsz=320       # once; the NCNN folder copies to the Pi as is
+python tools/bench_detector.py drive.mp4 --model yolo11n_ncnn_model
+python tools/bench_detector.py drive.mp4 --model yolo11n_ncnn_model --roi-top 0.5 --out annotated.mp4 --json result.json
+```
+
+- `--imgsz` sets the detector's input size (default 320); larger finds smaller objects but runs slower.
+- `--roi-top 0.5` keeps only the lower half of the frame (the road), so potholes get more pixels.
+- `--out` writes the video with boxes drawn, which slows the loop. Benchmark without it.
+- The stock `yolo11n.pt` knows COCO objects (cars, buses, people, cows, …), not potholes or
+  autorickshaws. Those need a fine-tuned model, which you pass the same way with `--model`.
+
 ## Uploading the firmware
 
 1. Open `firmware/roadsense_arduino.ino` in the Arduino IDE.
@@ -375,6 +396,7 @@ src/roadsense/
 deploy/roadsense.service  optional systemd unit (Raspberry Pi)
 tools/serial_sim.py test-only serial writer (virtual COM pair)
 tools/live_listen.py prints the live-state stream (no dashboard needed)
+tools/bench_detector.py times a YOLO detector on a recorded road video (vision extra)
 simulation/webots/  Webots digital twin: highway, SUMO traffic, potholes, EGO_ROADSENSE car with radar tracking, collision risk, a hazard map and unified safety recommendations, streamed live to the web server (its own README)
 tests/              pytest suite; tests/js/ the 3D dashboard's Node tests
 docs/serial-protocol.md
