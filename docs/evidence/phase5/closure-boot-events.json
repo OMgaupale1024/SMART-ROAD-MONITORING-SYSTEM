@@ -1,0 +1,884 @@
+[
+  {
+    "boot_s": 3.604781,
+    "wall_s": 1794862901.652611,
+    "unit": "systemd-journald.service",
+    "user_unit": "",
+    "message": "Collecting audit messages is disabled."
+  },
+  {
+    "boot_s": 3.604925,
+    "wall_s": 1794862901.652754,
+    "unit": "systemd-journald.service",
+    "user_unit": "",
+    "message": "Journal started"
+  },
+  {
+    "boot_s": 3.604948,
+    "wall_s": 1794862901.652778,
+    "unit": "systemd-journald.service",
+    "user_unit": "",
+    "message": "Runtime Journal (/run/log/journal/[MACHINE_ID]) is 8M, max 80.9M, 72.9M free."
+  },
+  {
+    "boot_s": 3.619697,
+    "wall_s": 1794862901.667526,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting systemd-journal-flush.service - Flush Journal to Persistent Storage..."
+  },
+  {
+    "boot_s": 3.658029,
+    "wall_s": 1794862901.705858,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting systemd-timesyncd.service - Network Time Synchronization..."
+  },
+  {
+    "boot_s": 3.662236,
+    "wall_s": 1794862901.710066,
+    "unit": "systemd-journald.service",
+    "user_unit": "",
+    "message": "Runtime Journal (/run/log/journal/[MACHINE_ID]) is 8M, max 80.9M, 72.9M free."
+  },
+  {
+    "boot_s": 3.663933,
+    "wall_s": 1794862901.711762,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Finished systemd-journal-flush.service - Flush Journal to Persistent Storage."
+  },
+  {
+    "boot_s": 3.664066,
+    "wall_s": 1794862901.711895,
+    "unit": "systemd-journald.service",
+    "user_unit": "",
+    "message": "Received client request to flush runtime journal."
+  },
+  {
+    "boot_s": 3.714684,
+    "wall_s": 1794862901.762513,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started systemd-timesyncd.service - Network Time Synchronization."
+  },
+  {
+    "boot_s": 3.715073,
+    "wall_s": 1794862901.762902,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Reached target time-set.target - System Time Set."
+  },
+  {
+    "boot_s": 4.210217,
+    "wall_s": 1794862902.258046,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "regenerate_ssh_host_keys.service - Regenerate SSH host keys skipped, unmet condition check ConditionFirstBoot=yes"
+  },
+  {
+    "boot_s": 4.558627,
+    "wall_s": 1794862902.606456,
+    "unit": "systemd-timesyncd.service",
+    "user_unit": "",
+    "message": "Network configuration changed, trying to establish connection."
+  },
+  {
+    "boot_s": 4.562586,
+    "wall_s": 1794862902.610416,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting plymouth-read-write.service - Tell Plymouth To Write Out Runtime Data..."
+  },
+  {
+    "boot_s": 4.588415,
+    "wall_s": 1794862902.636244,
+    "unit": "systemd-timesyncd.service",
+    "user_unit": "",
+    "message": "Network configuration changed, trying to establish connection."
+  },
+  {
+    "boot_s": 4.590584,
+    "wall_s": 1794862902.638414,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Finished plymouth-read-write.service - Tell Plymouth To Write Out Runtime Data."
+  },
+  {
+    "boot_s": 4.609704,
+    "wall_s": 1794862902.657534,
+    "unit": "systemd-timesyncd.service",
+    "user_unit": "",
+    "message": "Network configuration changed, trying to establish connection."
+  },
+  {
+    "boot_s": 4.609801,
+    "wall_s": 1794862902.657631,
+    "unit": "systemd-timesyncd.service",
+    "user_unit": "",
+    "message": "Network configuration changed, trying to establish connection."
+  },
+  {
+    "boot_s": 4.609831,
+    "wall_s": 1794862902.65766,
+    "unit": "systemd-timesyncd.service",
+    "user_unit": "",
+    "message": "Network configuration changed, trying to establish connection."
+  },
+  {
+    "boot_s": 4.619281,
+    "wall_s": 1794862902.66711,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "systemd-journal-catalog-update.service - Rebuild Journal Catalog skipped, unmet condition check ConditionNeedsUpdate=/var"
+  },
+  {
+    "boot_s": 4.678223,
+    "wall_s": 1794862902.726052,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "regenerate_ssh_host_keys.service - Regenerate SSH host keys skipped, unmet condition check ConditionFirstBoot=yes"
+  },
+  {
+    "boot_s": 4.678339,
+    "wall_s": 1794862902.726169,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "systemd-journal-catalog-update.service - Rebuild Journal Catalog skipped, unmet condition check ConditionNeedsUpdate=/var"
+  },
+  {
+    "boot_s": 5.286045,
+    "wall_s": 1794862903.333874,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting cloud-init-local.service - Cloud-init: Local Stage (pre-network)..."
+  },
+  {
+    "boot_s": 5.473361,
+    "wall_s": 1794862903.52119,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Finished cloud-init-local.service - Cloud-init: Local Stage (pre-network)."
+  },
+  {
+    "boot_s": 5.473607,
+    "wall_s": 1794862903.521436,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Reached target network-pre.target - Preparation for Network."
+  },
+  {
+    "boot_s": 5.47463,
+    "wall_s": 1794862903.52246,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting cloud-init-network.service - Cloud-init: Network Stage..."
+  },
+  {
+    "boot_s": 5.540861,
+    "wall_s": 1794862903.588691,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Finished cloud-init-network.service - Cloud-init: Network Stage."
+  },
+  {
+    "boot_s": 5.542331,
+    "wall_s": 1794862903.59016,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started apt-daily.timer - Daily apt download activities."
+  },
+  {
+    "boot_s": 5.542394,
+    "wall_s": 1794862903.590224,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started apt-daily-upgrade.timer - Daily apt upgrade and clean activities."
+  },
+  {
+    "boot_s": 5.542455,
+    "wall_s": 1794862903.590284,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started dpkg-db-backup.timer - Daily dpkg database backup timer."
+  },
+  {
+    "boot_s": 5.542594,
+    "wall_s": 1794862903.590424,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems."
+  },
+  {
+    "boot_s": 5.542698,
+    "wall_s": 1794862903.590527,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started fstrim.timer - Discard unused filesystem blocks once a week."
+  },
+  {
+    "boot_s": 5.542746,
+    "wall_s": 1794862903.590576,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started logrotate.timer - Daily rotation of log files."
+  },
+  {
+    "boot_s": 5.542796,
+    "wall_s": 1794862903.590625,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started man-db.timer - Daily man-db regeneration."
+  },
+  {
+    "boot_s": 5.542821,
+    "wall_s": 1794862903.590651,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started rpi-zram-writeback.timer - zram writeback timer."
+  },
+  {
+    "boot_s": 5.542846,
+    "wall_s": 1794862903.590675,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories."
+  },
+  {
+    "boot_s": 5.542902,
+    "wall_s": 1794862903.590731,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Reached target timers.target - Timer Units."
+  },
+  {
+    "boot_s": 5.54432,
+    "wall_s": 1794862903.59215,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Listening on sshd-unix-local.socket - OpenSSH Server Socket (systemd-ssh-generator, AF_UNIX Local)."
+  },
+  {
+    "boot_s": 5.588108,
+    "wall_s": 1794862903.635937,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "sshd-keygen.service - Generate sshd host keys on first boot skipped, unmet condition check ConditionFirstBoot=yes"
+  },
+  {
+    "boot_s": 5.589379,
+    "wall_s": 1794862903.637209,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting sshswitch.service - Turn on SSH if /boot/ssh or /boot/firmware/ssh is present..."
+  },
+  {
+    "boot_s": 5.641995,
+    "wall_s": 1794862903.689824,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "sshswitch.service: Deactivated successfully."
+  },
+  {
+    "boot_s": 5.642571,
+    "wall_s": 1794862903.690401,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Finished sshswitch.service - Turn on SSH if /boot/ssh or /boot/firmware/ssh is present."
+  },
+  {
+    "boot_s": 5.69796,
+    "wall_s": 1794862903.74579,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting NetworkManager.service - Network Manager..."
+  },
+  {
+    "boot_s": 5.735813,
+    "wall_s": 1794862903.783642,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting user-runtime-dir@1000.service - User Runtime Directory /run/user/1000..."
+  },
+  {
+    "boot_s": 5.769631,
+    "wall_s": 1794862903.81746,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Finished user-runtime-dir@1000.service - User Runtime Directory /run/user/1000."
+  },
+  {
+    "boot_s": 5.917016,
+    "wall_s": 1794862903.964845,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service..."
+  },
+  {
+    "boot_s": 5.961018,
+    "wall_s": 1794862904.008847,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started NetworkManager-dispatcher.service - Network Manager Script Dispatcher Service."
+  },
+  {
+    "boot_s": 6.181734,
+    "wall_s": 1794862904.229563,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Reload requested from client PID 885 ('systemctl') (unit NetworkManager.service)..."
+  },
+  {
+    "boot_s": 6.731845,
+    "wall_s": 1794862904.779675,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started NetworkManager.service - Network Manager."
+  },
+  {
+    "boot_s": 6.733419,
+    "wall_s": 1794862904.781248,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Reached target network.target - Network."
+  },
+  {
+    "boot_s": 6.734199,
+    "wall_s": 1794862904.782028,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting NetworkManager-wait-online.service - Network Manager Wait Online..."
+  },
+  {
+    "boot_s": 6.738506,
+    "wall_s": 1794862904.786336,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting ssh.service - OpenBSD Secure Shell server..."
+  },
+  {
+    "boot_s": 6.778559,
+    "wall_s": 1794862904.826389,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Starting user@1000.service - User Manager for UID 1000..."
+  },
+  {
+    "boot_s": 6.808842,
+    "wall_s": 1794862904.856672,
+    "unit": "ssh.service",
+    "user_unit": "",
+    "message": "Server listening on 0.0.0.0 port 22."
+  },
+  {
+    "boot_s": 6.809146,
+    "wall_s": 1794862904.856976,
+    "unit": "ssh.service",
+    "user_unit": "",
+    "message": "Server listening on :: port 22."
+  },
+  {
+    "boot_s": 6.809179,
+    "wall_s": 1794862904.857008,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started ssh.service - OpenBSD Secure Shell server."
+  },
+  {
+    "boot_s": 7.043874,
+    "wall_s": 1794862905.091704,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started user@1000.service - User Manager for UID 1000."
+  },
+  {
+    "boot_s": 7.056433,
+    "wall_s": 1794862905.104262,
+    "unit": "user@1000.service",
+    "user_unit": "init.scope",
+    "message": "Starting roadsense-edge.service - RoadSense edge server (user service)..."
+  },
+  {
+    "boot_s": 7.086424,
+    "wall_s": 1794862905.134254,
+    "unit": "user@1000.service",
+    "user_unit": "init.scope",
+    "message": "Started roadsense-edge.service - RoadSense edge server (user service)."
+  },
+  {
+    "boot_s": 8.599886,
+    "wall_s": 1794862906.647716,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "[RoadSense] Edge server and dashboard running at: http://127.0.0.1:8001"
+  },
+  {
+    "boot_s": 8.599886,
+    "wall_s": 1794862906.647716,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "[RoadSense] Listening on 0.0.0.0: other devices on the network can open http://<this computer's IP address>:8001. There is no login, so anyone who can reach it can use RoadSense."
+  },
+  {
+    "boot_s": 8.657081,
+    "wall_s": 1794862906.70491,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     Started server process [1037]"
+  },
+  {
+    "boot_s": 8.657154,
+    "wall_s": 1794862906.704984,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     Waiting for application startup."
+  },
+  {
+    "boot_s": 8.660777,
+    "wall_s": 1794862906.708606,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "[RoadSense] AI explanations: model qwen3:0.6b at http://127.0.0.1:11434/api/generate"
+  },
+  {
+    "boot_s": 8.660931,
+    "wall_s": 1794862906.70876,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     Application startup complete."
+  },
+  {
+    "boot_s": 8.661229,
+    "wall_s": 1794862906.709059,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)"
+  },
+  {
+    "boot_s": 8.661556,
+    "wall_s": 1794862906.709386,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "AI explanations unavailable: cannot reach Ollama at 127.0.0.1:11434: Connection refused"
+  },
+  {
+    "boot_s": 8.770308,
+    "wall_s": 1794862906.818137,
+    "unit": "NetworkManager.service",
+    "user_unit": "",
+    "message": "<info>  [1794862906.8181] dhcp4 (eth0): state changed new lease, address=PI_HOST, acd pending"
+  },
+  {
+    "boot_s": 8.912118,
+    "wall_s": 1794862906.959948,
+    "unit": "NetworkManager.service",
+    "user_unit": "",
+    "message": "<info>  [1794862906.9598] dhcp4 (eth0): state changed new lease, address=PI_HOST"
+  },
+  {
+    "boot_s": 8.939326,
+    "wall_s": 1794862906.987156,
+    "unit": "NetworkManager.service",
+    "user_unit": "",
+    "message": "<info>  [1794862906.9871] device (eth0): state change: secondaries -> activated (reason 'none', managed-type: 'full')"
+  },
+  {
+    "boot_s": 8.939819,
+    "wall_s": 1794862906.987648,
+    "unit": "NetworkManager.service",
+    "user_unit": "",
+    "message": "<info>  [1794862906.9873] manager: NetworkManager state is now CONNECTED_SITE"
+  },
+  {
+    "boot_s": 8.940074,
+    "wall_s": 1794862906.987904,
+    "unit": "NetworkManager.service",
+    "user_unit": "",
+    "message": "<info>  [1794862906.9878] manager: NetworkManager state is now CONNECTED_GLOBAL"
+  },
+  {
+    "boot_s": 8.94023,
+    "wall_s": 1794862906.988059,
+    "unit": "NetworkManager.service",
+    "user_unit": "",
+    "message": "<info>  [1794862906.9880] manager: startup complete"
+  },
+  {
+    "boot_s": 8.942267,
+    "wall_s": 1794862906.990097,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Finished NetworkManager-wait-online.service - Network Manager Wait Online."
+  },
+  {
+    "boot_s": 8.942751,
+    "wall_s": 1794862906.99058,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Reached target network-online.target - Network is Online."
+  },
+  {
+    "boot_s": 8.946393,
+    "wall_s": 1794862906.994222,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "Started ollama.service - Ollama Service."
+  },
+  {
+    "boot_s": 9.189795,
+    "wall_s": 1794862907.237624,
+    "unit": "ollama.service",
+    "user_unit": "",
+    "message": "time=2026-11-17T02:31:47.237+05:30 level=INFO source=routes.go:2536 msg=\"Listening on 127.0.0.1:11434 (version 0.40.16)\""
+  },
+  {
+    "boot_s": 9.347843,
+    "wall_s": 1794862907.395673,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57979 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 9.648034,
+    "wall_s": 1794862907.695863,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57980 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 9.923577,
+    "wall_s": 1794862907.971406,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57983 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 9.948378,
+    "wall_s": 1794862907.996207,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57984 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 9.963935,
+    "wall_s": 1794862908.011765,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57976 - \"WebSocket /ws/live\" [accepted]"
+  },
+  {
+    "boot_s": 9.964173,
+    "wall_s": 1794862908.012003,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     connection open"
+  },
+  {
+    "boot_s": 10.219679,
+    "wall_s": 1794862908.267509,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57986 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 10.239343,
+    "wall_s": 1794862908.287172,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57987 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 10.520731,
+    "wall_s": 1794862908.568561,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57989 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 10.542101,
+    "wall_s": 1794862908.58993,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57990 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 10.819508,
+    "wall_s": 1794862908.867338,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57992 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 10.844844,
+    "wall_s": 1794862908.892674,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57993 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 11.135105,
+    "wall_s": 1794862909.182935,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57995 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 11.144691,
+    "wall_s": 1794862909.19252,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57996 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 11.484104,
+    "wall_s": 1794862909.531933,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57998 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 11.495422,
+    "wall_s": 1794862909.543252,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:57999 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 11.763756,
+    "wall_s": 1794862909.811585,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58001 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 11.789354,
+    "wall_s": 1794862909.837183,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58002 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 12.059008,
+    "wall_s": 1794862910.106837,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58004 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 12.074952,
+    "wall_s": 1794862910.122781,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58005 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 12.351101,
+    "wall_s": 1794862910.39893,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58007 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 12.363621,
+    "wall_s": 1794862910.411451,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58008 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 12.654332,
+    "wall_s": 1794862910.702161,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58010 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 12.671532,
+    "wall_s": 1794862910.719361,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58011 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 12.955852,
+    "wall_s": 1794862911.003682,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58013 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 12.966364,
+    "wall_s": 1794862911.014194,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58014 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 13.237384,
+    "wall_s": 1794862911.285213,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58016 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 13.273299,
+    "wall_s": 1794862911.321128,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58017 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 13.540671,
+    "wall_s": 1794862911.588501,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58019 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 13.55227,
+    "wall_s": 1794862911.600099,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58020 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 13.822135,
+    "wall_s": 1794862911.869964,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58022 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 13.833755,
+    "wall_s": 1794862911.881584,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58023 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 14.100369,
+    "wall_s": 1794862912.148199,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58025 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 14.109752,
+    "wall_s": 1794862912.157581,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58026 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 14.442183,
+    "wall_s": 1794862912.490013,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58028 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 14.453585,
+    "wall_s": 1794862912.501413,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58029 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 14.722281,
+    "wall_s": 1794862912.77011,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58031 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 14.739072,
+    "wall_s": 1794862912.786901,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58032 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 15.004543,
+    "wall_s": 1794862913.052373,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58034 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 15.016254,
+    "wall_s": 1794862913.064083,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58035 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 15.289027,
+    "wall_s": 1794862913.336856,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58037 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 15.299429,
+    "wall_s": 1794862913.347258,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58038 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 15.58239,
+    "wall_s": 1794862913.63022,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58040 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 15.592619,
+    "wall_s": 1794862913.640448,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58041 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 15.879748,
+    "wall_s": 1794862913.927577,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58043 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 15.890492,
+    "wall_s": 1794862913.938321,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58044 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+  },
+  {
+    "boot_s": 15.942798,
+    "wall_s": 1794862913.990628,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58045 - \"POST /api/sensor-frame HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 15.965903,
+    "wall_s": 1794862914.013732,
+    "unit": "init.scope",
+    "user_unit": "",
+    "message": "NetworkManager-dispatcher.service: Deactivated successfully."
+  },
+  {
+    "boot_s": 16.177651,
+    "wall_s": 1794862914.22548,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58048 - \"GET /api/system HTTP/1.1\" 200 OK"
+  },
+  {
+    "boot_s": 16.18893,
+    "wall_s": 1794862914.23676,
+    "unit": "user@1000.service",
+    "user_unit": "roadsense-edge.service",
+    "message": "INFO:     MAC_HOST:58049 - \"GET /api/live-state HTTP/1.1\" 200 OK"
+  }
+]

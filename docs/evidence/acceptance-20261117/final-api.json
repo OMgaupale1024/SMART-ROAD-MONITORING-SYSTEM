@@ -1,0 +1,1644 @@
+{
+  "/": {
+    "status": 200,
+    "url": "http://PI_HOST:8001/"
+  },
+  "/api/live-state": {
+    "status": 200,
+    "url": "http://PI_HOST:8001/api/live-state",
+    "body": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 102.4,
+      "ego": {
+        "timestamp": 102.4,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -2163.861,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": 0.0,
+        "steering_rad": 0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [
+        {
+          "track_id": "TRACK_035",
+          "object_type": "vehicle",
+          "timestamp": 102.4,
+          "relative_position": {
+            "longitudinal_m": -88.23,
+            "lateral_m": -4.02
+          },
+          "distance_m": 88.32,
+          "bearing_deg": -177.4,
+          "relative_velocity": {
+            "longitudinal_mps": -8.26,
+            "lateral_mps": 0.01
+          },
+          "relative_speed_mps": 8.4,
+          "lane_relation": "right_lane",
+          "source": "radar_rear",
+          "age_s": 22.6,
+          "last_seen": 102.4,
+          "prediction": {
+            "model": "constant_velocity",
+            "trajectory": [
+              {
+                "t_s": 0.5,
+                "longitudinal_m": -92.36,
+                "lateral_m": -4.01
+              },
+              {
+                "t_s": 1.0,
+                "longitudinal_m": -96.49,
+                "lateral_m": -4.01
+              },
+              {
+                "t_s": 1.5,
+                "longitudinal_m": -100.62,
+                "lateral_m": -4.0
+              },
+              {
+                "t_s": 2.0,
+                "longitudinal_m": -104.75,
+                "lateral_m": -4.0
+              },
+              {
+                "t_s": 2.5,
+                "longitudinal_m": -108.88,
+                "lateral_m": -3.99
+              },
+              {
+                "t_s": 3.0,
+                "longitudinal_m": -113.01,
+                "lateral_m": -3.99
+              },
+              {
+                "t_s": 3.5,
+                "longitudinal_m": -117.14,
+                "lateral_m": -3.98
+              },
+              {
+                "t_s": 4.0,
+                "longitudinal_m": -121.27,
+                "lateral_m": -3.98
+              },
+              {
+                "t_s": 4.5,
+                "longitudinal_m": -125.4,
+                "lateral_m": -3.97
+              },
+              {
+                "t_s": 5.0,
+                "longitudinal_m": -129.53,
+                "lateral_m": -3.97
+              }
+            ]
+          },
+          "collision": {
+            "ttc_s": null,
+            "time_to_cpa_s": 0.0,
+            "min_separation_m": 89.76,
+            "closing": false,
+            "conflict": false,
+            "risk": "SAFE"
+          }
+        },
+        {
+          "track_id": "TRACK_036",
+          "object_type": "vehicle",
+          "timestamp": 102.4,
+          "relative_position": {
+            "longitudinal_m": -70.32,
+            "lateral_m": -7.66
+          },
+          "distance_m": 70.74,
+          "bearing_deg": -173.8,
+          "relative_velocity": {
+            "longitudinal_mps": -8.72,
+            "lateral_mps": -0.13
+          },
+          "relative_speed_mps": 8.25,
+          "lane_relation": "other",
+          "source": "radar_rear",
+          "age_s": 22.4,
+          "last_seen": 102.4,
+          "prediction": {
+            "model": "constant_velocity",
+            "trajectory": [
+              {
+                "t_s": 0.5,
+                "longitudinal_m": -74.68,
+                "lateral_m": -7.73
+              },
+              {
+                "t_s": 1.0,
+                "longitudinal_m": -79.04,
+                "lateral_m": -7.79
+              },
+              {
+                "t_s": 1.5,
+                "longitudinal_m": -83.4,
+                "lateral_m": -7.86
+              },
+              {
+                "t_s": 2.0,
+                "longitudinal_m": -87.76,
+                "lateral_m": -7.92
+              },
+              {
+                "t_s": 2.5,
+                "longitudinal_m": -92.12,
+                "lateral_m": -7.99
+              },
+              {
+                "t_s": 3.0,
+                "longitudinal_m": -96.48,
+                "lateral_m": -8.05
+              },
+              {
+                "t_s": 3.5,
+                "longitudinal_m": -100.84,
+                "lateral_m": -8.12
+              },
+              {
+                "t_s": 4.0,
+                "longitudinal_m": -105.2,
+                "lateral_m": -8.18
+              },
+              {
+                "t_s": 4.5,
+                "longitudinal_m": -109.56,
+                "lateral_m": -8.25
+              },
+              {
+                "t_s": 5.0,
+                "longitudinal_m": -113.92,
+                "lateral_m": -8.31
+              }
+            ]
+          },
+          "collision": {
+            "ttc_s": null,
+            "time_to_cpa_s": 0.0,
+            "min_separation_m": 72.17,
+            "closing": false,
+            "conflict": false,
+            "risk": "SAFE"
+          }
+        },
+        {
+          "track_id": "TRACK_039",
+          "object_type": "vehicle",
+          "timestamp": 102.4,
+          "relative_position": {
+            "longitudinal_m": -30.5,
+            "lateral_m": -7.4
+          },
+          "distance_m": 31.38,
+          "bearing_deg": -166.4,
+          "relative_velocity": {
+            "longitudinal_mps": -8.2,
+            "lateral_mps": -0.11
+          },
+          "relative_speed_mps": 8.13,
+          "lane_relation": "other",
+          "source": "radar_rear",
+          "age_s": 16.0,
+          "last_seen": 102.4,
+          "prediction": {
+            "model": "constant_velocity",
+            "trajectory": [
+              {
+                "t_s": 0.5,
+                "longitudinal_m": -34.6,
+                "lateral_m": -7.46
+              },
+              {
+                "t_s": 1.0,
+                "longitudinal_m": -38.7,
+                "lateral_m": -7.51
+              },
+              {
+                "t_s": 1.5,
+                "longitudinal_m": -42.8,
+                "lateral_m": -7.57
+              },
+              {
+                "t_s": 2.0,
+                "longitudinal_m": -46.9,
+                "lateral_m": -7.62
+              },
+              {
+                "t_s": 2.5,
+                "longitudinal_m": -51.0,
+                "lateral_m": -7.68
+              },
+              {
+                "t_s": 3.0,
+                "longitudinal_m": -55.1,
+                "lateral_m": -7.73
+              },
+              {
+                "t_s": 3.5,
+                "longitudinal_m": -59.2,
+                "lateral_m": -7.79
+              },
+              {
+                "t_s": 4.0,
+                "longitudinal_m": -63.3,
+                "lateral_m": -7.84
+              },
+              {
+                "t_s": 4.5,
+                "longitudinal_m": -67.4,
+                "lateral_m": -7.9
+              },
+              {
+                "t_s": 5.0,
+                "longitudinal_m": -71.5,
+                "lateral_m": -7.95
+              }
+            ]
+          },
+          "collision": {
+            "ttc_s": null,
+            "time_to_cpa_s": 0.0,
+            "min_separation_m": 32.79,
+            "closing": false,
+            "conflict": false,
+            "risk": "SAFE"
+          }
+        },
+        {
+          "track_id": "TRACK_040",
+          "object_type": "vehicle",
+          "timestamp": 102.4,
+          "relative_position": {
+            "longitudinal_m": 82.4,
+            "lateral_m": -3.89
+          },
+          "distance_m": 82.49,
+          "bearing_deg": -2.7,
+          "relative_velocity": {
+            "longitudinal_mps": -4.99,
+            "lateral_mps": -0.11
+          },
+          "relative_speed_mps": -5.2,
+          "lane_relation": "right_lane",
+          "source": "radar_front",
+          "age_s": 13.4,
+          "last_seen": 102.4,
+          "prediction": {
+            "model": "constant_velocity",
+            "trajectory": [
+              {
+                "t_s": 0.5,
+                "longitudinal_m": 79.91,
+                "lateral_m": -3.95
+              },
+              {
+                "t_s": 1.0,
+                "longitudinal_m": 77.41,
+                "lateral_m": -4.0
+              },
+              {
+                "t_s": 1.5,
+                "longitudinal_m": 74.92,
+                "lateral_m": -4.05
+              },
+              {
+                "t_s": 2.0,
+                "longitudinal_m": 72.42,
+                "lateral_m": -4.11
+              },
+              {
+                "t_s": 2.5,
+                "longitudinal_m": 69.93,
+                "lateral_m": -4.17
+              },
+              {
+                "t_s": 3.0,
+                "longitudinal_m": 67.43,
+                "lateral_m": -4.22
+              },
+              {
+                "t_s": 3.5,
+                "longitudinal_m": 64.94,
+                "lateral_m": -4.28
+              },
+              {
+                "t_s": 4.0,
+                "longitudinal_m": 62.44,
+                "lateral_m": -4.33
+              },
+              {
+                "t_s": 4.5,
+                "longitudinal_m": 59.95,
+                "lateral_m": -4.38
+              },
+              {
+                "t_s": 5.0,
+                "longitudinal_m": 57.45,
+                "lateral_m": -4.44
+              }
+            ]
+          },
+          "collision": {
+            "ttc_s": null,
+            "time_to_cpa_s": 5.0,
+            "min_separation_m": 56.19,
+            "closing": true,
+            "conflict": false,
+            "risk": "SAFE"
+          }
+        },
+        {
+          "track_id": "TRACK_042",
+          "object_type": "vehicle",
+          "timestamp": 102.4,
+          "relative_position": {
+            "longitudinal_m": 68.16,
+            "lateral_m": -7.85
+          },
+          "distance_m": 68.61,
+          "bearing_deg": -6.6,
+          "relative_velocity": {
+            "longitudinal_mps": -8.83,
+            "lateral_mps": -0.13
+          },
+          "relative_speed_mps": -8.87,
+          "lane_relation": "other",
+          "source": "radar_front",
+          "age_s": 9.2,
+          "last_seen": 102.4,
+          "prediction": {
+            "model": "constant_velocity",
+            "trajectory": [
+              {
+                "t_s": 0.5,
+                "longitudinal_m": 63.74,
+                "lateral_m": -7.92
+              },
+              {
+                "t_s": 1.0,
+                "longitudinal_m": 59.33,
+                "lateral_m": -7.98
+              },
+              {
+                "t_s": 1.5,
+                "longitudinal_m": 54.91,
+                "lateral_m": -8.04
+              },
+              {
+                "t_s": 2.0,
+                "longitudinal_m": 50.5,
+                "lateral_m": -8.11
+              },
+              {
+                "t_s": 2.5,
+                "longitudinal_m": 46.08,
+                "lateral_m": -8.17
+              },
+              {
+                "t_s": 3.0,
+                "longitudinal_m": 41.67,
+                "lateral_m": -8.24
+              },
+              {
+                "t_s": 3.5,
+                "longitudinal_m": 37.25,
+                "lateral_m": -8.3
+              },
+              {
+                "t_s": 4.0,
+                "longitudinal_m": 32.84,
+                "lateral_m": -8.37
+              },
+              {
+                "t_s": 4.5,
+                "longitudinal_m": 28.42,
+                "lateral_m": -8.43
+              },
+              {
+                "t_s": 5.0,
+                "longitudinal_m": 24.01,
+                "lateral_m": -8.5
+              }
+            ]
+          },
+          "collision": {
+            "ttc_s": null,
+            "time_to_cpa_s": 5.0,
+            "min_separation_m": 24.12,
+            "closing": true,
+            "conflict": false,
+            "risk": "SAFE"
+          }
+        },
+        {
+          "track_id": "TRACK_044",
+          "object_type": "vehicle",
+          "timestamp": 102.4,
+          "relative_position": {
+            "longitudinal_m": 113.67,
+            "lateral_m": -7.87
+          },
+          "distance_m": 113.94,
+          "bearing_deg": -4.0,
+          "relative_velocity": {
+            "longitudinal_mps": -10.29,
+            "lateral_mps": -0.06
+          },
+          "relative_speed_mps": -10.17,
+          "lane_relation": "other",
+          "source": "radar_front",
+          "age_s": 3.8,
+          "last_seen": 102.4,
+          "prediction": {
+            "model": "constant_velocity",
+            "trajectory": [
+              {
+                "t_s": 0.5,
+                "longitudinal_m": 108.53,
+                "lateral_m": -7.9
+              },
+              {
+                "t_s": 1.0,
+                "longitudinal_m": 103.38,
+                "lateral_m": -7.93
+              },
+              {
+                "t_s": 1.5,
+                "longitudinal_m": 98.23,
+                "lateral_m": -7.96
+              },
+              {
+                "t_s": 2.0,
+                "longitudinal_m": 93.09,
+                "lateral_m": -7.99
+              },
+              {
+                "t_s": 2.5,
+                "longitudinal_m": 87.95,
+                "lateral_m": -8.02
+              },
+              {
+                "t_s": 3.0,
+                "longitudinal_m": 82.8,
+                "lateral_m": -8.05
+              },
+              {
+                "t_s": 3.5,
+                "longitudinal_m": 77.66,
+                "lateral_m": -8.08
+              },
+              {
+                "t_s": 4.0,
+                "longitudinal_m": 72.51,
+                "lateral_m": -8.11
+              },
+              {
+                "t_s": 4.5,
+                "longitudinal_m": 67.37,
+                "lateral_m": -8.14
+              },
+              {
+                "t_s": 5.0,
+                "longitudinal_m": 62.22,
+                "lateral_m": -8.17
+              }
+            ]
+          },
+          "collision": {
+            "ttc_s": null,
+            "time_to_cpa_s": 5.0,
+            "min_separation_m": 61.33,
+            "closing": true,
+            "conflict": false,
+            "risk": "SAFE"
+          }
+        },
+        {
+          "track_id": "TRACK_045",
+          "object_type": "vehicle",
+          "timestamp": 102.4,
+          "relative_position": {
+            "longitudinal_m": 126.9,
+            "lateral_m": -3.9
+          },
+          "distance_m": 126.96,
+          "bearing_deg": -1.8,
+          "relative_velocity": {
+            "longitudinal_mps": -7.41,
+            "lateral_mps": 0.06
+          },
+          "relative_speed_mps": -7.64,
+          "lane_relation": "right_lane",
+          "source": "radar_front",
+          "age_s": 3.6,
+          "last_seen": 102.4,
+          "prediction": {
+            "model": "constant_velocity",
+            "trajectory": [
+              {
+                "t_s": 0.5,
+                "longitudinal_m": 123.2,
+                "lateral_m": -3.87
+              },
+              {
+                "t_s": 1.0,
+                "longitudinal_m": 119.49,
+                "lateral_m": -3.84
+              },
+              {
+                "t_s": 1.5,
+                "longitudinal_m": 115.79,
+                "lateral_m": -3.81
+              },
+              {
+                "t_s": 2.0,
+                "longitudinal_m": 112.08,
+                "lateral_m": -3.78
+              },
+              {
+                "t_s": 2.5,
+                "longitudinal_m": 108.38,
+                "lateral_m": -3.75
+              },
+              {
+                "t_s": 3.0,
+                "longitudinal_m": 104.67,
+                "lateral_m": -3.72
+              },
+              {
+                "t_s": 3.5,
+                "longitudinal_m": 100.97,
+                "lateral_m": -3.69
+              },
+              {
+                "t_s": 4.0,
+                "longitudinal_m": 97.26,
+                "lateral_m": -3.66
+              },
+              {
+                "t_s": 4.5,
+                "longitudinal_m": 93.56,
+                "lateral_m": -3.63
+              },
+              {
+                "t_s": 5.0,
+                "longitudinal_m": 89.85,
+                "lateral_m": -3.6
+              }
+            ]
+          },
+          "collision": {
+            "ttc_s": null,
+            "time_to_cpa_s": 5.0,
+            "min_separation_m": 88.48,
+            "closing": true,
+            "conflict": false,
+            "risk": "SAFE"
+          }
+        }
+      ],
+      "hazards": [
+        {
+          "hazard_id": "PH_001",
+          "type": "pothole",
+          "world_position": {
+            "x": -469.96,
+            "y": 3.42
+          },
+          "severity": "HIGH",
+          "confidence": 0.938,
+          "dimensions": {
+            "length_m": 1.4,
+            "width_m": 1.0,
+            "depth_m": 0.08
+          },
+          "first_seen_s": 21.8,
+          "last_seen_s": 22.8,
+          "observation_count": 6,
+          "source_vehicle": "EGO_ROADSENSE",
+          "source": "webots_simulated_road_sensor",
+          "status": "ACTIVE",
+          "relative": {
+            "longitudinal_m": -1693.9,
+            "lateral_m": -0.22,
+            "distance_m": 1693.9,
+            "bearing_deg": -180.0,
+            "lane_relation": "ego_lane",
+            "direction": "behind"
+          }
+        },
+        {
+          "hazard_id": "PH_002",
+          "type": "pothole",
+          "world_position": {
+            "x": -700.01,
+            "y": 6.97
+          },
+          "severity": "MEDIUM",
+          "confidence": 0.965,
+          "dimensions": {
+            "length_m": 0.9,
+            "width_m": 0.7,
+            "depth_m": 0.04
+          },
+          "first_seen_s": 30.8,
+          "last_seen_s": 33.0,
+          "observation_count": 12,
+          "source_vehicle": "EGO_ROADSENSE",
+          "source": "webots_simulated_road_sensor",
+          "status": "ACTIVE",
+          "relative": {
+            "longitudinal_m": -1463.85,
+            "lateral_m": -3.77,
+            "distance_m": 1463.85,
+            "bearing_deg": -179.9,
+            "lane_relation": "right_lane",
+            "direction": "behind"
+          }
+        },
+        {
+          "hazard_id": "PH_003",
+          "type": "pothole",
+          "world_position": {
+            "x": -949.97,
+            "y": 3.05
+          },
+          "severity": "LOW",
+          "confidence": 0.968,
+          "dimensions": {
+            "length_m": 0.6,
+            "width_m": 0.45,
+            "depth_m": 0.02
+          },
+          "first_seen_s": 42.0,
+          "last_seen_s": 44.4,
+          "observation_count": 13,
+          "source_vehicle": "EGO_ROADSENSE",
+          "source": "webots_simulated_road_sensor",
+          "status": "ACTIVE",
+          "relative": {
+            "longitudinal_m": -1213.89,
+            "lateral_m": 0.15,
+            "distance_m": 1213.89,
+            "bearing_deg": 180.0,
+            "lane_relation": "ego_lane",
+            "direction": "behind"
+          }
+        },
+        {
+          "hazard_id": "PH_004",
+          "type": "pothole",
+          "world_position": {
+            "x": -1200.08,
+            "y": 10.71
+          },
+          "severity": "MEDIUM",
+          "confidence": 0.961,
+          "dimensions": {
+            "length_m": 1.0,
+            "width_m": 0.8,
+            "depth_m": 0.05
+          },
+          "first_seen_s": 53.2,
+          "last_seen_s": 55.2,
+          "observation_count": 11,
+          "source_vehicle": "EGO_ROADSENSE",
+          "source": "webots_simulated_road_sensor",
+          "status": "ACTIVE",
+          "relative": {
+            "longitudinal_m": -963.78,
+            "lateral_m": -7.51,
+            "distance_m": 963.81,
+            "bearing_deg": -179.6,
+            "lane_relation": "other_lane",
+            "direction": "behind"
+          }
+        }
+      ],
+      "unified_safety": {
+        "timestamp": 102.4,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 102.4,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "3f1cf130d7c6",
+        "sequence": 512,
+        "generated_at_unix_s": 1794861043.77,
+        "processing": "edge"
+      }
+    }
+  },
+  "/api/system": {
+    "status": 200,
+    "url": "http://PI_HOST:8001/api/system",
+    "body": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794860958.46,
+        "uptime_s": 85.5
+      },
+      "server_time_unix_s": 1794861043.943,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "3f1cf130d7c6",
+          "first_sequence": 109,
+          "frames": 404,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794860958.793,
+          "last_sequence": 512,
+          "sim_time_s": 102.4,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 404,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 4.6,
+        "interval_ms": {
+          "mean": 210.6,
+          "max": 233.1
+        },
+        "data_age_s": 0.172,
+        "latency_ms": {
+          "read": {
+            "last": 0.123,
+            "mean": 0.334,
+            "p50": 0.115,
+            "p95": 0.923,
+            "max": 15.689
+          },
+          "validate": {
+            "last": 0.201,
+            "mean": 0.193,
+            "p50": 0.173,
+            "p95": 0.451,
+            "max": 0.685
+          },
+          "process": {
+            "last": 0.863,
+            "mean": 0.914,
+            "p50": 0.855,
+            "p95": 1.93,
+            "max": 7.673
+          },
+          "publish": {
+            "last": 0.511,
+            "mean": 0.531,
+            "p50": 0.509,
+            "p95": 1.045,
+            "max": 1.472
+          },
+          "handler": {
+            "last": 1.732,
+            "mean": 2.017,
+            "p50": 1.774,
+            "p95": 4.266,
+            "max": 17.498
+          },
+          "samples": 404,
+          "first_sequence": 109,
+          "last_sequence": 512
+        },
+        "series": {
+          "sequence": [
+            363,
+            364,
+            365,
+            366,
+            367,
+            368,
+            369,
+            370,
+            371,
+            372,
+            373,
+            374,
+            375,
+            376,
+            377,
+            378,
+            379,
+            380,
+            381,
+            382,
+            383,
+            384,
+            385,
+            386,
+            387,
+            388,
+            389,
+            390,
+            391,
+            392,
+            393,
+            394,
+            395,
+            396,
+            397,
+            398,
+            399,
+            400,
+            401,
+            402,
+            403,
+            404,
+            405,
+            406,
+            407,
+            408,
+            409,
+            410,
+            411,
+            412,
+            413,
+            414,
+            415,
+            416,
+            417,
+            418,
+            419,
+            420,
+            421,
+            422,
+            423,
+            424,
+            425,
+            426,
+            427,
+            428,
+            429,
+            430,
+            431,
+            432,
+            433,
+            434,
+            435,
+            436,
+            437,
+            438,
+            439,
+            440,
+            441,
+            442,
+            443,
+            444,
+            445,
+            446,
+            447,
+            448,
+            449,
+            450,
+            451,
+            452,
+            453,
+            454,
+            455,
+            456,
+            457,
+            458,
+            459,
+            460,
+            461,
+            462,
+            463,
+            464,
+            465,
+            466,
+            467,
+            468,
+            469,
+            470,
+            471,
+            472,
+            473,
+            474,
+            475,
+            476,
+            477,
+            478,
+            479,
+            480,
+            481,
+            482,
+            483,
+            484,
+            485,
+            486,
+            487,
+            488,
+            489,
+            490,
+            491,
+            492,
+            493,
+            494,
+            495,
+            496,
+            497,
+            498,
+            499,
+            500,
+            501,
+            502,
+            503,
+            504,
+            505,
+            506,
+            507,
+            508,
+            509,
+            510,
+            511,
+            512
+          ],
+          "process_ms": [
+            1.004,
+            0.94,
+            0.794,
+            0.787,
+            0.725,
+            0.716,
+            0.642,
+            0.653,
+            1.747,
+            0.566,
+            1.522,
+            1.621,
+            1.349,
+            1.49,
+            1.444,
+            0.919,
+            1.586,
+            1.662,
+            1.579,
+            1.741,
+            0.545,
+            0.516,
+            0.513,
+            0.493,
+            0.488,
+            0.496,
+            0.485,
+            0.492,
+            0.602,
+            0.518,
+            0.509,
+            0.495,
+            0.59,
+            0.746,
+            0.769,
+            0.75,
+            0.731,
+            0.733,
+            0.865,
+            0.922,
+            0.899,
+            0.989,
+            0.968,
+            1.012,
+            0.976,
+            0.953,
+            0.939,
+            1.071,
+            1.0,
+            1.042,
+            1.002,
+            0.973,
+            0.894,
+            0.9,
+            0.887,
+            0.881,
+            0.872,
+            0.973,
+            0.906,
+            0.972,
+            0.973,
+            0.982,
+            0.981,
+            0.965,
+            0.871,
+            0.885,
+            0.871,
+            0.999,
+            0.938,
+            0.888,
+            0.882,
+            0.997,
+            0.979,
+            0.964,
+            0.948,
+            0.947,
+            1.026,
+            0.97,
+            0.878,
+            0.874,
+            0.867,
+            0.892,
+            0.911,
+            0.885,
+            0.992,
+            0.947,
+            1.022,
+            0.991,
+            0.986,
+            0.965,
+            0.965,
+            0.984,
+            0.906,
+            0.897,
+            0.882,
+            0.894,
+            0.908,
+            0.916,
+            0.895,
+            0.897,
+            0.965,
+            0.986,
+            1.004,
+            0.979,
+            1.06,
+            1.099,
+            1.075,
+            1.038,
+            1.02,
+            1.047,
+            1.047,
+            1.043,
+            1.057,
+            1.027,
+            1.047,
+            1.055,
+            1.041,
+            1.026,
+            1.014,
+            0.968,
+            0.963,
+            0.966,
+            0.98,
+            1.045,
+            0.918,
+            0.9,
+            0.881,
+            0.917,
+            0.873,
+            0.87,
+            0.836,
+            0.832,
+            0.83,
+            0.903,
+            0.923,
+            0.902,
+            0.882,
+            0.879,
+            0.91,
+            0.875,
+            0.882,
+            0.905,
+            0.962,
+            0.855,
+            0.819,
+            0.84,
+            0.836,
+            0.823,
+            0.825,
+            0.863
+          ],
+          "handler_ms": [
+            1.982,
+            1.851,
+            1.637,
+            2.172,
+            1.52,
+            1.399,
+            1.376,
+            1.36,
+            4.336,
+            1.165,
+            3.902,
+            4.139,
+            2.707,
+            3.627,
+            3.468,
+            1.823,
+            3.623,
+            3.786,
+            3.222,
+            3.758,
+            1.178,
+            1.095,
+            1.92,
+            1.89,
+            1.029,
+            1.97,
+            1.011,
+            1.008,
+            1.267,
+            2.039,
+            1.058,
+            1.037,
+            1.213,
+            2.341,
+            1.74,
+            1.536,
+            1.517,
+            1.502,
+            1.77,
+            1.822,
+            1.791,
+            1.902,
+            1.857,
+            1.954,
+            1.942,
+            1.861,
+            1.82,
+            5.175,
+            2.011,
+            2.069,
+            1.997,
+            1.893,
+            1.777,
+            1.821,
+            1.753,
+            1.77,
+            2.47,
+            1.974,
+            1.851,
+            1.896,
+            17.498,
+            1.889,
+            1.915,
+            1.93,
+            1.743,
+            1.767,
+            1.708,
+            1.963,
+            1.833,
+            2.361,
+            1.751,
+            1.916,
+            1.893,
+            1.892,
+            1.853,
+            1.844,
+            2.039,
+            1.824,
+            1.759,
+            1.721,
+            1.637,
+            1.814,
+            1.816,
+            1.773,
+            2.461,
+            1.868,
+            2.008,
+            2.517,
+            1.9,
+            2.448,
+            1.886,
+            1.909,
+            1.797,
+            1.774,
+            1.668,
+            2.457,
+            1.804,
+            1.836,
+            2.371,
+            1.764,
+            1.858,
+            1.918,
+            1.937,
+            1.88,
+            2.118,
+            2.779,
+            2.086,
+            2.005,
+            1.977,
+            2.005,
+            2.542,
+            1.924,
+            1.928,
+            1.957,
+            2.041,
+            1.938,
+            2.016,
+            1.996,
+            1.987,
+            1.91,
+            9.497,
+            1.885,
+            1.87,
+            2.006,
+            1.827,
+            1.811,
+            2.219,
+            1.779,
+            4.661,
+            1.77,
+            1.705,
+            1.689,
+            2.419,
+            1.825,
+            1.82,
+            1.82,
+            2.521,
+            1.749,
+            1.836,
+            1.737,
+            2.4,
+            1.763,
+            1.963,
+            1.753,
+            1.57,
+            1.725,
+            2.442,
+            1.815,
+            1.67,
+            1.732
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.7,
+        "load_avg": [
+          0.36,
+          0.22,
+          0.1
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2738.7,
+          "used_percent": 32.3,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 46.3,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 3.0,
+          "rss_mb": 50.3,
+          "peak_rss_mb": 48.4,
+          "threads": 3,
+          "uptime_s": 85.3
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": {
+          "last": 2529.9,
+          "mean": 3616.8,
+          "p50": 3084.9,
+          "p95": 5235.6,
+          "max": 5235.6
+        }
+      }
+    }
+  },
+  "/api/hazards": {
+    "status": 200,
+    "url": "http://PI_HOST:8001/api/hazards",
+    "body": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "3f1cf130d7c6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": [
+        {
+          "schema": "roadsense.hazard.v1",
+          "record_id": "3f1cf130d7c6:PH_001",
+          "local_id": "PH_001",
+          "type": "pothole",
+          "severity": "HIGH",
+          "confidence": 0.938,
+          "observations": 6,
+          "status": "ACTIVE",
+          "dimensions_m": {
+            "length": 1.4,
+            "width": 1.0,
+            "depth": 0.08
+          },
+          "position": {
+            "frame": "webots_world",
+            "x_m": -469.96,
+            "y_m": 3.42,
+            "geo": null
+          },
+          "observed": {
+            "clock": "simulation",
+            "first_seen_s": 21.8,
+            "last_seen_s": 22.8
+          },
+          "provenance": {
+            "simulated": true,
+            "sensor": "webots_simulated_road_sensor",
+            "vehicle_id": "EGO_ROADSENSE",
+            "run_id": "3f1cf130d7c6",
+            "processor": "edge"
+          }
+        },
+        {
+          "schema": "roadsense.hazard.v1",
+          "record_id": "3f1cf130d7c6:PH_002",
+          "local_id": "PH_002",
+          "type": "pothole",
+          "severity": "MEDIUM",
+          "confidence": 0.965,
+          "observations": 12,
+          "status": "ACTIVE",
+          "dimensions_m": {
+            "length": 0.9,
+            "width": 0.7,
+            "depth": 0.04
+          },
+          "position": {
+            "frame": "webots_world",
+            "x_m": -700.01,
+            "y_m": 6.97,
+            "geo": null
+          },
+          "observed": {
+            "clock": "simulation",
+            "first_seen_s": 30.8,
+            "last_seen_s": 33.0
+          },
+          "provenance": {
+            "simulated": true,
+            "sensor": "webots_simulated_road_sensor",
+            "vehicle_id": "EGO_ROADSENSE",
+            "run_id": "3f1cf130d7c6",
+            "processor": "edge"
+          }
+        },
+        {
+          "schema": "roadsense.hazard.v1",
+          "record_id": "3f1cf130d7c6:PH_003",
+          "local_id": "PH_003",
+          "type": "pothole",
+          "severity": "LOW",
+          "confidence": 0.968,
+          "observations": 13,
+          "status": "ACTIVE",
+          "dimensions_m": {
+            "length": 0.6,
+            "width": 0.45,
+            "depth": 0.02
+          },
+          "position": {
+            "frame": "webots_world",
+            "x_m": -949.97,
+            "y_m": 3.05,
+            "geo": null
+          },
+          "observed": {
+            "clock": "simulation",
+            "first_seen_s": 42.0,
+            "last_seen_s": 44.4
+          },
+          "provenance": {
+            "simulated": true,
+            "sensor": "webots_simulated_road_sensor",
+            "vehicle_id": "EGO_ROADSENSE",
+            "run_id": "3f1cf130d7c6",
+            "processor": "edge"
+          }
+        },
+        {
+          "schema": "roadsense.hazard.v1",
+          "record_id": "3f1cf130d7c6:PH_004",
+          "local_id": "PH_004",
+          "type": "pothole",
+          "severity": "MEDIUM",
+          "confidence": 0.961,
+          "observations": 11,
+          "status": "ACTIVE",
+          "dimensions_m": {
+            "length": 1.0,
+            "width": 0.8,
+            "depth": 0.05
+          },
+          "position": {
+            "frame": "webots_world",
+            "x_m": -1200.08,
+            "y_m": 10.71,
+            "geo": null
+          },
+          "observed": {
+            "clock": "simulation",
+            "first_seen_s": 53.2,
+            "last_seen_s": 55.2
+          },
+          "provenance": {
+            "simulated": true,
+            "sensor": "webots_simulated_road_sensor",
+            "vehicle_id": "EGO_ROADSENSE",
+            "run_id": "3f1cf130d7c6",
+            "processor": "edge"
+          }
+        }
+      ]
+    }
+  },
+  "/api/ai-explanation": {
+    "status": 200,
+    "url": "http://PI_HOST:8001/api/ai-explanation",
+    "body": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "3f1cf130d7c6",
+          "sequence": 357,
+          "sim_time_s": 71.4,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861011.078,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "3f1cf130d7c6",
+          "sequence": 357
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": {
+        "text": "The vehicle's TRACK_021 indicates a potential conflict with your path. The risk is 'CAUTION', so you should slow down to avoid collision.",
+        "origin": "llm",
+        "fallback_reason": null,
+        "source": {
+          "run_id": "3f1cf130d7c6",
+          "sequence": 355,
+          "sim_time_s": 71.0,
+          "risk": "CAUTION",
+          "action": "SLOW_DOWN",
+          "threat_id": "TRACK_021",
+          "threat_type": "vehicle",
+          "recommended_lane": null,
+          "cause": {
+            "kind": "vehicle",
+            "id": "TRACK_021",
+            "lane": "ego_lane",
+            "position": "ahead"
+          }
+        },
+        "generated_at_unix_s": 1794861016.516,
+        "latency_ms": 2529.9,
+        "cached": false,
+        "ollama": {
+          "total_ms": 2526.7,
+          "load_ms": 1.3,
+          "eval_ms": 2430.6,
+          "eval_tokens": 50
+        },
+        "written_for": {
+          "run_id": "3f1cf130d7c6",
+          "sequence": 355
+        }
+      },
+      "state": {
+        "run_id": "3f1cf130d7c6",
+        "sequence": 512,
+        "sim_time_s": 102.4,
+        "active": true,
+        "age_s": 0.224
+      },
+      "last_error": {
+        "kind": "invalid_output",
+        "message": "explanation makes an unsupported claim: 'ensure'",
+        "at_unix_s": 1794860982.993
+      },
+      "stats": {
+        "requests": 4,
+        "generated": 1,
+        "rejected": 2,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 1,
+        "cache_hits": 0,
+        "discarded_stale": 3,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 12,
+        "latency_ms": {
+          "last": 2529.9,
+          "mean": 3616.8,
+          "p50": 3084.9,
+          "p95": 5235.6,
+          "max": 5235.6
+        }
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861043.995
+    }
+  },
+  "/autonomy": {
+    "status": 200,
+    "url": "http://PI_HOST:8001/"
+  }
+}

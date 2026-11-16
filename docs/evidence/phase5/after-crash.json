@@ -1,0 +1,5366 @@
+[
+  {
+    "elapsed_s": 0.0,
+    "wall": 1794861970.330274,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 0.4
+      },
+      "server_time_unix_s": 1794861970.345,
+      "edge": {
+        "mode": null,
+        "run": null,
+        "frames": {
+          "accepted": 0,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 0
+        },
+        "rate_hz": null,
+        "interval_ms": null,
+        "data_age_s": null,
+        "latency_ms": null,
+        "series": null,
+        "clients": {
+          "websocket": 0,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": null,
+        "load_avg": [
+          0.29,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2760.2,
+          "used_percent": 31.8,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 50.7,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": null,
+          "rss_mb": 48.9,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 0.1
+        },
+        "unavailable": {
+          "cpu_percent": "needs two readings; the next request has it"
+        }
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "idle",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "explanation": null,
+      "is_current": false,
+      "stale_reason": "no_data",
+      "latest_llm": null,
+      "state": null,
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 0,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861970.363
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": null,
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 0.505,
+    "wall": 1794861970.835146,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 0.8
+      },
+      "server_time_unix_s": 1794861970.837,
+      "edge": {
+        "mode": null,
+        "run": null,
+        "frames": {
+          "accepted": 0,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 0
+        },
+        "rate_hz": null,
+        "interval_ms": null,
+        "data_age_s": null,
+        "latency_ms": null,
+        "series": null,
+        "clients": {
+          "websocket": 1,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": null,
+        "load_avg": [
+          0.29,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2760.2,
+          "used_percent": 31.8,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 50.7,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": null,
+          "rss_mb": 48.9,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 0.1
+        },
+        "unavailable": {
+          "cpu_percent": "needs two readings; the next request has it"
+        }
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "idle",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "explanation": null,
+      "is_current": false,
+      "stale_reason": "no_data",
+      "latest_llm": null,
+      "state": null,
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 0,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861970.857
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": null,
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 1.004,
+    "wall": 1794861971.334448,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 1.3
+      },
+      "server_time_unix_s": 1794861971.337,
+      "edge": {
+        "mode": null,
+        "run": null,
+        "frames": {
+          "accepted": 0,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 0
+        },
+        "rate_hz": null,
+        "interval_ms": null,
+        "data_age_s": null,
+        "latency_ms": null,
+        "series": null,
+        "clients": {
+          "websocket": 1,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 2.3,
+        "load_avg": [
+          0.29,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2759.2,
+          "used_percent": 31.8,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 49.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 0.8,
+          "rss_mb": 49.0,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 1.4
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "idle",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "explanation": null,
+      "is_current": false,
+      "stale_reason": "no_data",
+      "latest_llm": null,
+      "state": null,
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 0,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861971.356
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": null,
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 1.501,
+    "wall": 1794861971.8316338,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 1.8
+      },
+      "server_time_unix_s": 1794861971.834,
+      "edge": {
+        "mode": null,
+        "run": null,
+        "frames": {
+          "accepted": 0,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 0
+        },
+        "rate_hz": null,
+        "interval_ms": null,
+        "data_age_s": null,
+        "latency_ms": null,
+        "series": null,
+        "clients": {
+          "websocket": 1,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 2.3,
+        "load_avg": [
+          0.29,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2759.2,
+          "used_percent": 31.8,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 49.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 0.8,
+          "rss_mb": 49.0,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 1.4
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "idle",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "explanation": null,
+      "is_current": false,
+      "stale_reason": "no_data",
+      "latest_llm": null,
+      "state": null,
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 0,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861971.878
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": null,
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 2.005,
+    "wall": 1794861972.3353112,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 2.4
+      },
+      "server_time_unix_s": 1794861972.345,
+      "edge": {
+        "mode": null,
+        "run": null,
+        "frames": {
+          "accepted": 0,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 0
+        },
+        "rate_hz": null,
+        "interval_ms": null,
+        "data_age_s": null,
+        "latency_ms": null,
+        "series": null,
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.0,
+        "load_avg": [
+          0.29,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2760.8,
+          "used_percent": 31.7,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 1.0,
+          "rss_mb": 49.0,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 2.4
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "idle",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "explanation": null,
+      "is_current": false,
+      "stale_reason": "no_data",
+      "latest_llm": null,
+      "state": null,
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 0,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861972.362
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": null,
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 2.504,
+    "wall": 1794861972.8338408,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 2.8
+      },
+      "server_time_unix_s": 1794861972.835,
+      "edge": {
+        "mode": null,
+        "run": null,
+        "frames": {
+          "accepted": 0,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 0
+        },
+        "rate_hz": null,
+        "interval_ms": null,
+        "data_age_s": null,
+        "latency_ms": null,
+        "series": null,
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.0,
+        "load_avg": [
+          0.29,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2760.8,
+          "used_percent": 31.7,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 1.0,
+          "rss_mb": 49.0,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 2.4
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "idle",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "explanation": null,
+      "is_current": false,
+      "stale_reason": "no_data",
+      "latest_llm": null,
+      "state": null,
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 0,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861972.858
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": null,
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 3.004,
+    "wall": 1794861973.3344939,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 3.3
+      },
+      "server_time_unix_s": 1794861973.336,
+      "edge": {
+        "mode": null,
+        "run": null,
+        "frames": {
+          "accepted": 0,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 0
+        },
+        "rate_hz": null,
+        "interval_ms": null,
+        "data_age_s": null,
+        "latency_ms": null,
+        "series": null,
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.0,
+        "load_avg": [
+          0.29,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2760.8,
+          "used_percent": 31.7,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 1.0,
+          "rss_mb": 49.0,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 2.4
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "idle",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "error": "HTTP Error 404: Not Found"
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "explanation": null,
+      "is_current": false,
+      "stale_reason": "no_data",
+      "latest_llm": null,
+      "state": null,
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 0,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861973.359
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": null,
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 3.503,
+    "wall": 1794861973.8336298,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 3.8
+      },
+      "server_time_unix_s": 1794861973.836,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 3,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1345,
+          "sim_time_s": 269.0,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 3,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 8.62,
+        "interval_ms": {
+          "mean": 108.6,
+          "max": 205.9
+        },
+        "data_age_s": 0.131,
+        "latency_ms": {
+          "read": {
+            "last": 0.076,
+            "mean": 0.071,
+            "p50": 0.076,
+            "p95": 0.111,
+            "max": 0.111
+          },
+          "validate": {
+            "last": 0.109,
+            "mean": 0.149,
+            "p50": 0.114,
+            "p95": 0.225,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.08,
+            "mean": 0.101,
+            "p50": 0.101,
+            "p95": 0.123,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.083,
+            "mean": 0.096,
+            "p50": 0.09,
+            "p95": 0.115,
+            "max": 0.115
+          },
+          "handler": {
+            "last": 0.373,
+            "mean": 0.455,
+            "p50": 0.373,
+            "p95": 0.633,
+            "max": 0.633
+          },
+          "samples": 3,
+          "first_sequence": 1343,
+          "last_sequence": 1345
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.4,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2764.9,
+          "used_percent": 31.6,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 49.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 1.8,
+          "rss_mb": 49.0,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 3.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 269.0,
+      "ego": {
+        "timestamp": 269.0,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5311.82,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": 0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 269.0,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 269.0,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1345,
+        "generated_at_unix_s": 1794861973.705,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1345,
+        "sim_time_s": 269.0,
+        "active": true,
+        "age_s": 0.162
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861973.868
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 4.005,
+    "wall": 1794861974.3353128,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 4.4
+      },
+      "server_time_unix_s": 1794861974.357,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 6,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1348,
+          "sim_time_s": 269.6,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 6,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 6.91,
+        "interval_ms": {
+          "mean": 173.3,
+          "max": 230.8
+        },
+        "data_age_s": 0.002,
+        "latency_ms": {
+          "read": {
+            "last": 0.027,
+            "mean": 0.055,
+            "p50": 0.027,
+            "p95": 0.111,
+            "max": 0.111
+          },
+          "validate": {
+            "last": 0.12,
+            "mean": 0.131,
+            "p50": 0.112,
+            "p95": 0.225,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.098,
+            "mean": 0.094,
+            "p50": 0.081,
+            "p95": 0.123,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.104,
+            "mean": 0.093,
+            "p50": 0.083,
+            "p95": 0.115,
+            "max": 0.115
+          },
+          "handler": {
+            "last": 0.376,
+            "mean": 0.402,
+            "p50": 0.366,
+            "p95": 0.633,
+            "max": 0.633
+          },
+          "samples": 6,
+          "first_sequence": 1343,
+          "last_sequence": 1348
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.4,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2764.9,
+          "used_percent": 31.6,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 49.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 1.8,
+          "rss_mb": 49.0,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 3.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 269.6,
+      "ego": {
+        "timestamp": 269.6,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5325.154,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": 0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 269.6,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 269.6,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1348,
+        "generated_at_unix_s": 1794861974.355,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1348,
+        "sim_time_s": 269.6,
+        "active": true,
+        "age_s": 0.023
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861974.378
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 4.501,
+    "wall": 1794861974.831577,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 4.8
+      },
+      "server_time_unix_s": 1794861974.834,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 8,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1350,
+          "sim_time_s": 270.0,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 8,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.94,
+        "interval_ms": {
+          "mean": 180.7,
+          "max": 230.8
+        },
+        "data_age_s": 0.081,
+        "latency_ms": {
+          "read": {
+            "last": 0.715,
+            "mean": 0.14,
+            "p50": 0.072,
+            "p95": 0.715,
+            "max": 0.715
+          },
+          "validate": {
+            "last": 0.144,
+            "mean": 0.132,
+            "p50": 0.114,
+            "p95": 0.225,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.107,
+            "mean": 0.094,
+            "p50": 0.084,
+            "p95": 0.123,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.114,
+            "mean": 0.094,
+            "p50": 0.084,
+            "p95": 0.115,
+            "max": 0.115
+          },
+          "handler": {
+            "last": 1.111,
+            "mean": 0.489,
+            "p50": 0.373,
+            "p95": 1.111,
+            "max": 1.111
+          },
+          "samples": 8,
+          "first_sequence": 1343,
+          "last_sequence": 1350
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.7,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2766.6,
+          "used_percent": 31.6,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 2.0,
+          "rss_mb": 49.2,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 4.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 270.0,
+      "ego": {
+        "timestamp": 270.0,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5334.042,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": -0.0,
+        "steering_rad": 0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 270.0,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 270.0,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1350,
+        "generated_at_unix_s": 1794861974.753,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1350,
+        "sim_time_s": 270.0,
+        "active": true,
+        "age_s": 0.102
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861974.855
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 5.004,
+    "wall": 1794861975.334389,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 5.4
+      },
+      "server_time_unix_s": 1794861975.338,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 10,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1352,
+          "sim_time_s": 270.4,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 10,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.41,
+        "interval_ms": {
+          "mean": 187.6,
+          "max": 230.8
+        },
+        "data_age_s": 0.162,
+        "latency_ms": {
+          "read": {
+            "last": 0.025,
+            "mean": 0.117,
+            "p50": 0.027,
+            "p95": 0.715,
+            "max": 0.715
+          },
+          "validate": {
+            "last": 0.144,
+            "mean": 0.134,
+            "p50": 0.12,
+            "p95": 0.225,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.11,
+            "mean": 0.097,
+            "p50": 0.098,
+            "p95": 0.123,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.118,
+            "mean": 0.098,
+            "p50": 0.09,
+            "p95": 0.118,
+            "max": 0.118
+          },
+          "handler": {
+            "last": 0.426,
+            "mean": 0.476,
+            "p50": 0.376,
+            "p95": 1.111,
+            "max": 1.111
+          },
+          "samples": 10,
+          "first_sequence": 1343,
+          "last_sequence": 1352
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.7,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2766.6,
+          "used_percent": 31.6,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 2.0,
+          "rss_mb": 49.2,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 4.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 270.4,
+      "ego": {
+        "timestamp": 270.4,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5342.931,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": -0.0,
+        "steering_rad": 0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 270.4,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 270.4,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1352,
+        "generated_at_unix_s": 1794861975.176,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1352,
+        "sim_time_s": 270.4,
+        "active": true,
+        "age_s": 0.207
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861975.383
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 5.504,
+    "wall": 1794861975.8344681,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 5.9
+      },
+      "server_time_unix_s": 1794861975.841,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 13,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1355,
+          "sim_time_s": 271.0,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 13,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.52,
+        "interval_ms": {
+          "mean": 192.9,
+          "max": 230.8
+        },
+        "data_age_s": 0.038,
+        "latency_ms": {
+          "read": {
+            "last": 0.029,
+            "mean": 0.097,
+            "p50": 0.029,
+            "p95": 0.715,
+            "max": 0.715
+          },
+          "validate": {
+            "last": 0.144,
+            "mean": 0.135,
+            "p50": 0.136,
+            "p95": 0.225,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.115,
+            "mean": 0.101,
+            "p50": 0.105,
+            "p95": 0.123,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.125,
+            "mean": 0.105,
+            "p50": 0.114,
+            "p95": 0.13,
+            "max": 0.13
+          },
+          "handler": {
+            "last": 0.445,
+            "mean": 0.468,
+            "p50": 0.417,
+            "p95": 1.111,
+            "max": 1.111
+          },
+          "samples": 13,
+          "first_sequence": 1343,
+          "last_sequence": 1355
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.2,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2769.4,
+          "used_percent": 31.5,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 3.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 5.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 271.0,
+      "ego": {
+        "timestamp": 271.0,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5356.264,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": -0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 271.0,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 271.0,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1355,
+        "generated_at_unix_s": 1794861975.803,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1355,
+        "sim_time_s": 271.0,
+        "active": true,
+        "age_s": 0.082
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861975.885
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 6.002,
+    "wall": 1794861976.332298,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 6.4
+      },
+      "server_time_unix_s": 1794861976.346,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 15,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1357,
+          "sim_time_s": 271.4,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 15,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.25,
+        "interval_ms": {
+          "mean": 195.4,
+          "max": 230.8
+        },
+        "data_age_s": 0.123,
+        "latency_ms": {
+          "read": {
+            "last": 0.028,
+            "mean": 0.088,
+            "p50": 0.028,
+            "p95": 0.715,
+            "max": 0.715
+          },
+          "validate": {
+            "last": 0.148,
+            "mean": 0.138,
+            "p50": 0.142,
+            "p95": 0.225,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.115,
+            "mean": 0.103,
+            "p50": 0.107,
+            "p95": 0.123,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.124,
+            "mean": 0.107,
+            "p50": 0.114,
+            "p95": 0.13,
+            "max": 0.13
+          },
+          "handler": {
+            "last": 0.446,
+            "mean": 0.466,
+            "p50": 0.423,
+            "p95": 1.111,
+            "max": 1.111
+          },
+          "samples": 15,
+          "first_sequence": 1343,
+          "last_sequence": 1357
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.2,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2769.4,
+          "used_percent": 31.5,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.0,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 3.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 5.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 271.4,
+      "ego": {
+        "timestamp": 271.4,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5365.153,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": 0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 271.4,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 271.4,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1357,
+        "generated_at_unix_s": 1794861976.223,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1357,
+        "sim_time_s": 271.4,
+        "active": true,
+        "age_s": 0.143
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861976.367
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 6.502,
+    "wall": 1794861976.8324559,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 6.8
+      },
+      "server_time_unix_s": 1794861976.834,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 17,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1359,
+          "sim_time_s": 271.8,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 17,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.08,
+        "interval_ms": {
+          "mean": 198.6,
+          "max": 231.7
+        },
+        "data_age_s": 0.168,
+        "latency_ms": {
+          "read": {
+            "last": 0.026,
+            "mean": 0.081,
+            "p50": 0.028,
+            "p95": 0.715,
+            "max": 0.715
+          },
+          "validate": {
+            "last": 0.15,
+            "mean": 0.139,
+            "p50": 0.142,
+            "p95": 0.225,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.114,
+            "mean": 0.104,
+            "p50": 0.108,
+            "p95": 0.123,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.125,
+            "mean": 0.109,
+            "p50": 0.115,
+            "p95": 0.13,
+            "max": 0.13
+          },
+          "handler": {
+            "last": 0.448,
+            "mean": 0.462,
+            "p50": 0.423,
+            "p95": 1.111,
+            "max": 1.111
+          },
+          "samples": 17,
+          "first_sequence": 1343,
+          "last_sequence": 1359
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357,
+            1358,
+            1359
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115,
+            0.111,
+            0.114
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446,
+            0.422,
+            0.448
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.2,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2772.6,
+          "used_percent": 31.5,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 2.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 6.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 271.8,
+      "ego": {
+        "timestamp": 271.8,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5374.041,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": 0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 271.8,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 271.8,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1359,
+        "generated_at_unix_s": 1794861976.666,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1360,
+        "sim_time_s": 272.0,
+        "active": true,
+        "age_s": 0.003
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861976.858
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 7.004,
+    "wall": 1794861977.3345191,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 7.3
+      },
+      "server_time_unix_s": 1794861977.337,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 20,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1362,
+          "sim_time_s": 272.4,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 20,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.2,
+        "interval_ms": {
+          "mean": 199.3,
+          "max": 231.7
+        },
+        "data_age_s": 0.063,
+        "latency_ms": {
+          "read": {
+            "last": 0.61,
+            "mean": 0.11,
+            "p50": 0.028,
+            "p95": 0.61,
+            "max": 0.715
+          },
+          "validate": {
+            "last": 0.148,
+            "mean": 0.14,
+            "p50": 0.143,
+            "p95": 0.167,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.115,
+            "mean": 0.105,
+            "p50": 0.11,
+            "p95": 0.12,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.121,
+            "mean": 0.11,
+            "p50": 0.117,
+            "p95": 0.125,
+            "max": 0.13
+          },
+          "handler": {
+            "last": 1.024,
+            "mean": 0.496,
+            "p50": 0.426,
+            "p95": 1.024,
+            "max": 1.111
+          },
+          "samples": 20,
+          "first_sequence": 1343,
+          "last_sequence": 1362
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357,
+            1358,
+            1359,
+            1360,
+            1361,
+            1362
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115,
+            0.111,
+            0.114,
+            0.111,
+            0.112,
+            0.115
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446,
+            0.422,
+            0.448,
+            0.438,
+            0.602,
+            1.024
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.2,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2772.6,
+          "used_percent": 31.5,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 2.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 6.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 272.4,
+      "ego": {
+        "timestamp": 272.4,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5387.375,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": -0.0,
+        "steering_rad": 0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 272.4,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 272.4,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1362,
+        "generated_at_unix_s": 1794861977.274,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1362,
+        "sim_time_s": 272.4,
+        "active": true,
+        "age_s": 0.084
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861977.358
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 7.504,
+    "wall": 1794861977.834442,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 7.8
+      },
+      "server_time_unix_s": 1794861977.837,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 22,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1364,
+          "sim_time_s": 272.8,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 22,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.06,
+        "interval_ms": {
+          "mean": 200.9,
+          "max": 231.7
+        },
+        "data_age_s": 0.13,
+        "latency_ms": {
+          "read": {
+            "last": 0.028,
+            "mean": 0.158,
+            "p50": 0.028,
+            "p95": 0.715,
+            "max": 1.253
+          },
+          "validate": {
+            "last": 0.145,
+            "mean": 0.141,
+            "p50": 0.144,
+            "p95": 0.167,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.112,
+            "mean": 0.106,
+            "p50": 0.111,
+            "p95": 0.12,
+            "max": 0.123
+          },
+          "publish": {
+            "last": 0.122,
+            "mean": 0.111,
+            "p50": 0.117,
+            "p95": 0.125,
+            "max": 0.13
+          },
+          "handler": {
+            "last": 0.439,
+            "mean": 0.546,
+            "p50": 0.438,
+            "p95": 1.111,
+            "max": 1.655
+          },
+          "samples": 22,
+          "first_sequence": 1343,
+          "last_sequence": 1364
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357,
+            1358,
+            1359,
+            1360,
+            1361,
+            1362,
+            1363,
+            1364
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115,
+            0.111,
+            0.114,
+            0.111,
+            0.112,
+            0.115,
+            0.111,
+            0.112
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446,
+            0.422,
+            0.448,
+            0.438,
+            0.602,
+            1.024,
+            1.655,
+            0.439
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.2,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2773.6,
+          "used_percent": 31.4,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 3.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 7.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 272.8,
+      "ego": {
+        "timestamp": 272.8,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5396.263,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": -0.0,
+        "steering_rad": 0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 272.8,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 272.8,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1364,
+        "generated_at_unix_s": 1794861977.707,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1364,
+        "sim_time_s": 272.8,
+        "active": true,
+        "age_s": 0.172
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861977.879
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 8.004,
+    "wall": 1794861978.334424,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 8.4
+      },
+      "server_time_unix_s": 1794861978.348,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 25,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1367,
+          "sim_time_s": 273.4,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 25,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 5.14,
+        "interval_ms": {
+          "mean": 202.4,
+          "max": 233.3
+        },
+        "data_age_s": 0.002,
+        "latency_ms": {
+          "read": {
+            "last": 0.033,
+            "mean": 0.167,
+            "p50": 0.029,
+            "p95": 0.715,
+            "max": 1.253
+          },
+          "validate": {
+            "last": 0.162,
+            "mean": 0.142,
+            "p50": 0.144,
+            "p95": 0.167,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.127,
+            "mean": 0.107,
+            "p50": 0.111,
+            "p95": 0.123,
+            "max": 0.127
+          },
+          "publish": {
+            "last": 0.14,
+            "mean": 0.113,
+            "p50": 0.118,
+            "p95": 0.13,
+            "max": 0.14
+          },
+          "handler": {
+            "last": 0.498,
+            "mean": 0.56,
+            "p50": 0.439,
+            "p95": 1.111,
+            "max": 1.655
+          },
+          "samples": 25,
+          "first_sequence": 1343,
+          "last_sequence": 1367
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357,
+            1358,
+            1359,
+            1360,
+            1361,
+            1362,
+            1363,
+            1364,
+            1365,
+            1366,
+            1367
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115,
+            0.111,
+            0.114,
+            0.111,
+            0.112,
+            0.115,
+            0.111,
+            0.112,
+            0.113,
+            0.115,
+            0.127
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446,
+            0.422,
+            0.448,
+            0.438,
+            0.602,
+            1.024,
+            1.655,
+            0.439,
+            1.046,
+            0.43,
+            0.498
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.2,
+        "load_avg": [
+          0.27,
+          0.16,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2773.6,
+          "used_percent": 31.4,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 3.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 7.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 273.4,
+      "ego": {
+        "timestamp": 273.4,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5409.596,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": -0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 273.4,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 273.4,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1367,
+        "generated_at_unix_s": 1794861978.346,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1367,
+        "sim_time_s": 273.4,
+        "active": true,
+        "age_s": 0.024
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861978.37
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 8.504,
+    "wall": 1794861978.834419,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 8.8
+      },
+      "server_time_unix_s": 1794861978.837,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 27,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1369,
+          "sim_time_s": 273.8,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 27,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 4.8,
+        "interval_ms": {
+          "mean": 210.1,
+          "max": 233.3
+        },
+        "data_age_s": 0.093,
+        "latency_ms": {
+          "read": {
+            "last": 0.028,
+            "mean": 0.157,
+            "p50": 0.028,
+            "p95": 0.715,
+            "max": 1.253
+          },
+          "validate": {
+            "last": 0.144,
+            "mean": 0.142,
+            "p50": 0.144,
+            "p95": 0.167,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.111,
+            "mean": 0.108,
+            "p50": 0.111,
+            "p95": 0.123,
+            "max": 0.127
+          },
+          "publish": {
+            "last": 0.125,
+            "mean": 0.115,
+            "p50": 0.119,
+            "p95": 0.14,
+            "max": 0.163
+          },
+          "handler": {
+            "last": 0.441,
+            "mean": 0.553,
+            "p50": 0.441,
+            "p95": 1.111,
+            "max": 1.655
+          },
+          "samples": 27,
+          "first_sequence": 1343,
+          "last_sequence": 1369
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357,
+            1358,
+            1359,
+            1360,
+            1361,
+            1362,
+            1363,
+            1364,
+            1365,
+            1366,
+            1367,
+            1368,
+            1369
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115,
+            0.111,
+            0.114,
+            0.111,
+            0.112,
+            0.115,
+            0.111,
+            0.112,
+            0.113,
+            0.115,
+            0.127,
+            0.114,
+            0.111
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446,
+            0.422,
+            0.448,
+            0.438,
+            0.602,
+            1.024,
+            1.655,
+            0.439,
+            1.046,
+            0.43,
+            0.498,
+            0.49,
+            0.441
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.5,
+        "load_avg": [
+          0.25,
+          0.15,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2774.3,
+          "used_percent": 31.4,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 2.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 8.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 273.8,
+      "ego": {
+        "timestamp": 273.8,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5418.485,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": 0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 273.8,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 273.8,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1369,
+        "generated_at_unix_s": 1794861978.744,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1369,
+        "sim_time_s": 273.8,
+        "active": true,
+        "age_s": 0.136
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861978.88
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 9.003,
+    "wall": 1794861979.332902,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 9.4
+      },
+      "server_time_unix_s": 1794861979.346,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 29,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1371,
+          "sim_time_s": 274.2,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 29,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 4.8,
+        "interval_ms": {
+          "mean": 210.1,
+          "max": 235.4
+        },
+        "data_age_s": 0.158,
+        "latency_ms": {
+          "read": {
+            "last": 0.026,
+            "mean": 0.148,
+            "p50": 0.028,
+            "p95": 0.715,
+            "max": 1.253
+          },
+          "validate": {
+            "last": 0.131,
+            "mean": 0.142,
+            "p50": 0.144,
+            "p95": 0.167,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.108,
+            "mean": 0.108,
+            "p50": 0.111,
+            "p95": 0.123,
+            "max": 0.127
+          },
+          "publish": {
+            "last": 0.116,
+            "mean": 0.115,
+            "p50": 0.118,
+            "p95": 0.14,
+            "max": 0.163
+          },
+          "handler": {
+            "last": 0.411,
+            "mean": 0.543,
+            "p50": 0.439,
+            "p95": 1.111,
+            "max": 1.655
+          },
+          "samples": 29,
+          "first_sequence": 1343,
+          "last_sequence": 1371
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357,
+            1358,
+            1359,
+            1360,
+            1361,
+            1362,
+            1363,
+            1364,
+            1365,
+            1366,
+            1367,
+            1368,
+            1369,
+            1370,
+            1371
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115,
+            0.111,
+            0.114,
+            0.111,
+            0.112,
+            0.115,
+            0.111,
+            0.112,
+            0.113,
+            0.115,
+            0.127,
+            0.114,
+            0.111,
+            0.107,
+            0.108
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446,
+            0.422,
+            0.448,
+            0.438,
+            0.602,
+            1.024,
+            1.655,
+            0.439,
+            1.046,
+            0.43,
+            0.498,
+            0.49,
+            0.441,
+            0.422,
+            0.411
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 1.5,
+        "load_avg": [
+          0.25,
+          0.15,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2774.3,
+          "used_percent": 31.4,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 48.5,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 2.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 8.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 274.2,
+      "ego": {
+        "timestamp": 274.2,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5427.374,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": -0.0,
+        "steering_rad": -0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 274.2,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 274.2,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1371,
+        "generated_at_unix_s": 1794861979.188,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1371,
+        "sim_time_s": 274.2,
+        "active": true,
+        "age_s": 0.18
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861979.368
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  },
+  {
+    "elapsed_s": 9.504,
+    "wall": 1794861979.8343968,
+    "system": {
+      "schema": "roadsense.system.v1",
+      "app": {
+        "name": "RoadSense",
+        "version": "2.0.0.dev0",
+        "started_at_unix_s": 1794861969.988,
+        "uptime_s": 9.9
+      },
+      "server_time_unix_s": 1794861979.838,
+      "edge": {
+        "mode": "edge",
+        "run": {
+          "run_id": "6bec88c24ec6",
+          "first_sequence": 1343,
+          "frames": 32,
+          "missed_frames": 0,
+          "started_at_unix_s": 1794861973.488,
+          "last_sequence": 1374,
+          "sim_time_s": 274.8,
+          "active": true,
+          "mode": "edge"
+        },
+        "frames": {
+          "accepted": 32,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "rate_hz": 4.8,
+        "interval_ms": {
+          "mean": 209.1,
+          "max": 235.4
+        },
+        "data_age_s": 0.045,
+        "latency_ms": {
+          "read": {
+            "last": 0.841,
+            "mean": 0.165,
+            "p50": 0.028,
+            "p95": 0.841,
+            "max": 1.253
+          },
+          "validate": {
+            "last": 0.132,
+            "mean": 0.141,
+            "p50": 0.143,
+            "p95": 0.167,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.11,
+            "mean": 0.108,
+            "p50": 0.111,
+            "p95": 0.123,
+            "max": 0.127
+          },
+          "publish": {
+            "last": 0.119,
+            "mean": 0.116,
+            "p50": 0.119,
+            "p95": 0.14,
+            "max": 0.163
+          },
+          "handler": {
+            "last": 1.233,
+            "mean": 0.561,
+            "p50": 0.439,
+            "p95": 1.233,
+            "max": 1.655
+          },
+          "samples": 32,
+          "first_sequence": 1343,
+          "last_sequence": 1374
+        },
+        "series": {
+          "sequence": [
+            1343,
+            1344,
+            1345,
+            1346,
+            1347,
+            1348,
+            1349,
+            1350,
+            1351,
+            1352,
+            1353,
+            1354,
+            1355,
+            1356,
+            1357,
+            1358,
+            1359,
+            1360,
+            1361,
+            1362,
+            1363,
+            1364,
+            1365,
+            1366,
+            1367,
+            1368,
+            1369,
+            1370,
+            1371,
+            1372,
+            1373,
+            1374
+          ],
+          "process_ms": [
+            0.123,
+            0.101,
+            0.08,
+            0.081,
+            0.08,
+            0.098,
+            0.084,
+            0.107,
+            0.105,
+            0.11,
+            0.108,
+            0.12,
+            0.115,
+            0.116,
+            0.115,
+            0.111,
+            0.114,
+            0.111,
+            0.112,
+            0.115,
+            0.111,
+            0.112,
+            0.113,
+            0.115,
+            0.127,
+            0.114,
+            0.111,
+            0.107,
+            0.108,
+            0.111,
+            0.112,
+            0.11
+          ],
+          "handler_ms": [
+            0.633,
+            0.358,
+            0.373,
+            0.366,
+            0.307,
+            0.376,
+            0.391,
+            1.111,
+            0.417,
+            0.426,
+            0.423,
+            0.456,
+            0.445,
+            0.46,
+            0.446,
+            0.422,
+            0.448,
+            0.438,
+            0.602,
+            1.024,
+            1.655,
+            0.439,
+            1.046,
+            0.43,
+            0.498,
+            0.49,
+            0.441,
+            0.422,
+            0.411,
+            0.424,
+            0.53,
+            1.233
+          ]
+        },
+        "clients": {
+          "websocket": 2,
+          "dropped_messages": 0
+        }
+      },
+      "host": {
+        "hostname": "PI_HOSTNAME",
+        "system": "Linux",
+        "release": "6.18.50+rpt-rpi-2712",
+        "machine": "aarch64",
+        "model": "Raspberry Pi 5 Model B Rev 1.1",
+        "python": "3.13.5",
+        "cpu_count": 4,
+        "cpu_percent": 0.2,
+        "load_avg": [
+          0.25,
+          0.15,
+          0.09
+        ],
+        "memory": {
+          "total_mb": 4045.1,
+          "available_mb": 2775.8,
+          "used_percent": 31.4,
+          "swap_used_mb": 0.0
+        },
+        "temperature_c": 46.9,
+        "throttling": {
+          "raw": "0x0",
+          "now": [],
+          "since_boot": []
+        },
+        "process": {
+          "cpu_percent": 3.0,
+          "rss_mb": 49.3,
+          "peak_rss_mb": 48.0,
+          "threads": 3,
+          "uptime_s": 9.5
+        },
+        "unavailable": {}
+      },
+      "safety": {
+        "critical_ttc_s": 1.5,
+        "high_ttc_s": 3.0,
+        "horizon_s": 5.0,
+        "nominal_speed_kmh": 80.0
+      },
+      "ai": {
+        "enabled": true,
+        "model": "qwen3:0.6b",
+        "availability": "available",
+        "status": "deterministic",
+        "latency_ms": null
+      }
+    },
+    "live-state": {
+      "schema": "roadsense.live.v1",
+      "timestamp": 274.8,
+      "ego": {
+        "timestamp": 274.8,
+        "vehicle_id": "EGO_ROADSENSE",
+        "position": {
+          "x": -5440.707,
+          "y": 3.2,
+          "z": 0.313
+        },
+        "speed_mps": 22.222,
+        "speed_kmh": 80.0,
+        "heading_deg": 180.0,
+        "acceleration_mps2": 0.0,
+        "steering_rad": 0.0,
+        "mode": "baseline_highway",
+        "maneuver": "lane_keep",
+        "lane": 2
+      },
+      "road": {
+        "lane_width_m": 3.75,
+        "heading_deg": -0.0,
+        "lanes": [
+          {
+            "relation": "ego_lane",
+            "center_lateral_m": 0.08,
+            "driving": true
+          },
+          {
+            "relation": "right_lane",
+            "center_lateral_m": -3.67,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -7.42,
+            "driving": true
+          },
+          {
+            "relation": "other_lane",
+            "center_lateral_m": -11.17,
+            "driving": false
+          }
+        ]
+      },
+      "tracks": [],
+      "hazards": [],
+      "unified_safety": {
+        "timestamp": 274.8,
+        "overall_risk": "SAFE",
+        "primary_threat": null,
+        "recommended_action": "MAINTAIN",
+        "recommended_speed_kmh": 80.0,
+        "recommended_lane": null,
+        "reason": "No current vehicle conflict or relevant road hazard",
+        "vehicle_safety": {
+          "timestamp": 274.8,
+          "overall_risk": "SAFE",
+          "most_critical_track": null,
+          "minimum_ttc_s": null,
+          "active_conflicts": 0
+        },
+        "road_safety": {
+          "relevant_hazards": 0,
+          "nearest_hazard": null,
+          "hazards": []
+        }
+      },
+      "simulation": {
+        "source": "webots",
+        "active": true,
+        "run_id": "6bec88c24ec6",
+        "sequence": 1374,
+        "generated_at_unix_s": 1794861979.793,
+        "processing": "edge"
+      }
+    },
+    "ai-explanation": {
+      "schema": "roadsense.ai.v1",
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "deterministic",
+      "explanation": {
+        "text": "No vehicle conflict or relevant road hazard is detected. RoadSense recommends keeping to the current speed target.",
+        "origin": "deterministic",
+        "fallback_reason": "nothing_to_explain",
+        "source": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343,
+          "sim_time_s": 268.6,
+          "risk": "SAFE",
+          "action": "MAINTAIN",
+          "threat_id": null,
+          "threat_type": null,
+          "recommended_lane": null,
+          "cause": null
+        },
+        "generated_at_unix_s": 1794861973.488,
+        "latency_ms": null,
+        "cached": false,
+        "ollama": null,
+        "written_for": {
+          "run_id": "6bec88c24ec6",
+          "sequence": 1343
+        }
+      },
+      "is_current": true,
+      "stale_reason": null,
+      "latest_llm": null,
+      "state": {
+        "run_id": "6bec88c24ec6",
+        "sequence": 1374,
+        "sim_time_s": 274.8,
+        "active": true,
+        "age_s": 0.065
+      },
+      "last_error": null,
+      "stats": {
+        "requests": 0,
+        "generated": 0,
+        "rejected": 0,
+        "timeouts": 0,
+        "errors": 0,
+        "cancelled": 0,
+        "cache_hits": 0,
+        "discarded_stale": 0,
+        "dropped_pending": 0,
+        "expired": 0,
+        "deterministic": 1,
+        "latency_ms": null
+      },
+      "config": {
+        "timeout_s": 20.0,
+        "cooldown_s": 5.0,
+        "keep_alive": "2m",
+        "num_ctx": 1024,
+        "num_predict": 80,
+        "threads": 3
+      },
+      "server_time_unix_s": 1794861979.858
+    },
+    "hazards": {
+      "schema": "roadsense.hazards.v1",
+      "run_id": "6bec88c24ec6",
+      "coordinate_frame": "webots_world",
+      "geo_configured": false,
+      "records": []
+    }
+  }
+]

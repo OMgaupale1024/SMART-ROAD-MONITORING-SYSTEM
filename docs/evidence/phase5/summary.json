@@ -1,0 +1,648 @@
+{
+  "baseline": {
+    "polls": 110,
+    "valid": 110,
+    "api_errors": 0,
+    "runs": {
+      "3f1cf130d7c6": {
+        "first_observed_sequence": 926,
+        "last_observed_sequence": 926,
+        "frames": {
+          "accepted": 1,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "latency_ms": {
+          "read": {
+            "last": 0.387,
+            "mean": 0.387,
+            "p50": 0.387,
+            "p95": 0.387,
+            "max": 0.387
+          },
+          "validate": {
+            "last": 0.331,
+            "mean": 0.331,
+            "p50": 0.331,
+            "p95": 0.331,
+            "max": 0.331
+          },
+          "process": {
+            "last": 0.284,
+            "mean": 0.284,
+            "p50": 0.284,
+            "p95": 0.284,
+            "max": 0.284
+          },
+          "publish": {
+            "last": 0.159,
+            "mean": 0.159,
+            "p50": 0.159,
+            "p95": 0.159,
+            "max": 0.159
+          },
+          "handler": {
+            "last": 1.242,
+            "mean": 1.242,
+            "p50": 1.242,
+            "p95": 1.242,
+            "max": 1.242
+          },
+          "samples": 1,
+          "first_sequence": 926,
+          "last_sequence": 926
+        },
+        "decisions": [
+          "MAINTAIN"
+        ],
+        "max_poll_data_age_s": 22.266
+      },
+      "6bec88c24ec6": {
+        "first_observed_sequence": 2,
+        "last_observed_sequence": 177,
+        "frames": {
+          "accepted": 178,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 2
+        },
+        "latency_ms": {
+          "read": {
+            "last": 1.278,
+            "mean": 0.208,
+            "p50": 0.116,
+            "p95": 0.871,
+            "max": 1.827
+          },
+          "validate": {
+            "last": 0.148,
+            "mean": 0.202,
+            "p50": 0.177,
+            "p95": 0.47,
+            "max": 0.946
+          },
+          "process": {
+            "last": 0.74,
+            "mean": 0.973,
+            "p50": 0.818,
+            "p95": 2.262,
+            "max": 3.818
+          },
+          "publish": {
+            "last": 0.434,
+            "mean": 0.635,
+            "p50": 0.468,
+            "p95": 1.237,
+            "max": 8.948
+          },
+          "handler": {
+            "last": 2.626,
+            "mean": 2.07,
+            "p50": 1.732,
+            "p95": 4.242,
+            "max": 10.308
+          },
+          "samples": 177,
+          "first_sequence": 1,
+          "last_sequence": 177
+        },
+        "decisions": [
+          "BRAKE",
+          "EMERGENCY_BRAKE",
+          "MAINTAIN",
+          "MONITOR",
+          "SLOW_DOWN"
+        ],
+        "max_poll_data_age_s": 1.549
+      }
+    },
+    "cpu_host_percent": {
+      "min": 0.0,
+      "mean": 11.043,
+      "max": 79.2
+    },
+    "cpu_server_percent": {
+      "min": 0.1,
+      "mean": 3.058,
+      "max": 11.0
+    },
+    "server_rss_mb": {
+      "min": 49.3,
+      "mean": 49.739,
+      "max": 50.1
+    },
+    "RAM_used_percent": {
+      "min": 14.0,
+      "mean": 21.891,
+      "max": 31.9
+    },
+    "temperature_c": {
+      "min": 44.6,
+      "mean": 47.272,
+      "max": 54.0
+    },
+    "rate_hz": {
+      "min": 0.0,
+      "mean": 3.179,
+      "max": 7.35
+    },
+    "ai_stats": {
+      "requests": 3,
+      "generated": 2,
+      "rejected": 0,
+      "timeouts": 0,
+      "errors": 0,
+      "cancelled": 1,
+      "cache_hits": 0,
+      "discarded_stale": 1,
+      "dropped_pending": 0,
+      "expired": 0,
+      "deterministic": 16,
+      "latency_ms": {
+        "last": 2883.1,
+        "mean": 3884.2,
+        "p50": 2883.1,
+        "p95": 4885.3,
+        "max": 4885.3
+      }
+    },
+    "ai_availability": [
+      "available"
+    ],
+    "decision_set": [
+      "BRAKE",
+      "EMERGENCY_BRAKE",
+      "MAINTAIN",
+      "MONITOR",
+      "SLOW_DOWN"
+    ]
+  },
+  "unreachable": {
+    "polls": 130,
+    "valid": 128,
+    "api_errors": 2,
+    "runs": {
+      "6bec88c24ec6": {
+        "first_observed_sequence": 1462,
+        "last_observed_sequence": 1528,
+        "frames": {
+          "accepted": 69,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "latency_ms": {
+          "read": {
+            "last": 0.096,
+            "mean": 0.191,
+            "p50": 0.098,
+            "p95": 0.831,
+            "max": 1.26
+          },
+          "validate": {
+            "last": 0.146,
+            "mean": 0.134,
+            "p50": 0.14,
+            "p95": 0.158,
+            "max": 0.211
+          },
+          "process": {
+            "last": 0.11,
+            "mean": 0.104,
+            "p50": 0.11,
+            "p95": 0.119,
+            "max": 0.124
+          },
+          "publish": {
+            "last": 0.12,
+            "mean": 0.11,
+            "p50": 0.116,
+            "p95": 0.131,
+            "max": 0.14
+          },
+          "handler": {
+            "last": 0.504,
+            "mean": 0.569,
+            "p50": 0.501,
+            "p95": 1.226,
+            "max": 1.668
+          },
+          "samples": 68,
+          "first_sequence": 1460,
+          "last_sequence": 1527
+        },
+        "decisions": [
+          "MAINTAIN"
+        ],
+        "max_poll_data_age_s": 1.849
+      },
+      "b56d2b5a7361": {
+        "first_observed_sequence": 1,
+        "last_observed_sequence": 214,
+        "frames": {
+          "accepted": 283,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 2
+        },
+        "latency_ms": {
+          "read": {
+            "last": 0.667,
+            "mean": 0.404,
+            "p50": 0.117,
+            "p95": 0.968,
+            "max": 15.378
+          },
+          "validate": {
+            "last": 0.214,
+            "mean": 0.189,
+            "p50": 0.187,
+            "p95": 0.213,
+            "max": 0.245
+          },
+          "process": {
+            "last": 0.891,
+            "mean": 0.943,
+            "p50": 0.953,
+            "p95": 1.28,
+            "max": 1.37
+          },
+          "publish": {
+            "last": 0.512,
+            "mean": 0.547,
+            "p50": 0.557,
+            "p95": 0.715,
+            "max": 0.788
+          },
+          "handler": {
+            "last": 2.33,
+            "mean": 2.125,
+            "p50": 1.904,
+            "p95": 2.785,
+            "max": 17.099
+          },
+          "samples": 214,
+          "first_sequence": 1,
+          "last_sequence": 214
+        },
+        "decisions": [
+          "BRAKE",
+          "EMERGENCY_BRAKE",
+          "MAINTAIN",
+          "MONITOR",
+          "SLOW_DOWN"
+        ],
+        "max_poll_data_age_s": 1.822
+      }
+    },
+    "cpu_host_percent": {
+      "min": 0.2,
+      "mean": 1.12,
+      "max": 2.0
+    },
+    "cpu_server_percent": {
+      "min": 1.0,
+      "mean": 3.288,
+      "max": 5.9
+    },
+    "server_rss_mb": {
+      "min": 49.2,
+      "mean": 50.027,
+      "max": 50.4
+    },
+    "RAM_used_percent": {
+      "min": 31.1,
+      "mean": 31.343,
+      "max": 31.9
+    },
+    "temperature_c": {
+      "min": 44.6,
+      "mean": 46.547,
+      "max": 48.5
+    },
+    "rate_hz": {
+      "min": 0.97,
+      "mean": 4.537,
+      "max": 7.65
+    },
+    "ai_stats": {
+      "requests": 3,
+      "generated": 0,
+      "rejected": 0,
+      "timeouts": 0,
+      "errors": 3,
+      "cancelled": 0,
+      "cache_hits": 0,
+      "discarded_stale": 0,
+      "dropped_pending": 2,
+      "expired": 0,
+      "deterministic": 19,
+      "latency_ms": null
+    },
+    "ai_availability": [
+      "unavailable"
+    ],
+    "decision_set": [
+      "BRAKE",
+      "EMERGENCY_BRAKE",
+      "MAINTAIN",
+      "MONITOR",
+      "SLOW_DOWN"
+    ]
+  },
+  "hung": {
+    "polls": 130,
+    "valid": 129,
+    "api_errors": 1,
+    "runs": {
+      "b56d2b5a7361": {
+        "first_observed_sequence": 304,
+        "last_observed_sequence": 359,
+        "frames": {
+          "accepted": 57,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "latency_ms": {
+          "read": {
+            "last": 0.116,
+            "mean": 0.454,
+            "p50": 0.114,
+            "p95": 0.905,
+            "max": 15.039
+          },
+          "validate": {
+            "last": 0.178,
+            "mean": 0.166,
+            "p50": 0.173,
+            "p95": 0.19,
+            "max": 0.237
+          },
+          "process": {
+            "last": 0.992,
+            "mean": 0.8,
+            "p50": 0.899,
+            "p95": 1.014,
+            "max": 1.109
+          },
+          "publish": {
+            "last": 0.596,
+            "mean": 0.457,
+            "p50": 0.517,
+            "p95": 0.596,
+            "max": 0.647
+          },
+          "handler": {
+            "last": 1.915,
+            "mean": 1.916,
+            "p50": 1.747,
+            "p95": 2.643,
+            "max": 16.041
+          },
+          "samples": 56,
+          "first_sequence": 303,
+          "last_sequence": 358
+        },
+        "decisions": [
+          "BRAKE",
+          "MAINTAIN",
+          "SLOW_DOWN"
+        ],
+        "max_poll_data_age_s": 1.835
+      },
+      "8f5013ae9c3b": {
+        "first_observed_sequence": 1,
+        "last_observed_sequence": 226,
+        "frames": {
+          "accepted": 283,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 2
+        },
+        "latency_ms": {
+          "read": {
+            "last": 0.121,
+            "mean": 0.352,
+            "p50": 0.119,
+            "p95": 1.04,
+            "max": 14.59
+          },
+          "validate": {
+            "last": 0.193,
+            "mean": 0.191,
+            "p50": 0.189,
+            "p95": 0.212,
+            "max": 0.238
+          },
+          "process": {
+            "last": 0.834,
+            "mean": 0.971,
+            "p50": 0.976,
+            "p95": 1.299,
+            "max": 1.424
+          },
+          "publish": {
+            "last": 0.506,
+            "mean": 0.569,
+            "p50": 0.575,
+            "p95": 0.743,
+            "max": 0.814
+          },
+          "handler": {
+            "last": 1.688,
+            "mean": 2.125,
+            "p50": 1.94,
+            "p95": 3.029,
+            "max": 16.136
+          },
+          "samples": 226,
+          "first_sequence": 1,
+          "last_sequence": 226
+        },
+        "decisions": [
+          "BRAKE",
+          "EMERGENCY_BRAKE",
+          "MAINTAIN",
+          "MONITOR",
+          "SLOW_DOWN"
+        ],
+        "max_poll_data_age_s": 1.302
+      }
+    },
+    "cpu_host_percent": {
+      "min": 0.2,
+      "mean": 1.123,
+      "max": 2.0
+    },
+    "cpu_server_percent": {
+      "min": 1.0,
+      "mean": 3.655,
+      "max": 5.0
+    },
+    "server_rss_mb": {
+      "min": 48.9,
+      "mean": 50.182,
+      "max": 50.5
+    },
+    "RAM_used_percent": {
+      "min": 14.4,
+      "mean": 14.554,
+      "max": 15.1
+    },
+    "temperature_c": {
+      "min": 45.8,
+      "mean": 47.295,
+      "max": 49.0
+    },
+    "rate_hz": {
+      "min": 1.33,
+      "mean": 4.554,
+      "max": 10.0
+    },
+    "ai_stats": {
+      "requests": 4,
+      "generated": 0,
+      "rejected": 0,
+      "timeouts": 3,
+      "errors": 0,
+      "cancelled": 1,
+      "cache_hits": 0,
+      "discarded_stale": 0,
+      "dropped_pending": 3,
+      "expired": 0,
+      "deterministic": 25,
+      "latency_ms": null
+    },
+    "ai_availability": [
+      "available",
+      "unavailable"
+    ],
+    "decision_set": [
+      "BRAKE",
+      "EMERGENCY_BRAKE",
+      "MAINTAIN",
+      "MONITOR",
+      "SLOW_DOWN"
+    ]
+  },
+  "after-crash": {
+    "polls": 20,
+    "valid": 13,
+    "api_errors": 7,
+    "runs": {
+      "6bec88c24ec6": {
+        "first_observed_sequence": 1345,
+        "last_observed_sequence": 1374,
+        "frames": {
+          "accepted": 32,
+          "rejected": 0,
+          "rejected_by_status": {},
+          "missed": 0,
+          "runs": 1
+        },
+        "latency_ms": {
+          "read": {
+            "last": 0.841,
+            "mean": 0.165,
+            "p50": 0.028,
+            "p95": 0.841,
+            "max": 1.253
+          },
+          "validate": {
+            "last": 0.132,
+            "mean": 0.141,
+            "p50": 0.143,
+            "p95": 0.167,
+            "max": 0.225
+          },
+          "process": {
+            "last": 0.11,
+            "mean": 0.108,
+            "p50": 0.111,
+            "p95": 0.123,
+            "max": 0.127
+          },
+          "publish": {
+            "last": 0.119,
+            "mean": 0.116,
+            "p50": 0.119,
+            "p95": 0.14,
+            "max": 0.163
+          },
+          "handler": {
+            "last": 1.233,
+            "mean": 0.561,
+            "p50": 0.439,
+            "p95": 1.233,
+            "max": 1.655
+          },
+          "samples": 32,
+          "first_sequence": 1343,
+          "last_sequence": 1374
+        },
+        "decisions": [
+          "MAINTAIN"
+        ],
+        "max_poll_data_age_s": 0.168
+      }
+    },
+    "cpu_host_percent": {
+      "min": 0.2,
+      "mean": 0.815,
+      "max": 1.5
+    },
+    "cpu_server_percent": {
+      "min": 1.8,
+      "mean": 2.354,
+      "max": 3.0
+    },
+    "server_rss_mb": {
+      "min": 49.0,
+      "mean": 49.238,
+      "max": 49.3
+    },
+    "RAM_used_percent": {
+      "min": 31.4,
+      "mean": 31.492,
+      "max": 31.6
+    },
+    "temperature_c": {
+      "min": 46.9,
+      "mean": 48.377,
+      "max": 49.0
+    },
+    "rate_hz": {
+      "min": 4.8,
+      "mean": 5.579,
+      "max": 8.62
+    },
+    "ai_stats": {
+      "requests": 0,
+      "generated": 0,
+      "rejected": 0,
+      "timeouts": 0,
+      "errors": 0,
+      "cancelled": 0,
+      "cache_hits": 0,
+      "discarded_stale": 0,
+      "dropped_pending": 0,
+      "expired": 0,
+      "deterministic": 1,
+      "latency_ms": null
+    },
+    "ai_availability": [
+      "available"
+    ],
+    "decision_set": [
+      "MAINTAIN"
+    ]
+  }
+}

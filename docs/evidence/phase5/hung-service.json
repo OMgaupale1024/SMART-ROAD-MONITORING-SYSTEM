@@ -1,0 +1,3 @@
+{
+  "service": "Restart=on-failure\nMainPID=4564\nResult=success\nNRestarts=0\nActiveState=active\nUnitFileState=enabled\nLISTEN 0      2048         0.0.0.0:8001       0.0.0.0:*    users:((\"python3\",pid=4564,fd=7))"
+}

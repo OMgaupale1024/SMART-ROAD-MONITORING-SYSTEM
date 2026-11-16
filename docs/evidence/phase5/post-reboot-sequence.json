@@ -1,0 +1,18 @@
+{
+  "first": {
+    "source": "webots",
+    "active": true,
+    "run_id": "8f5013ae9c3b",
+    "sequence": 3750,
+    "generated_at_unix_s": 1794862938.342,
+    "processing": "edge"
+  },
+  "last": {
+    "source": "webots",
+    "active": true,
+    "run_id": "8f5013ae9c3b",
+    "sequence": 3759,
+    "generated_at_unix_s": 1794862940.394,
+    "processing": "edge"
+  }
+}
