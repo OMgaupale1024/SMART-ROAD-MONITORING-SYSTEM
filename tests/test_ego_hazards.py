@@ -1,19 +1,10 @@
 """EGO_ROADSENSE road hazards (Webots digital twin): detections, the simulated sensor, the persistent hazard map."""
 import json
 import math
-import sys
-from pathlib import Path
 
 import pytest
 
-# The modules live next to the Webots controller, outside the roadsense package, and import perception.py from there.
-_DIR = str(Path(__file__).resolve().parents[1] / "simulation/webots/controllers/roadsense_ego")
-sys.path.insert(0, _DIR)
-try:
-    import hazard_map
-    import hazards
-finally:
-    sys.path.remove(_DIR)
+from roadsense.autonomy import hazard_map, hazards
 
 HIGHWAY_POSE = (-100.0, 6.875, math.pi)  # ego in the middle lane, heading -x like EGO_ROADSENSE
 POTHOLE = "pothole severity=HIGH length=1.2 width=0.9 depth=0.08"

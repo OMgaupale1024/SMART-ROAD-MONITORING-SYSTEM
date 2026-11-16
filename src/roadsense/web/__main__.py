@@ -1,4 +1,4 @@
-"""Web Server entry point: python -m roadsense.web [--host HOST] [--port PORT] [--no-browser]."""
+"""Edge server entry point: python -m roadsense.web [--host HOST] [--port PORT] [--no-browser]."""
 import argparse
 
 from roadsense.web.server import run_web
@@ -6,7 +6,8 @@ from roadsense.web.server import run_web
 
 def main(argv=None) -> None:
     parser = argparse.ArgumentParser(
-        prog="python -m roadsense.web", description="RoadSense web dashboard and API server.")
+        prog="python -m roadsense.web",
+        description="RoadSense edge server: sensor ingestion, autonomy pipeline and dashboard.")
     parser.add_argument(
         "--host", default="127.0.0.1",
         help="address to listen on (default: 127.0.0.1, this computer only). 0.0.0.0 lets every "

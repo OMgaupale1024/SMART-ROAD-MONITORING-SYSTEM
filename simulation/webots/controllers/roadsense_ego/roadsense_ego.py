@@ -22,23 +22,20 @@
 # hazard is discovered; the driving logic doesn't use it either. Added unified safety recommendations
 # every radar cycle, printed once per simulated second; no recommendations feed the driving logic.
 # Added optional live-state publishing to the RoadSense web server (ROADSENSE_LIVE_PUBLISH=1), from a
-# background thread that the control loop never waits for.
+# background thread that the control loop never waits for. ROADSENSE_EDGE_URL offloads the
+# autonomy pipeline to an edge server by sending sensor readings from the same cycle.
 
 """RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception, risk,
 road hazards, safety recommendations and an optional live-state stream."""
 
+import sys
+from pathlib import Path
+
 from vehicle import Driver
 
-import hazard_map
-import hazards
-import live_publisher
-import live_state
-import perception
-import prediction
-import risk
-import safety
-import telemetry
-import tracking
+# Webots uses its own controller interpreter. The shared autonomy package is pure Python.
+sys.path.insert(0, str(Path(__file__).resolve().parents[4] / "src"))
+from roadsense.autonomy import hazard_map, live_publisher, live_state, perception, pipeline, risk, safety, telemetry
 
 TELEMETRY_PERIOD_S = 1.0  # simulated seconds between telemetry lines
 PERCEPTION_PERIOD_S = 1.0  # simulated seconds between perception summaries
@@ -142,26 +139,17 @@ previousTelemetry = None  # (timestamp, speed) of the last telemetry record
 radars = {name: driver.getDevice(name) for name in perception.RADARS}
 for radar in radars.values():
     radar.enable(RADAR_PERIOD_MS)
-tracker = tracking.Tracker()
 nextRadarCycle = RADAR_PERIOD_MS / 1000.0
 nextPerception = PERCEPTION_PERIOD_S
-reports, assessments = [], []  # the confirmed tracks and their collision risk, as of the latest radar cycle
 # road hazards: the hazard camera's object recognition (simulated pothole sensing), read every radar cycle
 hazardCamera = driver.getDevice("hazard camera")
 hazardCamera.recognitionEnable(RADAR_PERIOD_MS)
-hazardMap = hazard_map.HazardMap(driver.getName())
-safetyPolicy = safety.Policy(nominal_speed_kmh=maxSpeed)
-# live state for the RoadSense web server, if ROADSENSE_LIVE_PUBLISH asks for it: one snapshot per publication
-# period, sent by a background thread; the algorithms above never wait for the network
+# The publisher sends raw readings in edge mode and precomputed snapshots in the standalone demo.
 liveConfig = live_publisher.config_from_environment()
 livePublisher = live_publisher.LivePublisher(liveConfig.url, liveConfig.timeout_s) if liveConfig else None
-liveRunId, liveSequence, nextLive, previousLive, liveState = live_state.new_run_id(), 0, 0.0, None, None
-
-
-def ego_pose():
-    """EGO_ROADSENSE's world (x, y, yaw) from the telemetry GPS and the inertial unit."""
-    x, y, _ = telemetryGps.getValues()
-    return x, y, inertialUnit.getRollPitchYaw()[2]
+edgeMode = liveConfig is not None and liveConfig.edge
+localPipeline = None if edgeMode else pipeline.Pipeline(driver.getName(), safety.Policy(nominal_speed_kmh=maxSpeed))
+liveRunId, liveSequence, nextLive, liveState = live_state.new_run_id(), 0, 0.0, None
 
 
 while driver.step() != -1:
@@ -224,56 +212,51 @@ while driver.step() != -1:
                                        currentLane)
         previousTelemetry = (now, groundSpeed)
         print(telemetry.format_line(record))
-    # perception, prediction, risk and road hazards every radar cycle, printed once per PERCEPTION_PERIOD_S of
-    # simulated time
-    # (a multiple of the radar period, so the print follows a radar cycle in the same step)
+    # One complete sensor frame per radar cycle. In edge mode only the server processes it.
     if now >= nextRadarCycle - 1e-6:
         nextRadarCycle += RADAR_PERIOD_MS / 1000.0
-        pose = ego_pose()
-        detections = []
-        for name, radar in radars.items():
-            targets = [(target.distance, target.azimuth, target.speed) for target in radar.getTargets()]
-            limits = (radar.getMinRange(), radar.getMaxRange(), radar.getHorizontalFov())
-            detections += perception.radar_detections(name, targets, limits, now, pose)
-        tracker.update(now, detections)
-        egoVelocity = telemetryGps.getSpeedVector()[:2]
-        reports = [perception.track_report(track, now, pose, egoVelocity) for track in tracker.confirmed]
-        assessments = [risk.assess(report, prediction.predict(report)) for report in reports]
-        objects = [(tuple(o.position), o.model) for o in hazardCamera.getRecognitionObjects()]
-        for hazard in hazardMap.update(hazards.simulated_detections(objects, now, pose)):
-            print(hazard_map.format_event(now, hazard, pose))
-        hazardSnapshot = hazardMap.snapshot(now, pose)
-        # This world's three driving lanes; lane 3 is reserved for pedestrians. No suggestion while merging.
-        laneIndex = perception.lane_index(pose[1])
-        adjacentLanes = []
-        if laneIndex in (0, 1, 2) and overtakingSide is None:
-            laneCentre = perception.CARRIAGEWAY_Y[0] + (laneIndex + 0.5) * perception.LANE_WIDTH_M
-            if abs(pose[1] - laneCentre) < 0.6:
-                if laneIndex > 0:
-                    adjacentLanes.append("left_lane")
-                if laneIndex < 2:
-                    adjacentLanes.append("right_lane")
-        unifiedSafetyState = safety.decide(now, telemetryGps.getSpeed(), assessments, reports,
-                                           hazardSnapshot, adjacentLanes, safetyPolicy)
-        if livePublisher and now >= nextLive - 1e-6:  # this cycle's records, as one snapshot
+        frame = {
+            "schema": pipeline.SENSOR_SCHEMA,
+            "timestamp": round(now, 3),
+            "ego": {
+                "vehicle_id": driver.getName(), "position": telemetryGps.getValues(),
+                "velocity": telemetryGps.getSpeedVector()[:2], "speed_mps": telemetryGps.getSpeed(),
+                "yaw_rad": inertialUnit.getRollPitchYaw()[2], "steering_rad": driver.getSteeringAngle(),
+                "maneuver": "lane_keep" if overtakingSide is None else "lane_change", "lane": currentLane,
+            },
+            "radars": {
+                name: {
+                    "targets": [(target.distance, target.azimuth, target.speed) for target in radar.getTargets()],
+                    "limits": (radar.getMinRange(), radar.getMaxRange(), radar.getHorizontalFov()),
+                }
+                for name, radar in radars.items()
+            },
+            "objects": [(tuple(obj.position), obj.model) for obj in hazardCamera.getRecognitionObjects()],
+            "sides": {side: (sensors[side].getValue(), sensors[side].getMaxValue()) for side in ("left", "right")}
+            if edgeMode else None,
+        }
+        if localPipeline is not None:
+            cycle = localPipeline.process(frame)
+            for hazard in cycle.discoveries:
+                print(hazard_map.format_event(now, hazard, cycle.pose))
+        if livePublisher and (edgeMode or now >= nextLive - 1e-6):
             nextLive += liveConfig.period_s
             liveSequence += 1
-            liveSpeed = telemetryGps.getSpeed()
-            liveEgo = telemetry.make_record(now, driver.getName(), telemetryGps.getValues(), liveSpeed, pose[2],
-                                            driver.getSteeringAngle(), previousLive,
-                                            "lane_keep" if overtakingSide is None else "lane_change", currentLane)
-            previousLive = (now, liveSpeed)
-            liveState = live_state.build(now, liveEgo, reports, assessments, hazardSnapshot, unifiedSafetyState,
-                                         pose, liveRunId, liveSequence)
+            if edgeMode:
+                frame["simulation"] = {"run_id": liveRunId, "sequence": liveSequence, "active": True}
+                liveState = frame
+            else:
+                liveState = cycle.snapshot(liveRunId, liveSequence)
             livePublisher.publish(live_state.encode(liveState))
-    if now >= nextPerception - 1e-6:
+    if localPipeline is not None and now >= nextPerception - 1e-6:
         nextPerception += PERCEPTION_PERIOD_S
-        print(perception.format_summary(now, reports))
-        print(risk.format_summary(now, reports, assessments))
-        print(hazard_map.format_summary(hazardSnapshot))
-        print(safety.format_decision(unifiedSafetyState))
+        print(perception.format_summary(now, cycle.reports))
+        print(risk.format_summary(now, cycle.reports, cycle.assessments))
+        print(hazard_map.format_summary(cycle.hazards))
+        print(safety.format_decision(cycle.decision))
 
 # the simulation is over: tell the web server's clients, if it can be reached within a second
-if livePublisher and liveState:
-    livePublisher.publish(live_state.encode(live_state.finished(liveState)))
+if livePublisher:
+    if liveState:
+        livePublisher.publish(live_state.encode(live_state.finished(liveState)))
     livePublisher.close()

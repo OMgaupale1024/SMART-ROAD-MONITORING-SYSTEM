@@ -1,3 +1,3 @@
-"""RoadSense Desktop — USB-serial road-condition monitor for the car-in-a-box prototype."""
+"""RoadSense: edge-AI driving assistance and road-hazard monitoring for a Webots digital twin."""
 
-__version__ = "0.2.1"
+__version__ = "2.0.0.dev0"

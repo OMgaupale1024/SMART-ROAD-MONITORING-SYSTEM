@@ -1,14 +1,55 @@
 # RoadSense Live State (`roadsense.live.v1`)
 
-The Webots digital twin can stream RoadSense's state to the RoadSense web server, which keeps the
-latest state and passes it on to any number of WebSocket clients, such as the 3D dashboard at
-`/autonomy` ([autonomy-dashboard.md](autonomy-dashboard.md)).
+The RoadSense edge server keeps the latest state of the Webots digital twin and passes it on to any
+number of WebSocket clients, such as [the dashboard](dashboard.md). It computes that state itself from
+the simulation's sensor frames, or takes it ready-made from a simulation that computed it.
 Each message is one **snapshot**: everything RoadSense worked out in one 200 ms processing cycle —
 the car, the tracked vehicles with their predicted paths and collision risk, the hazard map and the
 unified safety recommendation. A client only draws it; it computes no tracking, prediction, TTC,
 hazard severity or decision of its own.
 
-## Architecture
+## Run the pipeline on a Raspberry Pi
+
+This is how RoadSense normally runs: Webots sends sensor frames, the edge server computes. On the Pi,
+start the edge server on your local network ([deployment.md](deployment.md) has the whole procedure):
+
+```sh
+cd ~/roadsense-edge
+PYTHONPATH="$PWD/src:$HOME/.local/share/roadsense/python313" \
+python3 -m roadsense.web --host 0.0.0.0 --port 8001 --no-browser
+```
+
+On the Webots computer, set this variable in the terminal you use to
+[launch the simulation](#running-it). Replace `PI_IP` with the Pi's address:
+
+```sh
+export ROADSENSE_EDGE_URL=http://PI_IP:8001/api/sensor-frame
+```
+
+Open `http://PI_IP:8001/`. The status rail's **Processing** cell reads **Edge**, and **Next move**
+says the decision was made by the edge server.
+For a one-computer test, use `http://127.0.0.1:8000/api/sensor-frame` and start the edge server locally.
+Use a trusted local network since this prototype has no login.
+
+Webots sends a `roadsense.sensors.v1` frame every 200 ms of simulation time. It carries the
+ego's measured pose, velocity and steering, the front and rear radar returns and limits,
+simulated camera recognition objects, and left and right distance readings. The Pi tracks
+vehicles across frames, predicts their paths and collision risk, updates the pothole map, and
+computes the recommended action, lane, and target speed. A lane-change suggestion also needs
+a clear reading from the distance sensor on that side. The dashboard receives the computed
+`roadsense.live.v1` snapshot over `/ws/live`, with `simulation.processing` set to `"edge"`.
+Webots's existing driver controls the simulated car. The decisions are advisory and the
+sensor adapter is specific to the Webots highway.
+
+**Accepted sensor frames.** The server refuses (400) a frame that is not exactly the
+`roadsense.sensors.v1` shape: unknown fields, wrong types, numbers out of range, `NaN` or `Infinity`,
+more than 128 radar targets or objects, a radar whose minimum range is not below its maximum. Within a
+run it refuses (409) a sequence number that is not higher than the last, a time that does not advance,
+another vehicle id, and anything after the run's end marker. A new `run_id` starts a new run with an
+empty tracker and hazard map. A refused frame changes nothing and is counted
+([edge-metrics.md](edge-metrics.md)).
+
+## Standalone publishing architecture
 
 ```
 Webots: EGO_ROADSENSE's controller (simulation/webots/controllers/roadsense_ego)
@@ -18,7 +59,7 @@ Webots: EGO_ROADSENSE's controller (simulation/webots/controllers/roadsense_ego)
         |
         |  POST /api/live-state
         v
-RoadSense web server (python -m roadsense.web, src/roadsense/web/live.py)
+RoadSense edge server (python -m roadsense.web, src/roadsense/web/live.py)
   checks the snapshot, keeps the latest one in memory
         |
         |  GET /api/live-state  (latest)      WS /ws/live  (latest at once, then each new one)
@@ -31,21 +72,20 @@ dashboards, tools/live_listen.py, ... (any number)
 - **HTTP POST from the simulation.** Webots runs controllers with the system Python 3.9 and only its
   standard library, which has an HTTP client but no WebSocket client. Each POST stands alone, so
   there is no connection to keep alive or re-establish, and on this computer one takes about 2 ms.
-- **The existing web server.** It already runs FastAPI with WebSockets on the same event loop; the
-  stream adds two routes and a WebSocket to it rather than a second server.
+- **One server.** Sensor frames, precomputed snapshots, the WebSocket and the dashboard are all the same
+  FastAPI process and event loop.
 - **Optional.** The simulation runs exactly as before without the server. Publishing is off unless
   asked for; when it is on and the server is down, the controller prints one line and carries on.
-- **Memory only.** The server keeps the latest snapshot, nothing older, and writes nothing to the
-  database.
+- **Memory only.** The server keeps the latest snapshot, nothing older, and writes nothing to disk.
 
 ## Running it
 
 From the repository root, in two terminals:
 
-1. Start the web server (the virtual environment with the `web` extra):
+1. Start the edge server (any Python that has the `web` dependencies):
 
    ```sh
-   venv/bin/python -m roadsense.web --no-browser
+   PYTHONPATH="$PWD/src:$HOME/.local/share/roadsense/python312" python3.12 -m roadsense.web --no-browser
    ```
 
 2. Start Webots with publishing on:
@@ -54,7 +94,7 @@ From the repository root, in two terminals:
    export SUMO_HOME="/Library/Frameworks/EclipseSUMO.framework/Versions/1.27.1/EclipseSUMO/share/sumo"
    export PATH="/Library/Frameworks/EclipseSUMO.framework/Versions/1.27.1/EclipseSUMO/bin:$PATH"
    export WEBOTS_EXTRA_PROJECT_PATH="/Applications/Webots.app/Contents/projects/vehicles"
-   export ROADSENSE_LIVE_PUBLISH=1
+   export ROADSENSE_LIVE_PUBLISH=1  # publish locally computed decisions when ROADSENSE_EDGE_URL is unset
    /Applications/Webots.app/Contents/MacOS/webots simulation/webots/worlds/roadsense_highway.wbt
    ```
 
@@ -70,7 +110,7 @@ curl -s http://127.0.0.1:8000/api/live-state | python3 -m json.tool | head -40
 Watch the stream, one line per snapshot (`--json` prints each snapshot instead):
 
 ```sh
-venv/bin/python tools/live_listen.py
+PYTHONPATH="$PWD/src:$HOME/.local/share/roadsense/python312" python3.12 tools/live_listen.py
 ```
 
 ```
@@ -85,9 +125,10 @@ Environment variables of the shell that starts Webots:
 
 | Variable                   | Default                                | Meaning                                                    |
 | -------------------------- | -------------------------------------- | ---------------------------------------------------------- |
+| `ROADSENSE_EDGE_URL`       | unset                                  | send sensor frames here and process on the edge server      |
 | `ROADSENSE_LIVE_PUBLISH`   | off                                    | `1`, `true`, `yes` or `on`: publish                        |
 | `ROADSENSE_LIVE_URL`       | `http://127.0.0.1:8000/api/live-state` | where to POST snapshots                                    |
-| `ROADSENSE_LIVE_PERIOD_S`  | `0.2`                                  | simulated seconds between snapshots, at most one per cycle |
+| `ROADSENSE_LIVE_PERIOD_S`  | `0.2`                                  | interval for precomputed snapshots; edge mode runs at 5 Hz  |
 | `ROADSENSE_LIVE_TIMEOUT_S` | `0.5`                                  | longest wait for one POST                                  |
 
 An unusable value is reported once and the default used.
@@ -105,6 +146,7 @@ An unusable value is reported once and the default used.
 
 | Route                    | Answer                                                                                     |
 | ------------------------ | ------------------------------------------------------------------------------------------ |
+| `POST /api/sensor-frame` | validates a sensor frame, computes its snapshot and publishes it; same answers as the next row |
 | `POST /api/live-state`   | `200 {"accepted": true, "run_id": …, "sequence": …}`; `400` malformed; `409` not newer; `413` over 1 MB |
 | `GET /api/live-state`    | the latest snapshot; `404 {"detail": "No live state received yet"}` before the first one   |
 | `WS /ws/live`            | text frames, one snapshot each                                                             |
@@ -114,7 +156,8 @@ An unusable value is reported once and the default used.
 every hazard, a `run_id`, an integer `sequence` from 1 and an `active` flag, or that holds `NaN`,
 `Infinity` or a number too large to be finite. Within one `run_id`, `sequence` must increase: a
 repeated or older snapshot is refused with 409 and the latest state stays. A different `run_id` (the
-simulation restarted) replaces it. A refused snapshot reaches no client.
+simulation restarted) replaces it. A refused snapshot reaches no client. The precomputed endpoint removes any submitted
+`simulation.processing` claim: only `/api/sensor-frame` can attest to server-side edge computation.
 
 **WebSocket.** A client sends nothing. On connecting it gets the latest snapshot at once, if there
 is one, then each new snapshot as the server accepts it. Before any producer it simply waits. A
