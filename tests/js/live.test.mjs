@@ -1,12 +1,12 @@
-// The autonomy dashboard's live connection (src/roadsense/web/static/autonomy/live.js), without a browser:
+// The dashboard's live connection (src/roadsense/web/static/js/live.js), without a browser:
 // node --test tests/js/
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import {
-  LiveConnection, RETRY_AFTER_MS, STALE_AFTER_MS, connectionStatus, liveUrl, parseSnapshot,
-} from '../../src/roadsense/web/static/autonomy/live.js';
+  LiveConnection, RETRY_AFTER_MS, STALE_AFTER_MS, STATUSES, connectionStatus, liveUrl, parseSnapshot,
+} from '../../src/roadsense/web/static/js/live.js';
 
 // Real snapshots as /ws/live sent them during a Webots run: sequences 5, 6, 9, 101, 102 and the run's last, 1226.
 const LINES = readFileSync(new URL('./recorded_snapshots.jsonl', import.meta.url), 'utf8').trim().split('\n');
@@ -65,11 +65,33 @@ test('one snapshot after connecting is the server\'s stored latest state, not pr
   assert.equal(connectionStatus({ ...replayed, received: 2 }, NOW), 'LIVE');
 });
 
-test('NO PRODUCER while connected without snapshots, or once the run has ended', () => {
+test('NO PRODUCER while connected to a server that has received nothing', () => {
   assert.equal(connectionStatus({ open: true, lost: false, received: 0, lastAt: null, active: null }, NOW), 'NO PRODUCER');
-  assert.equal(connectionStatus({ ...live, active: false }, NOW), 'NO PRODUCER');
   // reconnected to a restarted server: the old run's state is still drawn, but nothing produces now
   assert.equal(connectionStatus({ ...live, received: 0 }, NOW), 'NO PRODUCER');
+});
+
+test('SIMULATION ENDED once the latest snapshot is a finished run\'s last, however fresh or old it is', () => {
+  assert.equal(connectionStatus({ ...live, active: false }, NOW), 'SIMULATION ENDED');
+  assert.equal(connectionStatus({ ...live, active: false, lastAt: NOW - 3_600_000 }, NOW), 'SIMULATION ENDED');
+  assert.equal(connectionStatus({ ...live, active: false, received: 1 }, NOW), 'SIMULATION ENDED'); // the stored state, on opening
+});
+
+test('the six states are told apart, and only LIVE says the state on screen is the present', () => {
+  const cases = {
+    LIVE: live,
+    CONNECTING: { open: false, lost: false, received: 0, lastAt: null, active: null },
+    STALE: { ...live, lastAt: NOW - STALE_AFTER_MS - 1 },
+    DISCONNECTED: { ...live, open: false, lost: true },
+    'NO PRODUCER': { ...live, received: 0 },
+    'SIMULATION ENDED': { ...live, active: false },
+  };
+  assert.deepEqual(Object.keys(cases).sort(), [...STATUSES].sort());
+  for (const [expected, state] of Object.entries(cases)) assert.equal(connectionStatus(state, NOW), expected);
+  // data that stopped arriving is never LIVE, whatever else is true of the connection
+  for (const state of Object.values(cases)) {
+    assert.notEqual(connectionStatus({ ...state, lastAt: NOW - 60_000 }, NOW), 'LIVE');
+  }
 });
 
 test('CONNECTING before the first connection, DISCONNECTED after any loss until connected again', () => {

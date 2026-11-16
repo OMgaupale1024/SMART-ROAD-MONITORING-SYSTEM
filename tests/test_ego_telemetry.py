@@ -1,15 +1,9 @@
 """EGO_ROADSENSE telemetry helpers (Webots digital twin): units, heading wrap, acceleration, console line."""
-import importlib.util
 import math
-from pathlib import Path
 
 import pytest
 
-# The helpers live next to the Webots controller, outside the roadsense package.
-_PATH = Path(__file__).resolve().parents[1] / "simulation/webots/controllers/roadsense_ego/telemetry.py"
-_spec = importlib.util.spec_from_file_location("roadsense_ego_telemetry", _PATH)
-telemetry = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(telemetry)
+from roadsense.autonomy import telemetry
 
 
 def _record(**overrides):

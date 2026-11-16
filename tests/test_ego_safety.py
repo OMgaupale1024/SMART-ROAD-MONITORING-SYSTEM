@@ -5,20 +5,12 @@ import json
 import math
 from pathlib import Path
 import subprocess
-import sys
 
 import pytest
 
-_DIR = Path(__file__).resolve().parents[1] / 'simulation/webots/controllers/roadsense_ego'
-sys.path.insert(0, str(_DIR))
-try:
-    import safety
-    import risk
-    import prediction
-    import hazard_map
-    import hazards
-finally:
-    sys.path.remove(str(_DIR))
+from roadsense.autonomy import hazard_map, hazards, prediction, risk, safety
+
+_DIR = Path(__file__).resolve().parents[1] / "simulation/webots/controllers/roadsense_ego"
 
 
 def pothole(distance=25, severity='HIGH', lane='ego_lane', confidence=.97, ident='PH_001'):
@@ -208,7 +200,7 @@ def test_invalid_policy_rejected(policy):
         decide(policy=policy)
 
 
-def test_controller_actuation_and_old_pipeline_statements_unchanged():
+def test_controller_actuation_unchanged_and_local_decisions_still_logged():
     path = 'simulation/webots/controllers/roadsense_ego/roadsense_ego.py'
     original = ast.parse(subprocess.check_output(['git', 'show', '2ad9551:' + path], text=True))
     current = ast.parse((_DIR / 'roadsense_ego.py').read_text())
@@ -218,11 +210,11 @@ def test_controller_actuation_and_old_pipeline_statements_unchanged():
             if isinstance(n, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'now' for t in n.targets))]]
     assert driving(current) == driving(original)
     assert not any(isinstance(n, ast.ImportFrom) and n.module in ('vehicle', 'controller')
-                   for n in ast.walk(ast.parse((_DIR / 'safety.py').read_text())))
+                   for n in ast.walk(ast.parse(Path(safety.__file__).read_text())))
     loop = next(n for n in current.body if isinstance(n, ast.While))
     printed = loop.body[-1]
     assert 'nextPerception' in ast.unparse(printed.test)
-    assert 'safety.format_decision(unifiedSafetyState)' in ast.unparse(printed)
+    assert 'safety.format_decision(cycle.decision)' in ast.unparse(printed)
 
 
 @pytest.mark.parametrize('r', [track(10, 0), track(10, -5.7)])

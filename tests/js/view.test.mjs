@@ -1,13 +1,14 @@
-// The autonomy dashboard's presentation logic (src/roadsense/web/static/autonomy/view.js), without a browser.
+// The dashboard's presentation logic (src/roadsense/web/static/js/view.js), without a browser.
 // Expected values are read off the recorded snapshots by hand.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import {
-  detectEvents, labelledTracks, nearestAngle, primaryThreat, retarget, roadDistance, safetyPanel, sample, toScene,
-  trackYaw, tween, view,
-} from '../../src/roadsense/web/static/autonomy/view.js';
+  ACTION_MEANINGS, EVENT_FOLD_MS, accelText, actionMeaning, detectEvents, egoLaneText, labelledTracks, mergeEvents,
+  nearestAngle, percentText, primaryThreat, relationText, retarget, roadDistance, safetyPanel, sample, steeringText,
+  toScene, trackYaw, tween, view,
+} from '../../src/roadsense/web/static/js/view.js';
 
 const RAW = Object.fromEntries(readFileSync(new URL('./recorded_snapshots.jsonl', import.meta.url), 'utf8')
   .trim().split('\n').map((line) => JSON.parse(line)).map((s) => [s.simulation.sequence, s]));
@@ -62,7 +63,36 @@ test('each mapped hazard keeps its id, severity, size and where it is relative t
   assert.deepEqual(hazard, {
     id: 'PH_001', type: 'pothole', severity: 'HIGH', confidence: 0.9, status: 'ACTIVE', lon: 59.81, lat: -0.22,
     distance: 59.81, direction: 'ahead', laneRelation: 'ego_lane', length: 1.4, width: 1.0,
+    observations: 1, source: 'webots_simulated_road_sensor', firstSeen: 20.4, lastSeen: 20.4,
   });
+});
+
+test('a hazard seen again is the same hazard with more observations, not a new one', () => {
+  const model = at(1226);
+  assert.deepEqual(model.hazards.map((h) => [h.id, h.observations, h.firstSeen, h.lastSeen]),
+    [['PH_001', 13, 20.4, 22.8], ['PH_002', 12, 30.8, 33], ['PH_003', 13, 42, 44.4], ['PH_004', 11, 53.2, 55.2]]);
+});
+
+test('telemetry is worded from the car\'s own record', () => {
+  assert.deepEqual(egoLaneText(at(102).ego), { name: 'Left', note: 'keeping lane' });
+  assert.deepEqual(egoLaneText({ lane: 1, maneuver: 'lane_change' }), { name: 'Middle', note: 'changing lane' });
+  assert.deepEqual(egoLaneText({ lane: null, maneuver: null }), { name: '—', note: '' });
+  assert.deepEqual(steeringText(0.0349), { degrees: '2.0', side: 'right' }); // positive steers right
+  assert.deepEqual(steeringText(-0.1), { degrees: '5.7', side: 'left' });
+  assert.deepEqual([steeringText(0), steeringText(null)], [{ degrees: '0.0', side: 'straight' }, { degrees: '—', side: '' }]);
+  assert.deepEqual([accelText(5.579), accelText(-1.2), accelText(null)], ['+5.58', '−1.20', '—']);
+  assert.equal(at(5).ego.accel, 5.579);
+  assert.deepEqual([percentText(0.972), percentText(null)], ['97%', '—']);
+  assert.deepEqual([relationText('ego_lane'), relationText('left_lane'), relationText(null)], ['Your lane', 'Left lane', '—']);
+  assert.equal(at(102).processing, 'webots');
+});
+
+test('every action of the safety processor has its meaning, and nothing else does', () => {
+  assert.deepEqual(Object.keys(ACTION_MEANINGS).sort(),
+    ['BRAKE', 'CONSIDER_LANE_CHANGE', 'EMERGENCY_BRAKE', 'MAINTAIN', 'MONITOR', 'SLOW_DOWN']);
+  assert.match(actionMeaning('CONSIDER_LANE_CHANGE'), /not a guarantee/);
+  assert.equal(actionMeaning('FLOOR_IT'), '');
+  assert.equal(actionMeaning(null), '');
 });
 
 test('passed hazards stay in the map', () => {
@@ -147,6 +177,9 @@ test('the safety panel shows the unified state\'s own values', () => {
     reason: 'PH_001 HIGH pothole 59.8 m ahead in ego_lane',
   });
   const raw = structuredClone(RAW[102]);
+  raw.simulation.processing = 'edge';
+  assert.equal(view(raw).processor, 'Edge server');
+  assert.equal(at(9).processor, 'Webots');
   raw.unified_safety.recommended_action = 'CONSIDER_LANE_CHANGE';
   raw.unified_safety.recommended_lane = 'left_lane';
   assert.deepEqual([safetyPanel(view(raw)).action, safetyPanel(view(raw)).lane], ['CONSIDER LANE CHANGE', 'Left lane']);
@@ -158,7 +191,7 @@ test('the primary threat is described from its own record: a vehicle by TTC, a p
   assert.deepEqual(primaryThreat(at(9)),
     { id: 'TRACK_007', kind: 'vehicle', risk: 'CRITICAL', facts: ['TTC 1.1 s', '5.1 m behind'] });
   assert.deepEqual(primaryThreat(at(102)),
-    { id: 'PH_001', kind: 'road_hazard', risk: 'HIGH', facts: ['HIGH pothole', '59.8 m ahead'] });
+    { id: 'PH_001', kind: 'road_hazard', risk: 'HIGH', facts: ['HIGH-severity pothole', '59.8 m ahead'] });
   assert.equal(primaryThreat(at(5)), null);
 });
 
@@ -171,31 +204,31 @@ test('no events from the first snapshot: there is nothing to compare it with', (
 test('a track entering a conflict and the new recommendation are events', () => {
   assert.deepEqual(texts(detectEvents(at(5), at(6))), [
     ['TRACK_007 predicted conflict, TTC 1.5 s', null, 'HIGH'],
-    ['Recommended action: BRAKE', 'TRACK_007 predicted collision in 1.50 s', 'HIGH'],
+    ['Risk rose to HIGH: BRAKE recommended', 'TRACK_007 predicted collision in 1.50 s', 'HIGH'],
   ]);
 });
 
 test('risk changes are found across skipped snapshots too', () => {
   assert.deepEqual(texts(detectEvents(at(6), at(9))), [
     ['TRACK_007 risk HIGH → CRITICAL', null, 'CRITICAL'],
-    ['Recommended action: EMERGENCY BRAKE', 'TRACK_007 predicted collision in 1.05 s', 'CRITICAL'],
+    ['Critical braking warning: EMERGENCY BRAKE', 'TRACK_007 predicted collision in 1.05 s', 'CRITICAL'],
   ]);
 });
 
 test('a newly mapped pothole is an event', () => {
   assert.deepEqual(texts(detectEvents(at(101), at(102))), [
     ['PH_001 discovered', 'HIGH pothole, 59.8 m ahead', 'HIGH'],
-    ['Recommended action: BRAKE', 'PH_001 HIGH pothole 59.8 m ahead in ego_lane', 'HIGH'],
+    ['Risk rose to HIGH: BRAKE recommended', 'PH_001 HIGH pothole 59.8 m ahead in ego_lane', 'HIGH'],
   ]);
 });
 
-test('a new primary threat with the same action is an event, and so is the end of the run', () => {
+test('a new primary threat with the same risk and action is an event, and so is the end of the run', () => {
   assert.deepEqual(texts(detectEvents(at(102), at(1226))), [
     ['PH_002 discovered', 'MEDIUM pothole, 4.1 km behind', 'MEDIUM'],
     ['PH_003 discovered', 'LOW pothole, 3.8 km behind', 'LOW'],
     ['PH_004 discovered', 'MEDIUM pothole, 3.6 km behind', 'MEDIUM'],
     ['TRACK_122 predicted conflict, TTC 2.2 s', null, 'HIGH'],
-    ['Recommended action: BRAKE', 'TRACK_122 predicted collision in 2.19 s', 'HIGH'],
+    ['Primary threat is now TRACK_122', 'TRACK_122 predicted collision in 2.19 s', 'HIGH'],
     ['Simulation ended', null, 'info'],
   ]);
 });
@@ -206,6 +239,39 @@ test('a track that enters a conflict is one event, not a conflict and a risk cha
   Object.assign(after.tracks.find((t) => t.id === 'TRACK_002'), { risk: 'HIGH', ttc: 2.9, conflict: true });
   assert.deepEqual(texts(detectEvents(before, after)).slice(1, 2), [['TRACK_002 predicted conflict, TTC 2.9 s', null, 'HIGH']]);
   assert.equal(detectEvents(before, after).length, 3); // PH_001, the conflict, the recommendation
+});
+
+test('a changed decision is one event that names what changed: the lane, the action, the risk or the threat', () => {
+  const decide = (changes) => {
+    const model = at(102); // HIGH, BRAKE, PH_001
+    Object.assign(model.safety, changes);
+    return model;
+  };
+  const only = (a, b) => texts(detectEvents(a, b)).map(([text]) => text);
+  assert.deepEqual(only(decide({ risk: 'CAUTION', action: 'SLOW_DOWN' }), decide({ risk: 'CAUTION', action: 'CONSIDER_LANE_CHANGE', lane: 'left_lane' })),
+    ['Lane change suggested: Left lane']);
+  assert.deepEqual(only(decide({}), decide({ risk: 'CAUTION', action: 'SLOW_DOWN' })), ['Recommended action: SLOW DOWN']); // the risk fell
+  assert.deepEqual(only(decide({ risk: 'CAUTION' }), decide({})), ['Risk rose to HIGH']);
+  assert.deepEqual(only(decide({}), decide({ risk: 'CAUTION' })), ['Risk eased to CAUTION']);
+  assert.deepEqual(only(decide({}), decide({ threat: null })), ['Primary threat cleared']);
+  assert.deepEqual(only(decide({}), decide({ targetKmh: 12, reason: 'the same decision, nearer' })), []); // numbers change every frame
+});
+
+test('repeats of an event fold into one row of the feed, and the feed is bounded', () => {
+  const flicker = (risk) => ({ key: 'track:TRACK_012', text: `TRACK_012 risk → ${risk}`, tone: risk });
+  let feed = mergeEvents([], [{ key: 'hazard:PH_001', text: 'PH_001 discovered', tone: 'HIGH' }], 1000);
+  for (let i = 0; i < 25; i += 1) feed = mergeEvents(feed, [flicker(i % 2 ? 'HIGH' : 'CAUTION')], 1000 + 200 * (i + 1));
+  assert.deepEqual(feed.map((row) => [row.text, row.count]), [['TRACK_012 risk → CAUTION', 25], ['PH_001 discovered', 1]]);
+  assert.equal(feed[0].at, 6000); // it stays the newest row, with the latest wording
+
+  feed = mergeEvents(feed, [flicker('HIGH')], 6000 + EVENT_FOLD_MS + 1); // quiet for a while: a new row
+  assert.deepEqual(feed.map((row) => row.count), [1, 25, 1]);
+  feed = mergeEvents(feed, [{ key: 'hazard:PH_002', text: 'PH_002 discovered', tone: 'LOW' }], 20000);
+  assert.equal(feed.length, 4); // events about different things never fold
+
+  for (let i = 0; i < 100; i += 1) feed = mergeEvents(feed, [{ key: `hazard:X${i}`, text: `X${i}` }], 30000 + i);
+  assert.equal(feed.length, 40);
+  assert.equal(feed[0].text, 'X99');
 });
 
 test('a new run is announced instead of compared with the old one', () => {

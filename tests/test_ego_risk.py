@@ -1,23 +1,9 @@
 """EGO_ROADSENSE prediction and collision risk (Webots digital twin): trajectories, CPA, TTC, risk levels, console."""
-import importlib.util
 import math
-from pathlib import Path
 
 import pytest
 
-# The modules live next to the Webots controller, outside the roadsense package.
-_DIR = Path(__file__).resolve().parents[1] / "simulation/webots/controllers/roadsense_ego"
-
-
-def _load(name):
-    spec = importlib.util.spec_from_file_location("roadsense_ego_" + name, _DIR / (name + ".py"))
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-prediction = _load("prediction")
-risk = _load("risk")
+from roadsense.autonomy import prediction, risk
 
 # Where a vehicle's centre enters EGO_ROADSENSE's safety envelope, in the ego frame (origin at the rear axle, x ahead,
 # y left): ahead or behind when the bumpers come within the safety buffer, alongside when the sides do.

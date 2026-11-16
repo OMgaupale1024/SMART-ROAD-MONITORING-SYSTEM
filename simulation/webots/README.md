@@ -7,9 +7,9 @@ vehicles are heading and how risky that is: predicted trajectories, time to coll
 level (Phase 4), and the potholes on the road, seen by a simulated hazard camera and kept in a local
 hazard map (Phase 5), and one unified safety recommendation (Phase 6). Recommendations never
 feed the driving controls. The controller can stream all of this, one snapshot per processing
-cycle, to the RoadSense web server for live clients (Phase 7, see [Live state](#live-state)). Not
-here yet: active response, sharing hazards with other vehicles, the 3D dashboard, or any link to the
-RoadSense database.
+cycle, to the RoadSense web server and [dashboard](../../docs/dashboard.md).
+In [edge mode](../../docs/live-state.md#run-the-pipeline-on-a-raspberry-pi), Webots sends sensor
+readings and the web server computes the tracks, hazards and recommendations.
 
 | Tool   | Version used                                                                |
 | ------ | --------------------------------------------------------------------------- |
@@ -27,6 +27,9 @@ protos/
   RoadSensePothole.proto             the simulation's pothole
 controllers/roadsense_ego/
   roadsense_ego.py                   EGO_ROADSENSE's controller
+THIRD_PARTY_NOTICES.md               what comes from Webots, what changed, Apache-2.0 text
+
+../../src/roadsense/autonomy/        shared by Webots and the Raspberry Pi
   telemetry.py                       telemetry record and console line (no Webots imports)
   perception.py                      radar targets to detections, ego/world frames, lanes, track record
   tracking.py                        nearby-vehicle tracker
@@ -35,10 +38,9 @@ controllers/roadsense_ego/
   hazards.py                         road-hazard detection record; the simulated hazard sensor
   hazard_map.py                      persistent local hazard map, queries, snapshot
   safety.py                          unified risk, primary threat, action, target speed and reason
+  pipeline.py                        processing from a sensor frame to a driving recommendation
   live_state.py                      one cycle's records as a roadsense.live.v1 JSON snapshot
-  live_publisher.py                  optional background POST of snapshots to the web server
-                                     (all but roadsense_ego.py: no Webots imports)
-THIRD_PARTY_NOTICES.md               what comes from Webots, what changed, Apache-2.0 text
+  live_publisher.py                  optional background POST of frames or snapshots
 ```
 
 The world, the SUMO files, the tree file and `roadsense_ego.py` come from the Webots
@@ -98,8 +100,8 @@ The line shows a record built by `telemetry.make_record`:
 | `maneuver`                 |           | `lane_keep`, or `lane_change` during an overtake                            |
 | `lane`                     |           | target lane: 0 right, 1 middle, 2 left                                      |
 
-Telemetry stays on this computer: no network, database or dashboard. `tests/test_ego_telemetry.py`
-tests the record and the line without Webots.
+Standalone telemetry goes to the console. With publishing enabled, telemetry also appears in
+the dashboard. `tests/test_ego_telemetry.py` tests the record and the line without Webots.
 
 ### Perception
 
@@ -391,9 +393,9 @@ car passed it. All four were still in the map at the end, 3.7–4.4 km behind.
 `safety.decide(timestamp, ego_speed_mps, assessments, reports, hazard_snapshot,
 adjacent_lanes=(), policy=Policy())` consumes ordinary RoadSense records from `risk.assess`,
 `perception.track_report` and `HazardMap.snapshot`. It imports no Webots APIs and changes no
-input. The controller evaluates it at 5 Hz and prints one `[RoadSense:DECISION]` line at 1 Hz,
-after the existing vehicle safety and hazard summaries. `unifiedSafetyState` is available locally
-for a future consumer; no endpoint, dashboard or control connection is added.
+input. In standalone mode the controller evaluates it at 5 Hz and prints one
+`[RoadSense:DECISION]` line at 1 Hz after the vehicle safety and hazard summaries. In edge mode it
+runs on the web server for every accepted sensor frame and streams the results to the dashboard.
 
 This is an **academic recommendation baseline**, not certified braking or lane-change logic.
 The existing sample controller continues to drive exactly as before, even when the recommended
@@ -477,10 +479,15 @@ is responsible for current, consistent sensor snapshots and sensor-health handli
 are finite and bounded at the decision boundary; `json.dumps(state, allow_nan=False)` works.
 The map's world coordinates, observation counts and persistent records remain separate.
 
-Run `venv/bin/python -m pytest tests/test_ego_safety.py -q` without Webots. See
+Run `python3.12 -m pytest tests/test_ego_safety.py -q` without Webots, using the
+[test environment](../../docs/deployment.md#on-the-mac). See
 [Phase 6 validation](PHASE6_VALIDATION.md) for observed demo sequences and performance.
 
 ## Live state
+
+With `ROADSENSE_EDGE_URL=http://PI_IP:8001/api/sensor-frame`, Webots publishes sensor frames
+and the Pi computes the recommendations for the dashboard. See
+[Run the pipeline on a Raspberry Pi](../../docs/live-state.md#run-the-pipeline-on-a-raspberry-pi).
 
 With `ROADSENSE_LIVE_PUBLISH=1` in the environment that starts Webots, the controller sends the
 RoadSense web server (`python -m roadsense.web`) one `roadsense.live.v1` snapshot per 200 ms

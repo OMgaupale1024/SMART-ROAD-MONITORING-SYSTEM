@@ -1,23 +1,9 @@
 """EGO_ROADSENSE perception and tracking (Webots digital twin): radar geometry, ego/world frames, lanes, tracks."""
-import importlib.util
 import math
-from pathlib import Path
 
 import pytest
 
-# The modules live next to the Webots controller, outside the roadsense package.
-_DIR = Path(__file__).resolve().parents[1] / "simulation/webots/controllers/roadsense_ego"
-
-
-def _load(name):
-    spec = importlib.util.spec_from_file_location("roadsense_ego_" + name, _DIR / (name + ".py"))
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-perception = _load("perception")
-tracking = _load("tracking")
+from roadsense.autonomy import perception, tracking
 
 HIGHWAY_POSE = (-100.0, 6.875, math.pi)  # ego in the middle lane, heading -x like EGO_ROADSENSE
 

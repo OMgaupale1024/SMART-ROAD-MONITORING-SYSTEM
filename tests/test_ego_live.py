@@ -6,29 +6,16 @@ import json
 import math
 import socket
 import socketserver
-import sys
 import threading
 import time
 from pathlib import Path
 
 import pytest
 
-# The modules live next to the Webots controller, outside the roadsense package, and import each other from there.
-_DIR = str(Path(__file__).resolve().parents[1] / "simulation/webots/controllers/roadsense_ego")
-sys.path.insert(0, _DIR)
-try:
-    import hazard_map
-    import hazards
-    import live_publisher
-    import live_state
-    import perception
-    import prediction
-    import risk
-    import safety
-    import telemetry
-    import tracking
-finally:
-    sys.path.remove(_DIR)
+from roadsense.autonomy import hazard_map, hazards, live_publisher, live_state, perception, prediction, risk, safety
+from roadsense.autonomy import telemetry, tracking
+
+ROOT = Path(__file__).resolve().parents[1]
 
 POSE = (-400.0, 3.2, math.pi)  # EGO_ROADSENSE in the median-side lane, heading -x
 
@@ -159,7 +146,7 @@ def test_finished_snapshot_marks_the_simulation_inactive_with_the_next_sequence(
 
 def test_stream_listener_summarises_a_snapshot():
     pytest.importorskip("websockets")  # the dev tool needs the web extra
-    spec = importlib.util.spec_from_file_location("live_listen", Path(_DIR).parents[3] / "tools/live_listen.py")
+    spec = importlib.util.spec_from_file_location("live_listen", ROOT / "tools/live_listen.py")
     tool = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(tool)
     line = tool.summary(_strict(live_state.encode(_state())))
@@ -184,6 +171,11 @@ def test_configuration_comes_from_the_environment():
         "ROADSENSE_LIVE_PUBLISH": "yes", "ROADSENSE_LIVE_URL": "http://127.0.0.1:9000/api/live-state",
         "ROADSENSE_LIVE_PERIOD_S": "0.5", "ROADSENSE_LIVE_TIMEOUT_S": "0.25"})
     assert config == live_publisher.Config("http://127.0.0.1:9000/api/live-state", 0.5, 0.25)
+
+
+def test_edge_url_starts_sensor_publishing_without_the_legacy_switch():
+    url = "http://192.0.2.10:8000/api/sensor-frame"
+    assert live_publisher.config_from_environment({"ROADSENSE_EDGE_URL": url}) == live_publisher.Config(url, edge=True)
 
 
 @pytest.mark.parametrize("name, value", [("ROADSENSE_LIVE_PERIOD_S", "fast"), ("ROADSENSE_LIVE_PERIOD_S", "0"),

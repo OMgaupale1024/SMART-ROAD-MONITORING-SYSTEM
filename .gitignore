@@ -3,6 +3,27 @@
 venv/
 env/
 
+# Credentials and local agent/cloud configuration
+.env
+.env.*
+!.env.example
+.aws/
+.ssh/
+.codex/
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# Local logs, temporary artifacts and backups
+*.log
+*.tmp
+*.bak
+*.tar.gz
+*.tgz
+*.zip
+backups/
+
 # Python caches / build
 __pycache__/
 *.py[cod]
@@ -18,6 +39,10 @@ dist/
 *.db-shm
 *.sqlite
 *.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
 
 # Exports produced at runtime (desktop CSVs, web session ZIPs)
 telemetry.csv

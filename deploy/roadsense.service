@@ -1,30 +1,42 @@
-# RoadSense edge gateway: an OPTIONAL example systemd unit for a Raspberry Pi.
+# RoadSense edge server on the Raspberry Pi: an OPTIONAL systemd unit (docs/deployment.md).
 #
-# It starts the RoadSense web dashboard at boot, serves it to the local network, and opens
-# no browser. Nothing installs it for you: follow "Start RoadSense at boot" in README.md.
+# It starts the edge server at boot, serves the dashboard to the local network and opens no
+# browser. Nothing installs it for you. It runs as the ordinary Pi user, never as root, and needs
+# no virtual environment: Python finds the web dependencies and RoadSense through PYTHONPATH,
+# exactly as when the server is started by hand.
 #
-# Replace both placeholders before installing:
-#   <user>        the non-root account that runs RoadSense; it must be allowed to open the
-#                 Arduino's serial port (on Raspberry Pi OS: a member of the dialout group)
-#   <roadsense>   absolute path of the RoadSense checkout, with its .venv inside
+# Written for this deployment; change the paths if yours differ:
+#   user                  omgaupale
+#   RoadSense copy        /home/omgaupale/roadsense-edge   (its src/ holds the roadsense package)
+#   web dependencies      /home/omgaupale/.local/share/roadsense/python313
 #
-# The database goes to ~<user>/.local/share/RoadSense/ unless ROADSENSE_DATA_DIR says otherwise.
+# Install (docs/deployment.md has the whole procedure, with backup and rollback):
+#   sudo cp deploy/roadsense.service /etc/systemd/system/roadsense-edge.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now roadsense-edge
+#   journalctl -u roadsense-edge -f
 
 [Unit]
-Description=RoadSense edge gateway (web dashboard on the local network)
-After=network.target
+Description=RoadSense edge server (sensor ingestion, autonomy pipeline, dashboard)
+After=network-online.target ollama.service
+Wants=network-online.target
 
 [Service]
 Type=exec
-User=<user>
-WorkingDirectory=<roadsense>
-ExecStart=<roadsense>/.venv/bin/python -m roadsense.web --host 0.0.0.0 --port 8000 --no-browser
-# Log lines reach the journal as they happen (journalctl -u roadsense)
+User=omgaupale
+WorkingDirectory=/home/omgaupale/roadsense-edge
+# Log lines reach the journal as they happen
 Environment=PYTHONUNBUFFERED=1
-#Environment=ROADSENSE_DATA_DIR=/absolute/path/writable/by/that/user
-# A stop (SIGTERM) saves buffered telemetry and ends the recording first; restart only on a crash
+Environment=PYTHONPATH=/home/omgaupale/roadsense-edge/src:/home/omgaupale/.local/share/roadsense/python313
+# Explanations from the local Ollama model; remove this line to run with deterministic explanations only
+Environment=ROADSENSE_AI_EXPLAIN=1
+ExecStart=/usr/bin/python3 -m roadsense.web --host 0.0.0.0 --port 8001 --no-browser
+# A stop is SIGTERM, which ends the server cleanly; restart only after a crash
 Restart=on-failure
-RestartSec=5
+RestartSec=3
+# Reduce the server's OOM priority; this does not guarantee survival under memory pressure.
+OOMScoreAdjust=-500
+NoNewPrivileges=true
 
 [Install]
 WantedBy=multi-user.target
