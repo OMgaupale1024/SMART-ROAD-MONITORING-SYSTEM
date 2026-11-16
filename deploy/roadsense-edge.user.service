@@ -1,0 +1,25 @@
+[Unit]
+Description=RoadSense edge server (user service)
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=exec
+WorkingDirectory=/home/omgaupale/roadsense-edge
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONPATH=/home/omgaupale/roadsense-edge/src:/home/omgaupale/.local/share/roadsense/python313
+Environment=ROADSENSE_AI_EXPLAIN=1
+Environment=ROADSENSE_AI_URL=http://127.0.0.1:11434/api/generate
+Environment=ROADSENSE_AI_MODEL=qwen3:0.6b
+ExecStart=/usr/bin/python3 -m roadsense.web --host 0.0.0.0 --port 8001 --no-browser
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+KillMode=control-group
+NoNewPrivileges=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,83 @@
+{
+  "service": "Restart=on-failure\nMainPID=3763\nResult=success\nNRestarts=0\nActiveState=active\nUnitFileState=enabled\nLISTEN 0      2048         0.0.0.0:8001       0.0.0.0:*    users:((\"python3\",pid=3763,fd=7))",
+  "system": {
+    "schema": "roadsense.system.v1",
+    "app": {
+      "name": "RoadSense",
+      "version": "2.0.0.dev0",
+      "started_at_unix_s": 1794861650.923,
+      "uptime_s": 0.1
+    },
+    "server_time_unix_s": 1794861650.991,
+    "edge": {
+      "mode": null,
+      "run": null,
+      "frames": {
+        "accepted": 0,
+        "rejected": 0,
+        "rejected_by_status": {},
+        "missed": 0,
+        "runs": 0
+      },
+      "rate_hz": null,
+      "interval_ms": null,
+      "data_age_s": null,
+      "latency_ms": null,
+      "series": null,
+      "clients": {
+        "websocket": 0,
+        "dropped_messages": 0
+      }
+    },
+    "host": {
+      "hostname": "PI_HOSTNAME",
+      "system": "Linux",
+      "release": "6.18.50+rpt-rpi-2712",
+      "machine": "aarch64",
+      "model": "Raspberry Pi 5 Model B Rev 1.1",
+      "python": "3.13.5",
+      "cpu_count": 4,
+      "cpu_percent": null,
+      "load_avg": [
+        0.0,
+        0.02,
+        0.04
+      ],
+      "memory": {
+        "total_mb": 4045.1,
+        "available_mb": 3465.4,
+        "used_percent": 14.3,
+        "swap_used_mb": 0.0
+      },
+      "temperature_c": 48.5,
+      "throttling": {
+        "raw": "0x0",
+        "now": [],
+        "since_boot": []
+      },
+      "process": {
+        "cpu_percent": null,
+        "rss_mb": 48.9,
+        "peak_rss_mb": 48.5,
+        "threads": 3,
+        "uptime_s": 0.1
+      },
+      "unavailable": {
+        "cpu_percent": "needs two readings; the next request has it"
+      }
+    },
+    "safety": {
+      "critical_ttc_s": 1.5,
+      "high_ttc_s": 3.0,
+      "horizon_s": 5.0,
+      "nominal_speed_kmh": 80.0
+    },
+    "ai": {
+      "enabled": true,
+      "model": "qwen3:0.6b",
+      "availability": "available",
+      "status": "idle",
+      "latency_ms": null
+    }
+  }
+}

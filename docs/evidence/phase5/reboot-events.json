@@ -1,0 +1,184 @@
+{
+  "events": [
+    {
+      "event": "first_observed_SSH_port_outage",
+      "unix_s": 1794862797.2843971
+    },
+    {
+      "event": "new_RoadSense_HTTP_before_authenticated_SSH",
+      "after_outage_s": 110.6360439170021,
+      "system": {
+        "schema": "roadsense.system.v1",
+        "app": {
+          "name": "RoadSense",
+          "version": "2.0.0.dev0",
+          "started_at_unix_s": 1794862906.709,
+          "uptime_s": 0.7
+        },
+        "server_time_unix_s": 1794862907.374,
+        "edge": {
+          "mode": null,
+          "run": null,
+          "frames": {
+            "accepted": 0,
+            "rejected": 0,
+            "rejected_by_status": {},
+            "missed": 0,
+            "runs": 0
+          },
+          "rate_hz": null,
+          "interval_ms": null,
+          "data_age_s": null,
+          "latency_ms": null,
+          "series": null,
+          "clients": {
+            "websocket": 0,
+            "dropped_messages": 0
+          }
+        },
+        "host": {
+          "hostname": "PI_HOSTNAME",
+          "system": "Linux",
+          "release": "6.18.50+rpt-rpi-2712",
+          "machine": "aarch64",
+          "model": "Raspberry Pi 5 Model B Rev 1.1",
+          "python": "3.13.5",
+          "cpu_count": 4,
+          "cpu_percent": null,
+          "load_avg": [
+            0.08,
+            0.02,
+            0.01
+          ],
+          "memory": {
+            "total_mb": 4045.1,
+            "available_mb": 3529.1,
+            "used_percent": 12.8,
+            "swap_used_mb": 0.0
+          },
+          "temperature_c": 51.2,
+          "throttling": {
+            "raw": "0x0",
+            "now": [],
+            "since_boot": []
+          },
+          "process": {
+            "cpu_percent": null,
+            "rss_mb": 48.9,
+            "peak_rss_mb": 47.0,
+            "threads": 3,
+            "uptime_s": 0.7
+          },
+          "unavailable": {
+            "cpu_percent": "needs two readings; the next request has it"
+          }
+        },
+        "safety": {
+          "critical_ttc_s": 1.5,
+          "high_ttc_s": 3.0,
+          "horizon_s": 5.0,
+          "nominal_speed_kmh": 80.0
+        },
+        "ai": {
+          "enabled": true,
+          "model": "qwen3:0.6b",
+          "availability": "unavailable",
+          "status": "idle",
+          "latency_ms": null
+        }
+      }
+    },
+    {
+      "event": "SSH_TCP_available",
+      "after_outage_s": 110.90947500000038
+    },
+    {
+      "event": "authenticated_SSH_success",
+      "after_outage_s": 110.95748687499872,
+      "output": "662e9af4-4a9c-40a5-a516-3c6defc306d5\n 02:31:47 up 0 min,  3 users,  load average: 0.08, 0.02, 0.01\nRestart=on-failure\nMainPID=1037\nExecMainStartTimestamp=Tue 2026-11-17 02:31:45 IST\nActiveState=active\nDropInPaths=\nUnitFileState=enabled\nLinger=yes\nLISTEN 0      2048         0.0.0.0:8001       0.0.0.0:*    users:((\"python3\",pid=1037,fd=7))\nactive\nNAME          ID              SIZE      MODIFIED    \nqwen3:0.6b    7df6b6e09427    522 MB    5 hours ago    \nNov 17 02:31:46 PI_HOSTNAME python3[1037]: [RoadSense] Edge server and dashboard running at: http://127.0.0.1:8001\nNov 17 02:31:46 PI_HOSTNAME python3[1037]: [RoadSense] Listening on 0.0.0.0: other devices on the network can open http://<this computer's IP address>:8001. There is no login, so anyone who can reach it can use RoadSense.\nNov 17 02:31:46 PI_HOSTNAME python3[1037]: INFO:     Started server process [1037]\nNov 17 02:31:46 PI_HOSTNAME python3[1037]: INFO:     Waiting for application startup.\nNov 17 02:31:46 PI_HOSTNAME python3[1037]: [RoadSense] AI explanations: model qwen3:0.6b at http://127.0.0.1:11434/api/generate\nNov 17 02:31:46 PI_HOSTNAME python3[1037]: INFO:     Application startup complete.\nNov 17 02:31:46 PI_HOSTNAME python3[1037]: INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)\nNov 17 02:31:46 PI_HOSTNAME python3[1037]: AI explanations unavailable: cannot reach Ollama at 127.0.0.1:11434: Connection refused\nNov 17 02:31:47 PI_HOSTNAME python3[1037]: INFO:     MAC_HOST:57979 - \"GET /api/system HTTP/1.1\" 200 OK\nNov 17 02:31:47 PI_HOSTNAME python3[1037]: INFO:     MAC_HOST:57980 - \"GET /api/live-state HTTP/1.1\" 404 Not Found"
+    },
+    {
+      "event": "first_fresh_edge_telemetry",
+      "after_outage_s": 117.19839124999999,
+      "live": {
+        "schema": "roadsense.live.v1",
+        "timestamp": 728.6,
+        "ego": {
+          "timestamp": 728.6,
+          "vehicle_id": "EGO_ROADSENSE",
+          "position": {
+            "x": -15675.77,
+            "y": 3.2,
+            "z": 0.313
+          },
+          "speed_mps": 22.222,
+          "speed_kmh": 80.0,
+          "heading_deg": 180.0,
+          "acceleration_mps2": -0.0,
+          "steering_rad": -0.0,
+          "mode": "baseline_highway",
+          "maneuver": "lane_keep",
+          "lane": 2
+        },
+        "road": {
+          "lane_width_m": 3.75,
+          "heading_deg": -0.0,
+          "lanes": [
+            {
+              "relation": "ego_lane",
+              "center_lateral_m": 0.08,
+              "driving": true
+            },
+            {
+              "relation": "right_lane",
+              "center_lateral_m": -3.67,
+              "driving": true
+            },
+            {
+              "relation": "other_lane",
+              "center_lateral_m": -7.42,
+              "driving": true
+            },
+            {
+              "relation": "other_lane",
+              "center_lateral_m": -11.17,
+              "driving": false
+            }
+          ]
+        },
+        "tracks": [],
+        "hazards": [],
+        "unified_safety": {
+          "timestamp": 728.6,
+          "overall_risk": "SAFE",
+          "primary_threat": null,
+          "recommended_action": "MAINTAIN",
+          "recommended_speed_kmh": 80.0,
+          "recommended_lane": null,
+          "reason": "No current vehicle conflict or relevant road hazard",
+          "vehicle_safety": {
+            "timestamp": 728.6,
+            "overall_risk": "SAFE",
+            "most_critical_track": null,
+            "minimum_ttc_s": null,
+            "active_conflicts": 0
+          },
+          "road_safety": {
+            "relevant_hazards": 0,
+            "nearest_hazard": null,
+            "hazards": []
+          }
+        },
+        "simulation": {
+          "source": "webots",
+          "active": true,
+          "run_id": "8f5013ae9c3b",
+          "sequence": 3643,
+          "generated_at_unix_s": 1794862914.006,
+          "processing": "edge"
+        }
+      }
+    }
+  ],
+  "status": "recovered"
+}

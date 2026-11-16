@@ -1,0 +1,18 @@
+{
+  "command": "systemd-analyze cat-config systemd/journald.conf; journalctl -b -1",
+  "relevant_output": [
+    "# /etc/systemd/journald.conf",
+    "# /etc/ if the original file is shipped in /usr/), or by creating \"drop-ins\" in",
+    "# /usr/lib/systemd/journald.conf.d/40-rpi-volatile-storage.conf",
+    "Storage=volatile",
+    "# /usr/lib/systemd/journald.conf.d/syslog.conf",
+    "ForwardToSyslog=yes",
+    "Specifying boot ID or boot offset has no effect, no persistent journal was found."
+  ],
+  "alternate_logs": "No matching syslog/messages/daemon.log/kern.log files found; rsyslog and syslog-ng inactive",
+  "configured_stop_timeouts": {
+    "roadsense": "10s",
+    "ollama": "90s"
+  },
+  "note": "Stop timeouts are settings, not measured shutdown waits."
+}

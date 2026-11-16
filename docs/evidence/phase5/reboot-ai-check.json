@@ -1,0 +1,115 @@
+{
+  "schema": "roadsense.ai.v1",
+  "enabled": true,
+  "model": "qwen3:0.6b",
+  "availability": "available",
+  "status": "generating",
+  "explanation": {
+    "text": "LOW-severity pothole PH_003 is ahead in your lane. RoadSense recommends slowing down toward the target speed.",
+    "origin": "deterministic",
+    "fallback_reason": "awaiting_model",
+    "source": {
+      "run_id": "ea8833627b79",
+      "sequence": 210,
+      "sim_time_s": 42.0,
+      "risk": "CAUTION",
+      "action": "SLOW_DOWN",
+      "threat_id": "PH_003",
+      "threat_type": "road_hazard",
+      "recommended_lane": null,
+      "cause": {
+        "kind": "road_hazard",
+        "id": "PH_003",
+        "hazard": "pothole",
+        "severity": "LOW",
+        "lane": "ego_lane"
+      }
+    },
+    "generated_at_unix_s": 1794863052.693,
+    "latency_ms": null,
+    "cached": false,
+    "ollama": null,
+    "written_for": {
+      "run_id": "ea8833627b79",
+      "sequence": 210
+    }
+  },
+  "is_current": true,
+  "stale_reason": null,
+  "latest_llm": {
+    "text": "A pothole (MEDIUM severity) ahead in the right lane, so you should monitor for potential hazards.",
+    "origin": "llm",
+    "fallback_reason": null,
+    "source": {
+      "run_id": "ea8833627b79",
+      "sequence": 154,
+      "sim_time_s": 30.8,
+      "risk": "CAUTION",
+      "action": "MONITOR",
+      "threat_id": "PH_002",
+      "threat_type": "road_hazard",
+      "recommended_lane": null,
+      "cause": {
+        "kind": "road_hazard",
+        "id": "PH_002",
+        "hazard": "pothole",
+        "severity": "MEDIUM",
+        "lane": "right_lane"
+      }
+    },
+    "generated_at_unix_s": 1794863043.792,
+    "latency_ms": 2879.4,
+    "cached": false,
+    "ollama": {
+      "total_ms": 2873.7,
+      "load_ms": 1.3,
+      "eval_ms": 1906.5,
+      "eval_tokens": 40
+    },
+    "written_for": {
+      "run_id": "ea8833627b79",
+      "sequence": 154
+    }
+  },
+  "state": {
+    "run_id": "ea8833627b79",
+    "sequence": 217,
+    "sim_time_s": 43.4,
+    "active": true,
+    "age_s": 0.051
+  },
+  "last_error": {
+    "kind": "unavailable",
+    "message": "cannot reach Ollama at 127.0.0.1:11434: Connection refused",
+    "at_unix_s": 1794862906.709
+  },
+  "stats": {
+    "requests": 4,
+    "generated": 2,
+    "rejected": 0,
+    "timeouts": 0,
+    "errors": 0,
+    "cancelled": 1,
+    "cache_hits": 0,
+    "discarded_stale": 1,
+    "dropped_pending": 1,
+    "expired": 0,
+    "deterministic": 18,
+    "latency_ms": {
+      "last": 2879.4,
+      "mean": 4391.8,
+      "p50": 2879.4,
+      "p95": 5904.3,
+      "max": 5904.3
+    }
+  },
+  "config": {
+    "timeout_s": 20.0,
+    "cooldown_s": 5.0,
+    "keep_alive": "2m",
+    "num_ctx": 1024,
+    "num_predict": 80,
+    "threads": 3
+  },
+  "server_time_unix_s": 1794863054.217
+}

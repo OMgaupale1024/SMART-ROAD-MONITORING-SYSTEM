@@ -156,6 +156,12 @@ acceptance results for this version.
 
 ## Optional systemd service
 
+For this Pi, the approved user service is installed and boot recovery is verified.
+Use the [operations runbook](operations.md) for management and rollback and the
+[Phase 5 closure](phase5-closure.md) for measured results and remaining diagnostics.
+It uses existing Linger=yes and direct-Python dependencies. The system-service
+example below is an alternative; do not enable both user and system RoadSense units.
+
 After manual validation, stop that manual process. Review `deploy/roadsense.service` for this
 Pi's paths and preserve any existing unit and its enabled state before installation:
 

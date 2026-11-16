@@ -1,0 +1,8 @@
+{
+  "before": "Restart=on-failure\nMainPID=4700\nResult=success\nNRestarts=0\nActiveState=active\nUnitFileState=enabled\nLISTEN 0      2048         0.0.0.0:8001       0.0.0.0:*    users:((\"python3\",pid=4700,fd=7))",
+  "stop_s": 0.2969772500000545,
+  "stopped_state": "MainPID=0\nActiveState=inactive",
+  "stayed_stopped_s": 5,
+  "start_http_ready_s": 0.6881388749970938,
+  "after": "Restart=on-failure\nMainPID=4899\nResult=success\nNRestarts=0\nActiveState=active\nUnitFileState=enabled\nLISTEN 0      2048         0.0.0.0:8001       0.0.0.0:*    users:((\"python3\",pid=4899,fd=7))"
+}
