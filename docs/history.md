@@ -464,6 +464,52 @@ A reboot test was not part of this phase.
 - The database directory can be moved aside or deleted at any time with the server stopped. Neither
   rollback touches Ollama, the unit file, the existing backup or lingering.
 
+### Idle-spin fix (Phase 7A.3 Stage 6, 17 November 2026)
+
+**Defect.** The writer waited on its queue until the earliest of its deadlines, but always included the
+heartbeat flush, which only a flush moves, and a flush needs something pending. With nothing to write (a fresh
+start, or 10 s after the last state) the timeout became 0 and the thread spun one core until the next state; a
+database that was unavailable or incompatible did the same with a maintenance deadline nothing could reach. On
+the Pi the writer used 100% of a core for the service's whole lifetime ([Phase 7A.3 §10.4](phase7a3-plan.md)).
+**Fix** `769e10d`: a deadline only for work that can happen; otherwise the writer wakes once a second, and
+`close()` wakes it at once. Write timing, retention, queue processing, shutdown and failure handling are
+unchanged; six regression tests cover idle, unavailable, incompatible and paused stores, states after an idle
+spell and a prompt clean shutdown.
+
+**Deployment**, evidence in [`evidence/phase7a3/stage6/`](evidence/phase7a3/stage6/): only `history.py` changed,
+to `eb4b1c4`'s file plus that fix (`deployed-history.diff`, SHA-256 `0aea796d…7b66`). The repository's file
+differs from it in one column description that only exports use; the experimental tracking code was not deployed.
+
+1. **Read-only preflight:** service active (MainPID 1041, 0 restarts, unit and events-only drop-in), its
+   `history.py` the `eb4b1c4` file (`9e9e2d80…830c`), every deployed `src` file that `eb4b1c4` has byte-identical
+   to it (`predeploy-SHA256SUMS`).
+2. **CPU before**, 60 s: see the table.
+3. **Backups:** `~/roadsense-edge-backup-20261117-192052.tar.gz` (source directory, unit and drop-in; SHA-256
+   `832fc6d5…8a17`, 272 entries); the database copied with SQLite's online backup API from a read-only
+   connection to `~/roadsense-history-fix-7a3-20261117/db-backup/` (integrity `ok`, every table's row count equal
+   to the source's); the replaced file beside it.
+4. **Copied the file**, verified its checksum in place and **restarted once** (19:21:23 IST); answering ~1 s later.
+5. **Checks:** active, MainPID 8944, 0 automatic restarts, one listener on 8001, Ollama available; every route the
+   same status as before (`/` 200, `/autonomy` 307, `/api/system` 200, `/api/live-state` 404 with no producer,
+   `/api/ai-explanation` 200, `/api/hazards` 200, a static file 200, the `/ws/live` handshake); history
+   `recording`, events only; the database's integrity `ok`, the previous lifetime closed `clean` and nothing else
+   changed; on the Pi, only `history.py` differs from the pre-deployment checksums.
+6. **CPU after**, 120 s idle (12 heartbeats), and **live frames in an isolated instance**: the deployed code on
+   127.0.0.1:8021 with its own database and no Ollama, fed 300 recorded Webots frames at 5 Hz, so the deployed
+   history received no test data.
+
+| Raspberry Pi 5 | Before (PID 1041) | After (PID 8944) |
+|---|---|---|
+| service, idle | **99.99%** of one core: the writer thread, state R, 5,998 user ticks in 60 s, 0 system | **0.04%**: the writer 0 ticks in 120 s |
+| whole Pi (4 cores) busy, load average | 25.2%, 1.00 | 0.22%, 0.11 and falling |
+| isolated instance, 300 frames at 5 Hz | — | 0.87% of a core processing, 0.05% idle after; 300 states absorbed in 10 batches, 0 failed, 0 lost |
+| isolated shutdown (SIGTERM) | — | 0.22 s, end `clean`, integrity `ok` |
+
+The user journal is not kept on this Pi ("No journal files were found"); health comes from systemd and
+`/api/system`. **Rollback:** `~/roadsense-history-fix-7a3-20261117/rollback.sh` (a copy is in the evidence)
+checks and restores the `eb4b1c4` file and restarts once. The database needs no rollback: the fix changes neither
+its schema nor its rows.
+
 ## Fit with the planned randomized Indian-road simulation and ML training
 
 What the foundation already gives such a pipeline:

@@ -1,0 +1,2 @@
+{"dataset": false, "degraded": false, "enabled": true, "last_error": null, "losses_observed": false, "processor_id": "48b9d404fef6", "queue": {"capacity": 256, "high_water": 0, "size": 0}, "reason": null, "state": "recording", "states": {"absorbed": 0, "observed": 0}}
+ai: {"enabled": true, "model": "qwen3:0.6b", "availability": "available", "status": "idle", "latency_ms": null}
