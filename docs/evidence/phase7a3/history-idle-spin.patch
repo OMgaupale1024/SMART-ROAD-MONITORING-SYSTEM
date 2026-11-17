@@ -1,0 +1,24 @@
+--- src/roadsense/web/history.py	2026-11-17 14:27:35
++++ src/roadsense/web/history.py	2026-11-17 18:38:38
+@@ -633,13 +633,18 @@
+         now = self._clock()
+         if self._conn is None and not self._permanent and now >= self._retry_at:
+             self._try_open()
+-        due = [self._last_maintenance + self.config.maintenance_s]
++        # Deadlines only for work that can happen: a flush while something waits to be written, maintenance
++        # while the database is open, a retry while one is possible. A deadline nothing will move would leave a
++        # zero timeout, and the thread spinning, until the next state arrives.
++        due = []
+         if self._conn is not None:
+-            due.append(self._last_flush + (self.config.flush_s if self._has_rows() else HEARTBEAT_S))
++            due.append(self._last_maintenance + (10.0 if self._paused else self.config.maintenance_s))
++            if self._has_rows() or self._dirty:
++                due.append(self._last_flush + (self.config.flush_s if self._has_rows() else HEARTBEAT_S))
+         elif not self._permanent:
+             due.append(self._retry_at)
+         try:
+-            item = self._queue.get(timeout=min(1.0, max(0.0, min(due) - now)))
++            item = self._queue.get(timeout=min(1.0, max(0.0, min(due, default=now + 1.0) - now)))
+         except queue.Empty:
+             item = None
+         taken = 0

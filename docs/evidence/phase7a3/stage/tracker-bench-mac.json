@@ -1,0 +1,23 @@
+{
+ "legacy": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 38.83,
+  "mean_us": 3.32,
+  "p50_us": 2.25,
+  "p95_us": 9.67,
+  "p99_us": 12.58
+ },
+ "offline": true,
+ "p1": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 35.83,
+  "mean_us": 4.59,
+  "p50_us": 3.17,
+  "p95_us": 13.12,
+  "p99_us": 16.96
+ },
+ "platform": "macOS-27.2.1-arm64-arm-64bit",
+ "python": "3.12.14"
+}

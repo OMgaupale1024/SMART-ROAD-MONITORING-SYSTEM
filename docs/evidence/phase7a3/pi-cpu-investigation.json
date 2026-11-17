@@ -1,0 +1,23 @@
+{
+ "schema": "roadsense.pi-cpu-investigation.v1",
+ "date": "2026-11-17",
+ "method": "read-only: /proc of the running service, its /api/system status, checksums; no restart, stop, attach, patch or redeploy",
+ "service": {"unit": "roadsense-edge (systemctl --user)", "main_pid": 1041, "history_mode": "events only (ROADSENSE_HISTORY_DATASET=0)",
+             "deployed_history_py_sha256": "9e9e2d80897875ecbb00f6522ac7238df185ce11fdfb4cda72712c22e756830c", "deployed_from": "eb4b1c4"},
+ "threads": {
+  "1041": {"role": "main (asyncio event loop)", "state": "S", "wchan": "do_epoll_wait"},
+  "1166": {"role": "RoadSenseAIExplainer (created first in server.lifespan)", "state": "S", "wchan": "futex_do_wait", "cpu_ticks_user_system": [8, 2]},
+  "1167": {"role": "RoadSenseHistory writer (created second in server.lifespan)", "state": "R", "wchan": "0",
+           "sampled_5s": {"user_ticks": 501, "system_ticks": 0, "one_core_utilisation": 1.0},
+           "lifetime_user_s": 4547, "lifetime_system_s": 1.44, "uptime_s": 4575,
+           "scheduling": {"policy": "SCHED_OTHER", "nice": 0}}
+ },
+ "history_status": {"state": "recording", "states_observed": 0, "queue_size": 0},
+ "root_cause": "HistoryRecorder._step always includes a flush deadline last_flush + HEARTBEAT_S (10 s), but only flushes when rows or dirty segments exist. With none (no frames since start, or 10 s after the last flush once a run ends), the deadline is never advanced, the queue.get timeout is max(0, due - now) = 0 forever, and queue.get(timeout=0) returns at once without a system call: a pure user-space spin holding a core until the next state arrives. The same happens permanently after a non-retryable open failure (state 'incompatible'): the maintenance deadline stays in the past while _step returns before maintaining.",
+ "reproduction_mac": {"deployed_eb4b1c4_idle": "0% for 10 s, then 93-99% of a core", "current_head_idle": "same (84-92%)",
+                      "states_at_5hz_then_idle": "0% while receiving; 53-97% from about 12-14 s after the last state",
+                      "incompatible_database_file": "85% from the start"},
+ "proposed_fix": "docs/evidence/phase7a3/history-idle-spin.patch (deadlines only for work that can happen; not applied, not deployed)",
+ "proposed_fix_validation_mac": {"idle": "0%", "after_run": "0%", "incompatible": "0%", "tests": "tests/test_history.py + tests/test_web.py: 77 passed against the patched copy"},
+ "safety_impact": "none on decisions (the writer is off the safety path), but one Pi 5 core is lost while idle; on a loaded Pi it competes with the safety pipeline and Ollama."
+}

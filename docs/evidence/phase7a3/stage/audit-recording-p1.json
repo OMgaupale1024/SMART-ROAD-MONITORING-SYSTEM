@@ -1,0 +1,706 @@
+{
+ "analysis_only": true,
+ "criteria": {
+  "adjacent_wrong": 0.1242,
+  "adjacent_wrong_left_right": [
+   0.0743,
+   0.1242
+  ],
+  "cue_p50": 0.6,
+  "cue_p90": 2.4,
+  "false_lateral_all": 0.0983,
+  "false_lateral_young": 0.3441,
+  "identity_per_1000": 4.651,
+  "lat_mae": 0.31,
+  "lon_mae": 1.571,
+  "max_range_far": 0.2313,
+  "max_speed_100m": 0.1409,
+  "max_type_100m": 0.0356,
+  "vlat_motion_mae": 0.508,
+  "vlat_motion_p95": 1.8
+ },
+ "cut_ins": [
+  {
+   "act_s": 56.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 56.2,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 55.8,
+   "inserted_s": 55.8,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 67.0,
+   "recorded_lead_s": 102.4,
+   "run_id": "lht-combined-1105-ad5c86d0d6f6",
+   "staged": true,
+   "truth_lane_entry_s": 102.2,
+   "truth_lateral_onset_s": 57.2,
+   "vehicle_type": "motorcycle"
+  },
+  {
+   "act_s": 20.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 20.4,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 20.0,
+   "inserted_s": 20.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 20.8,
+   "recorded_lead_s": null,
+   "run_id": "lht-combined-1110-4ab2c968d9a3",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 20.6,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 26.8,
+   "first_positive_label_s": null,
+   "first_tracked_s": 26.8,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 26.4,
+   "inserted_s": 26.2,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 26.8,
+   "recorded_lead_s": null,
+   "run_id": "lht-combined-1115-d2b557f98be6",
+   "staged": true,
+   "truth_lane_entry_s": 28.0,
+   "truth_lateral_onset_s": 26.8,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 44.8,
+   "first_positive_label_s": null,
+   "first_tracked_s": 44.6,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 44.2,
+   "inserted_s": 44.2,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 46.8,
+   "recorded_lead_s": null,
+   "run_id": "lht-combined-1122-933ebc0dbf4d",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 45.2,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 24.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 24.6,
+   "first_true_near_miss_s": 33.4,
+   "first_visible_s": 24.2,
+   "inserted_s": 24.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 24.8,
+   "recorded_lead_s": 25.2,
+   "run_id": "lht-combined-1127-807e05579f11",
+   "staged": true,
+   "truth_lane_entry_s": 25.2,
+   "truth_lateral_onset_s": 24.6,
+   "vehicle_type": "motorcycle"
+  },
+  {
+   "act_s": 28.2,
+   "first_positive_label_s": null,
+   "first_tracked_s": 29.2,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 27.6,
+   "inserted_s": 27.4,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 29.2,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1103-d65bfc289ecd",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 28.6,
+   "vehicle_type": "motorcycle"
+  },
+  {
+   "act_s": 62.0,
+   "first_positive_label_s": null,
+   "first_tracked_s": 61.8,
+   "first_true_near_miss_s": 63.6,
+   "first_visible_s": 61.4,
+   "inserted_s": 61.4,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 62.0,
+   "recorded_lead_s": 64.2,
+   "run_id": "lht-cut_in-1104-120ac8d7cd22",
+   "staged": true,
+   "truth_lane_entry_s": 63.4,
+   "truth_lateral_onset_s": 62.4,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 50.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 50.4,
+   "first_true_near_miss_s": 52.4,
+   "first_visible_s": 50.0,
+   "inserted_s": 50.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 50.6,
+   "recorded_lead_s": 58.6,
+   "run_id": "lht-cut_in-1106-467095345ca7",
+   "staged": true,
+   "truth_lane_entry_s": 52.4,
+   "truth_lateral_onset_s": 51.0,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 38.8,
+   "first_positive_label_s": null,
+   "first_tracked_s": 36.2,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 35.8,
+   "inserted_s": 35.8,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 40.0,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1108-260c23980d48",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 39.2,
+   "vehicle_type": "motorcycle"
+  },
+  {
+   "act_s": 21.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 21.6,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 21.0,
+   "inserted_s": 21.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 21.6,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1109-2c0f9153cdb4",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 22.2,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 34.0,
+   "first_positive_label_s": null,
+   "first_tracked_s": 31.4,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 31.0,
+   "inserted_s": 31.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 34.8,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 34.6,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 20.4,
+   "first_positive_label_s": null,
+   "first_tracked_s": 20.4,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 20.0,
+   "inserted_s": 19.8,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 20.6,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1113-028e46c6a632",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 21.0,
+   "vehicle_type": "motorcycle"
+  },
+  {
+   "act_s": 48.0,
+   "first_positive_label_s": null,
+   "first_tracked_s": 45.6,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 45.2,
+   "inserted_s": 45.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 49.4,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1114-d9d2f0362992",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 48.6,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 40.0,
+   "first_positive_label_s": null,
+   "first_tracked_s": 40.2,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 37.0,
+   "inserted_s": 37.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 40.2,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 40.4,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 36.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 36.2,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 35.8,
+   "inserted_s": 35.8,
+   "lane_change_mode": 512,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 37.6,
+   "recorded_lead_s": 38.2,
+   "run_id": "lht-cut_in-1118-368a6f105bbd",
+   "staged": true,
+   "truth_lane_entry_s": 38.0,
+   "truth_lateral_onset_s": 37.0,
+   "vehicle_type": "car"
+  },
+  {
+   "act_s": 31.8,
+   "first_positive_label_s": null,
+   "first_tracked_s": 30.0,
+   "first_true_near_miss_s": 99.2,
+   "first_visible_s": 29.8,
+   "inserted_s": 28.8,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 32.8,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1123-d182c2e45275",
+   "staged": true,
+   "truth_lane_entry_s": 99.0,
+   "truth_lateral_onset_s": 32.0,
+   "vehicle_type": "motorcycle"
+  },
+  {
+   "act_s": 29.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 30.6,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 29.2,
+   "inserted_s": 29.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 30.6,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 30.0,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 46.8,
+   "first_positive_label_s": null,
+   "first_tracked_s": 44.6,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 44.6,
+   "inserted_s": 43.8,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 48.2,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1126-36ad3b1d74b7",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 47.0,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 43.0,
+   "first_positive_label_s": null,
+   "first_tracked_s": 41.8,
+   "first_true_near_miss_s": 44.4,
+   "first_visible_s": 41.4,
+   "inserted_s": 41.4,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 43.0,
+   "recorded_lead_s": 54.8,
+   "run_id": "lht-cut_in-1128-7134baf381f6",
+   "staged": true,
+   "truth_lane_entry_s": 44.4,
+   "truth_lateral_onset_s": 43.4,
+   "vehicle_type": "motorcycle"
+  },
+  {
+   "act_s": 35.6,
+   "first_positive_label_s": null,
+   "first_tracked_s": 36.6,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 35.0,
+   "inserted_s": 35.0,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 36.6,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1129-ceea76814dbd",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 36.0,
+   "vehicle_type": "autorickshaw"
+  },
+  {
+   "act_s": 30.8,
+   "first_positive_label_s": null,
+   "first_tracked_s": 30.6,
+   "first_true_near_miss_s": null,
+   "first_visible_s": 30.2,
+   "inserted_s": 30.2,
+   "lane_change_mode": 0,
+   "model_warning_s": null,
+   "recorded_lateral_cue_s": 30.8,
+   "recorded_lead_s": null,
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "staged": true,
+   "truth_lane_entry_s": null,
+   "truth_lateral_onset_s": 31.4,
+   "vehicle_type": "autorickshaw"
+  }
+ ],
+ "frames": 16588,
+ "identity": {
+  "continuous_matched_slot_frames": 21500,
+  "fragmentations_within_3s": 61,
+  "identity_switches": 39
+ },
+ "insertion_speed_artifacts": [
+  {
+   "positive_labels_within_3s_before": 0,
+   "run_id": "lht-combined-1105-ad5c86d0d6f6",
+   "split": null,
+   "t": 52.8,
+   "vehicle": "rs_lead"
+  },
+  {
+   "positive_labels_within_3s_before": 0,
+   "run_id": "lht-combined-1110-4ab2c968d9a3",
+   "split": null,
+   "t": 18.2,
+   "vehicle": "rs_lead"
+  },
+  {
+   "positive_labels_within_3s_before": 0,
+   "run_id": "lht-combined-1127-807e05579f11",
+   "split": null,
+   "t": 21.4,
+   "vehicle": "rs_lead"
+  },
+  {
+   "positive_labels_within_3s_before": 0,
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "split": null,
+   "t": 32.8,
+   "vehicle": "rs_lead"
+  },
+  {
+   "positive_labels_within_3s_before": 0,
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "split": null,
+   "t": 49.2,
+   "vehicle": "rs_lead"
+  },
+  {
+   "positive_labels_within_3s_before": 0,
+   "run_id": "lht-sudden_brake-1117-719e692b4686",
+   "split": null,
+   "t": 14.4,
+   "vehicle": "rs_lead"
+  },
+  {
+   "positive_labels_within_3s_before": 0,
+   "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+   "split": null,
+   "t": 21.0,
+   "vehicle": "rs_lead"
+  }
+ ],
+ "kinematic_error_correct_slots": {
+  "lat_m": {
+   "mae": 0.31,
+   "mean": 0.026,
+   "n": 20696,
+   "p50_abs": 0.195,
+   "p95_abs": 0.965
+  },
+  "lon_m": {
+   "mae": 1.571,
+   "mean": -1.565,
+   "n": 20696,
+   "p50_abs": 1.484,
+   "p95_abs": 2.962
+  },
+  "v_lat_mps_lateral_motion": {
+   "mae": 0.508,
+   "mean": -0.091,
+   "n": 2675,
+   "p50_abs": 0.244,
+   "p95_abs": 1.8
+  },
+  "v_lat_mps_steady": {
+   "mae": 0.146,
+   "mean": -0.008,
+   "n": 18021,
+   "p50_abs": 0.054,
+   "p95_abs": 0.567
+  },
+  "v_lat_mps_steady_young": {
+   "mae": 0.501,
+   "mean": -0.104,
+   "n": 866,
+   "p50_abs": 0.178,
+   "p95_abs": 2.312
+  },
+  "v_lon_mps": {
+   "mae": 0.309,
+   "mean": 0.021,
+   "n": 20696,
+   "p50_abs": 0.19,
+   "p95_abs": 0.901
+  }
+ },
+ "lateral_cue_latency_s": {
+  "max": 6.4,
+  "p50": 0.6,
+  "p90": 2.4,
+  "vehicles": 151
+ },
+ "missed_after_confirmation_allowance_by": {
+  "range": {
+   "000-025 m": {
+    "miss_rate": 0.0341,
+    "missed": 202,
+    "observable_frames": 5930
+   },
+   "025-050 m": {
+    "miss_rate": 0.0066,
+    "missed": 33,
+    "observable_frames": 4981
+   },
+   "050-075 m": {
+    "miss_rate": 0.0169,
+    "missed": 56,
+    "observable_frames": 3310
+   },
+   "075-100 m": {
+    "miss_rate": 0.0157,
+    "missed": 50,
+    "observable_frames": 3186
+   },
+   "100-125 m": {
+    "miss_rate": 0.1169,
+    "missed": 263,
+    "observable_frames": 2249
+   },
+   "125-150 m": {
+    "miss_rate": 0.2313,
+    "missed": 307,
+    "observable_frames": 1327
+   }
+  },
+  "slot": {
+   "follower": {
+    "miss_rate": 0.028,
+    "missed": 76,
+    "observable_frames": 2716
+   },
+   "lead": {
+    "miss_rate": 0.056,
+    "missed": 364,
+    "observable_frames": 6496
+   },
+   "left": {
+    "miss_rate": 0.0161,
+    "missed": 147,
+    "observable_frames": 9157
+   },
+   "right": {
+    "miss_rate": 0.1239,
+    "missed": 324,
+    "observable_frames": 2614
+   }
+  },
+  "speed": {
+   "00-05 m/s": {
+    "miss_rate": 0.1409,
+    "missed": 51,
+    "observable_frames": 362
+   },
+   "05-10 m/s": {
+    "miss_rate": 0.081,
+    "missed": 108,
+    "observable_frames": 1333
+   },
+   "10-15 m/s": {
+    "miss_rate": 0.0281,
+    "missed": 349,
+    "observable_frames": 12419
+   },
+   "15-20 m/s": {
+    "miss_rate": 0.0387,
+    "missed": 161,
+    "observable_frames": 4164
+   },
+   "20-25 m/s": {
+    "miss_rate": 0.0915,
+    "missed": 240,
+    "observable_frames": 2624
+   },
+   "25-30 m/s": {
+    "miss_rate": 0.0247,
+    "missed": 2,
+    "observable_frames": 81
+   }
+  },
+  "speed_100m": {
+   "00-05 m/s": {
+    "miss_rate": 0.1409,
+    "missed": 51,
+    "observable_frames": 362
+   },
+   "05-10 m/s": {
+    "miss_rate": 0.0704,
+    "missed": 91,
+    "observable_frames": 1293
+   },
+   "10-15 m/s": {
+    "miss_rate": 0.0165,
+    "missed": 172,
+    "observable_frames": 10427
+   },
+   "15-20 m/s": {
+    "miss_rate": 0.0036,
+    "missed": 12,
+    "observable_frames": 3372
+   },
+   "20-25 m/s": {
+    "miss_rate": 0.0067,
+    "missed": 13,
+    "observable_frames": 1937
+   },
+   "25-30 m/s": {
+    "miss_rate": 0.125,
+    "missed": 2,
+    "observable_frames": 16
+   }
+  },
+  "type": {
+   "autorickshaw": {
+    "miss_rate": 0.0237,
+    "missed": 197,
+    "observable_frames": 8316
+   },
+   "bus": {
+    "miss_rate": 0.0128,
+    "missed": 12,
+    "observable_frames": 934
+   },
+   "car": {
+    "miss_rate": 0.0061,
+    "missed": 31,
+    "observable_frames": 5100
+   },
+   "motorcycle": {
+    "miss_rate": 0.1421,
+    "missed": 662,
+    "observable_frames": 4660
+   },
+   "truck": {
+    "miss_rate": 0.0046,
+    "missed": 9,
+    "observable_frames": 1973
+   }
+  },
+  "type_100m": {
+   "autorickshaw": {
+    "miss_rate": 0.0246,
+    "missed": 161,
+    "observable_frames": 6548
+   },
+   "bus": {
+    "miss_rate": 0.0143,
+    "missed": 11,
+    "observable_frames": 770
+   },
+   "car": {
+    "miss_rate": 0.0049,
+    "missed": 21,
+    "observable_frames": 4296
+   },
+   "motorcycle": {
+    "miss_rate": 0.0356,
+    "missed": 139,
+    "observable_frames": 3900
+   },
+   "truck": {
+    "miss_rate": 0.0048,
+    "missed": 9,
+    "observable_frames": 1893
+   }
+  }
+ },
+ "missed_incident_traces": [],
+ "runs": 30,
+ "schema": "roadsense.perception-audit.v2",
+ "slot_outcomes": {
+  "follower/correct": 2654,
+  "follower/empty_ok": 13692,
+  "follower/lane_misassigned": 122,
+  "follower/missed_confirming": 10,
+  "follower/missed_fov": 3,
+  "follower/missed_tracking": 76,
+  "follower/spurious": 20,
+  "follower/wrong_vehicle": 11,
+  "lead/correct": 6120,
+  "lead/empty_ok": 9589,
+  "lead/lane_misassigned": 17,
+  "lead/mislocalized": 44,
+  "lead/missed_confirming": 85,
+  "lead/missed_fov": 22,
+  "lead/missed_tracking": 364,
+  "lead/spurious": 254,
+  "lead/wrong_vehicle": 93,
+  "left/correct": 9557,
+  "left/empty_ok": 5496,
+  "left/lane_misassigned": 88,
+  "left/mislocalized": 286,
+  "left/missed_confirming": 88,
+  "left/missed_fov": 91,
+  "left/missed_occluded": 38,
+  "left/missed_tracking": 147,
+  "left/spurious": 300,
+  "left/wrong_vehicle": 497,
+  "right/correct": 2365,
+  "right/empty_ok": 13209,
+  "right/lane_misassigned": 56,
+  "right/mislocalized": 69,
+  "right/missed_confirming": 117,
+  "right/missed_fov": 74,
+  "right/missed_occluded": 21,
+  "right/missed_tracking": 324,
+  "right/spurious": 158,
+  "right/wrong_vehicle": 195
+ },
+ "source": "replay ~/Library/Application Support/RoadSense/analysis/phase7a3-20261117/replay-p1/slots.jsonl",
+ "visibility": "geometric model of the RoadSense front/rear radars; raw radar targets were not recorded"
+}

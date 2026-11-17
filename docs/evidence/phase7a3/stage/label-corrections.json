@@ -1,0 +1,1297 @@
+{
+ "fixes_summary": {
+  "by_type": {
+   "autorickshaw": 361,
+   "bus": 72,
+   "car": 579,
+   "motorcycle": 510,
+   "truck": 159
+  },
+  "by_vehicle_kind": {
+   "staged": 114,
+   "traffic": 1567
+  },
+  "staged": [
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1010-313bf45634c8",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 33.8,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1015-1b3ede381bbf",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 27.4,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.12,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1015-1b3ede381bbf",
+    "split": "train",
+    "sumo_mps": 15.12,
+    "t": 28.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1020-01ec8439bb58",
+    "split": "train",
+    "sumo_mps": 11.11,
+    "t": 67.6,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1025-bc1e2102298a",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 15.8,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 12.13,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1025-bc1e2102298a",
+    "split": "train",
+    "sumo_mps": 12.13,
+    "t": 17.2,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1030-f3decc89c98e",
+    "split": "train",
+    "sumo_mps": 15.28,
+    "t": 26.6,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 19.44,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1035-c6f6b5ba9971",
+    "split": "train",
+    "sumo_mps": 19.44,
+    "t": 38.8,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 12.64,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1035-c6f6b5ba9971",
+    "split": "train",
+    "sumo_mps": 12.64,
+    "t": 40.6,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1040-d947ccc6adbb",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 17.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1045-c7a798830fce",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 32.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 7.61,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1045-c7a798830fce",
+    "split": "train",
+    "sumo_mps": 7.61,
+    "t": 34.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 9.81,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1050-99969c85a4ab",
+    "split": "train",
+    "sumo_mps": 9.81,
+    "t": 28.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 19.02,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1055-3c0597b188c9",
+    "split": "train",
+    "sumo_mps": 19.02,
+    "t": 25.8,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.99,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1055-3c0597b188c9",
+    "split": "train",
+    "sumo_mps": 11.99,
+    "t": 27.4,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1060-fbff6ffde464",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 28.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1065-1d734a795069",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 21.2,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1065-1d734a795069",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 22.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1070-03dbbeccf24b",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 43.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1084-f113bbdc7364",
+    "split": "validation",
+    "sumo_mps": 13.9,
+    "t": 18.8,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 7.35,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1084-f113bbdc7364",
+    "split": "validation",
+    "sumo_mps": 7.35,
+    "t": 20.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1086-67673845b48b",
+    "split": "validation",
+    "sumo_mps": 13.9,
+    "t": 28.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1092-d6d444020318",
+    "split": "validation",
+    "sumo_mps": 13.9,
+    "t": 42.8,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.54,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1092-d6d444020318",
+    "split": "validation",
+    "sumo_mps": 11.54,
+    "t": 45.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1105-0545ff59a8e3",
+    "split": "test",
+    "sumo_mps": 11.11,
+    "t": 52.8,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 6.06,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1105-0545ff59a8e3",
+    "split": "test",
+    "sumo_mps": 6.06,
+    "t": 55.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 19.44,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1110-d4235561ff1c",
+    "split": "test",
+    "sumo_mps": 19.44,
+    "t": 18.2,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.42,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1110-d4235561ff1c",
+    "split": "test",
+    "sumo_mps": 11.42,
+    "t": 20.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1115-774038d5aacc",
+    "split": "test",
+    "sumo_mps": 13.9,
+    "t": 26.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 16.35,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1115-774038d5aacc",
+    "split": "test",
+    "sumo_mps": 16.35,
+    "t": 27.6,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1120-a3eeb331e5cd",
+    "split": "test",
+    "sumo_mps": 11.11,
+    "t": 28.2,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1122-f4629edee541",
+    "split": "stress",
+    "sumo_mps": 13.9,
+    "t": 41.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.25,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1122-f4629edee541",
+    "split": "stress",
+    "sumo_mps": 13.25,
+    "t": 45.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1127-baae65afa2ca",
+    "split": "stress",
+    "sumo_mps": 13.9,
+    "t": 21.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 6.85,
+    "recorded_mps": 0.0,
+    "run_id": "lht-combined-1127-baae65afa2ca",
+    "split": "stress",
+    "sumo_mps": 6.85,
+    "t": 24.2,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter_2"
+   },
+   {
+    "displacement_mps": 9.3,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1002-5a57dc6f6089",
+    "split": "train",
+    "sumo_mps": 9.3,
+    "t": 19.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 11.86,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1003-24a78c127692",
+    "split": "train",
+    "sumo_mps": 11.86,
+    "t": 44.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1008-cf0b0718a603",
+    "split": "train",
+    "sumo_mps": 13.22,
+    "t": 33.2,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 12.81,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1012-58ea3c44b6c0",
+    "split": "train",
+    "sumo_mps": 12.81,
+    "t": 21.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 5.58,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1013-4b7d935cb014",
+    "split": "train",
+    "sumo_mps": 5.58,
+    "t": 55.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 11.67,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1014-d75920619a93",
+    "split": "train",
+    "sumo_mps": 11.67,
+    "t": 23.8,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1018-1370ff72b2b6",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 26.4,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 14.42,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1022-8cabfc940395",
+    "split": "train",
+    "sumo_mps": 14.42,
+    "t": 33.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 11.61,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1023-d8c36b4dfd35",
+    "split": "train",
+    "sumo_mps": 11.61,
+    "t": 17.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 8.92,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1024-d5dacd0afdf4",
+    "split": "train",
+    "sumo_mps": 8.92,
+    "t": 26.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 20.5,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1028-6494830c7a52",
+    "split": "train",
+    "sumo_mps": 20.5,
+    "t": 29.6,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 8.81,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1032-7fb9d37662a6",
+    "split": "train",
+    "sumo_mps": 8.81,
+    "t": 39.4,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 12.39,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1033-a369aa533b76",
+    "split": "train",
+    "sumo_mps": 12.39,
+    "t": 26.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.58,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1034-f14ecf29f640",
+    "split": "train",
+    "sumo_mps": 13.58,
+    "t": 34.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 20.89,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1038-0d51f1e2ff3d",
+    "split": "train",
+    "sumo_mps": 20.89,
+    "t": 32.4,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 12.8,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1042-97c2ed3c0be0",
+    "split": "train",
+    "sumo_mps": 12.8,
+    "t": 25.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1043-2b45e74d98cb",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 14.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 9.17,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1044-4e37f52c1585",
+    "split": "train",
+    "sumo_mps": 9.17,
+    "t": 26.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 18.94,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1048-d5ef82c74d6d",
+    "split": "train",
+    "sumo_mps": 18.94,
+    "t": 26.8,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 11.03,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1052-a35d5981b21e",
+    "split": "train",
+    "sumo_mps": 11.03,
+    "t": 50.4,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1053-b8491eaef2d6",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 25.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 5.97,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1054-d8808836a66d",
+    "split": "train",
+    "sumo_mps": 5.97,
+    "t": 46.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 12.36,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1058-5b25bddafaa2",
+    "split": "train",
+    "sumo_mps": 12.36,
+    "t": 56.2,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 5.5,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1063-c0df89c11829",
+    "split": "train",
+    "sumo_mps": 5.5,
+    "t": 46.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 11.5,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1064-d400987ea8d5",
+    "split": "train",
+    "sumo_mps": 11.5,
+    "t": 37.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 20.06,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1068-b5d284697ade",
+    "split": "train",
+    "sumo_mps": 20.06,
+    "t": 36.4,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 10.3,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1082-ea141b05bf13",
+    "split": "validation",
+    "sumo_mps": 10.3,
+    "t": 28.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1083-165c3a7bca62",
+    "split": "validation",
+    "sumo_mps": 13.9,
+    "t": 34.8,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 9.36,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1085-f9e5ef0b7ba9",
+    "split": "validation",
+    "sumo_mps": 9.36,
+    "t": 57.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 12.94,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1087-509f7517f3d7",
+    "split": "validation",
+    "sumo_mps": 12.94,
+    "t": 41.4,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 8.47,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1090-c4a896a6fd88",
+    "split": "validation",
+    "sumo_mps": 8.47,
+    "t": 53.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1091-be6a7e0a0b44",
+    "split": "validation",
+    "sumo_mps": 13.9,
+    "t": 21.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 12.3,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1093-ef77f4e10b06",
+    "split": "validation",
+    "sumo_mps": 12.3,
+    "t": 35.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 19.47,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1095-249c190aad1f",
+    "split": "validation",
+    "sumo_mps": 19.47,
+    "t": 25.0,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.78,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1103-7f9645d119bf",
+    "split": "test",
+    "sumo_mps": 13.78,
+    "t": 27.6,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 7.92,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1104-02c369d53a7d",
+    "split": "test",
+    "sumo_mps": 7.92,
+    "t": 61.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 6.78,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1106-fdc484869395",
+    "split": "test",
+    "sumo_mps": 6.78,
+    "t": 50.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 16.97,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1108-cb470b388885",
+    "split": "test",
+    "sumo_mps": 16.97,
+    "t": 35.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1109-96437815648c",
+    "split": "test",
+    "sumo_mps": 13.9,
+    "t": 21.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 2.94,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1111-6dc920f62f19",
+    "split": "test",
+    "sumo_mps": 2.94,
+    "t": 31.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 15.08,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1113-8bb4c7bcdcda",
+    "split": "test",
+    "sumo_mps": 15.08,
+    "t": 20.0,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 11.94,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1114-47fe37172c83",
+    "split": "test",
+    "sumo_mps": 11.94,
+    "t": 45.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 8.42,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1116-a79cb7c08771",
+    "split": "test",
+    "sumo_mps": 8.42,
+    "t": 37.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 16.72,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1118-a7054bc217a9",
+    "split": "test",
+    "sumo_mps": 16.72,
+    "t": 35.8,
+    "type": "car",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 15.69,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1123-5f8700f5b203",
+    "split": "stress",
+    "sumo_mps": 15.69,
+    "t": 28.8,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1124-2b6f0ecaa23c",
+    "split": "stress",
+    "sumo_mps": 13.9,
+    "t": 29.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1126-840bac228e71",
+    "split": "stress",
+    "sumo_mps": 13.9,
+    "t": 45.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 8.58,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1128-7162aacf55da",
+    "split": "stress",
+    "sumo_mps": 8.58,
+    "t": 41.4,
+    "type": "motorcycle",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1129-4c28813115e6",
+    "split": "stress",
+    "sumo_mps": 13.9,
+    "t": 35.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 8.53,
+    "recorded_mps": 0.0,
+    "run_id": "lht-cut_in-1131-3d91946e4eac",
+    "split": "stress",
+    "sumo_mps": 8.53,
+    "t": 30.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_cutter"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1007-affea7eb314f",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 29.0,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1009-200ab821de18",
+    "split": "train",
+    "sumo_mps": 15.28,
+    "t": 25.0,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1011-70ea79ad82f2",
+    "split": "train",
+    "sumo_mps": 11.11,
+    "t": 37.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1017-1a16f0be677c",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 22.6,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1019-618065d12cb5",
+    "split": "train",
+    "sumo_mps": 15.28,
+    "t": 41.4,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1021-b3203abb79b4",
+    "split": "train",
+    "sumo_mps": 15.28,
+    "t": 39.8,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1027-addfd6980ab0",
+    "split": "train",
+    "sumo_mps": 15.28,
+    "t": 22.0,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1029-985deef1f1d1",
+    "split": "train",
+    "sumo_mps": 11.11,
+    "t": 48.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1031-d3bee0e2708e",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 21.0,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1037-62dbf6df477b",
+    "split": "train",
+    "sumo_mps": 13.9,
+    "t": 17.2,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1039-02cfb3abc847",
+    "split": "train",
+    "sumo_mps": 11.11,
+    "t": 48.6,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1041-f05e86b2f5a1",
+    "split": "train",
+    "sumo_mps": 15.28,
+    "t": 24.6,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.31,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1047-49a2adfcd3b3",
+    "split": "train",
+    "sumo_mps": 11.31,
+    "t": 51.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1049-1afd4789b840",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 26.0,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 19.44,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1051-dbc498ab37b2",
+    "split": "train",
+    "sumo_mps": 19.44,
+    "t": 38.4,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 19.44,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1057-42755f48d072",
+    "split": "train",
+    "sumo_mps": 19.44,
+    "t": 18.6,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1059-5088dd7d4413",
+    "split": "train",
+    "sumo_mps": 11.11,
+    "t": 55.8,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1061-4374e229e617",
+    "split": "train",
+    "sumo_mps": 22.22,
+    "t": 15.8,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1067-76389f58b918",
+    "split": "train",
+    "sumo_mps": 11.11,
+    "t": 67.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 17.58,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1069-1a15464810c2",
+    "split": "train",
+    "sumo_mps": 17.58,
+    "t": 18.2,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 22.22,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1081-606035480ba0",
+    "split": "validation",
+    "sumo_mps": 22.22,
+    "t": 20.2,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1089-2413ce76376b",
+    "split": "validation",
+    "sumo_mps": 13.9,
+    "t": 18.8,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 11.11,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1102-23dbe1b9faab",
+    "split": "test",
+    "sumo_mps": 11.11,
+    "t": 68.6,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.29,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1107-c5fef4e08412",
+    "split": "test",
+    "sumo_mps": 15.29,
+    "t": 32.8,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1112-498fcdf1a688",
+    "split": "test",
+    "sumo_mps": 15.28,
+    "t": 49.2,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1117-46c3da794be4",
+    "split": "test",
+    "sumo_mps": 13.9,
+    "t": 14.4,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1119-0882059ce458",
+    "split": "test",
+    "sumo_mps": 15.28,
+    "t": 39.0,
+    "type": "car",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 15.28,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1125-fac87701e4e0",
+    "split": "stress",
+    "sumo_mps": 15.28,
+    "t": 21.0,
+    "type": "motorcycle",
+    "vehicle": "rs_lead"
+   },
+   {
+    "displacement_mps": 13.9,
+    "recorded_mps": 0.0,
+    "run_id": "lht-sudden_brake-1130-be62f0046ea7",
+    "split": "stress",
+    "sumo_mps": 13.9,
+    "t": 35.6,
+    "type": "autorickshaw",
+    "vehicle": "rs_lead"
+   }
+  ],
+  "total": 1681
+ },
+ "frozen_model_post_hoc": {
+  "corrected_labels": {
+   "ordinary": {
+    "early_frame_recall": 0.5584415584415584,
+    "false_alarms_per_hour": 37.83499737256963,
+    "median_warning_lead_s": 1.2,
+    "positive_samples": 93,
+    "pre_event_detected_incidents": 6,
+    "pre_event_detection_rate": 1.0,
+    "pre_event_eligible_incidents": 6,
+    "precision": 0.5225225225225225,
+    "recall": 0.6236559139784946,
+    "samples": 5709
+   },
+   "stress": {
+    "early_frame_recall": 0.6459143968871596,
+    "false_alarms_per_hour": 166.83831101956747,
+    "median_warning_lead_s": 1.8,
+    "positive_samples": 377,
+    "pre_event_detected_incidents": 15,
+    "pre_event_detection_rate": 0.8333333333333334,
+    "pre_event_eligible_incidents": 18,
+    "precision": 0.5412474849094567,
+    "recall": 0.713527851458886,
+    "samples": 4855
+   },
+   "test": {
+    "early_frame_recall": 0.22162162162162163,
+    "false_alarms_per_hour": 80.37508372404554,
+    "median_warning_lead_s": 0.8,
+    "positive_samples": 266,
+    "pre_event_detected_incidents": 6,
+    "pre_event_detection_rate": 0.5454545454545454,
+    "pre_event_eligible_incidents": 11,
+    "precision": 0.3722397476340694,
+    "recall": 0.44360902255639095,
+    "samples": 8958
+   }
+  },
+  "model_sha256_note": "docs/evidence/phase7a2/model.json, unchanged",
+  "original_labels": {
+   "ordinary": {
+    "early_frame_recall": 0.5584415584415584,
+    "false_alarms_per_hour": 37.83499737256963,
+    "median_warning_lead_s": 1.2,
+    "positive_samples": 93,
+    "pre_event_detected_incidents": 6,
+    "pre_event_detection_rate": 1.0,
+    "pre_event_eligible_incidents": 6,
+    "precision": 0.5225225225225225,
+    "recall": 0.6236559139784946,
+    "samples": 5709
+   },
+   "stress": {
+    "early_frame_recall": 0.6459143968871596,
+    "false_alarms_per_hour": 166.83831101956747,
+    "median_warning_lead_s": 1.8,
+    "positive_samples": 377,
+    "pre_event_detected_incidents": 15,
+    "pre_event_detection_rate": 0.8333333333333334,
+    "pre_event_eligible_incidents": 18,
+    "precision": 0.5412474849094567,
+    "recall": 0.713527851458886,
+    "samples": 4855
+   },
+   "test": {
+    "early_frame_recall": 0.1782608695652174,
+    "false_alarms_per_hour": 80.37508372404554,
+    "median_warning_lead_s": 0.8,
+    "positive_samples": 311,
+    "pre_event_detected_incidents": 6,
+    "pre_event_detection_rate": 0.42857142857142855,
+    "pre_event_eligible_incidents": 14,
+    "precision": 0.3722397476340694,
+    "recall": 0.37942122186495175,
+    "samples": 8958
+   }
+  }
+ },
+ "original_labels_reproduced": true,
+ "per_split": {
+  "ordinary": {
+   "fixes_staged": 0,
+   "fixes_traffic": 133,
+   "incidents_corrected": 6,
+   "incidents_original": 6,
+   "labels_0_to_1": 0,
+   "labels_1_to_0": 0,
+   "labels_unchanged_neg": 5616,
+   "labels_unchanged_pos": 93
+  },
+  "stress": {
+   "fixes_staged": 12,
+   "fixes_traffic": 86,
+   "incidents_corrected": 19,
+   "incidents_original": 21,
+   "labels_0_to_1": 0,
+   "labels_1_to_0": 0,
+   "labels_unchanged_neg": 4478,
+   "labels_unchanged_pos": 377
+  },
+  "test": {
+   "fixes_staged": 22,
+   "fixes_traffic": 210,
+   "incidents_corrected": 11,
+   "incidents_original": 17,
+   "labels_0_to_1": 0,
+   "labels_1_to_0": 45,
+   "labels_unchanged_neg": 8647,
+   "labels_unchanged_pos": 266
+  },
+  "train": {
+   "fixes_staged": 65,
+   "fixes_traffic": 936,
+   "incidents_corrected": 27,
+   "incidents_original": 41,
+   "labels_0_to_1": 0,
+   "labels_1_to_0": 76,
+   "labels_unchanged_neg": 35815,
+   "labels_unchanged_pos": 551
+  },
+  "validation": {
+   "fixes_staged": 15,
+   "fixes_traffic": 202,
+   "incidents_corrected": 20,
+   "incidents_original": 27,
+   "labels_0_to_1": 0,
+   "labels_1_to_0": 48,
+   "labels_unchanged_neg": 9290,
+   "labels_unchanged_pos": 355
+  }
+ },
+ "rule": "A vehicle's physical speed is its Webots node velocity, and a node SUMO has just placed (an inserted event vehicle,\n    a node reused for another vehicle) reports 0 on its first frame. A first-frame speed is replaced only when two\n    independent sources say the vehicle moves: its own displacement to the next frame and SUMO's logical speed, both\n    above MOVING_MPS and within AGREE_MPS of each other. Stationary vehicles, slow vehicles and every later frame keep\n    their recorded speed; near misses that do not rest on the artifact are unchanged.",
+ "schema": "roadsense.label-corrections.v1",
+ "thresholds_mps": {
+  "agree": 3.0,
+  "moving": 2.0,
+  "still": 0.5
+ }
+}
