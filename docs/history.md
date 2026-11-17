@@ -9,8 +9,8 @@ waits for it, and publishes the same decisions with it on or off (tested).
 Code: `src/roadsense/web/history.py` (recorder), `src/roadsense/web/history_export.py` (read-only
 summary and export). Tests: `tests/test_history.py`. Benchmark: `tools/bench_history.py`.
 
-**Off by default.** Nothing is written unless `ROADSENSE_HISTORY_ENABLE=1`. It has not been
-deployed to the Raspberry Pi yet (Phase 6B, see [the plan below](#raspberry-pi-deployment-phase-6b-proposed)).
+**Off by default.** Nothing is written unless `ROADSENSE_HISTORY_ENABLE=1`. On the Raspberry Pi it
+is enabled, events only, since 17 November 2026 ([Phase 6B](#raspberry-pi-deployment-phase-6b)).
 
 ## Architecture
 
@@ -242,13 +242,13 @@ The Raspberry Pi's root filesystem is a 113 GB ext4 USB disk with 97 GB free (re
 ## Dataset export
 
 ```sh
-PYTHONPATH=src python3 -m roadsense.web.history_export summary
-PYTHONPATH=src python3 -m roadsense.web.history_export export ~/roadsense-dataset-20261117 \
+PYTHONPATH=src python3 -m roadsense.web.history_export [--dir DIR] summary
+PYTHONPATH=src python3 -m roadsense.web.history_export [--dir DIR] export ~/roadsense-dataset-20261117 \
     [--format jsonl|csv] [--split 70,15,15] [--seed roadsense] [--group-map groups.json]
 ```
 
-`--dir` selects another history directory (default: `ROADSENSE_HISTORY_DIR`, then the platform
-default). The output directory must be new or empty: an export never overwrites. The same database
+`--dir` selects another history directory and goes **before** the command (default:
+`ROADSENSE_HISTORY_DIR`, then the platform default). The output directory must be new or empty: an export never overwrites. The same database
 gives byte-identical files (every query has a total order and the manifest has no timestamp).
 
 | File | Contents |
@@ -367,55 +367,100 @@ samples (one per frame) are unaffected by how eventful the drive is.
 Examples: 100 randomized runs of 5 minutes in dataset mode are about 112 MB; a month of 2 hours a
 day of events-only history is about 85 MB, under the default limit and retention.
 
-## Raspberry Pi deployment (Phase 6B, proposed)
+## Raspberry Pi deployment (Phase 6B)
 
-Not performed; needs approval. The running service, its unit and the backup stay as they are
-until then.
+Done on 17 November 2026 (Asia/Kolkata), from commit `eb4b1c4`. Evidence:
+[`docs/evidence/phase6b/`](evidence/phase6b/) (raw results and the three scripts that produced them).
 
-1. **Read-only preflight:** `systemctl --user status roadsense-edge`, MainPID, one listener on 8001,
-   the existing backup's checksum, `df -h ~`, `ls -ld ~/.local/state`.
-2. **New backup** of `~/roadsense-edge/src` as a new timestamped archive with its SHA-256 (the
-   existing `roadsense-edge-backup-20261117-014533.tar.gz` is not touched).
-3. **Copy three files:** `src/roadsense/web/history.py`, `src/roadsense/web/history_export.py`,
-   `src/roadsense/web/server.py` (and `tools/bench_history.py` for the on-Pi benchmark).
-4. **Restart with history still off**, the unit unchanged: `systemctl --user restart roadsense-edge`.
-   Verify one listener, the four APIs, `history.state = "disabled"`, BRAKE/EMERGENCY_BRAKE from a
-   Webots replay. This proves the new code without the new behaviour.
-5. **Enable** with a user drop-in, leaving the unit file itself unchanged:
-   `~/.config/systemd/user/roadsense-edge.service.d/history.conf` containing
-   `[Service]` / `Environment=ROADSENSE_HISTORY_ENABLE=1`; `systemctl --user daemon-reload`;
-   restart. Verify `state = "recording"` and the database under `~/.local/state/roadsense/history/`.
-6. **Acceptance** as below; dataset mode only afterwards, as a separate step
-   (`Environment=ROADSENSE_HISTORY_DATASET=1` in the same drop-in).
+1. **Read-only preflight:** service active (MainPID 1037, 0 restarts, no drop-in), one listener on
+   8001, Ollama `qwen3:0.6b` on 127.0.0.1:11434, the Pi's `server.py` byte-identical to `abdbb63`,
+   97 GB free. A checksum dry run showed exactly three content changes: `history.py`,
+   `history_export.py` (new), `server.py`.
+2. **New backup** `~/roadsense-edge-backup-20261117-131556.tar.gz` (SHA-256 `188ac8eb…1736b`): the
+   source directory and the unit file, listed and verified. The two earlier backups are unchanged.
+3. **Copied three files** from `eb4b1c4`, checksums verified on the Pi against the commit
+   (`~/phase6b-deployed-SHA256SUMS`). Nothing else on the Pi was changed or deleted.
+4. **Restarted with history off**, unit unchanged: one listener, every route answering,
+   `history.state = "disabled"`, no directory created, Ollama available.
+5. **Enabled** with the drop-in `~/.config/systemd/user/roadsense-edge.service.d/history.conf`
+   (`ROADSENSE_HISTORY_ENABLE=1`, `ROADSENSE_HISTORY_DATASET=0`). During acceptance it also set
+   `ROADSENSE_HISTORY_DIR` to `~/.local/state/roadsense/acceptance-20261117`, so synthetic test runs
+   stay out of the normal history; that line was removed afterwards. The unit file's SHA-256
+   (`f06b3810…13cf`) is the same before and after.
+6. **Final state:** events-only history in `~/.local/state/roadsense/history/`, service active.
 
-### Hardware acceptance thresholds (proposed)
+### Hardware acceptance results
 
-Each measured in one session, against a baseline taken with history off on the same Pi, the same
-Webots scene, Ollama on, for at least 30 minutes each:
+Workload: the benchmark scenario (`tools/bench_history.py`, 1,501 frames at 5 Hz, 300 s) posted
+from the Mac over Wi-Fi to the deployed service, each run right after a restart, Ollama on. Two
+history-off baselines, then one run with history on (events only). 300 s per run, not the 30 minutes
+first proposed: the p95 figures cover every frame of each run (the server keeps the last 1,500), and
+the thermal state was flat (47–50 °C, no throttling).
 
-| Measure | Threshold | Why |
-| ------- | --------- | --- |
-| `process` p95 | within 15 % of the baseline's, and ≤ 2.6 ms | history adds nothing to that stage; 15 % covers the run-to-run spread already seen (2.026 / 2.262 / 2.151 ms) |
-| `handler` p95 | ≤ baseline + 0.5 ms | the listener is the only addition; 0.5 ms is about 100× its measured Mac cost and still 0.25 % of a 200 ms cycle |
-| telemetry rate | ≥ 4.7 Hz | baseline 4.8 Hz |
-| `lost.*` | all 0; `queue.high_water` ≤ 25 | no loss in normal operation; a queue that is used at all means the writer is lagging |
-| `batches.latency_ms` p95 / max | ≤ 50 ms / ≤ 500 ms | a USB disk commit; 500 ms is far inside the queue's 51 s of slack |
-| server RSS | ≤ baseline + 15 MB | queue worst case ~4 MB, page cache 2 MB, the rest headroom on a 4 GB Pi |
-| host CPU mean | ≤ baseline + 3 points | the writer is idle most of the time |
-| temperature / throttling | no throttling flags | as in Phase 4 and 5 |
-| restart | `systemctl --user restart` gives `processor_start` + `run_resumed` (inferred) and both lifetimes `clean` | lifecycle records |
-| crash | `SIGKILL` of MainPID: next lifetime writes `processor_end_not_observed`; `PRAGMA integrity_check` `ok` | durability claim |
-| growth | measured bytes per hour within 2× of the Mac figures above | storage planning |
-| export | `history_export summary` and `export` on the Pi, files and checksums consistent | read-only access |
+| Measure | Threshold | Off (two runs) | On | Result |
+| ------- | --------- | -------------- | -- | ------ |
+| `process` p95 | within 15 % of baseline, ≤ 2.6 ms | 0.775 / 0.780 ms | 0.777 ms | pass |
+| `handler` p95 | ≤ baseline + 0.5 ms | 2.484 / 2.321 ms | 2.392 ms (+0.07) | pass |
+| `handler` mean / max | | 1.49 / 1.37 ms; 16.6 / 16.5 ms | 1.43 ms; 14.8 ms | |
+| frames accepted | | 1,501 / 1,501, 0 missed | 1,501, 0 missed | |
+| telemetry rate (server, every 10 s) | ≥ 4.7 Hz | mean 4.98 / 4.99, min 4.4 | mean 4.98, min 4.2 | pass (mean) |
+| `lost.*`, `queue.high_water` | all 0, ≤ 25 | | all 0, 1 | pass |
+| batches | p95 ≤ 50 ms, max ≤ 500 ms | | 110 committed, 0 failed, p95 0.65 ms, max 1.82 ms | pass |
+| service RSS (peak, `VmHWM`) | ≤ baseline + 15 MB | 52.5 / 52.5 MB | 53.7 MB (+1.2) | pass |
+| service CPU over the run | ≤ baseline + 3 points | 6.44 / 6.47 s (2.1 % of one core) | 7.20 s (2.4 %) | pass (+0.24 points) |
+| temperature / throttling | no flags | 50.5 / 48.3 °C, `0x0` | 49.4 °C, `0x0` | pass |
+| published states, off vs on | identical | | all 1,501 identical (SHA-256 per state) | pass |
+| growth, events only | within 2× of the Mac | | 116 kB used per 300 s, the same as the Mac | pass |
 
-A reboot test, if wanted, needs its own approval, as in Phase 5.
+The 10 s samples of the 5 s rate window dip to 4.2–4.4 Hz in every run, off as well: Wi-Fi delivery
+in bursts, not frames lost. The client sent at 5.003 Hz and every frame was accepted.
+
+Ollama ran real `qwen3:0.6b` inference throughout: model latency p50 2.67–2.69 s in all three runs.
+The explainer's existing output filter rejects some answers (`invalid_output`, for example "an
+unsupported claim: 'lane, which is safe'") and then shows the deterministic text; that happens with
+history off too. In the dataset runs, 3 of 4 requests were generated and accepted.
+
+### Restart, gap and crash on the Pi
+
+One run (`phase6b-lifecycle`) posted in slices, with history on
+([`pi_lifecycle.py`](evidence/phase6b/pi_lifecycle.py); database contents in
+[`pi-history-db.json`](evidence/phase6b/pi-history-db.json)):
+
+| Step | Recorded |
+| ---- | -------- |
+| sequences 1–150, then `systemctl --user restart` | lifetime 1 `clean`; its 84 hazard rows (28 hazards over two segments) and 131 decisions still there |
+| sequences 161–260 in the new lifetime | `processor_start`; `run_resumed` (inferred) 150 → 161, 10 missing |
+| 4 s pause, sequences 261–270 skipped, 271–370 | `sequence_gap` (observed) 260 → 271, 10 missing; `stream_stall` (measured) 4.01 s on the processor clock, 2.2 s of simulation time |
+| 371–420, then `kill -KILL` of MainPID | systemd restarted it (`NRestarts=1`); the next lifetime wrote `processor_end_not_observed`, and lifetime 2 is `not_observed` |
+| 431–480 | `run_resumed` (inferred) from 415 (the last **committed** sequence) to 431 |
+| afterwards | `PRAGMA integrity_check` = `ok`, journal mode WAL |
+
+The kill shows the documented loss: frames 416–420 were accepted and published by the safety
+pipeline but were still in memory, so they are not in the history. The `run_resumed` row says
+"15 missing", an upper bound that includes them.
+
+### Dataset mode on the Pi (bounded)
+
+Two 60 s runs with `ROADSENSE_HISTORY_DATASET=1`, then the drop-in was set back to events only:
+300 + 300 frames, 0 lost, 0 failed batches (p95 1.1–1.4 ms). Handler p95 2.89 and 3.67 ms over 300
+frames: above the events-only threshold, so dataset mode is for bounded collection runs (or for the
+Mac), not normal Pi operation. One handler time of 128 ms in the first run did not recur in the
+second (max 6.5 ms), nor at a cold start (first frames 0.4–0.9 ms); its cause is unknown.
+
+Export on the Pi (`~/phase6b-acceptance/`): JSONL and CSV; every file's SHA-256 and row count
+matches the manifest; two exports of the same database are identical; a third into an existing
+directory was refused; labels `heuristic`, `ground_truth: false`; `geo` null on all 39 hazards;
+51 features per sample.
+
+A reboot test was not part of this phase.
 
 ### Rollback
 
 - **Turn history off:** remove the drop-in, `systemctl --user daemon-reload`, restart. The database
   stays where it is and is never read by the safety path.
-- **Remove the code:** restore the three files from the new backup and restart; the old
-  `server.py` simply does not import the history module.
+- **Remove the code:** restore the three files from `roadsense-edge-backup-20261117-131556.tar.gz`
+  (`tar -xzf … roadsense-edge/src/roadsense/web/server.py`, then remove `history.py` and
+  `history_export.py`) and restart; the old `server.py` simply does not import the history module.
 - The database directory can be moved aside or deleted at any time with the server stopped. Neither
   rollback touches Ollama, the unit file, the existing backup or lingering.
 

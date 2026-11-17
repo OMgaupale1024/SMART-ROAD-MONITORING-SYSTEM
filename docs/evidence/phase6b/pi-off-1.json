@@ -1,0 +1,133 @@
+{
+ "label": "off",
+ "run_id": "phase6b-accept",
+ "frames": 1501,
+ "duration_s": 300.0,
+ "client_rate_hz": 5.003,
+ "statuses": {
+  "200": 1501
+ },
+ "server_rate_hz_every_10s": {
+  "min": 4.4,
+  "mean": 4.98,
+  "n": 30
+ },
+ "server_latency_ms": {
+  "process": {
+   "last": 0.634,
+   "mean": 0.551,
+   "p50": 0.546,
+   "p95": 0.775,
+   "max": 1.505
+  },
+  "publish": {
+   "last": 0.532,
+   "mean": 0.401,
+   "p50": 0.406,
+   "p95": 0.578,
+   "max": 0.909
+  },
+  "handler": {
+   "last": 2.431,
+   "mean": 1.493,
+   "p50": 1.334,
+   "p95": 2.484,
+   "max": 16.553
+  }
+ },
+ "server_samples": 1500,
+ "missed": 0,
+ "post_rtt_ms": {
+  "last": 5.9358,
+  "mean": 8.5011,
+  "p50": 6.833,
+  "p95": 12.7877,
+  "max": 153.5906
+ },
+ "ping_rtt_ms": {
+  "last": 8.9838,
+  "mean": 8.9311,
+  "p50": 6.5168,
+  "p95": 18.3759,
+  "max": 221.3248
+ },
+ "pings": 2676,
+ "states_received": 0,
+ "actions": {},
+ "process": {
+  "pid": 6381,
+  "same_pid": true,
+  "cpu_s": 6.44,
+  "cpu_percent_of_one_core": 2.13,
+  "rss_mb_before": 51.2,
+  "rss_mb_after": 52.5,
+  "hwm_mb": 52.5
+ },
+ "host": {
+  "load1_before": 0.24,
+  "load1_after": 0.04,
+  "temp_before": "temp=46.6'C",
+  "temp_after": "temp=50.5'C",
+  "throttled": "throttled=0x0"
+ },
+ "ai": {
+  "enabled": true,
+  "model": "qwen3:0.6b",
+  "availability": "available",
+  "status": "fallback",
+  "latency_ms": {
+   "last": 2025.2,
+   "mean": 3229.5,
+   "p50": 2684.5,
+   "p95": 4979.0,
+   "max": 4979.0
+  }
+ },
+ "history": {
+  "schema": "roadsense.history.status.v1",
+  "enabled": false,
+  "state": "disabled",
+  "reason": null,
+  "processor_id": null,
+  "dataset": false,
+  "degraded": false,
+  "losses_observed": false,
+  "queue": {
+   "size": 0,
+   "capacity": 256,
+   "high_water": 0
+  },
+  "states": {
+   "observed": 0,
+   "absorbed": 0
+  },
+  "lost": {
+   "queue_full": 0,
+   "inactive": 0,
+   "unavailable": 0,
+   "extract_error": 0,
+   "shutdown": 0,
+   "uncommitted_rows": 0
+  },
+  "rows": {
+   "hazard_updates": 0,
+   "decisions": 0,
+   "discontinuities": 0,
+   "samples": 0
+  },
+  "batches": {
+   "committed": 0,
+   "failed": 0,
+   "latency_ms": null
+  },
+  "retention": {
+   "deleted_by_age": 0,
+   "deleted_by_size": 0,
+   "retention_days": 30.0,
+   "limit_mb": 256.0,
+   "min_free_mb": 512.0
+  },
+  "storage": {},
+  "last_error": null
+ }
+}

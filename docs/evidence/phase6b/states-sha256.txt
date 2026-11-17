@@ -1,0 +1,3 @@
+6dcb7d0fd8928cfacef7e8fcd531b0afda873d451384926788def80665c43177  off.states
+6dcb7d0fd8928cfacef7e8fcd531b0afda873d451384926788def80665c43177  on.states
+both files: 1501 lines, one sha256 per published state (generated_at removed); cmp: identical

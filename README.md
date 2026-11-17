@@ -34,8 +34,8 @@ explains decisions in a separate worker; safety processing does not wait for inf
   [legacy/arduino](legacy/arduino/README.md). The old Arduino web UI and APIs are retired.
 
 GNSS georeferencing, synchronization, a shared hazard map, Google Maps overlays and a trained
-decision model are **not implemented**; the history store is local, simulated-only and not yet
-deployed to the Pi. Historical Pi benchmarks are not measurements
+decision model are **not implemented**; the history store is local to the Pi (events only,
+enabled 17 November 2026) and holds simulated data only. Historical Pi benchmarks are not measurements
 of this working tree. See [validation status](docs/validation.md) for the latest local checks.
 
 ## Run on the Mac

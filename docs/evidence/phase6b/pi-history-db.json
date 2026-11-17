@@ -1,0 +1,240 @@
+{
+ "integrity": "ok",
+ "journal_mode": "wal",
+ "processors": [
+  {
+   "processor_id": "871b0b697a46",
+   "started_utc": 1794902360.141,
+   "ended_utc": 1794902738.657,
+   "end_reason": "clean",
+   "pid": 7270
+  },
+  {
+   "processor_id": "50aedd8b8a51",
+   "started_utc": 1794902739.205,
+   "ended_utc": null,
+   "end_reason": "not_observed",
+   "pid": 7799
+  },
+  {
+   "processor_id": "449ec93ff0ee",
+   "started_utc": 1794902796.894,
+   "ended_utc": null,
+   "end_reason": null,
+   "pid": 7938
+  }
+ ],
+ "segments": [
+  {
+   "segment_id": "871b0b697a46-0001",
+   "run_id": "phase6b-accept",
+   "processing": "edge",
+   "first_sequence": 1,
+   "last_sequence": 1501,
+   "frames": 1501,
+   "ended": 1
+  },
+  {
+   "segment_id": "871b0b697a46-0002",
+   "run_id": "phase6b-lifecycle",
+   "processing": "edge",
+   "first_sequence": 1,
+   "last_sequence": 150,
+   "frames": 150,
+   "ended": 0
+  },
+  {
+   "segment_id": "50aedd8b8a51-0001",
+   "run_id": "phase6b-lifecycle",
+   "processing": "edge",
+   "first_sequence": 161,
+   "last_sequence": 415,
+   "frames": 245,
+   "ended": 0
+  },
+  {
+   "segment_id": "449ec93ff0ee-0001",
+   "run_id": "phase6b-lifecycle",
+   "processing": "edge",
+   "first_sequence": 431,
+   "last_sequence": 480,
+   "frames": 50,
+   "ended": 0
+  }
+ ],
+ "discontinuities": [
+  {
+   "kind": "processor_start",
+   "basis": "observed",
+   "run_id": null,
+   "from_sequence": null,
+   "to_sequence": null,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_observed",
+   "basis": "observed",
+   "run_id": "phase6b-accept",
+   "from_sequence": null,
+   "to_sequence": 1,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_ended",
+   "basis": "observed",
+   "run_id": "phase6b-accept",
+   "from_sequence": null,
+   "to_sequence": 1501,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_change",
+   "basis": "observed",
+   "run_id": "phase6b-lifecycle",
+   "from_sequence": null,
+   "to_sequence": 1,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_observed",
+   "basis": "observed",
+   "run_id": "phase6b-lifecycle",
+   "from_sequence": null,
+   "to_sequence": 1,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "processor_start",
+   "basis": "observed",
+   "run_id": null,
+   "from_sequence": null,
+   "to_sequence": null,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_resumed",
+   "basis": "inferred",
+   "run_id": "phase6b-lifecycle",
+   "from_sequence": 150,
+   "to_sequence": 161,
+   "missing_sequences": 10,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "sequence_gap",
+   "basis": "observed",
+   "run_id": "phase6b-lifecycle",
+   "from_sequence": 260,
+   "to_sequence": 271,
+   "missing_sequences": 10,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "stream_stall",
+   "basis": "measured",
+   "run_id": "phase6b-lifecycle",
+   "from_sequence": 260,
+   "to_sequence": 271,
+   "missing_sequences": null,
+   "sim_gap_s": 2.2,
+   "mono_gap_s": 4.01,
+   "count": null
+  },
+  {
+   "kind": "processor_end_not_observed",
+   "basis": "inferred",
+   "run_id": null,
+   "from_sequence": null,
+   "to_sequence": null,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "processor_start",
+   "basis": "observed",
+   "run_id": null,
+   "from_sequence": null,
+   "to_sequence": null,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_resumed",
+   "basis": "inferred",
+   "run_id": "phase6b-lifecycle",
+   "from_sequence": 415,
+   "to_sequence": 431,
+   "missing_sequences": 15,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  }
+ ],
+ "hazard_rows_per_segment": [
+  {
+   "segment_id": "871b0b697a46-0001",
+   "n": 78,
+   "hazards": 26
+  },
+  {
+   "segment_id": "871b0b697a46-0002",
+   "n": 6,
+   "hazards": 2
+  },
+  {
+   "segment_id": "50aedd8b8a51-0001",
+   "n": 14,
+   "hazards": 5
+  },
+  {
+   "segment_id": "449ec93ff0ee-0001",
+   "n": 2,
+   "hazards": 1
+  }
+ ],
+ "decision_rows_per_segment": [
+  {
+   "segment_id": "871b0b697a46-0001",
+   "n": 118
+  },
+  {
+   "segment_id": "871b0b697a46-0002",
+   "n": 13
+  },
+  {
+   "segment_id": "50aedd8b8a51-0001",
+   "n": 21
+  },
+  {
+   "segment_id": "449ec93ff0ee-0001",
+   "n": 3
+  }
+ ],
+ "samples": 0
+}
