@@ -1,0 +1,139 @@
+{
+ "label": "off",
+ "run_id": "phase6b-accept",
+ "frames": 1501,
+ "duration_s": 300.0,
+ "client_rate_hz": 5.003,
+ "statuses": {
+  "200": 1501
+ },
+ "server_rate_hz_every_10s": {
+  "min": 4.4,
+  "mean": 4.99,
+  "n": 30
+ },
+ "server_latency_ms": {
+  "process": {
+   "last": 0.642,
+   "mean": 0.551,
+   "p50": 0.551,
+   "p95": 0.78,
+   "max": 1.564
+  },
+  "publish": {
+   "last": 0.552,
+   "mean": 0.4,
+   "p50": 0.405,
+   "p95": 0.576,
+   "max": 1.319
+  },
+  "handler": {
+   "last": 1.384,
+   "mean": 1.371,
+   "p50": 1.275,
+   "p95": 2.321,
+   "max": 16.458
+  }
+ },
+ "server_samples": 1500,
+ "missed": 0,
+ "post_rtt_ms": {
+  "last": 5.575,
+  "mean": 9.4175,
+  "p50": 7.2056,
+  "p95": 16.9494,
+  "max": 110.2494
+ },
+ "ping_rtt_ms": {
+  "last": 8.9999,
+  "mean": 10.4616,
+  "p50": 7.6756,
+  "p95": 21.5225,
+  "max": 133.373
+ },
+ "pings": 2662,
+ "states_received": 1501,
+ "actions": {
+  "MAINTAIN": 1063,
+  "BRAKE": 236,
+  "SLOW_DOWN": 21,
+  "EMERGENCY_BRAKE": 60,
+  "MONITOR": 121
+ },
+ "process": {
+  "pid": 6825,
+  "same_pid": true,
+  "cpu_s": 6.47,
+  "cpu_percent_of_one_core": 2.14,
+  "rss_mb_before": 51.2,
+  "rss_mb_after": 52.5,
+  "hwm_mb": 52.5
+ },
+ "host": {
+  "load1_before": 0.02,
+  "load1_after": 0.01,
+  "temp_before": "temp=48.8'C",
+  "temp_after": "temp=48.3'C",
+  "throttled": "throttled=0x0"
+ },
+ "ai": {
+  "enabled": true,
+  "model": "qwen3:0.6b",
+  "availability": "available",
+  "status": "fallback",
+  "latency_ms": {
+   "last": 2039.0,
+   "mean": 3234.2,
+   "p50": 2685.8,
+   "p95": 4977.7,
+   "max": 4977.7
+  }
+ },
+ "history": {
+  "schema": "roadsense.history.status.v1",
+  "enabled": false,
+  "state": "disabled",
+  "reason": null,
+  "processor_id": null,
+  "dataset": false,
+  "degraded": false,
+  "losses_observed": false,
+  "queue": {
+   "size": 0,
+   "capacity": 256,
+   "high_water": 0
+  },
+  "states": {
+   "observed": 0,
+   "absorbed": 0
+  },
+  "lost": {
+   "queue_full": 0,
+   "inactive": 0,
+   "unavailable": 0,
+   "extract_error": 0,
+   "shutdown": 0,
+   "uncommitted_rows": 0
+  },
+  "rows": {
+   "hazard_updates": 0,
+   "decisions": 0,
+   "discontinuities": 0,
+   "samples": 0
+  },
+  "batches": {
+   "committed": 0,
+   "failed": 0,
+   "latency_ms": null
+  },
+  "retention": {
+   "deleted_by_age": 0,
+   "deleted_by_size": 0,
+   "retention_days": 30.0,
+   "limit_mb": 256.0,
+   "min_free_mb": 512.0
+  },
+  "storage": {},
+  "last_error": null
+ }
+}

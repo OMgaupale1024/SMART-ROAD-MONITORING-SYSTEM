@@ -183,6 +183,15 @@ The unit enables AI explanations, runs as `omgaupale`, uses port 8001 and has no
 dependency. `OOMScoreAdjust=-500` makes the server less likely to be killed under memory pressure;
 it does not guarantee which process the kernel will kill or uninterrupted processing.
 
+## Persistent history (deployed 17 November 2026)
+
+The history store is off unless `ROADSENSE_HISTORY_ENABLE=1`. On the Pi it is on, events only,
+through the user drop-in `~/.config/systemd/user/roadsense-edge.service.d/history.conf`; the unit
+file is unchanged. Rollout, acceptance results and rollback:
+[history.md](history.md#raspberry-pi-deployment-phase-6b). A future source deployment must keep
+the drop-in (it lives outside `~/roadsense-edge`) and copy `history.py` and `history_export.py`
+with `server.py`.
+
 ## Rollback
 
 Stop the exact process/service that was started for the deployment. On the Pi, choose the

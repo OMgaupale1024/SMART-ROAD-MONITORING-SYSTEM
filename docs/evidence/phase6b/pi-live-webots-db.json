@@ -1,0 +1,108 @@
+{
+ "integrity": "ok",
+ "journal_mode": "wal",
+ "processors": [
+  {
+   "processor_id": "969da5404364",
+   "started_utc": 1794903059.415,
+   "ended_utc": null,
+   "end_reason": null,
+   "pid": 8449
+  }
+ ],
+ "segments": [
+  {
+   "segment_id": "969da5404364-0001",
+   "run_id": "6285ae7f135d",
+   "processing": "edge",
+   "first_sequence": 5688,
+   "last_sequence": 5688,
+   "frames": 1,
+   "ended": 1
+  },
+  {
+   "segment_id": "969da5404364-0002",
+   "run_id": "d80727b0e78d",
+   "processing": "edge",
+   "first_sequence": 1,
+   "last_sequence": 311,
+   "frames": 311,
+   "ended": 0
+  }
+ ],
+ "discontinuities": [
+  {
+   "kind": "processor_start",
+   "basis": "observed",
+   "run_id": null,
+   "from_sequence": null,
+   "to_sequence": null,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_observed",
+   "basis": "observed",
+   "run_id": "6285ae7f135d",
+   "from_sequence": null,
+   "to_sequence": 5688,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_ended",
+   "basis": "observed",
+   "run_id": "6285ae7f135d",
+   "from_sequence": null,
+   "to_sequence": 5688,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_change",
+   "basis": "observed",
+   "run_id": "d80727b0e78d",
+   "from_sequence": null,
+   "to_sequence": 1,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  },
+  {
+   "kind": "run_observed",
+   "basis": "observed",
+   "run_id": "d80727b0e78d",
+   "from_sequence": null,
+   "to_sequence": 1,
+   "missing_sequences": null,
+   "sim_gap_s": null,
+   "mono_gap_s": null,
+   "count": null
+  }
+ ],
+ "hazard_rows_per_segment": [
+  {
+   "segment_id": "969da5404364-0002",
+   "n": 12,
+   "hazards": 4
+  }
+ ],
+ "decision_rows_per_segment": [
+  {
+   "segment_id": "969da5404364-0001",
+   "n": 1
+  },
+  {
+   "segment_id": "969da5404364-0002",
+   "n": 25
+  }
+ ],
+ "samples": 0
+}

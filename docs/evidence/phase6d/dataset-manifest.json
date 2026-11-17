@@ -1,0 +1,2597 @@
+{
+  "attempted_runs": 70,
+  "configurations": 63,
+  "episodes": {
+    "collision_proxy": 25,
+    "forward_near_miss": 50,
+    "tailgated": 68,
+    "unsafe_headway": 235
+  },
+  "exclusions": {
+    "at_or_after_first_overlap_proxy": 6734,
+    "incomplete_future_window": 1939,
+    "unmatched_truth": 229
+  },
+  "exporter_sha256": "3e0134a2636ee8d112e214836ed7ad157a21ba05c66457daefb90f01ac622708",
+  "families": {
+    "combined": {
+      "negative": 5379,
+      "positive": 240
+    },
+    "cut_in": {
+      "negative": 6606,
+      "positive": 61
+    },
+    "mixed": {
+      "negative": 6664,
+      "positive": 15
+    },
+    "normal": {
+      "negative": 7108
+    },
+    "potholes": {
+      "negative": 6230,
+      "positive": 15
+    },
+    "sudden_brake": {
+      "negative": 4275,
+      "positive": 358
+    },
+    "tailgating": {
+      "negative": 6233,
+      "positive": 49
+    }
+  },
+  "feature_audit": {
+    "derived_conflicts": {
+      "category": "heuristic_safety_output",
+      "description": "tracks the pipeline predicts a conflict with (rule-derived)",
+      "selected": false,
+      "unit": "count"
+    },
+    "derived_min_ttc_s": {
+      "category": "heuristic_safety_output",
+      "description": "the pipeline's minimum time to collision over all tracks (rule-derived: a model given it can copy the rule)",
+      "selected": false,
+      "unit": "s"
+    },
+    "ego_acceleration_mps2": {
+      "category": "historical_inference_available",
+      "description": "speed change since the previous processed frame; null on a run's first",
+      "selected": true,
+      "unit": "m/s^2"
+    },
+    "ego_heading_deg": {
+      "category": "inference_available_in_prototype",
+      "description": "ego heading, counter-clockwise from the world +x axis",
+      "selected": false,
+      "unit": "deg"
+    },
+    "ego_lane": {
+      "category": "privileged_controller_metadata",
+      "description": "lane index reported by the producer (Webots: 0 the kerb-side driving lane, 2 next to the median)",
+      "selected": false,
+      "unit": "index"
+    },
+    "ego_lane_change": {
+      "category": "privileged_controller_metadata",
+      "description": "the producer reports a lane change in progress",
+      "selected": false,
+      "unit": "0/1"
+    },
+    "ego_speed_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "ego speed",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "ego_steering_rad": {
+      "category": "inference_available_in_prototype",
+      "description": "steering angle, positive right",
+      "selected": true,
+      "unit": "rad"
+    },
+    "follower_age_s": {
+      "category": "historical_inference_available",
+      "description": "follower vehicle: time since the track was first seen",
+      "selected": false,
+      "unit": "s"
+    },
+    "follower_lat_m": {
+      "category": "inference_available_in_prototype",
+      "description": "follower vehicle: lateral position, positive left",
+      "selected": false,
+      "unit": "m"
+    },
+    "follower_lon_m": {
+      "category": "inference_available_in_prototype",
+      "description": "follower vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "selected": false,
+      "unit": "m"
+    },
+    "follower_present": {
+      "category": "inference_available_in_prototype",
+      "description": "follower vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "selected": false,
+      "unit": "0/1"
+    },
+    "follower_range_rate_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "follower vehicle: radar range rate; null when the radar gave none",
+      "selected": false,
+      "unit": "m/s"
+    },
+    "follower_unseen_s": {
+      "category": "historical_inference_available",
+      "description": "follower vehicle: time since the track was last measured (0 when measured in this frame)",
+      "selected": false,
+      "unit": "s"
+    },
+    "follower_v_lat_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "follower vehicle: relative lateral velocity",
+      "selected": false,
+      "unit": "m/s"
+    },
+    "follower_v_lon_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "follower vehicle: relative longitudinal velocity, negative closing from ahead",
+      "selected": false,
+      "unit": "m/s"
+    },
+    "hazard_ahead_confidence": {
+      "category": "simulator_assisted_camera_recognition",
+      "description": "its map confidence",
+      "selected": false,
+      "unit": "0-1"
+    },
+    "hazard_ahead_distance_m": {
+      "category": "simulator_assisted_camera_recognition",
+      "description": "longitudinal distance to the nearest one",
+      "selected": false,
+      "unit": "m"
+    },
+    "hazard_ahead_present": {
+      "category": "simulator_assisted_camera_recognition",
+      "description": "an ACTIVE mapped hazard ahead in the ego lane",
+      "selected": false,
+      "unit": "0/1"
+    },
+    "hazard_ahead_severity": {
+      "category": "simulator_assisted_camera_recognition",
+      "description": "its severity: 0 LOW, 1 MEDIUM, 2 HIGH",
+      "selected": false,
+      "unit": "0-2"
+    },
+    "hazards_ahead_100m": {
+      "category": "simulator_assisted_camera_recognition",
+      "description": "ACTIVE mapped hazards ahead within 100 m in the ego or an adjacent lane",
+      "selected": false,
+      "unit": "count"
+    },
+    "history_dropped_before": {
+      "category": "recording_metadata",
+      "description": "states between them that the history layer itself dropped",
+      "selected": false,
+      "unit": "count"
+    },
+    "lead_age_s": {
+      "category": "historical_inference_available",
+      "description": "lead vehicle: time since the track was first seen",
+      "selected": true,
+      "unit": "s"
+    },
+    "lead_lat_m": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: lateral position, positive left",
+      "selected": true,
+      "unit": "m"
+    },
+    "lead_lon_m": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "selected": true,
+      "unit": "m"
+    },
+    "lead_present": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "selected": true,
+      "unit": "0/1"
+    },
+    "lead_range_rate_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: radar range rate; null when the radar gave none",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "lead_unseen_s": {
+      "category": "historical_inference_available",
+      "description": "lead vehicle: time since the track was last measured (0 when measured in this frame)",
+      "selected": true,
+      "unit": "s"
+    },
+    "lead_v_lat_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: relative lateral velocity",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "lead_v_lon_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: relative longitudinal velocity, negative closing from ahead",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "left_age_s": {
+      "category": "historical_inference_available",
+      "description": "left vehicle: time since the track was first seen",
+      "selected": true,
+      "unit": "s"
+    },
+    "left_lane_driving": {
+      "category": "inference_available_in_prototype",
+      "description": "a driving lane exists to the ego's left (road geometry)",
+      "selected": true,
+      "unit": "0/1"
+    },
+    "left_lat_m": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: lateral position, positive left",
+      "selected": true,
+      "unit": "m"
+    },
+    "left_lon_m": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "selected": true,
+      "unit": "m"
+    },
+    "left_present": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "selected": true,
+      "unit": "0/1"
+    },
+    "left_range_rate_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: radar range rate; null when the radar gave none",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "left_unseen_s": {
+      "category": "historical_inference_available",
+      "description": "left vehicle: time since the track was last measured (0 when measured in this frame)",
+      "selected": true,
+      "unit": "s"
+    },
+    "left_v_lat_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: relative lateral velocity",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "left_v_lon_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: relative longitudinal velocity, negative closing from ahead",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "right_age_s": {
+      "category": "historical_inference_available",
+      "description": "right vehicle: time since the track was first seen",
+      "selected": true,
+      "unit": "s"
+    },
+    "right_lane_driving": {
+      "category": "inference_available_in_prototype",
+      "description": "a driving lane exists to the ego's right (road geometry)",
+      "selected": true,
+      "unit": "0/1"
+    },
+    "right_lat_m": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: lateral position, positive left",
+      "selected": true,
+      "unit": "m"
+    },
+    "right_lon_m": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "selected": true,
+      "unit": "m"
+    },
+    "right_present": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "selected": true,
+      "unit": "0/1"
+    },
+    "right_range_rate_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: radar range rate; null when the radar gave none",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "right_unseen_s": {
+      "category": "historical_inference_available",
+      "description": "right vehicle: time since the track was last measured (0 when measured in this frame)",
+      "selected": true,
+      "unit": "s"
+    },
+    "right_v_lat_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: relative lateral velocity",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "right_v_lon_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: relative longitudinal velocity, negative closing from ahead",
+      "selected": true,
+      "unit": "m/s"
+    },
+    "sequence_gap_before": {
+      "category": "recording_metadata",
+      "description": "sequence numbers between this state and the previous state the history saw that the processor never accepted; null for a segment's first",
+      "selected": false,
+      "unit": "count"
+    },
+    "sim_dt_s": {
+      "category": "recording_metadata",
+      "description": "simulation time since the previous state the history saw; null for a segment's first",
+      "selected": false,
+      "unit": "s"
+    },
+    "track_count": {
+      "category": "inference_available_in_prototype",
+      "description": "confirmed vehicle tracks",
+      "selected": true,
+      "unit": "count"
+    }
+  },
+  "features": [
+    "ego_speed_mps",
+    "ego_acceleration_mps2",
+    "ego_steering_rad",
+    "left_lane_driving",
+    "right_lane_driving",
+    "track_count",
+    "lead_present",
+    "lead_lon_m",
+    "lead_lat_m",
+    "lead_v_lon_mps",
+    "lead_v_lat_mps",
+    "lead_range_rate_mps",
+    "lead_age_s",
+    "lead_unseen_s",
+    "left_present",
+    "left_lon_m",
+    "left_lat_m",
+    "left_v_lon_mps",
+    "left_v_lat_mps",
+    "left_range_rate_mps",
+    "left_age_s",
+    "left_unseen_s",
+    "right_present",
+    "right_lon_m",
+    "right_lat_m",
+    "right_v_lon_mps",
+    "right_v_lat_mps",
+    "right_range_rate_mps",
+    "right_age_s",
+    "right_unseen_s"
+  ],
+  "files": {
+    "samples.jsonl": {
+      "bytes": 50660722,
+      "sha256": "18d58ee83e05e11164876b68feb0cebacba9755eb3395d6f0a8097cb2eb652ed"
+    }
+  },
+  "frames_with": {
+    "collision_proxy": 92,
+    "forward_near_miss": 277,
+    "tailgated": 1081,
+    "unsafe_headway": 9310
+  },
+  "horizon_s": 3.0,
+  "input_schema": "roadsense.forward-inputs.v1",
+  "missing_feature_rates": {
+    "ego_acceleration_mps2": 0.0,
+    "ego_speed_mps": 0.0,
+    "ego_steering_rad": 0.0,
+    "lead_age_s": 0.3885457867832443,
+    "lead_lat_m": 0.3885457867832443,
+    "lead_lon_m": 0.3885457867832443,
+    "lead_present": 0.0,
+    "lead_range_rate_mps": 0.3885457867832443,
+    "lead_unseen_s": 0.3885457867832443,
+    "lead_v_lat_mps": 0.3885457867832443,
+    "lead_v_lon_mps": 0.3885457867832443,
+    "left_age_s": 0.10709411791918211,
+    "left_lane_driving": 0.0,
+    "left_lat_m": 0.10709411791918211,
+    "left_lon_m": 0.10709411791918211,
+    "left_present": 0.0,
+    "left_range_rate_mps": 0.10709411791918211,
+    "left_unseen_s": 0.10709411791918211,
+    "left_v_lat_mps": 0.10709411791918211,
+    "left_v_lon_mps": 0.10709411791918211,
+    "right_age_s": 0.7656651169245715,
+    "right_lane_driving": 0.0,
+    "right_lat_m": 0.7656651169245715,
+    "right_lon_m": 0.7656651169245715,
+    "right_present": 0.0,
+    "right_range_rate_mps": 0.7656651169245715,
+    "right_unseen_s": 0.7656651169245715,
+    "right_v_lat_mps": 0.7656651169245715,
+    "right_v_lon_mps": 0.7656651169245715,
+    "track_count": 0.0
+  },
+  "plan_sha256": "af3cd0887eb2c16d8774c931bf66beb48a22f8310131c372aae874c4cf2172cc",
+  "privileged_inference_features": false,
+  "recording_quality": {
+    "accepted": 52205,
+    "missed": 0,
+    "rejected": 0
+  },
+  "resources": [
+    {
+      "child_system_cpu_s": 9.262,
+      "child_user_cpu_s": 15.87,
+      "cumulative_peak_child_rss_bytes": 1339621376
+    },
+    {
+      "child_system_cpu_s": 19.674,
+      "child_user_cpu_s": 32.128,
+      "cumulative_peak_child_rss_bytes": 1587970048
+    },
+    {
+      "child_system_cpu_s": 10.358,
+      "child_user_cpu_s": 18.51,
+      "cumulative_peak_child_rss_bytes": 1587970048
+    },
+    {
+      "child_system_cpu_s": 13.617,
+      "child_user_cpu_s": 23.478,
+      "cumulative_peak_child_rss_bytes": 1587970048
+    },
+    {
+      "child_system_cpu_s": 9.826,
+      "child_user_cpu_s": 17.493,
+      "cumulative_peak_child_rss_bytes": 1587970048
+    },
+    {
+      "child_system_cpu_s": 10.68,
+      "child_user_cpu_s": 18.984,
+      "cumulative_peak_child_rss_bytes": 1587970048
+    },
+    {
+      "child_system_cpu_s": 19.241,
+      "child_user_cpu_s": 31.742,
+      "cumulative_peak_child_rss_bytes": 1607221248
+    },
+    {
+      "child_system_cpu_s": 11.396,
+      "child_user_cpu_s": 20.004,
+      "cumulative_peak_child_rss_bytes": 1504542720
+    },
+    {
+      "child_system_cpu_s": 12.895,
+      "child_user_cpu_s": 24.288,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.848,
+      "child_user_cpu_s": 20.405,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 20.324,
+      "child_user_cpu_s": 34.429,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.516,
+      "child_user_cpu_s": 16.305,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.441,
+      "child_user_cpu_s": 16.793,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 12.587,
+      "child_user_cpu_s": 22.082,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 17.159,
+      "child_user_cpu_s": 29.026,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.954,
+      "child_user_cpu_s": 18.128,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.64,
+      "child_user_cpu_s": 16.579,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 13.067,
+      "child_user_cpu_s": 23.225,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 14.994,
+      "child_user_cpu_s": 26.602,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.132,
+      "child_user_cpu_s": 18.051,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 16.499,
+      "child_user_cpu_s": 27.958,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.45,
+      "child_user_cpu_s": 19.278,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 19.594,
+      "child_user_cpu_s": 32.087,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 18.52,
+      "child_user_cpu_s": 30.703,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 17.898,
+      "child_user_cpu_s": 30.187,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 13.026,
+      "child_user_cpu_s": 22.975,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 11.02,
+      "child_user_cpu_s": 20.27,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 12.55,
+      "child_user_cpu_s": 22.116,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.722,
+      "child_user_cpu_s": 17.217,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 16.178,
+      "child_user_cpu_s": 27.02,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 15.416,
+      "child_user_cpu_s": 26.451,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.494,
+      "child_user_cpu_s": 16.931,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 12.706,
+      "child_user_cpu_s": 22.726,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.956,
+      "child_user_cpu_s": 19.92,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 17.102,
+      "child_user_cpu_s": 29.414,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 7.507,
+      "child_user_cpu_s": 15.248,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 12.341,
+      "child_user_cpu_s": 23.597,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 13.234,
+      "child_user_cpu_s": 23.048,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 17.352,
+      "child_user_cpu_s": 31.548,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.77,
+      "child_user_cpu_s": 19.798,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 16.881,
+      "child_user_cpu_s": 28.194,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.411,
+      "child_user_cpu_s": 16.587,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 12.614,
+      "child_user_cpu_s": 22.697,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 12.718,
+      "child_user_cpu_s": 22.494,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 13.859,
+      "child_user_cpu_s": 24.516,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.691,
+      "child_user_cpu_s": 19.649,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 13.631,
+      "child_user_cpu_s": 24.198,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.931,
+      "child_user_cpu_s": 18.012,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.964,
+      "child_user_cpu_s": 17.554,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 12.335,
+      "child_user_cpu_s": 22.028,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.731,
+      "child_user_cpu_s": 19.19,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 14.857,
+      "child_user_cpu_s": 24.846,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 15.446,
+      "child_user_cpu_s": 26.134,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 17.723,
+      "child_user_cpu_s": 28.984,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 17.694,
+      "child_user_cpu_s": 29.172,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 18.72,
+      "child_user_cpu_s": 32.146,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 8.859,
+      "child_user_cpu_s": 16.346,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 8.048,
+      "child_user_cpu_s": 14.436,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 13.166,
+      "child_user_cpu_s": 23.443,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 11.79,
+      "child_user_cpu_s": 21.26,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 11.391,
+      "child_user_cpu_s": 20.802,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.126,
+      "child_user_cpu_s": 17.426,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 14.698,
+      "child_user_cpu_s": 24.713,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 8.728,
+      "child_user_cpu_s": 15.66,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 20.024,
+      "child_user_cpu_s": 33.033,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.242,
+      "child_user_cpu_s": 18.497,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 13.439,
+      "child_user_cpu_s": 23.285,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 9.724,
+      "child_user_cpu_s": 17.849,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 10.765,
+      "child_user_cpu_s": 19.119,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    },
+    {
+      "child_system_cpu_s": 18.615,
+      "child_user_cpu_s": 30.903,
+      "cumulative_peak_child_rss_bytes": 1686093824
+    }
+  ],
+  "runs": [
+    {
+      "configuration_id": "97962bb28f8bed3a2229",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 16
+      },
+      "group": "97962bb28f8bed3a2229",
+      "labels": {
+        "negative": 713
+      },
+      "run_id": "lht-normal-11-086ae0745dfd",
+      "samples": 731,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 730,
+      "valid_truth_frames": 729
+    },
+    {
+      "configuration_id": "819e231b079cc4ab9ed8",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 3,
+        "tailgated": 1,
+        "unsafe_headway": 19
+      },
+      "frames_with": {
+        "collision_proxy": 1,
+        "forward_near_miss": 20,
+        "tailgated": 3,
+        "unsafe_headway": 287
+      },
+      "group": "819e231b079cc4ab9ed8",
+      "labels": {
+        "negative": 178,
+        "positive": 15
+      },
+      "run_id": "lht-sudden_brake-11-2fe59c8ee885",
+      "samples": 829,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 828,
+      "valid_truth_frames": 827
+    },
+    {
+      "configuration_id": "0d74121af197a67d4b91",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 24
+      },
+      "group": "0d74121af197a67d4b91",
+      "labels": {
+        "negative": 657
+      },
+      "run_id": "lht-cut_in-11-2bc3d6baedb6",
+      "samples": 675,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 674,
+      "valid_truth_frames": 673
+    },
+    {
+      "configuration_id": "f737051292bfa6d440ca",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 2,
+        "unsafe_headway": 15
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 129,
+        "unsafe_headway": 212
+      },
+      "group": "f737051292bfa6d440ca",
+      "labels": {
+        "negative": 594
+      },
+      "run_id": "lht-tailgating-11-166f88998bad",
+      "samples": 622,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 621,
+      "valid_truth_frames": 619
+    },
+    {
+      "configuration_id": "85f54a89bef55418aa59",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 18
+      },
+      "group": "85f54a89bef55418aa59",
+      "labels": {
+        "negative": 569
+      },
+      "run_id": "lht-potholes-11-1001af9282be",
+      "samples": 611,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 610,
+      "valid_truth_frames": 607
+    },
+    {
+      "configuration_id": "2e634eb3f24ec287e99c",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 13
+      },
+      "group": "1a696768dbc09a10e25b",
+      "labels": {
+        "negative": 654
+      },
+      "run_id": "lht-mixed-11-d88699e6db11",
+      "samples": 685,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 684,
+      "valid_truth_frames": 682
+    },
+    {
+      "configuration_id": "8071b13af768feb76443",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 3
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 155
+      },
+      "group": "8071b13af768feb76443",
+      "labels": {
+        "negative": 863
+      },
+      "run_id": "lht-combined-11-63102d2ada06",
+      "samples": 897,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 896,
+      "valid_truth_frames": 894
+    },
+    {
+      "configuration_id": "ecec8763ccd63eef932d",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 5
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 210
+      },
+      "group": "ecec8763ccd63eef932d",
+      "labels": {
+        "negative": 626
+      },
+      "run_id": "lht-normal-12-bc1a6a0f8403",
+      "samples": 644,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 643,
+      "valid_truth_frames": 642
+    },
+    {
+      "configuration_id": "c77e5f58ef1fc1c44748",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 4
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 413
+      },
+      "group": "c77e5f58ef1fc1c44748",
+      "labels": {
+        "negative": 503
+      },
+      "run_id": "lht-sudden_brake-12-1f5c61197aef",
+      "samples": 755,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 754,
+      "valid_truth_frames": 734
+    },
+    {
+      "configuration_id": "3641901ed54ab5a56fa9",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 82
+      },
+      "group": "3641901ed54ab5a56fa9",
+      "labels": {
+        "negative": 755
+      },
+      "run_id": "lht-cut_in-12-2eccccd4f6aa",
+      "samples": 789,
+      "split": "stress",
+      "termination": "duration",
+      "truth_frames": 788,
+      "valid_truth_frames": 786
+    },
+    {
+      "configuration_id": "3b0038d936e86462407d",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 1,
+        "unsafe_headway": 6
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 93,
+        "unsafe_headway": 439
+      },
+      "group": "3b0038d936e86462407d",
+      "labels": {
+        "negative": 729
+      },
+      "run_id": "lht-tailgating-12-1b4aa61ea6ef",
+      "samples": 762,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 761,
+      "valid_truth_frames": 759
+    },
+    {
+      "configuration_id": "87a8b6300c224440591f",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 119
+      },
+      "group": "87a8b6300c224440591f",
+      "labels": {
+        "negative": 591
+      },
+      "run_id": "lht-potholes-12-f5b8f5f4bb7e",
+      "samples": 609,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 608,
+      "valid_truth_frames": 607
+    },
+    {
+      "configuration_id": "1e083d3df5d707c332d2",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 3
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 66
+      },
+      "group": "1e083d3df5d707c332d2",
+      "labels": {
+        "negative": 612
+      },
+      "run_id": "lht-mixed-12-91f65681d79c",
+      "samples": 630,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 629,
+      "valid_truth_frames": 628
+    },
+    {
+      "configuration_id": "cc8a6769ee699ef05120",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 1,
+        "tailgated": 2,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 3,
+        "forward_near_miss": 2,
+        "tailgated": 6,
+        "unsafe_headway": 8
+      },
+      "group": "cc8a6769ee699ef05120",
+      "labels": {
+        "negative": 148,
+        "positive": 14
+      },
+      "run_id": "lht-combined-12-8c4e2b7a0dd4",
+      "samples": 741,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 740,
+      "valid_truth_frames": 739
+    },
+    {
+      "configuration_id": "67d4f66d2f737e8944fd",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 3
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 284
+      },
+      "group": "67d4f66d2f737e8944fd",
+      "labels": {
+        "negative": 760
+      },
+      "run_id": "lht-normal-13-2bc97e7bf489",
+      "samples": 778,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 777,
+      "valid_truth_frames": 776
+    },
+    {
+      "configuration_id": "65057cebcc5d089f5f44",
+      "episodes": {
+        "collision_proxy": 3,
+        "forward_near_miss": 3,
+        "tailgated": 9,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 4,
+        "forward_near_miss": 28,
+        "tailgated": 30,
+        "unsafe_headway": 52
+      },
+      "group": "65057cebcc5d089f5f44",
+      "labels": {
+        "negative": 250,
+        "positive": 77
+      },
+      "run_id": "lht-sudden_brake-13-58efde449d81",
+      "samples": 800,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 799,
+      "valid_truth_frames": 798
+    },
+    {
+      "configuration_id": "9f149e0b7caf399f910a",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 2,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "group": "9f149e0b7caf399f910a",
+      "labels": {
+        "negative": 621,
+        "positive": 16
+      },
+      "run_id": "lht-cut_in-13-41aac090808f",
+      "samples": 655,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 654,
+      "valid_truth_frames": 653
+    },
+    {
+      "configuration_id": "b5b0ccbda5cbcef68e15",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 1,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 51,
+        "unsafe_headway": 44
+      },
+      "group": "b5b0ccbda5cbcef68e15",
+      "labels": {
+        "negative": 720,
+        "positive": 15
+      },
+      "run_id": "lht-tailgating-13-375d88d6c408",
+      "samples": 774,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 773,
+      "valid_truth_frames": 769
+    },
+    {
+      "configuration_id": "8a7606f5c786d3052110",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 1,
+        "tailgated": 1,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 2,
+        "forward_near_miss": 2,
+        "tailgated": 2,
+        "unsafe_headway": 2
+      },
+      "group": "8a7606f5c786d3052110",
+      "labels": {
+        "negative": 32,
+        "positive": 15
+      },
+      "run_id": "lht-potholes-13-1ec6b9aafaaa",
+      "samples": 874,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 873,
+      "valid_truth_frames": 871
+    },
+    {
+      "configuration_id": "dae67555bd87dfcf5463",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 12
+      },
+      "group": "dae67555bd87dfcf5463",
+      "labels": {
+        "negative": 635
+      },
+      "run_id": "lht-mixed-13-68a4be4f0444",
+      "samples": 659,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 658,
+      "valid_truth_frames": 656
+    },
+    {
+      "configuration_id": "eb5a0264e9b6135684db",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 5,
+        "tailgated": 0,
+        "unsafe_headway": 4
+      },
+      "frames_with": {
+        "collision_proxy": 1,
+        "forward_near_miss": 25,
+        "tailgated": 0,
+        "unsafe_headway": 41
+      },
+      "group": "eb5a0264e9b6135684db",
+      "labels": {
+        "negative": 126,
+        "positive": 69
+      },
+      "run_id": "lht-combined-13-3f0057e12c14",
+      "samples": 869,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 868,
+      "valid_truth_frames": 862
+    },
+    {
+      "configuration_id": "113c536b6c6f32a10b13",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 443
+      },
+      "group": "113c536b6c6f32a10b13",
+      "labels": {
+        "negative": 866
+      },
+      "run_id": "lht-normal-14-a46e7f677c45",
+      "samples": 884,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 883,
+      "valid_truth_frames": 882
+    },
+    {
+      "configuration_id": "732c78d1df49923b2fcc",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 4
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 440
+      },
+      "group": "732c78d1df49923b2fcc",
+      "labels": {
+        "negative": 825
+      },
+      "run_id": "lht-sudden_brake-14-576e31fcc99d",
+      "samples": 843,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 842,
+      "valid_truth_frames": 841
+    },
+    {
+      "configuration_id": "af4d616b21873c9e426f",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 6
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 316
+      },
+      "group": "af4d616b21873c9e426f",
+      "labels": {
+        "negative": 754
+      },
+      "run_id": "lht-cut_in-14-db393adb6679",
+      "samples": 772,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 771,
+      "valid_truth_frames": 770
+    },
+    {
+      "configuration_id": "08c121f9c71a6e8a522f",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 2,
+        "tailgated": 7,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 6,
+        "forward_near_miss": 3,
+        "tailgated": 18,
+        "unsafe_headway": 7
+      },
+      "group": "08c121f9c71a6e8a522f",
+      "labels": {
+        "negative": 250,
+        "positive": 11
+      },
+      "run_id": "lht-tailgating-14-cfb283d92cf7",
+      "samples": 885,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 884,
+      "valid_truth_frames": 880
+    },
+    {
+      "configuration_id": "43193871716a4a01fc5c",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 20
+      },
+      "group": "43193871716a4a01fc5c",
+      "labels": {
+        "negative": 852
+      },
+      "run_id": "lht-potholes-14-5f8fd0e74c13",
+      "samples": 870,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 869,
+      "valid_truth_frames": 868
+    },
+    {
+      "configuration_id": "c91a4bef8db16a069e6b",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 0
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 0
+      },
+      "group": "1a696768dbc09a10e25b",
+      "labels": {
+        "negative": 571
+      },
+      "run_id": "lht-mixed-14-e582d6a18c84",
+      "samples": 610,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 609,
+      "valid_truth_frames": 606
+    },
+    {
+      "configuration_id": "3f7716cc357e7b656e63",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 91
+      },
+      "group": "3f7716cc357e7b656e63",
+      "labels": {
+        "negative": 696
+      },
+      "run_id": "lht-combined-14-ea93f45f9a66",
+      "samples": 714,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 713,
+      "valid_truth_frames": 712
+    },
+    {
+      "configuration_id": "56e33897dfb94701a373",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 80
+      },
+      "group": "56e33897dfb94701a373",
+      "labels": {
+        "negative": 698
+      },
+      "run_id": "lht-normal-15-e247af07a979",
+      "samples": 716,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 715,
+      "valid_truth_frames": 714
+    },
+    {
+      "configuration_id": "be928547abf5574381a7",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 3,
+        "tailgated": 0,
+        "unsafe_headway": 6
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 14,
+        "tailgated": 0,
+        "unsafe_headway": 174
+      },
+      "group": "be928547abf5574381a7",
+      "labels": {
+        "negative": 661,
+        "positive": 56
+      },
+      "run_id": "lht-sudden_brake-15-d459f9ebf4cf",
+      "samples": 765,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 764,
+      "valid_truth_frames": 760
+    },
+    {
+      "configuration_id": "3dc14ac17183ad8d693c",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 5
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 360
+      },
+      "group": "3dc14ac17183ad8d693c",
+      "labels": {
+        "negative": 677
+      },
+      "run_id": "lht-cut_in-15-6096675913a0",
+      "samples": 822,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 821,
+      "valid_truth_frames": 812
+    },
+    {
+      "configuration_id": "d88ae6ed1f55fd047cb4",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 1,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 81,
+        "unsafe_headway": 8
+      },
+      "group": "d88ae6ed1f55fd047cb4",
+      "labels": {
+        "negative": 605
+      },
+      "run_id": "lht-tailgating-15-b93913dd5499",
+      "samples": 623,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 622,
+      "valid_truth_frames": 621
+    },
+    {
+      "configuration_id": "e6612d68652ded3020b0",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 132
+      },
+      "group": "e6612d68652ded3020b0",
+      "labels": {
+        "negative": 858
+      },
+      "run_id": "lht-potholes-15-31ab840f03ac",
+      "samples": 876,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 875,
+      "valid_truth_frames": 874
+    },
+    {
+      "configuration_id": "bf852c0130ea64ff76ae",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 5
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 182
+      },
+      "group": "bf852c0130ea64ff76ae",
+      "labels": {
+        "negative": 676
+      },
+      "run_id": "lht-mixed-15-72dbb0610b04",
+      "samples": 694,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 693,
+      "valid_truth_frames": 692
+    },
+    {
+      "configuration_id": "0df98646e9d4b8435303",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 9
+      },
+      "group": "0df98646e9d4b8435303",
+      "labels": {
+        "negative": 836,
+        "positive": 15
+      },
+      "run_id": "lht-combined-15-e205c72dd7f4",
+      "samples": 885,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 884,
+      "valid_truth_frames": 882
+    },
+    {
+      "configuration_id": "def0847d1f48ecb23809",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 6
+      },
+      "group": "def0847d1f48ecb23809",
+      "labels": {
+        "negative": 648
+      },
+      "run_id": "lht-normal-16-765f62e8c850",
+      "samples": 666,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 665,
+      "valid_truth_frames": 664
+    },
+    {
+      "configuration_id": "e6a7bb8a37367bf69905",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 2,
+        "tailgated": 7,
+        "unsafe_headway": 4
+      },
+      "frames_with": {
+        "collision_proxy": 2,
+        "forward_near_miss": 21,
+        "tailgated": 16,
+        "unsafe_headway": 49
+      },
+      "group": "e6a7bb8a37367bf69905",
+      "labels": {
+        "negative": 261,
+        "positive": 46
+      },
+      "run_id": "lht-sudden_brake-16-6494b5d8ed3f",
+      "samples": 895,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 894,
+      "valid_truth_frames": 893
+    },
+    {
+      "configuration_id": "1dc4884d1b24d5ddccc8",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 4
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 67
+      },
+      "group": "1dc4884d1b24d5ddccc8",
+      "labels": {
+        "negative": 754
+      },
+      "run_id": "lht-cut_in-16-507094a06625",
+      "samples": 772,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 771,
+      "valid_truth_frames": 770
+    },
+    {
+      "configuration_id": "722625d92a01af6578ce",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 1,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 89,
+        "unsafe_headway": 432
+      },
+      "group": "722625d92a01af6578ce",
+      "labels": {
+        "negative": 723
+      },
+      "run_id": "lht-tailgating-16-686e05de0144",
+      "samples": 854,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 853,
+      "valid_truth_frames": 844
+    },
+    {
+      "configuration_id": "60bf09f365081db7fec8",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 397
+      },
+      "group": "60bf09f365081db7fec8",
+      "labels": {
+        "negative": 749
+      },
+      "run_id": "lht-potholes-16-59a7b327c724",
+      "samples": 767,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 766,
+      "valid_truth_frames": 765
+    },
+    {
+      "configuration_id": "b47f6fbd1ffd861f23f0",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 1,
+        "tailgated": 3,
+        "unsafe_headway": 6
+      },
+      "frames_with": {
+        "collision_proxy": 3,
+        "forward_near_miss": 1,
+        "tailgated": 28,
+        "unsafe_headway": 218
+      },
+      "group": "b47f6fbd1ffd861f23f0",
+      "labels": {
+        "negative": 527,
+        "positive": 15
+      },
+      "run_id": "lht-mixed-16-e918b9b32180",
+      "samples": 644,
+      "split": "stress",
+      "termination": "duration",
+      "truth_frames": 643,
+      "valid_truth_frames": 640
+    },
+    {
+      "configuration_id": "3970064019e7196fab43",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 19
+      },
+      "group": "3970064019e7196fab43",
+      "labels": {
+        "negative": 637,
+        "positive": 15
+      },
+      "run_id": "lht-combined-16-04233a69c96f",
+      "samples": 670,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 669,
+      "valid_truth_frames": 668
+    },
+    {
+      "configuration_id": "46a02180574b9df2a42e",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 8
+      },
+      "group": "46a02180574b9df2a42e",
+      "labels": {
+        "negative": 746
+      },
+      "run_id": "lht-normal-17-95b0a664f4c0",
+      "samples": 780,
+      "split": "stress",
+      "termination": "duration",
+      "truth_frames": 779,
+      "valid_truth_frames": 777
+    },
+    {
+      "configuration_id": "dbd8aadbfc488b69691d",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 3,
+        "tailgated": 1,
+        "unsafe_headway": 5
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 15,
+        "tailgated": 6,
+        "unsafe_headway": 177
+      },
+      "group": "dbd8aadbfc488b69691d",
+      "labels": {
+        "negative": 579,
+        "positive": 57
+      },
+      "run_id": "lht-sudden_brake-17-ca785151b360",
+      "samples": 686,
+      "split": "stress",
+      "termination": "duration",
+      "truth_frames": 685,
+      "valid_truth_frames": 682
+    },
+    {
+      "configuration_id": "4dab2d6f99c53230be0d",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 1,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 1,
+        "unsafe_headway": 24
+      },
+      "group": "4dab2d6f99c53230be0d",
+      "labels": {
+        "negative": 758,
+        "positive": 15
+      },
+      "run_id": "lht-cut_in-17-22af4989ac15",
+      "samples": 803,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 802,
+      "valid_truth_frames": 800
+    },
+    {
+      "configuration_id": "05349b2068ba12120730",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 1,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 125,
+        "unsafe_headway": 2
+      },
+      "group": "05349b2068ba12120730",
+      "labels": {
+        "negative": 749
+      },
+      "run_id": "lht-tailgating-17-b2f865fa4762",
+      "samples": 767,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 766,
+      "valid_truth_frames": 765
+    },
+    {
+      "configuration_id": "749805198615c56636b5",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 297
+      },
+      "group": "749805198615c56636b5",
+      "labels": {
+        "negative": 666
+      },
+      "run_id": "lht-potholes-17-a3a5fc3100ab",
+      "samples": 716,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 715,
+      "valid_truth_frames": 712
+    },
+    {
+      "configuration_id": "ae50ecc4c66aba201a9c",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 32
+      },
+      "group": "ae50ecc4c66aba201a9c",
+      "labels": {
+        "negative": 677
+      },
+      "run_id": "lht-mixed-17-a051af6cfc60",
+      "samples": 695,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 694,
+      "valid_truth_frames": 693
+    },
+    {
+      "configuration_id": "bcb6f1ea28a551453cb7",
+      "episodes": {
+        "collision_proxy": 4,
+        "forward_near_miss": 3,
+        "tailgated": 3,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 17,
+        "forward_near_miss": 58,
+        "tailgated": 12,
+        "unsafe_headway": 80
+      },
+      "group": "bcb6f1ea28a551453cb7",
+      "labels": {
+        "negative": 198,
+        "positive": 83
+      },
+      "run_id": "lht-combined-17-a19fc5af0dd1",
+      "samples": 765,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 764,
+      "valid_truth_frames": 763
+    },
+    {
+      "configuration_id": "b86d03cebe5cdb4772bf",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 40
+      },
+      "group": "b86d03cebe5cdb4772bf",
+      "labels": {
+        "negative": 580
+      },
+      "run_id": "lht-normal-18-c36aa8231de1",
+      "samples": 630,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 629,
+      "valid_truth_frames": 625
+    },
+    {
+      "configuration_id": "5b6a3934ed187d0917d1",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 3,
+        "tailgated": 0,
+        "unsafe_headway": 3
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 28,
+        "tailgated": 0,
+        "unsafe_headway": 41
+      },
+      "group": "5b6a3934ed187d0917d1",
+      "labels": {
+        "negative": 524,
+        "positive": 72
+      },
+      "run_id": "lht-sudden_brake-18-c855741b558a",
+      "samples": 630,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 629,
+      "valid_truth_frames": 627
+    },
+    {
+      "configuration_id": "e8c4590524f7035362ed",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 1,
+        "tailgated": 2,
+        "unsafe_headway": 6
+      },
+      "frames_with": {
+        "collision_proxy": 3,
+        "forward_near_miss": 6,
+        "tailgated": 4,
+        "unsafe_headway": 100
+      },
+      "group": "e8c4590524f7035362ed",
+      "labels": {
+        "negative": 351,
+        "positive": 15
+      },
+      "run_id": "lht-cut_in-18-7c8310eb5fd3",
+      "samples": 765,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 764,
+      "valid_truth_frames": 762
+    },
+    {
+      "configuration_id": "ede8b3de03d83f641f64",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 1,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 94,
+        "unsafe_headway": 342
+      },
+      "group": "ede8b3de03d83f641f64",
+      "labels": {
+        "negative": 662
+      },
+      "run_id": "lht-tailgating-18-5e02ab4a9c30",
+      "samples": 697,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 696,
+      "valid_truth_frames": 693
+    },
+    {
+      "configuration_id": "0d628eb494eabeed3c9f",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 3
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 26
+      },
+      "group": "0d628eb494eabeed3c9f",
+      "labels": {
+        "negative": 635
+      },
+      "run_id": "lht-potholes-18-48c8745dcae4",
+      "samples": 666,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 665,
+      "valid_truth_frames": 663
+    },
+    {
+      "configuration_id": "7a9f5bcc9953b03a77d0",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 7
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 398
+      },
+      "group": "7a9f5bcc9953b03a77d0",
+      "labels": {
+        "negative": 802
+      },
+      "run_id": "lht-mixed-18-82bcb87cfec2",
+      "samples": 820,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 819,
+      "valid_truth_frames": 818
+    },
+    {
+      "configuration_id": "6611f8cd805255358442",
+      "episodes": {
+        "collision_proxy": 3,
+        "forward_near_miss": 4,
+        "tailgated": 12,
+        "unsafe_headway": 6
+      },
+      "frames_with": {
+        "collision_proxy": 27,
+        "forward_near_miss": 11,
+        "tailgated": 31,
+        "unsafe_headway": 450
+      },
+      "group": "6611f8cd805255358442",
+      "labels": {
+        "negative": 678,
+        "positive": 12
+      },
+      "run_id": "lht-combined-18-bb3812fd7590",
+      "samples": 895,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 894,
+      "valid_truth_frames": 891
+    },
+    {
+      "configuration_id": "53d2f63178e14f186e94",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 0
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 0
+      },
+      "group": "53d2f63178e14f186e94",
+      "labels": {
+        "negative": 758
+      },
+      "run_id": "lht-normal-19-0ae82fd346c2",
+      "samples": 776,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 775,
+      "valid_truth_frames": 774
+    },
+    {
+      "configuration_id": "c2f51ec22fefc84a3700",
+      "episodes": {
+        "collision_proxy": 1,
+        "forward_near_miss": 3,
+        "tailgated": 1,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 5,
+        "forward_near_miss": 12,
+        "tailgated": 5,
+        "unsafe_headway": 15
+      },
+      "group": "c2f51ec22fefc84a3700",
+      "labels": {
+        "negative": 325,
+        "positive": 35
+      },
+      "run_id": "lht-sudden_brake-19-e84e5e842299",
+      "samples": 626,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 625,
+      "valid_truth_frames": 623
+    },
+    {
+      "configuration_id": "aee6c589d044b80683c3",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 7
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 0,
+        "unsafe_headway": 86
+      },
+      "group": "aee6c589d044b80683c3",
+      "labels": {
+        "negative": 622,
+        "positive": 15
+      },
+      "run_id": "lht-cut_in-19-83fa1053e17b",
+      "samples": 687,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 686,
+      "valid_truth_frames": 682
+    },
+    {
+      "configuration_id": "5714ee8d9fd68763574d",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 1,
+        "unsafe_headway": 4
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 117,
+        "unsafe_headway": 221
+      },
+      "group": "5714ee8d9fd68763574d",
+      "labels": {
+        "negative": 630
+      },
+      "run_id": "lht-tailgating-19-99706d2f9508",
+      "samples": 648,
+      "split": "stress",
+      "termination": "duration",
+      "truth_frames": 647,
+      "valid_truth_frames": 646
+    },
+    {
+      "configuration_id": "62db94953d60c0c67b08",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 21
+      },
+      "group": "62db94953d60c0c67b08",
+      "labels": {
+        "negative": 709
+      },
+      "run_id": "lht-potholes-19-344eb019ece5",
+      "samples": 742,
+      "split": "stress",
+      "termination": "duration",
+      "truth_frames": 741,
+      "valid_truth_frames": 739
+    },
+    {
+      "configuration_id": "1a696768dbc09a10e25b",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 1,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 4,
+        "unsafe_headway": 49
+      },
+      "group": "1a696768dbc09a10e25b",
+      "labels": {
+        "negative": 856
+      },
+      "run_id": "lht-mixed-19-f05ae9cc2f74",
+      "samples": 874,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 873,
+      "valid_truth_frames": 872
+    },
+    {
+      "configuration_id": "c1c3786d71cca9600fdf",
+      "episodes": {
+        "collision_proxy": 3,
+        "forward_near_miss": 3,
+        "tailgated": 4,
+        "unsafe_headway": 11
+      },
+      "frames_with": {
+        "collision_proxy": 4,
+        "forward_near_miss": 13,
+        "tailgated": 10,
+        "unsafe_headway": 126
+      },
+      "group": "c1c3786d71cca9600fdf",
+      "labels": {
+        "negative": 334,
+        "positive": 32
+      },
+      "run_id": "lht-combined-19-c2df9ab0dde8",
+      "samples": 801,
+      "split": "stress",
+      "termination": "duration",
+      "truth_frames": 800,
+      "valid_truth_frames": 799
+    },
+    {
+      "configuration_id": "97962bb28f8bed3a2229",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 19
+      },
+      "group": "97962bb28f8bed3a2229",
+      "labels": {
+        "negative": 713
+      },
+      "run_id": "lht-normal-11-15f576d63eb3",
+      "samples": 731,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 730,
+      "valid_truth_frames": 729
+    },
+    {
+      "configuration_id": "819e231b079cc4ab9ed8",
+      "episodes": {
+        "collision_proxy": 3,
+        "forward_near_miss": 0,
+        "tailgated": 3,
+        "unsafe_headway": 15
+      },
+      "frames_with": {
+        "collision_proxy": 14,
+        "forward_near_miss": 0,
+        "tailgated": 32,
+        "unsafe_headway": 331
+      },
+      "group": "819e231b079cc4ab9ed8",
+      "labels": {
+        "negative": 169
+      },
+      "run_id": "lht-sudden_brake-11-3351121a255b",
+      "samples": 829,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 828,
+      "valid_truth_frames": 827
+    },
+    {
+      "configuration_id": "0d74121af197a67d4b91",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 2
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 23
+      },
+      "group": "0d74121af197a67d4b91",
+      "labels": {
+        "negative": 657
+      },
+      "run_id": "lht-cut_in-11-4cb01a3e986f",
+      "samples": 675,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 674,
+      "valid_truth_frames": 673
+    },
+    {
+      "configuration_id": "f737051292bfa6d440ca",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 1,
+        "tailgated": 1,
+        "unsafe_headway": 6
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 9,
+        "tailgated": 94,
+        "unsafe_headway": 265
+      },
+      "group": "f737051292bfa6d440ca",
+      "labels": {
+        "negative": 571,
+        "positive": 23
+      },
+      "run_id": "lht-tailgating-11-ab5f5780a345",
+      "samples": 622,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 621,
+      "valid_truth_frames": 619
+    },
+    {
+      "configuration_id": "85f54a89bef55418aa59",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 18
+      },
+      "group": "85f54a89bef55418aa59",
+      "labels": {
+        "negative": 569
+      },
+      "run_id": "lht-potholes-11-02e5ae21a9ce",
+      "samples": 611,
+      "split": "validation",
+      "termination": "duration",
+      "truth_frames": 610,
+      "valid_truth_frames": 607
+    },
+    {
+      "configuration_id": "2e634eb3f24ec287e99c",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 1
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 16
+      },
+      "group": "1a696768dbc09a10e25b",
+      "labels": {
+        "negative": 654
+      },
+      "run_id": "lht-mixed-11-cb0459ce4b09",
+      "samples": 685,
+      "split": "test",
+      "termination": "duration",
+      "truth_frames": 684,
+      "valid_truth_frames": 682
+    },
+    {
+      "configuration_id": "8071b13af768feb76443",
+      "episodes": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 3
+      },
+      "frames_with": {
+        "collision_proxy": 0,
+        "forward_near_miss": 0,
+        "tailgated": 0,
+        "unsafe_headway": 154
+      },
+      "group": "8071b13af768feb76443",
+      "labels": {
+        "negative": 863
+      },
+      "run_id": "lht-combined-11-30e8a3c9bac3",
+      "samples": 897,
+      "split": "train",
+      "termination": "duration",
+      "truth_frames": 896,
+      "valid_truth_frames": 894
+    }
+  ],
+  "samples": {
+    "recorded": 52135
+  },
+  "schema": "roadsense.forward-risk.v1",
+  "seeds": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "sim_s": 10427.0,
+  "split_groups": {
+    "stress": 7,
+    "test": 7,
+    "train": 40,
+    "validation": 7
+  },
+  "split_samples": {
+    "stress": 4384,
+    "test": 6552,
+    "train": 27457,
+    "validation": 4840
+  },
+  "successful_runs": 70,
+  "supervised_samples": 43233,
+  "test_frozen_before_simulation": true,
+  "wall_s": 1608.9
+}

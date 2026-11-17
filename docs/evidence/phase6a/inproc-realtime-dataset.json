@@ -1,0 +1,121 @@
+{
+  "workload": {
+    "frames": 1501,
+    "sim_seconds": 300.0,
+    "rate_hz": 5.0,
+    "python": "3.12.14",
+    "platform": "darwin"
+  },
+  "off_wall_s": 300.0,
+  "on_wall_s": 300.0,
+  "db_bytes": 2244608,
+  "wal_bytes": 0,
+  "identical_states": true,
+  "actions": {
+    "MAINTAIN": 1063,
+    "BRAKE": 236,
+    "SLOW_DOWN": 21,
+    "EMERGENCY_BRAKE": 60,
+    "MONITOR": 121
+  },
+  "ingest_ms": {
+    "off": {
+      "last": 1.3785,
+      "mean": 0.9505,
+      "p50": 0.8775,
+      "p95": 1.6236,
+      "max": 4.1691
+    },
+    "on": {
+      "last": 0.5835,
+      "mean": 1.049,
+      "p50": 1.003,
+      "p95": 1.6708,
+      "max": 3.6116
+    }
+  },
+  "handler_process_ms": {
+    "off": {
+      "last": 0.392,
+      "mean": 0.434,
+      "p50": 0.398,
+      "p95": 0.775,
+      "max": 2.361
+    },
+    "on": {
+      "last": 0.444,
+      "mean": 0.477,
+      "p50": 0.439,
+      "p95": 0.832,
+      "max": 2.954
+    }
+  },
+  "observe_us": {
+    "last": 36.46,
+    "mean": 31.94,
+    "p50": 29.08,
+    "p95": 51.92,
+    "max": 445.75
+  },
+  "history": {
+    "schema": "roadsense.history.status.v1",
+    "enabled": true,
+    "state": "stopped",
+    "reason": "closed",
+    "processor_id": "d5e627fdee01",
+    "dataset": true,
+    "degraded": true,
+    "queue": {
+      "size": 0,
+      "capacity": 256,
+      "high_water": 1
+    },
+    "states": {
+      "observed": 1501,
+      "absorbed": 1501
+    },
+    "lost": {
+      "queue_full": 0,
+      "inactive": 0,
+      "unavailable": 0,
+      "extract_error": 0,
+      "shutdown": 0,
+      "uncommitted_rows": 0
+    },
+    "rows": {
+      "hazard_updates": 78,
+      "decisions": 118,
+      "discontinuities": 2,
+      "samples": 1500
+    },
+    "batches": {
+      "committed": 150,
+      "failed": 0,
+      "latency_ms": {
+        "last": 0.61,
+        "mean": 0.65,
+        "p50": 0.59,
+        "p95": 1.18,
+        "max": 3.77
+      }
+    },
+    "retention": {
+      "deleted_by_age": 0,
+      "deleted_by_size": 0,
+      "retention_days": 30.0,
+      "limit_mb": 256.0,
+      "min_free_mb": 512.0
+    },
+    "storage": {
+      "db_bytes": 1048576,
+      "wal_bytes": 4144752,
+      "used_bytes": 1798144,
+      "free_page_bytes": 0,
+      "filesystem_free_bytes": 477185552384,
+      "measured_utc": 1794900216.754
+    },
+    "last_error": null,
+    "close_s": 0.006
+  },
+  "state_heap_bytes": 15588
+}

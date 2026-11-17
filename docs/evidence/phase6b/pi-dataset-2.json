@@ -1,0 +1,152 @@
+{
+ "label": "dataset2",
+ "run_id": "phase6b-dataset-2",
+ "frames": 301,
+ "duration_s": 60.0,
+ "client_rate_hz": 5.016,
+ "statuses": {
+  "200": 301
+ },
+ "server_rate_hz_every_10s": {
+  "min": 4.8,
+  "mean": 4.97,
+  "n": 6
+ },
+ "server_latency_ms": {
+  "process": {
+   "last": 0.239,
+   "mean": 0.408,
+   "p50": 0.378,
+   "p95": 0.566,
+   "max": 1.736
+  },
+  "publish": {
+   "last": 0.137,
+   "mean": 0.231,
+   "p50": 0.218,
+   "p95": 0.288,
+   "max": 0.765
+  },
+  "handler": {
+   "last": 0.536,
+   "mean": 1.443,
+   "p50": 1.11,
+   "p95": 3.666,
+   "max": 6.524
+  }
+ },
+ "server_samples": 300,
+ "missed": 0,
+ "post_rtt_ms": {
+  "last": 7.1671,
+  "mean": 8.9672,
+  "p50": 7.0934,
+  "p95": 15.9385,
+  "max": 83.0849
+ },
+ "ping_rtt_ms": {
+  "last": 9.8341,
+  "mean": 8.6278,
+  "p50": 6.2313,
+  "p95": 18.9549,
+  "max": 79.3308
+ },
+ "pings": 564,
+ "states_received": 301,
+ "actions": {
+  "MAINTAIN": 221,
+  "BRAKE": 38,
+  "SLOW_DOWN": 2,
+  "EMERGENCY_BRAKE": 12,
+  "MONITOR": 28
+ },
+ "process": {
+  "pid": 8265,
+  "same_pid": true,
+  "cpu_s": 1.54,
+  "cpu_percent_of_one_core": 2.44,
+  "rss_mb_before": 51.7,
+  "rss_mb_after": 52.9,
+  "hwm_mb": 52.9
+ },
+ "host": {
+  "load1_before": 0.51,
+  "load1_after": 0.34,
+  "temp_before": "temp=51.0'C",
+  "temp_after": "temp=47.2'C",
+  "throttled": "throttled=0x0"
+ },
+ "ai": {
+  "enabled": true,
+  "model": "qwen3:0.6b",
+  "availability": "available",
+  "status": "fallback",
+  "latency_ms": {
+   "last": 1930.5,
+   "mean": 2167.2,
+   "p50": 1930.5,
+   "p95": 2403.9,
+   "max": 2403.9
+  }
+ },
+ "history": {
+  "schema": "roadsense.history.status.v1",
+  "enabled": true,
+  "state": "recording",
+  "reason": null,
+  "processor_id": "aaa885f6eaae",
+  "dataset": true,
+  "degraded": false,
+  "losses_observed": false,
+  "queue": {
+   "size": 0,
+   "capacity": 256,
+   "high_water": 1
+  },
+  "states": {
+   "observed": 341,
+   "absorbed": 341
+  },
+  "lost": {
+   "queue_full": 0,
+   "inactive": 0,
+   "unavailable": 0,
+   "extract_error": 0,
+   "shutdown": 0,
+   "uncommitted_rows": 0
+  },
+  "rows": {
+   "hazard_updates": 15,
+   "decisions": 24,
+   "discontinuities": 4,
+   "samples": 340
+  },
+  "batches": {
+   "committed": 37,
+   "failed": 0,
+   "latency_ms": {
+    "last": 0.51,
+    "mean": 0.47,
+    "p50": 0.41,
+    "p95": 1.39,
+    "max": 1.44
+   }
+  },
+  "retention": {
+   "deleted_by_age": 0,
+   "deleted_by_size": 0,
+   "retention_days": 30.0,
+   "limit_mb": 256.0,
+   "min_free_mb": 512.0
+  },
+  "storage": {
+   "db_bytes": 573440,
+   "wal_bytes": 1421432,
+   "used_bytes": 872448,
+   "free_page_bytes": 0,
+   "filesystem_free_bytes": 104088453120,
+   "measured_utc": 1794903015.111
+  },
+  "last_error": null
+ }
+}

@@ -166,3 +166,52 @@ explicit authorization.
 Durable hazard storage, real GNSS, geographic mapping/sync and a trained decision model remain
 future milestones. Recommendations remain advisory; heuristic model-output filtering does not
 prove semantic correctness or real-vehicle safety.
+
+## Phase 6A: persistent history, local validation (17 November 2026)
+
+Implemented and tested on the Mac only; during this validation nothing was deployed, and the Pi was
+inspected read-only once (service active, MainPID 1037, NRestarts 0; 97 GB free on a USB ext4 root;
+SQLite 3.46.1; `~/.local/state` present). Design, measurements and deployment plan: [history.md](history.md).
+
+| Check | Result |
+| --- | --- |
+| Active Python suite | **430 passed** (398 before Phase 6A + 32 in `tests/test_history.py`) |
+| JavaScript, independently | **65 passed**, 0 failed |
+| Archived Arduino tests | **60 passed** |
+| `tests/test_history.py`, three consecutive runs | 31 passed each time (before the 32nd, a state-immutability check, was added) |
+| Safety output with history on vs off | identical: 1,501 in-process states and a 302-frame replay through the app (BRAKE, EMERGENCY_BRAKE, CONSIDER_LANE_CHANGE, MONITOR, MAINTAIN) |
+| Vivaldi browser smoke | **not run**: the isolated headless Vivaldi's debugger did not answer, with history on and equally with it off (unchanged baseline), so an environment limitation of this session. No other browser was launched. The dashboard files are unchanged. |
+| `git diff --check` | passed |
+
+Fault tests use real SQLite/filesystem errors where safe (held lock, read-only file and directory,
+path under a file, corrupt/newer/foreign file, SQLite page limit for `SQLITE_FULL`, SIGKILL) and
+injection for a slow open, a writer exception and a dead writer thread. A real full disk, a
+read-only remount and power loss were not tested. Measurements are Mac-only and are not Raspberry
+Pi acceptance; evidence in [evidence/phase6a](evidence/phase6a/).
+
+## Phase 6B: Raspberry Pi deployment and hardware acceptance (17 November 2026)
+
+Commit `eb4b1c4` pushed to `roadsense-v2-edge-ai` (fast-forward). Three files deployed to the Pi
+and verified by checksum; new backup `roadsense-edge-backup-20261117-131556.tar.gz`; history enabled
+(events only) with a user drop-in, unit file unchanged. Full results:
+[history.md](history.md#raspberry-pi-deployment-phase-6b); raw data:
+[evidence/phase6b](evidence/phase6b/).
+
+| Check | Result |
+| --- | --- |
+| Safety output, history off vs on, 1,501 frames on the Pi | identical, state by state |
+| `process` / `handler` p95, off → on | 0.775–0.780 → 0.777 ms / 2.32–2.48 → 2.39 ms |
+| Storage loss, failed batches, queue high-water | 0, 0, 1 of 256 |
+| Peak RSS / service CPU | +1.2 MB / +0.24 points of one core |
+| Restart, gap/stall, SIGKILL records; integrity | all as designed; `ok` |
+| Real Ollama alongside storage | `qwen3:0.6b`, p50 ≈ 2.7 s, unchanged |
+| Dataset mode (2 × 60 s) and export on ARM64 | 600 samples, 0 lost; manifest checksums, determinism, no overwrite: verified |
+| Vivaldi browser smoke, headed and headless | **not passed (automation limitation)**: the isolated Vivaldi's debugger never answered, also on the unchanged baseline. No other browser was launched |
+| Manual dashboard check | passed: the user watched the Pi dashboard in an isolated headed Vivaldi window (temporary profile, extensions off) during a live Webots run: 3D view, safety and AI panels, system metrics and charts updating, no errors |
+| Live Webots → Pi on the deployed build | run `d80727b0e78d`: 311 frames, 0 missed; `process` p95 2.21 ms, `handler` p95 4.38 ms (historical Webots baseline 2.0–2.3 ms process p95); history: its own segment, the world's 4 potholes (12 hazard rows), 25 decisions, 0 lost, integrity `ok` ([evidence](evidence/phase6b/pi-live-webots-db.json)) |
+| Pi reboot | not tested (not authorized) |
+
+Limits of this acceptance, kept as measured: runs of 300 s (60 s in dataset mode), not the 30 minutes
+first proposed; one unexplained 128 ms handler time in a dataset-mode run, not reproduced; dataset-mode
+handler p95 2.9–3.7 ms, above the events-only threshold; the SIGKILL test lost 5 accepted frames that
+were not yet committed (history is not lossless). The Pi stays in events-only mode.

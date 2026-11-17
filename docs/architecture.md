@@ -28,7 +28,7 @@ MacBook                                         Raspberry Pi 5 (or the same Mac,
 | Package | Role | Constraints |
 | ------- | ---- | ----------- |
 | `roadsense.autonomy` | perception, tracking, prediction, collision risk, hazard map, safety decision, live-state snapshot, the simulation's publisher | standard library only, Python 3.9 compatible: the Webots controller imports it straight from `src/` |
-| `roadsense.web` | the edge server: ingestion, publication, metrics, explanations, the dashboard's files | FastAPI, uvicorn, websockets, pydantic; nothing else (no database, no serial port, no model client library) |
+| `roadsense.web` | the edge server: ingestion, publication, metrics, explanations, opt-in history, the dashboard's files | FastAPI, uvicorn, websockets, pydantic; the standard library's `sqlite3` for history; nothing else (no database server, no serial port, no model client library) |
 | `simulation/webots` | the world, the SUMO traffic, the ego car's controller | Webots R2025b, SUMO 1.27 |
 | `legacy/arduino` | the archived Arduino stack | not imported by anything above |
 
@@ -41,8 +41,10 @@ MacBook                                         Raspberry Pi 5 (or the same Mac,
    (**validate**), runs `Pipeline.process()` (**process**), builds and encodes the `roadsense.live.v1`
    snapshot and offers it to every WebSocket client's one-slot queue (**publish**). Each stage is timed
    with `time.perf_counter()`; see [edge-metrics.md](edge-metrics.md).
-3. The hub then tells its listeners. Today that is `AIExplainer.observe()`, which compares the decision
-   with the previous frame's and returns.
+3. The hub then tells its listeners: `AIExplainer.observe()`, which compares the decision with the
+   previous frame's and returns, and `HistoryRecorder.observe()`, which puts a reference to the state
+   on a bounded queue and returns (a no-op unless `ROADSENSE_HISTORY_ENABLE=1`; see
+   [history.md](history.md)).
 4. The browser receives the snapshot over `/ws/live`, draws it, and asks `/api/system` and
    `/api/ai-explanation` once a second on its own schedule (at once when the decision changes).
 
@@ -93,6 +95,7 @@ Nothing else exists: the Arduino dashboard's REST routes and `/ws/telemetry` wer
 | event loop | sensor frames, snapshots, WebSockets | nothing: the pipeline is pure computation (well under a millisecond on a laptop; measured live, see the dashboard) |
 | worker pool (FastAPI) | `GET /api/system`, `/api/ai-explanation`, `/api/hazards`, static files | file reads in `/proc` and `/sys`; `vcgencmd` at most every 5 s |
 | `RoadSenseAIExplainer` | one request to Ollama at a time | the model, up to the timeout; cancelled when the decision turns urgent, a new run starts or the server stops |
+| `RoadSenseHistory` (opt-in) | the only SQLite connection: batches, retention | the disk and SQLite's 1 s lock timeout; a full queue drops states instead of waiting |
 
 The explainer and frame metrics use locks that are never held across I/O; the sensor-frame path
 takes each for a few field updates. Host sampling has its own lock in the worker pool.
@@ -108,7 +111,11 @@ takes each for a few field updates. Host sampling has its own lock in the worker
 | charts | in the browser, 60 s of history |
 | Ollama | one model (`qwen3:0.6b`, about 1 GB loaded), unloaded after `keep_alive` (2 minutes) without requests |
 
-The server keeps no database and writes nothing to disk.
+| history queue (opt-in) | 256 states, each a reference to an already-built snapshot: about 4 MB at worst, normally empty |
+
+Without `ROADSENSE_HISTORY_ENABLE=1` the server keeps no database and writes nothing to disk. With
+it, one SQLite file under `~/.local/state/roadsense/history/`, bounded by retention and a size limit
+([history.md](history.md)).
 
 ## Security
 

@@ -110,6 +110,12 @@ two readings, so the first answer has none).
 | `process` | this server: CPU % (`os.times()`), resident memory (`/proc/self/statm`), peak resident memory, threads, uptime | `rss_mb` outside Linux |
 | `model` | `/proc/device-tree/model` | not a device-tree system |
 
+### `history`
+
+The opt-in history store's health, from memory only: `state` (`disabled` unless
+`ROADSENSE_HISTORY_ENABLE=1`), queue use, states lost by reason, rows written, batch latency,
+retention counters and file sizes. Fields and their meaning: [history.md](history.md#health-in-get-apisystem).
+
 ### `safety`
 
 The safety processor's own constants (`roadsense.autonomy.risk`, `prediction`, `safety`), so the

@@ -1,0 +1,225 @@
+{
+  "workload": {
+    "frames": 1501,
+    "rate_hz": 5.0,
+    "sim_seconds": 300.0,
+    "python": "3.12.14",
+    "platform": "darwin"
+  },
+  "off": {
+    "duration_s": 300.0,
+    "posts": 1501,
+    "statuses": {
+      "200": 1501
+    },
+    "post_rtt_ms": {
+      "last": 2.9122,
+      "mean": 2.6124,
+      "p50": 2.5652,
+      "p95": 3.9418,
+      "max": 5.3496
+    },
+    "ping_rtt_ms": {
+      "last": 1.5126,
+      "mean": 1.6363,
+      "p50": 1.5563,
+      "p95": 2.5718,
+      "max": 6.1763
+    },
+    "pings": 2886,
+    "server_latency_ms": {
+      "process": {
+        "last": 0.338,
+        "mean": 0.422,
+        "p50": 0.398,
+        "p95": 0.676,
+        "max": 2.458
+      },
+      "publish": {
+        "last": 0.251,
+        "mean": 0.293,
+        "p50": 0.27,
+        "p95": 0.496,
+        "max": 1.739
+      },
+      "handler": {
+        "last": 0.735,
+        "mean": 0.93,
+        "p50": 0.879,
+        "p95": 1.553,
+        "max": 3.191
+      }
+    },
+    "server_samples": 1500,
+    "rate_hz": 2.0,
+    "rss_mb": {
+      "first": 49.8,
+      "last": 50.9,
+      "max": 50.9
+    },
+    "history": {
+      "schema": "roadsense.history.status.v1",
+      "enabled": false,
+      "state": "disabled",
+      "reason": null,
+      "processor_id": null,
+      "dataset": false,
+      "degraded": false,
+      "losses_observed": false,
+      "queue": {
+        "size": 0,
+        "capacity": 256,
+        "high_water": 0
+      },
+      "states": {
+        "observed": 0,
+        "absorbed": 0
+      },
+      "lost": {
+        "queue_full": 0,
+        "inactive": 0,
+        "unavailable": 0,
+        "extract_error": 0,
+        "shutdown": 0,
+        "uncommitted_rows": 0
+      },
+      "rows": {
+        "hazard_updates": 0,
+        "decisions": 0,
+        "discontinuities": 0,
+        "samples": 0
+      },
+      "batches": {
+        "committed": 0,
+        "failed": 0,
+        "latency_ms": null
+      },
+      "retention": {
+        "deleted_by_age": 0,
+        "deleted_by_size": 0,
+        "retention_days": 30.0,
+        "limit_mb": 256.0,
+        "min_free_mb": 512.0
+      },
+      "storage": {},
+      "last_error": null
+    },
+    "shutdown_s": 0.227
+  },
+  "on": {
+    "duration_s": 300.0,
+    "posts": 1501,
+    "statuses": {
+      "200": 1501
+    },
+    "post_rtt_ms": {
+      "last": 2.6464,
+      "mean": 3.0984,
+      "p50": 3.0483,
+      "p95": 4.161,
+      "max": 17.7668
+    },
+    "ping_rtt_ms": {
+      "last": 1.4082,
+      "mean": 1.6634,
+      "p50": 1.5612,
+      "p95": 2.7115,
+      "max": 10.286
+    },
+    "pings": 2884,
+    "server_latency_ms": {
+      "process": {
+        "last": 0.378,
+        "mean": 0.445,
+        "p50": 0.409,
+        "p95": 0.792,
+        "max": 2.1
+      },
+      "publish": {
+        "last": 0.243,
+        "mean": 0.259,
+        "p50": 0.247,
+        "p95": 0.407,
+        "max": 1.304
+      },
+      "handler": {
+        "last": 0.802,
+        "mean": 0.982,
+        "p50": 0.914,
+        "p95": 1.579,
+        "max": 14.772
+      }
+    },
+    "server_samples": 1500,
+    "rate_hz": 2.0,
+    "rss_mb": {
+      "first": 50.5,
+      "last": 54.1,
+      "max": 54.1
+    },
+    "history": {
+      "schema": "roadsense.history.status.v1",
+      "enabled": true,
+      "state": "recording",
+      "reason": null,
+      "processor_id": "10f659f27b4b",
+      "dataset": true,
+      "degraded": false,
+      "losses_observed": false,
+      "queue": {
+        "size": 0,
+        "capacity": 256,
+        "high_water": 1
+      },
+      "states": {
+        "observed": 1501,
+        "absorbed": 1501
+      },
+      "lost": {
+        "queue_full": 0,
+        "inactive": 0,
+        "unavailable": 0,
+        "extract_error": 0,
+        "shutdown": 0,
+        "uncommitted_rows": 0
+      },
+      "rows": {
+        "hazard_updates": 78,
+        "decisions": 118,
+        "discontinuities": 2,
+        "samples": 1500
+      },
+      "batches": {
+        "committed": 150,
+        "failed": 0,
+        "latency_ms": {
+          "last": 1.26,
+          "mean": 0.74,
+          "p50": 0.6,
+          "p95": 1.51,
+          "max": 3.8
+        }
+      },
+      "retention": {
+        "deleted_by_age": 0,
+        "deleted_by_size": 0,
+        "retention_days": 30.0,
+        "limit_mb": 256.0,
+        "min_free_mb": 512.0
+      },
+      "storage": {
+        "db_bytes": 1974272,
+        "wal_bytes": 4132392,
+        "used_bytes": 2236416,
+        "free_page_bytes": 0,
+        "filesystem_free_bytes": 477164388352,
+        "measured_utc": 1794900880.974
+      },
+      "last_error": null
+    },
+    "shutdown_s": 0.128
+  },
+  "db_bytes": 2244608,
+  "wal_bytes": 0,
+  "db_bytes_per_hour": 26935296
+}

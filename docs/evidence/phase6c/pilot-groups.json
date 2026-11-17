@@ -1,0 +1,16 @@
+{
+ "lht-combined-1": "highway_lht:combined:1",
+ "lht-combined-1-repeat": "highway_lht:combined:1",
+ "lht-cut_in-1": "highway_lht:cut_in:1",
+ "lht-cut_in-1-repeat": "highway_lht:cut_in:1",
+ "lht-mixed-1": "highway_lht:mixed:1",
+ "lht-mixed-1-repeat": "highway_lht:mixed:1",
+ "lht-normal-1": "highway_lht:normal:1",
+ "lht-normal-1-repeat": "highway_lht:normal:1",
+ "lht-potholes-1": "highway_lht:potholes:1",
+ "lht-potholes-1-repeat": "highway_lht:potholes:1",
+ "lht-sudden_brake-1": "highway_lht:sudden_brake:1",
+ "lht-sudden_brake-1-repeat": "highway_lht:sudden_brake:1",
+ "lht-tailgating-1": "highway_lht:tailgating:1",
+ "lht-tailgating-1-repeat": "highway_lht:tailgating:1"
+}
