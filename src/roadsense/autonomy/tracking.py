@@ -13,8 +13,28 @@ cycle) never confirms. With "range_rate" an unconfirmed track is predicted with 
 along the line of sight, (b) the track's own displacement once it has two detections, and (c) a weak prior that
 vehicles move along the carriageway. Its covariance sets an elliptical gate. A detection inside the legacy gate is
 still accepted, so the new mode never refuses a pairing the legacy one makes. Confirmed tracks are unchanged.
+
+Phase 7A.3 P2, opt-in on top of P1 (Tracker(initiation="range_rate", estimator="kalman"); default "window"): each
+track carries a constant-velocity Kalman filter instead of the 1.5 s displacement. Frames (all right-handed, angles
+counter-clockwise):
+  world  Webots ground plane x, y; the track state s = (x, y, vx, vy) and its 4x4 covariance P live here;
+  ego    origin at the rear axle, x forward, y left: world = ego_to_world(ego, pose), pose = ego (x, y, yaw);
+  radar  mount (x, y) in the ego frame, line of sight u = unit vector from the mount's world position to the
+         detection, n = u turned +90 degrees;
+  road   along e_a = (cos h, sin h), h = perception.CARRIAGEWAY_HEADING, across e_c = (-sin h, cos h). In
+         roadsense_highway.wbt h is 0 or pi, so vx is the speed along the road and vy the speed across it.
+Transition over the actual interval dt (timestamps, not an assumed 0.2 s): x += vx dt, y += vy dt, with continuous
+white-noise acceleration of density q_a along and q_c across the road: Q = [[A dt^3/3, A dt^2/2], [A dt^2/2, A dt]],
+A = q_a e_a e_a' + q_c e_c e_c'. Measurements, each a scalar update in Joseph form: the detection's position along u
+and along n (independent there: range and angle noise), and, when the radar gives one, the world radial speed
+u . (vx, vy) = range rate + u . ego velocity (h = (0, 0, ux, uy): the line-of-sight component only, never a 2-D
+velocity), skipped beyond 3 sigma. A new track starts at its detection with P1's velocity estimate and covariance
+(road prior and radial speed). Association is unchanged (P3 is not part of P2): an unconfirmed track uses P1's
+gate with the filter's predicted covariance, a confirmed one the fixed 3 m gate around the filter's prediction.
+Missing detections only predict; tracks still expire by the legacy rule (P4 is not part of P2).
 """
 import math
+from types import SimpleNamespace
 
 from . import perception
 
@@ -35,6 +55,17 @@ INIT_GATE_CHI2 = 13.8  # 2-D Mahalanobis gate, 99.9 % of a correct pairing
 MAX_INIT_GATE_M = 12.0  # never farther than a 60 m/s vehicle moves in one cycle
 MAX_WORLD_SPEED_MPS = 60.0  # a faster radial speed is a Webots first-refresh artefact: used as no range rate
 MOUNTS = {source: (x, y) for source, x, y, _yaw in perception.RADARS.values()}
+
+ESTIMATORS = ("window", "kalman")
+# P2 measurement noise, measured on the Phase 7A.3 recordings (tools/radar_noise.py; truth used offline only)
+KF_RANGE_SIGMA_M = 0.30  # along the line of sight: rangeNoise 0.25 m; 0.25 m measured cycle to cycle
+KF_CROSS_SIGMA_M = 0.20  # across it: 0.08-0.17 m measured cycle to cycle (angular noise and aspect changes)
+KF_RADIAL_SIGMA_MPS = 0.30  # world radial speed: robust sigma 0.17 m/s, p95 0.55 m/s measured
+KF_RADIAL_GATE = 9.0  # chi-square, 1 degree of freedom: a radial speed beyond 3 sigma is an outlier, not used
+# P2 process noise: white-noise acceleration, given as the acceleration sigma it allows over a nominal 0.2 s cycle
+KF_NOMINAL_DT_S = 0.2
+KF_ACCEL_ALONG_MPS2 = 3.0  # braking and accelerating (hard braking ~8 m/s^2 still passes the 3 m gate)
+KF_ACCEL_ACROSS_MPS2 = 1.0  # a 3.75 m lane change over 3 s peaks at 2.1 m/s^2, over 5 s at 0.7 (tradeoff: §11)
 
 
 class Track:
@@ -75,7 +106,7 @@ def _inverse(m):
     return ((d / det, -b / det), (-c / det, a / det))
 
 
-def initial_velocity(track):
+def initial_velocity(track, radial_sigma=RANGE_RATE_SIGMA_MPS):
     """((vx, vy), 2x2 covariance) of an unconfirmed track: range rate, displacement and road prior, fused."""
     heading = perception.CARRIAGEWAY_HEADING
     ex, ey = math.cos(heading), math.sin(heading)
@@ -84,7 +115,7 @@ def initial_velocity(track):
     vec = [0.0, 0.0]
     if track.radial is not None:
         (ux, uy), z = track.radial
-        w = 1 / RANGE_RATE_SIGMA_MPS ** 2
+        w = 1 / radial_sigma ** 2
         info = [[info[0][0] + w * ux * ux, info[0][1] + w * ux * uy], [info[1][0] + w * ux * uy, info[1][1] + w * uy * uy]]
         vec = [vec[0] + w * ux * z, vec[1] + w * uy * z]
     (t0, x0, y0), (t1, x1, y1) = track.history[0], track.history[-1]
@@ -113,13 +144,136 @@ def radial_measurement(detection, pose, ego_velocity):
     return ((ux, uy), speed) if abs(speed) <= MAX_WORLD_SPEED_MPS else None
 
 
+def line_of_sight(detection, pose):
+    """Unit vector from the detecting radar's mount to the detection, world frame; None without a pose."""
+    if pose is None:
+        return None
+    rx, ry = perception.ego_to_world(*MOUNTS[detection.source], pose)
+    dx, dy = detection.world_x - rx, detection.world_y - ry
+    norm = math.hypot(dx, dy)
+    return (dx / norm, dy / norm) if norm > _EPS else None
+
+
+def _scalar_update(s, p, h, z, r, gate=None):
+    """Kalman update of state s and covariance p (4, 4x4, in place) by the scalar measurement z = h . s with
+    variance r, in Joseph form (stays symmetric positive semi-definite). False if outside the chi-square gate."""
+    ph = [p[i][0] * h[0] + p[i][1] * h[1] + p[i][2] * h[2] + p[i][3] * h[3] for i in range(4)]
+    var = h[0] * ph[0] + h[1] * ph[1] + h[2] * ph[2] + h[3] * ph[3] + r
+    innovation = z - (h[0] * s[0] + h[1] * s[1] + h[2] * s[2] + h[3] * s[3])
+    if gate is not None and innovation * innovation > gate * var:
+        return False
+    k = [v / var for v in ph]
+    for i in range(4):
+        s[i] += k[i] * innovation
+    a = [[p[i][j] - k[i] * ph[j] for j in range(4)] for i in range(4)]  # (I - k h) p, as p is symmetric
+    ah = [a[i][0] * h[0] + a[i][1] * h[1] + a[i][2] * h[2] + a[i][3] * h[3] for i in range(4)]
+    for i in range(4):
+        for j in range(i, 4):
+            p[i][j] = p[j][i] = 0.5 * ((a[i][j] - ah[i] * k[j] + r * k[i] * k[j]) + (a[j][i] - ah[j] * k[i] + r * k[j] * k[i]))
+    return True
+
+
+class KalmanTrack:
+    """Phase 7A.3 P2: one vehicle followed by a constant-velocity Kalman filter (see the module docstring). Has the
+    legacy Track's interface: history (for confirmation timing), velocity (None until confirmed), position_at."""
+
+    def __init__(self, detection, radial, los):
+        self.track_id = None
+        self.first_seen = detection.timestamp
+        self.history = []
+        self.velocity = None
+        self.radial = radial
+        self._start(detection, los)
+        self._record(detection)
+
+    def _start(self, detection, los):
+        """State at the detection, velocity from the road prior and the radial speed (P1's estimate)."""
+        birth = SimpleNamespace(radial=self.radial, history=[(detection.timestamp, detection.world_x, detection.world_y)])
+        (vx, vy), cov = initial_velocity(birth, KF_RADIAL_SIGMA_MPS)
+        (ux, uy) = los or (1.0, 0.0)
+        ra, rc = (KF_RANGE_SIGMA_M ** 2, KF_CROSS_SIGMA_M ** 2) if los else (KF_RANGE_SIGMA_M ** 2,) * 2
+        pxx, pxy, pyy = ra * ux * ux + rc * uy * uy, (ra - rc) * ux * uy, ra * uy * uy + rc * ux * ux
+        self.state = [detection.world_x, detection.world_y, vx, vy]
+        self.cov = [[pxx, pxy, 0.0, 0.0], [pxy, pyy, 0.0, 0.0],
+                    [0.0, 0.0, cov[0][0], cov[0][1]], [0.0, 0.0, cov[1][0], cov[1][1]]]
+        self.t = detection.timestamp
+
+    def _record(self, detection):
+        t = detection.timestamp
+        self.history.append((t, detection.world_x, detection.world_y))
+        while len(self.history) > 2 and self.history[1][0] <= t - VELOCITY_WINDOW_S + _EPS:
+            self.history.pop(0)
+        if self.velocity is not None or self.history[-1][0] - self.history[0][0] >= CONFIRM_S - _EPS:
+            self.velocity = (self.state[2], self.state[3])
+        self.last_seen = t
+        self.source = detection.source
+        self.range_rate = detection.range_rate_mps
+
+    def predicted(self, t):
+        """(state, covariance) moved on to time t; nothing is stored. Never backwards in time."""
+        dt = max(0.0, t - self.t)
+        x, y, vx, vy = self.state
+        p = [row[:] for row in self.cov]
+        if dt == 0.0:
+            return [x, y, vx, vy], p
+        for j in range(4):  # F p
+            p[0][j] += dt * p[2][j]
+            p[1][j] += dt * p[3][j]
+        for i in range(4):  # (F p) F'
+            p[i][0] += dt * p[i][2]
+            p[i][1] += dt * p[i][3]
+        heading = perception.CARRIAGEWAY_HEADING
+        ex, ey = math.cos(heading), math.sin(heading)
+        qa = KF_ACCEL_ALONG_MPS2 ** 2 * KF_NOMINAL_DT_S
+        qc = KF_ACCEL_ACROSS_MPS2 ** 2 * KF_NOMINAL_DT_S
+        a = ((qa * ex * ex + qc * ey * ey, (qa - qc) * ex * ey), ((qa - qc) * ex * ey, qa * ey * ey + qc * ex * ex))
+        d3, d2 = dt * dt * dt / 3.0, dt * dt / 2.0
+        for i in range(2):
+            for j in range(2):
+                p[i][j] += a[i][j] * d3
+                p[i][j + 2] += a[i][j] * d2
+                p[i + 2][j] += a[i][j] * d2
+                p[i + 2][j + 2] += a[i][j] * dt
+        return [x + vx * dt, y + vy * dt, vx, vy], p
+
+    def update(self, detection, radial=None, los=None):
+        self.state, self.cov = self.predicted(detection.timestamp)
+        self.t = max(self.t, detection.timestamp)
+        x, y = detection.world_x, detection.world_y
+        if los is not None:  # range and angle noise are independent along and across the line of sight
+            ux, uy = los
+            _scalar_update(self.state, self.cov, (ux, uy, 0.0, 0.0), ux * x + uy * y, KF_RANGE_SIGMA_M ** 2)
+            _scalar_update(self.state, self.cov, (-uy, ux, 0.0, 0.0), -uy * x + ux * y, KF_CROSS_SIGMA_M ** 2)
+        else:
+            _scalar_update(self.state, self.cov, (1.0, 0.0, 0.0, 0.0), x, KF_RANGE_SIGMA_M ** 2)
+            _scalar_update(self.state, self.cov, (0.0, 1.0, 0.0, 0.0), y, KF_RANGE_SIGMA_M ** 2)
+        if radial is not None:
+            (rx, ry), z = radial
+            _scalar_update(self.state, self.cov, (0.0, 0.0, rx, ry), z, KF_RADIAL_SIGMA_MPS ** 2, KF_RADIAL_GATE)
+        self.radial = radial
+        if not all(math.isfinite(v) for v in self.state) or \
+                not all(math.isfinite(v) for row in self.cov for v in row) or min(self.cov[i][i] for i in range(4)) <= 0:
+            self._start(detection, los)  # a numerical failure restarts the filter at the detection, keeping the id
+        self._record(detection)
+
+    def position_at(self, t):
+        """The filter's position, moved on at its velocity to time t."""
+        x, y, vx, vy = self.state
+        dt = t - self.t
+        return x + vx * dt, y + vy * dt
+
+
 class Tracker:
     """The tracks; call update once per radar cycle, also when nothing was detected."""
 
-    def __init__(self, initiation="legacy"):
+    def __init__(self, initiation="legacy", estimator="window"):
         if initiation not in INITIATIONS:
             raise ValueError("unknown initiation %r (known: %s)" % (initiation, ", ".join(INITIATIONS)))
-        self.initiation = initiation
+        if estimator not in ESTIMATORS:
+            raise ValueError("unknown estimator %r (known: %s)" % (estimator, ", ".join(ESTIMATORS)))
+        if estimator == "kalman" and initiation != "range_rate":
+            raise ValueError("the kalman estimator starts from the range_rate initiation's estimate")
+        self.initiation, self.estimator = initiation, estimator
         self.tracks = []
         self._next_id = 1
 
@@ -132,13 +286,18 @@ class Tracker:
         """Expire unseen tracks, then match this cycle's detections (all radars) to tracks, nearest pairs first.
         pose (world x, y, yaw) and ego_velocity (world vx, vy) are used by the "range_rate" initiation only."""
         ranged = self.initiation == "range_rate"
+        kalman = self.estimator == "kalman"
         radial = [radial_measurement(d, pose, ego_velocity) for d in detections] if ranged else None
+        los = [line_of_sight(d, pose) for d in detections] if kalman else None
         # a track coasts unseen at most as long as it was seen: glimpses go soon, established tracks bridge gaps
         self.tracks = [tr for tr in self.tracks
                        if t - tr.last_seen <= min(MAX_COAST_S, max(CONFIRM_S, tr.last_seen - tr.first_seen)) + _EPS]
         pairs = []
         for i, track in enumerate(self.tracks):
             x, y = track.position_at(t)
+            if kalman and track.velocity is None:
+                pairs += self._kalman_initiation_pairs(i, track, t, detections)
+                continue
             if ranged and track.velocity is None:
                 pairs += self._initiation_pairs(i, track, t, detections)
                 continue
@@ -150,14 +309,17 @@ class Tracker:
         matched_tracks, matched_detections = set(), set()
         for _, i, j in sorted(pairs):
             if i not in matched_tracks and j not in matched_detections:
-                self.tracks[i].update(detections[j])
+                if kalman:
+                    self.tracks[i].update(detections[j], radial[j], los[j])
+                else:
+                    self.tracks[i].update(detections[j])
                 if ranged:
                     self.tracks[i].radial = radial[j]
                 matched_tracks.add(i)
                 matched_detections.add(j)
         for j, d in enumerate(detections):
             if j not in matched_detections:
-                self.tracks.append(Track(d))
+                self.tracks.append(KalmanTrack(d, radial[j], los[j]) if kalman else Track(d))
                 if ranged:
                     self.tracks[-1].radial = radial[j]
         for track in self.tracks:
@@ -175,6 +337,22 @@ class Tracker:
         noise = 2 * POSITION_SIGMA_M ** 2 + (ACCEL_SIGMA_MPS2 * dt * dt) ** 2
         inverse = _inverse(((noise + cov[0][0] * dt * dt, cov[0][1] * dt * dt),
                             (cov[1][0] * dt * dt, noise + cov[1][1] * dt * dt)))
+        pairs = []
+        for j, d in enumerate(detections):
+            ex, ey = d.world_x - x, d.world_y - y
+            gap = math.hypot(ex, ey)
+            d2 = ex * (inverse[0][0] * ex + inverse[0][1] * ey) + ey * (inverse[1][0] * ex + inverse[1][1] * ey)
+            if (d2 <= INIT_GATE_CHI2 and gap <= MAX_INIT_GATE_M) or \
+                    math.hypot(d.world_x - x0, d.world_y - y0) <= NEW_TRACK_GATE_M:
+                pairs.append((gap, i, j))
+        return pairs
+
+    def _kalman_initiation_pairs(self, i, track, t, detections):
+        """P1's gate for an unconfirmed track, with the filter's prediction and covariance instead of P1's estimate."""
+        (x, y, _, _), p = track.predicted(t)
+        _, x0, y0 = track.history[-1]
+        r = KF_RANGE_SIGMA_M ** 2  # the larger of the two measurement variances, in every direction
+        inverse = _inverse(((p[0][0] + r, p[0][1]), (p[1][0], p[1][1] + r)))
         pairs = []
         for j, d in enumerate(detections):
             ex, ey = d.world_x - x, d.world_y - y

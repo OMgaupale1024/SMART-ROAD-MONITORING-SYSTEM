@@ -1,7 +1,7 @@
 """Phase 7A.3: verify raw sensor-frame recordings and replay them, offline, through a chosen tracker.
 
     PYTHONPATH=src venv/bin/python tools/tracker_replay.py verify  CAMPAIGN OUT.json
-    PYTHONPATH=src venv/bin/python tools/tracker_replay.py replay  CAMPAIGN OUT_DIR [--tracker legacy|p1]
+    PYTHONPATH=src venv/bin/python tools/tracker_replay.py replay  CAMPAIGN OUT_DIR [--tracker legacy|p1|p1p2]
     PYTHONPATH=src venv/bin/python tools/tracker_replay.py compare BASELINE_AUDIT.json CANDIDATE_AUDIT.json
     python3 tools/tracker_replay.py bench CAMPAIGN_OR_BUNDLE OUT.json   # standard library only, for the Pi
 
@@ -30,7 +30,12 @@ def make_tracker(name):
         return tracking.Tracker()
     if name == "p1":
         return tracking.Tracker(initiation="range_rate")
+    if name == "p1p2":
+        return tracking.Tracker(initiation="range_rate", estimator="kalman")
     raise ValueError("unknown tracker %r" % name)
+
+
+TRACKERS = ("legacy", "p1", "p1p2")
 
 
 def runs(campaign):
@@ -174,29 +179,47 @@ def compare(baseline, candidate):
 
 
 def bench(source, out):
-    """Tracker.update cost per radar cycle on captured frames, each initiation; standard library only."""
+    """Tracker.update cost per radar cycle on captured frames, each tracker, then (a separate pass, as tracing slows
+    everything) the most memory the tracker's own objects hold; standard library only."""
+    import tracemalloc
     sys.modules.update(pydantic=None, fastapi=None)
     from roadsense.autonomy import perception, tracking
     paths = sorted(Path(source).glob("**/sensor_frames.jsonl"))
+    traced = (tracemalloc.Filter(True, tracking.__file__),)
+
+    def cycles(path):
+        for f in map(json.loads, open(path)):
+            t, ego = round(f["timestamp"], 3), f["ego"]
+            pose = (*ego["position"][:2], ego["yaw_rad"])
+            detections = []
+            for radar, data in f["radars"].items():
+                detections += perception.radar_detections(radar, data["targets"], data["limits"], t, pose)
+            yield t, detections, pose, ego["velocity"]
     result = {}
-    for name in ("legacy", "p1"):
-        cost = []
+    for name in TRACKERS:
+        cost, held, most = [], 0, 0
         for path in paths:
-            frames = [json.loads(line) for line in open(path)]
-            tracker = tracking.Tracker() if name == "legacy" else tracking.Tracker(initiation="range_rate")
-            for f in frames:
-                t, ego = round(f["timestamp"], 3), f["ego"]
-                pose = (*ego["position"][:2], ego["yaw_rad"])
-                detections = []
-                for radar, data in f["radars"].items():
-                    detections += perception.radar_detections(radar, data["targets"], data["limits"], t, pose)
+            tracker = make_tracker(name)
+            for t, detections, pose, velocity in cycles(path):
                 start = time.perf_counter_ns()
-                tracker.update(t, detections, pose=pose, ego_velocity=ego["velocity"])
+                tracker.update(t, detections, pose=pose, ego_velocity=velocity)
                 cost.append((time.perf_counter_ns() - start) / 1000)
+                most = max(most, len(tracker.tracks))
+        tracemalloc.start()
+        for path in paths:
+            tracker = make_tracker(name)
+            for k, (t, detections, pose, velocity) in enumerate(cycles(path)):
+                tracker.update(t, detections, pose=pose, ego_velocity=velocity)
+                if k % 25 == 0:
+                    snapshot = tracemalloc.take_snapshot().filter_traces(traced)
+                    held = max(held, sum(stat.size for stat in snapshot.statistics("filename")))
+            del tracker
+        tracemalloc.stop()
         cost.sort()
         result[name] = {"frames": len(cost), "files": len(paths), "mean_us": round(statistics.fmean(cost), 2),
                         **{"p%d_us" % q: round(cost[min(len(cost) - 1, int(q / 100 * len(cost)))], 2)
-                           for q in (50, 95, 99)}, "max_us": round(cost[-1], 2)}
+                           for q in (50, 95, 99)}, "max_us": round(cost[-1], 2),
+                        "most_tracks": most, "tracker_memory_peak_kib": round(held / 1024, 1)}
     import platform
     result.update(platform=platform.platform(), python=platform.python_version(), offline=True)
     out.write_text(json.dumps(result, indent=1, sort_keys=True) + "\n")
@@ -215,7 +238,7 @@ def main():
         p.add_argument("campaign", type=Path)
         p.add_argument(extra, type=Path)
         if name == "replay":
-            p.add_argument("--tracker", choices=("legacy", "p1"), default="legacy")
+            p.add_argument("--tracker", choices=TRACKERS, default="legacy")
     args = ap.parse_args()
     if getattr(args, "out", None) is not None and args.out.exists():
         sys.exit("output exists: %s (never overwritten)" % args.out)
