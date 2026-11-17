@@ -322,7 +322,7 @@ def main(argv=None):
         "kinematic_error_correct_slots": {k: summary(v) for k, v in sorted(errors.items())},
         "lateral_cue_latency_s": {"vehicles": len(lag), "p50": pct(lag, .5), "p90": pct(lag, .9), "max": max(lag, default=None)},
         "cut_ins": cutins, "missed_incident_traces": traces, "insertion_speed_artifacts": artifacts,
-        "source": "replay %s" % args.slots if args.slots else "live history"}
+        "source": "replay %s" % str(args.slots).replace(str(Path.home()), "~") if args.slots else "live history"}
     result["criteria"] = criteria(result, errors)
     (args.out / "perception-audit.json").write_text(json.dumps(result, indent=1, sort_keys=True) + "\n")
     with open(args.out / "frame-traces.jsonl", "w") as out:
