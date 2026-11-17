@@ -1,7 +1,7 @@
 """Phase 7A.3: verify raw sensor-frame recordings and replay them, offline, through a chosen tracker.
 
     PYTHONPATH=src venv/bin/python tools/tracker_replay.py verify  CAMPAIGN OUT.json
-    PYTHONPATH=src venv/bin/python tools/tracker_replay.py replay  CAMPAIGN OUT_DIR [--tracker legacy|p1|p1p2]
+    PYTHONPATH=src venv/bin/python tools/tracker_replay.py replay  CAMPAIGN OUT_DIR [--tracker legacy|p1|p1p2|p1p2p4|legacyp4]
     PYTHONPATH=src venv/bin/python tools/tracker_replay.py compare BASELINE_AUDIT.json CANDIDATE_AUDIT.json [...]
     PYTHONPATH=src venv/bin/python tools/tracker_replay.py diff    CAMPAIGN BEFORE_REPLAY AFTER_REPLAY OUT.json
     PYTHONPATH=src venv/bin/python tools/tracker_replay.py confirm CAMPAIGN OUT.json NAME=REPLAY_DIR [...]
@@ -39,10 +39,14 @@ def make_tracker(name):
         return tracking.Tracker(initiation="range_rate")
     if name == "p1p2":
         return tracking.Tracker(initiation="range_rate", estimator="kalman")
+    if name == "p1p2p4":
+        return tracking.Tracker(initiation="range_rate", estimator="kalman", lifecycle="p4")
+    if name == "legacyp4":  # the ablation: P4's lifecycle on the legacy tracker
+        return tracking.Tracker(lifecycle="p4")
     raise ValueError("unknown tracker %r" % name)
 
 
-TRACKERS = ("legacy", "p1", "p1p2")
+TRACKERS = ("legacy", "p1", "p1p2", "p1p2p4", "legacyp4")
 TRUTH_PAIR_M = 3.0  # a detection this close to a vehicle's true centre is a detection of that vehicle (evaluation)
 
 
