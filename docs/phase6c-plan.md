@@ -1,4 +1,16 @@
-# Phase 6C plan: randomized Indian-road scenario generation (proposed, not started)
+# Phase 6C plan: randomized Indian-road scenario generation
+
+**Status 2026-11-17:** implemented locally and piloted (not committed, not deployed). See
+[scenarios.md](scenarios.md) for the implementation, approximations and pilot results. Differences
+from this plan:
+- Left-hand traffic uses the existing net with both edges reversed and `lefthand="true"`, not
+  `netconvert --lefthand`.
+- Decision 1 was taken as option (b), approved: the preferred overtaking side follows the road
+  profile.
+- Decision 3: the autorickshaw is a stand-in drawn as a car.
+- Decision 4: no sublane model.
+- The "known risk" of run-to-run divergence was confirmed, and its root cause remains unknown.
+
 
 Goal: generate many different, reproducible driving scenarios from a seed with Webots and SUMO, record
 **independent simulation ground truth** for each, and collect bulk training datasets on the Mac, so

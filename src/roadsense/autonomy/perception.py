@@ -6,6 +6,7 @@ x (longitudinal) forward and y (lateral) left; bearings are in degrees, positive
 in m/s, times in s of simulation time.
 """
 import math
+import os
 from typing import NamedTuple, Optional
 
 # The RoadSense radars on EGO_ROADSENSE in roadsense_highway.wbt: device name -> (source, ego-frame x, y, facing yaw)
@@ -16,13 +17,33 @@ RADARS = {
 MAX_RANGE_RATE_MPS = 100.0  # a faster Webots range rate is an artefact: the first refresh, or a car SUMO teleports
 EDGE_MARGIN_RAD = 0.005  # azimuths this close to the edge of the field of view are clamped: 5x the angular noise
 
-# roadsense_highway.wbt only: EGO_ROADSENSE's carriageway (road "0") runs toward -x between world y = 1.25 (the
-# median, on the driver's left) and y = 16.25, in four 3.75 m lanes. SUMO keeps the outer lane (y > 12.5) for
-# pedestrians; its cars drive at y = 10.87, 7.03 and 3.18.
+# roadsense_highway.wbt only: EGO_ROADSENSE's carriageway (road "0") lies between world y = 1.25 (the median) and
+# y = 16.25, in four 3.75 m lanes. SUMO keeps the outer lane (y > 12.5) for pedestrians; its cars drive at
+# y = 10.87, 7.03 and 3.18. Lane indices count from the median outward, whichever way the traffic drives.
 CARRIAGEWAY_Y = (1.25, 16.25)
-CARRIAGEWAY_HEADING = math.pi  # EGO_ROADSENSE's direction of travel on it, toward -x
 LANE_WIDTH_M = 3.75
 DRIVING_LANES = 3  # lanes 0 to 2; SUMO keeps lane 3, the outer one, for pedestrians
+# Road profiles: the same carriageway driven in either direction. Toward -x the median is on the driver's left
+# (right-hand traffic, as the world was built); toward +x it is on the driver's right (left-hand traffic, as in
+# India, with the network's edges reversed). Left and right below are always the driver's physical sides.
+ROAD_PROFILES = {"highway": (math.pi, "right"), "highway_lht": (0.0, "left")}  # name: (heading, traffic side)
+
+
+def use_road(name):
+    """Select a road profile for this process (default: ROADSENSE_ROAD_PROFILE, else "highway")."""
+    global ROAD_PROFILE, CARRIAGEWAY_HEADING, TRAFFIC
+    if name not in ROAD_PROFILES:
+        raise ValueError("unknown road profile %r (known: %s)" % (name, ", ".join(sorted(ROAD_PROFILES))))
+    ROAD_PROFILE = name
+    CARRIAGEWAY_HEADING, TRAFFIC = ROAD_PROFILES[name]  # direction of travel; the side traffic keeps to
+
+
+use_road(os.environ.get("ROADSENSE_ROAD_PROFILE", "").strip() or "highway")
+
+
+def right_step():
+    """The lane-index step toward the driver's right: +1 toward -x (y grows to the right), -1 toward +x."""
+    return 1 if math.cos(CARRIAGEWAY_HEADING) < 0 else -1
 
 
 class Detection(NamedTuple):
@@ -76,7 +97,7 @@ def radar_detections(name, targets, limits, t, pose):
 
 
 def lane_index(world_y):
-    """Lane index on EGO_ROADSENSE's carriageway, 0 next to the median and counting rightwards; None off it."""
+    """Lane index on EGO_ROADSENSE's carriageway, 0 next to the median and counting outward; None off it."""
     low, high = CARRIAGEWAY_Y
     return int((world_y - low) // LANE_WIDTH_M) if low <= world_y < high else None
 
@@ -86,7 +107,7 @@ def lane_relation(target_world_y, ego_world_y):
     target, ego = lane_index(target_world_y), lane_index(ego_world_y)
     if target is None or ego is None:
         return "other"
-    return {0: "ego_lane", -1: "left_lane", 1: "right_lane"}.get(target - ego, "other")
+    return {0: "ego_lane", -right_step(): "left_lane", right_step(): "right_lane"}.get(target - ego, "other")
 
 
 def track_report(track, t, pose, ego_velocity):

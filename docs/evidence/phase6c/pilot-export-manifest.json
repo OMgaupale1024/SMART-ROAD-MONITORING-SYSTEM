@@ -1,0 +1,362 @@
+{
+  "data": {
+    "coordinate_frame": "webots_world",
+    "geo": null,
+    "note": "positions are Webots world metres; there are no geographic coordinates",
+    "producer": "webots",
+    "simulated": true
+  },
+  "feature_version": "roadsense.features.v1",
+  "features": [
+    {
+      "description": "ego speed",
+      "name": "ego_speed_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "speed change since the previous processed frame; null on a run's first",
+      "name": "ego_acceleration_mps2",
+      "unit": "m/s^2"
+    },
+    {
+      "description": "ego heading, counter-clockwise from the world +x axis",
+      "name": "ego_heading_deg",
+      "unit": "deg"
+    },
+    {
+      "description": "steering angle, positive right",
+      "name": "ego_steering_rad",
+      "unit": "rad"
+    },
+    {
+      "description": "lane index reported by the producer, 0 next to the median",
+      "name": "ego_lane",
+      "unit": "index"
+    },
+    {
+      "description": "the producer reports a lane change in progress",
+      "name": "ego_lane_change",
+      "unit": "0/1"
+    },
+    {
+      "description": "a driving lane exists to the ego's left (road geometry)",
+      "name": "left_lane_driving",
+      "unit": "0/1"
+    },
+    {
+      "description": "a driving lane exists to the ego's right (road geometry)",
+      "name": "right_lane_driving",
+      "unit": "0/1"
+    },
+    {
+      "description": "confirmed vehicle tracks",
+      "name": "track_count",
+      "unit": "count"
+    },
+    {
+      "description": "lead vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "name": "lead_present",
+      "unit": "0/1"
+    },
+    {
+      "description": "lead vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "name": "lead_lon_m",
+      "unit": "m"
+    },
+    {
+      "description": "lead vehicle: lateral position, positive left",
+      "name": "lead_lat_m",
+      "unit": "m"
+    },
+    {
+      "description": "lead vehicle: relative longitudinal velocity, negative closing from ahead",
+      "name": "lead_v_lon_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "lead vehicle: relative lateral velocity",
+      "name": "lead_v_lat_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "lead vehicle: radar range rate; null when the radar gave none",
+      "name": "lead_range_rate_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "lead vehicle: time since the track was first seen",
+      "name": "lead_age_s",
+      "unit": "s"
+    },
+    {
+      "description": "lead vehicle: time since the track was last measured (0 when measured in this frame)",
+      "name": "lead_unseen_s",
+      "unit": "s"
+    },
+    {
+      "description": "follower vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "name": "follower_present",
+      "unit": "0/1"
+    },
+    {
+      "description": "follower vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "name": "follower_lon_m",
+      "unit": "m"
+    },
+    {
+      "description": "follower vehicle: lateral position, positive left",
+      "name": "follower_lat_m",
+      "unit": "m"
+    },
+    {
+      "description": "follower vehicle: relative longitudinal velocity, negative closing from ahead",
+      "name": "follower_v_lon_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "follower vehicle: relative lateral velocity",
+      "name": "follower_v_lat_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "follower vehicle: radar range rate; null when the radar gave none",
+      "name": "follower_range_rate_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "follower vehicle: time since the track was first seen",
+      "name": "follower_age_s",
+      "unit": "s"
+    },
+    {
+      "description": "follower vehicle: time since the track was last measured (0 when measured in this frame)",
+      "name": "follower_unseen_s",
+      "unit": "s"
+    },
+    {
+      "description": "left vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "name": "left_present",
+      "unit": "0/1"
+    },
+    {
+      "description": "left vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "name": "left_lon_m",
+      "unit": "m"
+    },
+    {
+      "description": "left vehicle: lateral position, positive left",
+      "name": "left_lat_m",
+      "unit": "m"
+    },
+    {
+      "description": "left vehicle: relative longitudinal velocity, negative closing from ahead",
+      "name": "left_v_lon_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "left vehicle: relative lateral velocity",
+      "name": "left_v_lat_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "left vehicle: radar range rate; null when the radar gave none",
+      "name": "left_range_rate_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "left vehicle: time since the track was first seen",
+      "name": "left_age_s",
+      "unit": "s"
+    },
+    {
+      "description": "left vehicle: time since the track was last measured (0 when measured in this frame)",
+      "name": "left_unseen_s",
+      "unit": "s"
+    },
+    {
+      "description": "right vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "name": "right_present",
+      "unit": "0/1"
+    },
+    {
+      "description": "right vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "name": "right_lon_m",
+      "unit": "m"
+    },
+    {
+      "description": "right vehicle: lateral position, positive left",
+      "name": "right_lat_m",
+      "unit": "m"
+    },
+    {
+      "description": "right vehicle: relative longitudinal velocity, negative closing from ahead",
+      "name": "right_v_lon_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "right vehicle: relative lateral velocity",
+      "name": "right_v_lat_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "right vehicle: radar range rate; null when the radar gave none",
+      "name": "right_range_rate_mps",
+      "unit": "m/s"
+    },
+    {
+      "description": "right vehicle: time since the track was first seen",
+      "name": "right_age_s",
+      "unit": "s"
+    },
+    {
+      "description": "right vehicle: time since the track was last measured (0 when measured in this frame)",
+      "name": "right_unseen_s",
+      "unit": "s"
+    },
+    {
+      "description": "an ACTIVE mapped hazard ahead in the ego lane",
+      "name": "hazard_ahead_present",
+      "unit": "0/1"
+    },
+    {
+      "description": "longitudinal distance to the nearest one",
+      "name": "hazard_ahead_distance_m",
+      "unit": "m"
+    },
+    {
+      "description": "its severity: 0 LOW, 1 MEDIUM, 2 HIGH",
+      "name": "hazard_ahead_severity",
+      "unit": "0-2"
+    },
+    {
+      "description": "its map confidence",
+      "name": "hazard_ahead_confidence",
+      "unit": "0-1"
+    },
+    {
+      "description": "ACTIVE mapped hazards ahead within 100 m in the ego or an adjacent lane",
+      "name": "hazards_ahead_100m",
+      "unit": "count"
+    },
+    {
+      "description": "the pipeline's minimum time to collision over all tracks (rule-derived: a model given it can copy the rule)",
+      "name": "derived_min_ttc_s",
+      "unit": "s"
+    },
+    {
+      "description": "tracks the pipeline predicts a conflict with (rule-derived)",
+      "name": "derived_conflicts",
+      "unit": "count"
+    },
+    {
+      "description": "sequence numbers between this state and the previous state the history saw that the processor never accepted; null for a segment's first",
+      "name": "sequence_gap_before",
+      "unit": "count"
+    },
+    {
+      "description": "states between them that the history layer itself dropped",
+      "name": "history_dropped_before",
+      "unit": "count"
+    },
+    {
+      "description": "simulation time since the previous state the history saw; null for a segment's first",
+      "name": "sim_dt_s",
+      "unit": "s"
+    }
+  ],
+  "files": {
+    "decisions.jsonl": {
+      "rows": 411,
+      "sha256": "148a4778e16d64a300bf82635503aefe8977f576ac780fb82ef155ccdd376cc5"
+    },
+    "discontinuities.jsonl": {
+      "rows": 42,
+      "sha256": "af64dfe426671569f1b3f1663e500649db0ea32ff960902a6ec65684fa9ff598"
+    },
+    "hazard_updates.jsonl": {
+      "rows": 54,
+      "sha256": "7b5b23d01d4ec844e1323c9f67a3fb19e0ef4d24ae6f1150bad0d737af5a30c1"
+    },
+    "hazards.jsonl": {
+      "rows": 22,
+      "sha256": "62c8f79bbd17ff535b5ad2e491a0c34bcc199b68b9eaa16c6ee9d4da574247c3"
+    },
+    "processors.jsonl": {
+      "rows": 14,
+      "sha256": "e9b62ad3377459a8d6c337b33badb6949b788ececaa20ffe4d0606f006e776d0"
+    },
+    "samples.jsonl": {
+      "rows": 10524,
+      "sha256": "f2deaaf943803487d4cc9b8f72a6efd8340eb265d78e698709764b92f557bad0"
+    },
+    "segments.jsonl": {
+      "rows": 14,
+      "sha256": "49206f7ebe32dab1a1c152ef9241a8c188b22cd940e66c4473e1bdc3f7e22951"
+    }
+  },
+  "label_provenance": {
+    "ground_truth": false,
+    "kind": "heuristic",
+    "note": "the deterministic safety rule's output for the same frame, not an observed collision outcome; evaluating a model needs independent outcomes (scenario truth) recorded separately",
+    "source": "rule:roadsense.autonomy.safety.decide"
+  },
+  "labels": [
+    {
+      "description": "SAFE, CAUTION, HIGH or CRITICAL from the deterministic safety decision",
+      "name": "overall_risk"
+    },
+    {
+      "description": "MAINTAIN, MONITOR, SLOW_DOWN, BRAKE, EMERGENCY_BRAKE or CONSIDER_LANE_CHANGE",
+      "name": "recommended_action"
+    },
+    {
+      "description": "the decision's target speed",
+      "name": "recommended_speed_kmh"
+    },
+    {
+      "description": "left_lane, right_lane or null",
+      "name": "recommended_lane"
+    },
+    {
+      "description": "vehicle, road_hazard or null",
+      "name": "primary_threat_type"
+    }
+  ],
+  "schema": "roadsense.dataset.v1",
+  "source": {
+    "history_schema": "roadsense.history.v1",
+    "schema_version": 1
+  },
+  "split": {
+    "assignment": {
+      "highway_lht:combined:1": "test",
+      "highway_lht:cut_in:1": "train",
+      "highway_lht:mixed:1": "train",
+      "highway_lht:normal:1": "train",
+      "highway_lht:potholes:1": "train",
+      "highway_lht:sudden_brake:1": "train",
+      "highway_lht:tailgating:1": "train"
+    },
+    "fractions": {
+      "test": 0.15,
+      "train": 0.7,
+      "validation": 0.15
+    },
+    "group_by": "group_map",
+    "groups_per_split": {
+      "test": 1,
+      "train": 6,
+      "validation": 0
+    },
+    "samples_per_split": {
+      "test": 1732,
+      "train": 8792,
+      "validation": 0
+    },
+    "seed": "roadsense",
+    "unit": "group"
+  },
+  "warnings": [
+    "split validation has no group: 7 groups are too few for these fractions"
+  ]
+}

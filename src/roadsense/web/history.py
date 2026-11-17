@@ -387,7 +387,7 @@ FEATURE_COLUMNS = (
     ("ego_acceleration_mps2", "m/s^2", "speed change since the previous processed frame; null on a run's first"),
     ("ego_heading_deg", "deg", "ego heading, counter-clockwise from the world +x axis"),
     ("ego_steering_rad", "rad", "steering angle, positive right"),
-    ("ego_lane", "index", "lane index reported by the producer, 0 next to the median"),
+    ("ego_lane", "index", "lane index reported by the producer (Webots: 0 the kerb-side driving lane, 2 next to the median)"),
     ("ego_lane_change", "0/1", "the producer reports a lane change in progress"),
     ("left_lane_driving", "0/1", "a driving lane exists to the ego's left (road geometry)"),
     ("right_lane_driving", "0/1", "a driving lane exists to the ego's right (road geometry)"),

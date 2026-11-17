@@ -27,7 +27,8 @@ def lane_relation(hazard_world_y, ego_world_y):
         return "unknown"
     if hazard is None:
         return "off_road"
-    return {0: "ego_lane", -1: "left_lane", 1: "right_lane"}.get(hazard - ego, "other_lane")
+    step = perception.right_step()
+    return {0: "ego_lane", -step: "left_lane", step: "right_lane"}.get(hazard - ego, "other_lane")
 
 
 def relative(world_x, world_y, pose):

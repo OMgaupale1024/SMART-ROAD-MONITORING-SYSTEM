@@ -32,9 +32,11 @@ class Policy(NamedTuple):
     lane_change_time_s: float = 4.0
     lane_clearance_m: float = 15.0
     lane_width_m: float = 3.75
+    traffic: str = "right"  # the side traffic keeps to; overtaking is preferred on the other side
 
 
 DEFAULT_POLICY = Policy()
+TRAFFIC = ("right", "left")
 # Assumed crossing speeds as fractions of nominal; not measurements of a pothole's safe speed.
 CROSSING_FRACTIONS = {"LOW": 0.7, "MEDIUM": 0.45, "HIGH": 0.2}
 LANES = ("left_lane", "right_lane")
@@ -68,7 +70,8 @@ def _choice(value, choices):
 def _free_lane(t, speed, reports, hazards, adjacent_lanes, policy):
     """Reject lanes intersecting a conservative swept traffic box over the maneuver window."""
     gap = max(policy.lane_clearance_m, speed * 2.0)
-    for lane in LANES:
+    # Only the order of preference depends on the traffic side: both lanes pass the same checks.
+    for lane in (LANES if policy.traffic == "right" else LANES[::-1]):
         if lane not in adjacent_lanes:
             continue
         if any(h["lane_relation"] == lane for h in hazards):
@@ -139,7 +142,9 @@ def decide(t, ego_speed_mps, assessments, reports, hazard_snapshot, adjacent_lan
     if not isinstance(policy, Policy):
         raise ValueError("expected Policy")
     for name, value in policy._asdict().items():
-        _number(value, name, 0.001, 300)
+        if name != "traffic":
+            _number(value, name, 0.001, 300)
+    _choice(policy.traffic, TRAFFIC)
     _number(policy.minimum_confidence, "minimum confidence", 0, 1)
     if policy.strong_deceleration_mps2 < policy.comfortable_deceleration_mps2:
         raise ValueError("strong deceleration must be at least comfortable deceleration")

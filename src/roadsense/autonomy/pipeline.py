@@ -23,10 +23,10 @@ class Cycle(NamedTuple):
 
 
 class Pipeline:
-    def __init__(self, vehicle_id, policy=safety.DEFAULT_POLICY):
+    def __init__(self, vehicle_id, policy=None):
         self.tracker = tracking.Tracker()
         self.hazard_map = hazard_map.HazardMap(vehicle_id)
-        self.policy = policy
+        self.policy = safety.Policy(traffic=perception.TRAFFIC) if policy is None else policy
         self.previous = None
 
     def process(self, frame):
@@ -59,7 +59,8 @@ def adjacent_lanes(world_y, maneuver, sides):
         return []
     # The side sensors cover the strip alongside the car where the front and rear radars can miss it.
     candidates = []
-    for side, offset in (("left", -1), ("right", 1)):
+    step = perception.right_step()
+    for side, offset in (("left", -step), ("right", step)):
         if lane + offset not in range(perception.DRIVING_LANES):
             continue
         if sides is not None:

@@ -28,6 +28,7 @@
 """RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception, risk,
 road hazards, safety recommendations and an optional live-state stream."""
 
+import os
 import sys
 from pathlib import Path
 
@@ -58,6 +59,20 @@ sensorsNames = [
     "left"]
 sensors = {}
 
+# Road profile (ROADSENSE_ROAD_PROFILE, perception.ROAD_PROFILES): "highway_lht" drives the same lanes toward +x,
+# left-hand traffic. The sample's driving logic below is unchanged; for left-hand traffic its steering is mirrored
+# and its side sensors swapped, so that "toward the median" (its overtaking side) stays right for the car.
+LEFT_HAND = perception.TRAFFIC == "left"
+STEERING_SIGN = -1 if LEFT_HAND else 1
+
+
+def sample_side(name):
+    """The device behind a sample sensor name: left and right swapped in left-hand traffic."""
+    if not LEFT_HAND:
+        return name
+    return name.replace("left", "\0").replace("right", "left").replace("\0", "right")
+
+
 lanePositions = [10.6, 6.875, 3.2]
 currentLane = 1
 overtakingSide = None
@@ -82,7 +97,7 @@ def apply_PID(position, targetPosition):
     # compute angle
     angle = p_coefficient * diff + i_coefficient * apply_PID.integral + d_coefficient * (diff - apply_PID.previousDiff)
     apply_PID.previousDiff = diff
-    return angle
+    return STEERING_SIGN * angle
 
 
 apply_PID.integral = 0
@@ -120,7 +135,7 @@ def reduce_speed_if_vehicle_on_side(speed, side):
 get_filtered_speed.previousSpeeds = []
 driver = Driver()
 for name in sensorsNames:
-    sensors[name] = driver.getDevice("distance sensor " + name)
+    sensors[name] = driver.getDevice("distance sensor " + sample_side(name))
     sensors[name].enable(10)
 
 gps = driver.getDevice("gps")
@@ -148,8 +163,11 @@ hazardCamera.recognitionEnable(RADAR_PERIOD_MS)
 liveConfig = live_publisher.config_from_environment()
 livePublisher = live_publisher.LivePublisher(liveConfig.url, liveConfig.timeout_s) if liveConfig else None
 edgeMode = liveConfig is not None and liveConfig.edge
-localPipeline = None if edgeMode else pipeline.Pipeline(driver.getName(), safety.Policy(nominal_speed_kmh=maxSpeed))
-liveRunId, liveSequence, nextLive, liveState = live_state.new_run_id(), 0, 0.0, None
+localPipeline = None if edgeMode else pipeline.Pipeline(
+    driver.getName(), safety.Policy(nominal_speed_kmh=maxSpeed, traffic=perception.TRAFFIC))
+# ROADSENSE_RUN_ID: a scenario generator names the run, so its ground truth joins the edge history on run id
+liveRunId = os.environ.get("ROADSENSE_RUN_ID", "").strip()[:64] or live_state.new_run_id()
+liveSequence, nextLive, liveState = 0, 0.0, None
 
 
 while driver.step() != -1:
@@ -232,7 +250,8 @@ while driver.step() != -1:
                 for name, radar in radars.items()
             },
             "objects": [(tuple(obj.position), obj.model) for obj in hazardCamera.getRecognitionObjects()],
-            "sides": {side: (sensors[side].getValue(), sensors[side].getMaxValue()) for side in ("left", "right")}
+            "sides": {side: (sensors[sample_side(side)].getValue(), sensors[sample_side(side)].getMaxValue())
+                      for side in ("left", "right")}  # the car's physical sides
             if edgeMode else None,
         }
         if localPipeline is not None:

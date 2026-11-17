@@ -31,12 +31,12 @@ def road(pose):
     lanes = []
     for i in range(int(round((high - low) / perception.LANE_WIDTH_M))):
         centre = low + (i + 0.5) * perception.LANE_WIDTH_M
-        # across the road, positive to the left of its direction: for this carriageway, toward -x, left is -y
+        # across the road, positive to the driver's left: -y when driving toward -x, +y toward +x
         across = math.cos(perception.CARRIAGEWAY_HEADING) * (centre - y)
         lanes.append({"relation": hazard_map.lane_relation(centre, y), "center_lateral_m": round(across, 2),
                       "driving": i < perception.DRIVING_LANES})
     return {"lane_width_m": perception.LANE_WIDTH_M, "heading_deg": round((heading + 180.0) % 360.0 - 180.0, 2),
-            "lanes": lanes}
+            "lanes": lanes, "traffic": perception.TRAFFIC}
 
 
 def build(t, ego, reports, assessments, hazard_snapshot, unified_safety, pose, run_id, sequence, active=True):
