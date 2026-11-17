@@ -5,7 +5,7 @@
 set -u
 PY=${PY:?set PY to the repository venv python}
 R="$HOME/Library/Application Support/RoadSense"; C="$R/campaigns"; A="$R/analysis"
-O="$A/${OUT:-phase7a3-s14-20261118}"; S12="$A/phase7a3-s12-20261117"  # OUT: P4 v1 s14, v2 s14b
+O="$A/${OUT:-phase7a3-s14-20261118}"; S12="$A/phase7a3-s12-20261117"  # OUT: P4 v1 s14, v2a s14b, v2b s14c, v2 (final) s14d
 T=tools/tracker_replay.py; F=tools/track_failures.py
 export PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1
 campaign() { case $1 in stage1) echo "$C/phase7a3-recording-20261117";; *) echo "$C/phase7a3-s9-$1-20261117";; esac; }

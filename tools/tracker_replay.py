@@ -408,7 +408,9 @@ def confirm(campaign, out, replays):
 
 def bench(source, out):
     """Tracker.update cost per radar cycle on captured frames, each tracker, then (a separate pass, as tracing slows
-    everything) the most memory the tracker's own objects hold; standard library only."""
+    everything) the most memory the tracker's own objects hold; standard library only. Each tracker's state after
+    every cycle (id, status, position, velocity) is hashed outside the timed call, rounded to 1e-6 and to 1e-3, so
+    two machines can be compared for numerical agreement."""
     import tracemalloc
     sys.modules.update(pydantic=None, fastapi=None)
     from roadsense.autonomy import perception, tracking
@@ -426,6 +428,7 @@ def bench(source, out):
     result = {}
     for name in TRACKERS:
         cost, held, most = [], 0, 0
+        digests = {places: hashlib.sha256() for places in (6, 3)}
         for path in paths:
             tracker = make_tracker(name)
             for t, detections, pose, velocity in cycles(path):
@@ -433,6 +436,11 @@ def bench(source, out):
                 tracker.update(t, detections, pose=pose, ego_velocity=velocity)
                 cost.append((time.perf_counter_ns() - start) / 1000)
                 most = max(most, len(tracker.tracks))
+                for places, digest in digests.items():
+                    digest.update(repr([(tr.track_id, getattr(tr, "status", None),
+                                         [round(c, places) for c in tr.position_at(t)],
+                                         tr.velocity and [round(c, places) for c in tr.velocity])
+                                        for tr in tracker.tracks]).encode())
         tracemalloc.start()
         for path in paths:
             tracker = make_tracker(name)
@@ -447,7 +455,8 @@ def bench(source, out):
         result[name] = {"frames": len(cost), "files": len(paths), "mean_us": round(statistics.fmean(cost), 2),
                         **{"p%d_us" % q: round(cost[min(len(cost) - 1, int(q / 100 * len(cost)))], 2)
                            for q in (50, 95, 99)}, "max_us": round(cost[-1], 2),
-                        "most_tracks": most, "tracker_memory_peak_kib": round(held / 1024, 1)}
+                        "most_tracks": most, "tracker_memory_peak_kib": round(held / 1024, 1),
+                        "state_sha256": {"1e-%d" % k: d.hexdigest() for k, d in digests.items()}}
     import platform
     result.update(platform=platform.platform(), python=platform.python_version(), offline=True)
     out.write_text(json.dumps(result, indent=1, sort_keys=True) + "\n")
