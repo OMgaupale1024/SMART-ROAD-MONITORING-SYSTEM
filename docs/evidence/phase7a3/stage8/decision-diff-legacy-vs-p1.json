@@ -1,0 +1,192 @@
+{
+ "schema": "roadsense.decision-diff.v2",
+ "before": "legacy",
+ "after": "p1",
+ "frames": 16618,
+ "changed": 8,
+ "summary": {
+  "lowered; forward near miss within 3 s: False": 6,
+  "lowered; forward near miss within 3 s: True": 2,
+  "lowered; oracle agrees with: after": 4,
+  "lowered; oracle agrees with: before": 4
+ },
+ "truth": "evaluation only",
+ "cases": [
+  {
+   "run_id": "lht-combined-1127-807e05579f11",
+   "sequence": 140,
+   "sim_s": 28.0,
+   "before": "HIGH/BRAKE",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": false,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": 17.86,
+    "lat_m": -8.76,
+    "rel_lat_mps": 6.77,
+    "ttc_s": 0.98,
+    "truth_vehicle": "v266",
+    "truth_type": "motorcycle",
+    "truth_rel_lat_mps": 1.2663109173297058
+   },
+   "after_threat": null,
+   "oracle": "SAFE/MAINTAIN",
+   "agrees_with_oracle": "after"
+  },
+  {
+   "run_id": "lht-cut_in-1118-368a6f105bbd",
+   "sequence": 462,
+   "sim_s": 92.4,
+   "before": "HIGH/BRAKE",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": false,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": 68.5,
+    "lat_m": -13.58,
+    "rel_lat_mps": 7.01,
+    "ttc_s": 1.9,
+    "truth_vehicle": "v163",
+    "truth_type": "motorcycle",
+    "truth_rel_lat_mps": 0.0
+   },
+   "after_threat": null,
+   "oracle": "SAFE/MAINTAIN",
+   "agrees_with_oracle": "after"
+  },
+  {
+   "run_id": "lht-cut_in-1126-36ad3b1d74b7",
+   "sequence": 332,
+   "sim_s": 66.4,
+   "before": "CAUTION/SLOW_DOWN",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": true,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": 63.25,
+    "lat_m": -4.02,
+    "rel_lat_mps": 0.59,
+    "ttc_s": 3.74,
+    "truth_vehicle": "v476",
+    "truth_type": "motorcycle",
+    "truth_rel_lat_mps": -0.9216073659871863
+   },
+   "after_threat": null,
+   "oracle": "SAFE/MAINTAIN",
+   "agrees_with_oracle": "after"
+  },
+  {
+   "run_id": "lht-cut_in-1126-36ad3b1d74b7",
+   "sequence": 333,
+   "sim_s": 66.6,
+   "before": "CAUTION/SLOW_DOWN",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": true,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": 59.8,
+    "lat_m": -3.58,
+    "rel_lat_mps": 0.75,
+    "ttc_s": 3.22,
+    "truth_vehicle": "v476",
+    "truth_type": "motorcycle",
+    "truth_rel_lat_mps": -0.9595779828754543
+   },
+   "after_threat": null,
+   "oracle": "SAFE/MAINTAIN",
+   "agrees_with_oracle": "after"
+  },
+  {
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "sequence": 233,
+   "sim_s": 46.6,
+   "before": "CAUTION/SLOW_DOWN",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": false,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": -46.75,
+    "lat_m": -5.02,
+    "rel_lat_mps": 0.8,
+    "ttc_s": 3.87,
+    "truth_vehicle": "v107",
+    "truth_type": "car",
+    "truth_rel_lat_mps": 1.1777277983568788
+   },
+   "after_threat": null,
+   "oracle": "CAUTION/SLOW_DOWN",
+   "agrees_with_oracle": "before"
+  },
+  {
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "sequence": 234,
+   "sim_s": 46.8,
+   "before": "CAUTION/SLOW_DOWN",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": false,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": -44.98,
+    "lat_m": -4.74,
+    "rel_lat_mps": 0.69,
+    "ttc_s": 3.91,
+    "truth_vehicle": "v107",
+    "truth_type": "car",
+    "truth_rel_lat_mps": 1.0875915870701514
+   },
+   "after_threat": null,
+   "oracle": "CAUTION/SLOW_DOWN",
+   "agrees_with_oracle": "before"
+  },
+  {
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "sequence": 235,
+   "sim_s": 47.0,
+   "before": "CAUTION/SLOW_DOWN",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": false,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": -42.71,
+    "lat_m": -4.46,
+    "rel_lat_mps": 0.65,
+    "ttc_s": 3.64,
+    "truth_vehicle": "v107",
+    "truth_type": "car",
+    "truth_rel_lat_mps": 1.0155275886702857
+   },
+   "after_threat": null,
+   "oracle": "CAUTION/SLOW_DOWN",
+   "agrees_with_oracle": "before"
+  },
+  {
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "sequence": 236,
+   "sim_s": 47.2,
+   "before": "CAUTION/SLOW_DOWN",
+   "after": "SAFE/MAINTAIN",
+   "direction": "lowered",
+   "forward_near_miss_within_3s": false,
+   "at_or_after_first_collision_proxy": false,
+   "before_threat": {
+    "lon_m": -40.78,
+    "lat_m": -4.11,
+    "rel_lat_mps": 0.7,
+    "ttc_s": 3.44,
+    "truth_vehicle": "v107",
+    "truth_type": "car",
+    "truth_rel_lat_mps": 0.9532500697912037
+   },
+   "after_threat": null,
+   "oracle": "CAUTION/SLOW_DOWN",
+   "agrees_with_oracle": "before"
+  }
+ ]
+}

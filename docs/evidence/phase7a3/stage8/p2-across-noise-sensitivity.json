@@ -1,0 +1,94 @@
+{
+ "schema": "roadsense.p2-sensitivity.v1",
+ "what": "P1+P2 replayed on the 16,618 Stage 1 frames with only the across-road process noise changed; the committed value 1.0 m/s^2 was fixed from lane-change kinematics before this sweep and not changed after it",
+ "runs": [
+  {
+   "KF_ACCEL_ACROSS_MPS2": 0.25,
+   "criteria": {
+    "adjacent_wrong": 0.1268,
+    "adjacent_wrong_left_right": [
+     0.0773,
+     0.1268
+    ],
+    "cue_p50": 0.8,
+    "cue_p90": 2.4,
+    "false_lateral_all": 0.0869,
+    "false_lateral_young": 0.2779,
+    "identity_per_1000": 3.673,
+    "lat_mae": 0.325,
+    "lon_mae": 1.563,
+    "max_range_far": 0.2404,
+    "max_speed_100m": 0.1875,
+    "max_type_100m": 0.0377,
+    "vlat_motion_mae": 0.507,
+    "vlat_motion_p95": 1.793
+   }
+  },
+  {
+   "KF_ACCEL_ACROSS_MPS2": 0.5,
+   "criteria": {
+    "adjacent_wrong": 0.1333,
+    "adjacent_wrong_left_right": [
+     0.0795,
+     0.1333
+    ],
+    "cue_p50": 0.8,
+    "cue_p90": 2.2,
+    "false_lateral_all": 0.0865,
+    "false_lateral_young": 0.2756,
+    "identity_per_1000": 4.322,
+    "lat_mae": 0.317,
+    "lon_mae": 1.562,
+    "max_range_far": 0.2374,
+    "max_speed_100m": 0.1875,
+    "max_type_100m": 0.0351,
+    "vlat_motion_mae": 0.501,
+    "vlat_motion_p95": 1.788
+   }
+  },
+  {
+   "KF_ACCEL_ACROSS_MPS2": 1.0,
+   "criteria": {
+    "adjacent_wrong": 0.1284,
+    "adjacent_wrong_left_right": [
+     0.0811,
+     0.1284
+    ],
+    "cue_p50": 0.6,
+    "cue_p90": 2.4,
+    "false_lateral_all": 0.0847,
+    "false_lateral_young": 0.284,
+    "identity_per_1000": 4.089,
+    "lat_mae": 0.313,
+    "lon_mae": 1.561,
+    "max_range_far": 0.2344,
+    "max_speed_100m": 0.1875,
+    "max_type_100m": 0.0349,
+    "vlat_motion_mae": 0.509,
+    "vlat_motion_p95": 1.803
+   }
+  },
+  {
+   "KF_ACCEL_ACROSS_MPS2": 2.0,
+   "criteria": {
+    "adjacent_wrong": 0.127,
+    "adjacent_wrong_left_right": [
+     0.0814,
+     0.127
+    ],
+    "cue_p50": 0.4,
+    "cue_p90": 2.4,
+    "false_lateral_all": 0.1014,
+    "false_lateral_young": 0.2934,
+    "identity_per_1000": 4.229,
+    "lat_mae": 0.312,
+    "lon_mae": 1.561,
+    "max_range_far": 0.2313,
+    "max_speed_100m": 0.1875,
+    "max_type_100m": 0.0356,
+    "vlat_motion_mae": 0.502,
+    "vlat_motion_p95": 1.788
+   }
+  }
+ ]
+}

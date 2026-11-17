@@ -1,0 +1,1427 @@
+{
+ "schema": "roadsense.track-confirmation.v1",
+ "trackers": [
+  "legacy",
+  "p1",
+  "p1p2"
+ ],
+ "episode_gap_s": 1.0,
+ "confirmable_span_s": 1.0,
+ "by_true_speed": {
+  "00-05 m/s": {
+   "episodes": 7,
+   "independent_runs": 3,
+   "legacy": {
+    "within_0_6_s": 1.0,
+    "within_1_0_s": 1.0,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 0.4
+   },
+   "p1": {
+    "within_0_6_s": 1.0,
+    "within_1_0_s": 1.0,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 0.4
+   },
+   "p1p2": {
+    "within_0_6_s": 1.0,
+    "within_1_0_s": 1.0,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 0.4
+   }
+  },
+  "05-10 m/s": {
+   "episodes": 117,
+   "independent_runs": 16,
+   "legacy": {
+    "within_0_6_s": 0.9487,
+    "within_1_0_s": 0.9658,
+    "never": 1,
+    "p50_s": 0.4,
+    "max_s": 1.6
+   },
+   "p1": {
+    "within_0_6_s": 0.9487,
+    "within_1_0_s": 0.9658,
+    "never": 1,
+    "p50_s": 0.4,
+    "max_s": 1.6
+   },
+   "p1p2": {
+    "within_0_6_s": 0.9487,
+    "within_1_0_s": 0.9658,
+    "never": 1,
+    "p50_s": 0.4,
+    "max_s": 1.6
+   }
+  },
+  "10-15 m/s": {
+   "episodes": 837,
+   "independent_runs": 30,
+   "legacy": {
+    "within_0_6_s": 0.9701,
+    "within_1_0_s": 0.9773,
+    "never": 2,
+    "p50_s": 0.4,
+    "max_s": 1.6
+   },
+   "p1": {
+    "within_0_6_s": 0.9761,
+    "within_1_0_s": 0.9785,
+    "never": 2,
+    "p50_s": 0.4,
+    "max_s": 1.6
+   },
+   "p1p2": {
+    "within_0_6_s": 0.9761,
+    "within_1_0_s": 0.9785,
+    "never": 2,
+    "p50_s": 0.4,
+    "max_s": 1.6
+   }
+  },
+  "15-20 m/s": {
+   "episodes": 392,
+   "independent_runs": 21,
+   "legacy": {
+    "within_0_6_s": 0.9821,
+    "within_1_0_s": 0.9974,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 1.4
+   },
+   "p1": {
+    "within_0_6_s": 1.0,
+    "within_1_0_s": 1.0,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 0.6
+   },
+   "p1p2": {
+    "within_0_6_s": 1.0,
+    "within_1_0_s": 1.0,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 0.6
+   }
+  },
+  "20-25 m/s": {
+   "episodes": 413,
+   "independent_runs": 22,
+   "legacy": {
+    "within_0_6_s": 0.6538,
+    "within_1_0_s": 0.7821,
+    "never": 10,
+    "p50_s": 0.4,
+    "max_s": 3.4
+   },
+   "p1": {
+    "within_0_6_s": 0.9806,
+    "within_1_0_s": 0.9806,
+    "never": 1,
+    "p50_s": 0.4,
+    "max_s": 1.8
+   },
+   "p1p2": {
+    "within_0_6_s": 0.9806,
+    "within_1_0_s": 0.9806,
+    "never": 1,
+    "p50_s": 0.4,
+    "max_s": 1.8
+   }
+  },
+  "25-30 m/s": {
+   "episodes": 94,
+   "independent_runs": 11,
+   "legacy": {
+    "within_0_6_s": 0.0426,
+    "within_1_0_s": 0.0851,
+    "never": 55,
+    "p50_s": 2.2,
+    "max_s": 5.8
+   },
+   "p1": {
+    "within_0_6_s": 1.0,
+    "within_1_0_s": 1.0,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 0.6
+   },
+   "p1p2": {
+    "within_0_6_s": 1.0,
+    "within_1_0_s": 1.0,
+    "never": 0,
+    "p50_s": 0.4,
+    "max_s": 0.6
+   }
+  }
+ },
+ "episodes_at_or_above_25_mps": [
+  {
+   "run_id": "lht-cut_in-1106-467095345ca7",
+   "vehicle": "v182",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 4.6,
+   "speed_mps": 25.93,
+   "range_m": 88.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.0
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "vehicle": "v190",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 4.6,
+   "speed_mps": 25.8,
+   "range_m": 96.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 0.6
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "vehicle": "v196",
+   "type": "car",
+   "start": 23.6,
+   "last_detected": 26.6,
+   "speed_mps": 25.23,
+   "range_m": 50.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.2
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+   "vehicle": "v107",
+   "type": "car",
+   "start": 43.6,
+   "last_detected": 104.0,
+   "speed_mps": 25.55,
+   "range_m": 84.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.6
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v0",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 2.2,
+   "speed_mps": 26.41,
+   "range_m": 122.6,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.6
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v52",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 3.4,
+   "speed_mps": 25.97,
+   "range_m": 118.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v318",
+   "type": "car",
+   "start": 20.6,
+   "last_detected": 24.4,
+   "speed_mps": 25.42,
+   "range_m": 148.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v310",
+   "type": "car",
+   "start": 35.2,
+   "last_detected": 39.0,
+   "speed_mps": 26.6,
+   "range_m": 150.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v309",
+   "type": "car",
+   "start": 36.8,
+   "last_detected": 40.4,
+   "speed_mps": 26.82,
+   "range_m": 147.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v306",
+   "type": "car",
+   "start": 43.8,
+   "last_detected": 47.6,
+   "speed_mps": 26.98,
+   "range_m": 151.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v302",
+   "type": "car",
+   "start": 54.6,
+   "last_detected": 58.2,
+   "speed_mps": 26.97,
+   "range_m": 148.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v299",
+   "type": "car",
+   "start": 63.0,
+   "last_detected": 66.6,
+   "speed_mps": 26.88,
+   "range_m": 144.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v296",
+   "type": "car",
+   "start": 70.6,
+   "last_detected": 74.2,
+   "speed_mps": 26.87,
+   "range_m": 145.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v294",
+   "type": "car",
+   "start": 77.0,
+   "last_detected": 80.6,
+   "speed_mps": 26.79,
+   "range_m": 149.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v292",
+   "type": "car",
+   "start": 80.4,
+   "last_detected": 84.0,
+   "speed_mps": 26.87,
+   "range_m": 145.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1111-01219770f0cb",
+   "vehicle": "v290",
+   "type": "car",
+   "start": 83.2,
+   "last_detected": 86.8,
+   "speed_mps": 26.94,
+   "range_m": 147.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.0
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v173",
+   "type": "car",
+   "start": 7.4,
+   "last_detected": 10.6,
+   "speed_mps": 26.97,
+   "range_m": 146.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.0
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v142",
+   "type": "car",
+   "start": 16.8,
+   "last_detected": 20.2,
+   "speed_mps": 26.98,
+   "range_m": 150.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v170",
+   "type": "car",
+   "start": 20.6,
+   "last_detected": 23.8,
+   "speed_mps": 26.96,
+   "range_m": 144.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.2
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v107",
+   "type": "car",
+   "start": 25.0,
+   "last_detected": 28.4,
+   "speed_mps": 26.83,
+   "range_m": 151.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v105",
+   "type": "car",
+   "start": 33.2,
+   "last_detected": 36.4,
+   "speed_mps": 26.91,
+   "range_m": 144.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v104",
+   "type": "car",
+   "start": 37.0,
+   "last_detected": 40.4,
+   "speed_mps": 26.35,
+   "range_m": 150.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v133",
+   "type": "car",
+   "start": 51.0,
+   "last_detected": 54.0,
+   "speed_mps": 26.75,
+   "range_m": 147.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v128",
+   "type": "car",
+   "start": 68.0,
+   "last_detected": 71.4,
+   "speed_mps": 26.9,
+   "range_m": 148.6,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v157",
+   "type": "car",
+   "start": 73.4,
+   "last_detected": 76.8,
+   "speed_mps": 26.88,
+   "range_m": 148.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v156",
+   "type": "car",
+   "start": 78.4,
+   "last_detected": 81.8,
+   "speed_mps": 26.84,
+   "range_m": 149.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v153",
+   "type": "car",
+   "start": 92.8,
+   "last_detected": 96.2,
+   "speed_mps": 26.65,
+   "range_m": 147.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+   "vehicle": "v119",
+   "type": "car",
+   "start": 105.0,
+   "last_detected": 108.4,
+   "speed_mps": 25.51,
+   "range_m": 151.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v311",
+   "type": "car",
+   "start": 16.8,
+   "last_detected": 18.8,
+   "speed_mps": 26.83,
+   "range_m": 81.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v297",
+   "type": "car",
+   "start": 41.2,
+   "last_detected": 44.8,
+   "speed_mps": 26.76,
+   "range_m": 147.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v193",
+   "type": "car",
+   "start": 42.4,
+   "last_detected": 46.0,
+   "speed_mps": 26.45,
+   "range_m": 148.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v233",
+   "type": "car",
+   "start": 68.2,
+   "last_detected": 71.8,
+   "speed_mps": 26.76,
+   "range_m": 146.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v232",
+   "type": "car",
+   "start": 71.0,
+   "last_detected": 74.8,
+   "speed_mps": 26.03,
+   "range_m": 152.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v236",
+   "type": "car",
+   "start": 72.0,
+   "last_detected": 75.8,
+   "speed_mps": 25.9,
+   "range_m": 148.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 0.6
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v237",
+   "type": "car",
+   "start": 74.4,
+   "last_detected": 76.6,
+   "speed_mps": 25.87,
+   "range_m": 92.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v281",
+   "type": "car",
+   "start": 84.4,
+   "last_detected": 88.4,
+   "speed_mps": 25.04,
+   "range_m": 149.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v225",
+   "type": "car",
+   "start": 85.4,
+   "last_detected": 89.2,
+   "speed_mps": 25.22,
+   "range_m": 146.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v244",
+   "type": "car",
+   "start": 86.2,
+   "last_detected": 90.2,
+   "speed_mps": 25.38,
+   "range_m": 150.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.8
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v249",
+   "type": "car",
+   "start": 86.6,
+   "last_detected": 88.6,
+   "speed_mps": 25.37,
+   "range_m": 106.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v278",
+   "type": "car",
+   "start": 90.8,
+   "last_detected": 94.4,
+   "speed_mps": 26.78,
+   "range_m": 148.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1116-9be20d2b7417",
+   "vehicle": "v173",
+   "type": "car",
+   "start": 92.6,
+   "last_detected": 96.2,
+   "speed_mps": 26.68,
+   "range_m": 147.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1117-719e692b4686",
+   "vehicle": "v254",
+   "type": "car",
+   "start": 68.8,
+   "last_detected": 71.6,
+   "speed_mps": 26.93,
+   "range_m": 151.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.8
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1117-719e692b4686",
+   "vehicle": "v234",
+   "type": "car",
+   "start": 75.0,
+   "last_detected": 78.0,
+   "speed_mps": 26.85,
+   "range_m": 150.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1117-719e692b4686",
+   "vehicle": "v96",
+   "type": "car",
+   "start": 83.6,
+   "last_detected": 105.4,
+   "speed_mps": 26.53,
+   "range_m": 33.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.0
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1117-719e692b4686",
+   "vehicle": "v229",
+   "type": "car",
+   "start": 84.4,
+   "last_detected": 87.2,
+   "speed_mps": 26.96,
+   "range_m": 149.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1117-719e692b4686",
+   "vehicle": "v289",
+   "type": "car",
+   "start": 92.4,
+   "last_detected": 95.2,
+   "speed_mps": 26.88,
+   "range_m": 148.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1117-719e692b4686",
+   "vehicle": "v358",
+   "type": "car",
+   "start": 97.6,
+   "last_detected": 100.4,
+   "speed_mps": 26.84,
+   "range_m": 148.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-combined-1120-0e86d60588e6",
+   "vehicle": "v0",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 5.4,
+   "speed_mps": 26.89,
+   "range_m": 70.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.6
+   }
+  },
+  {
+   "run_id": "lht-combined-1120-0e86d60588e6",
+   "vehicle": "v235",
+   "type": "car",
+   "start": 3.8,
+   "last_detected": 7.2,
+   "speed_mps": 26.95,
+   "range_m": 138.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-combined-1120-0e86d60588e6",
+   "vehicle": "v191",
+   "type": "car",
+   "start": 18.8,
+   "last_detected": 22.4,
+   "speed_mps": 26.86,
+   "range_m": 149.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-combined-1120-0e86d60588e6",
+   "vehicle": "v189",
+   "type": "car",
+   "start": 27.2,
+   "last_detected": 30.8,
+   "speed_mps": 26.8,
+   "range_m": 148.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-combined-1120-0e86d60588e6",
+   "vehicle": "v187",
+   "type": "car",
+   "start": 35.4,
+   "last_detected": 39.4,
+   "speed_mps": 26.79,
+   "range_m": 146.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.8
+   }
+  },
+  {
+   "run_id": "lht-combined-1120-0e86d60588e6",
+   "vehicle": "v178",
+   "type": "car",
+   "start": 61.6,
+   "last_detected": 65.4,
+   "speed_mps": 25.39,
+   "range_m": 145.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.8
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1123-d182c2e45275",
+   "vehicle": "v54",
+   "type": "car",
+   "start": 76.0,
+   "last_detected": 78.8,
+   "speed_mps": 25.55,
+   "range_m": 150.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1123-d182c2e45275",
+   "vehicle": "v69",
+   "type": "car",
+   "start": 91.4,
+   "last_detected": 94.2,
+   "speed_mps": 26.36,
+   "range_m": 148.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v0",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 8.0,
+   "speed_mps": 26.98,
+   "range_m": 71.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 5.8
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v3",
+   "type": "car",
+   "start": 7.4,
+   "last_detected": 9.4,
+   "speed_mps": 25.53,
+   "range_m": 135.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 0.8
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v272",
+   "type": "car",
+   "start": 33.8,
+   "last_detected": 36.6,
+   "speed_mps": 26.99,
+   "range_m": 150.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v10",
+   "type": "car",
+   "start": 39.4,
+   "last_detected": 95.6,
+   "speed_mps": 26.15,
+   "range_m": 25.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 0.6
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v268",
+   "type": "car",
+   "start": 40.6,
+   "last_detected": 43.4,
+   "speed_mps": 26.8,
+   "range_m": 149.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v11",
+   "type": "car",
+   "start": 41.8,
+   "last_detected": 95.6,
+   "speed_mps": 26.05,
+   "range_m": 19.5,
+   "latency_s": {
+    "p1": 0.6,
+    "p1p2": 0.6,
+    "legacy": 0.8
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v251",
+   "type": "car",
+   "start": 67.4,
+   "last_detected": 70.2,
+   "speed_mps": 26.86,
+   "range_m": 146.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1124-104c033c3b57",
+   "vehicle": "v295",
+   "type": "car",
+   "start": 86.6,
+   "last_detected": 89.4,
+   "speed_mps": 26.85,
+   "range_m": 149.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+   "vehicle": "v0",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 2.0,
+   "speed_mps": 26.97,
+   "range_m": 122.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+   "vehicle": "v180",
+   "type": "car",
+   "start": 2.8,
+   "last_detected": 6.4,
+   "speed_mps": 25.7,
+   "range_m": 145.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.0
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+   "vehicle": "v179",
+   "type": "car",
+   "start": 7.0,
+   "last_detected": 10.4,
+   "speed_mps": 26.91,
+   "range_m": 149.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+   "vehicle": "v146",
+   "type": "car",
+   "start": 15.8,
+   "last_detected": 19.2,
+   "speed_mps": 26.86,
+   "range_m": 149.6,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+   "vehicle": "v176",
+   "type": "car",
+   "start": 16.8,
+   "last_detected": 20.2,
+   "speed_mps": 26.91,
+   "range_m": 151.1,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+   "vehicle": "v145",
+   "type": "car",
+   "start": 19.0,
+   "last_detected": 22.2,
+   "speed_mps": 26.97,
+   "range_m": 144.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v82",
+   "type": "car",
+   "start": 0.8,
+   "last_detected": 5.4,
+   "speed_mps": 26.49,
+   "range_m": 85.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v201",
+   "type": "car",
+   "start": 5.6,
+   "last_detected": 8.8,
+   "speed_mps": 26.76,
+   "range_m": 144.6,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v162",
+   "type": "car",
+   "start": 10.4,
+   "last_detected": 13.6,
+   "speed_mps": 27.0,
+   "range_m": 147.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v197",
+   "type": "car",
+   "start": 18.8,
+   "last_detected": 22.2,
+   "speed_mps": 27.02,
+   "range_m": 150.2,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v159",
+   "type": "car",
+   "start": 19.6,
+   "last_detected": 23.0,
+   "speed_mps": 26.81,
+   "range_m": 149.4,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v158",
+   "type": "car",
+   "start": 20.8,
+   "last_detected": 24.2,
+   "speed_mps": 26.84,
+   "range_m": 150.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v196",
+   "type": "car",
+   "start": 21.8,
+   "last_detected": 25.0,
+   "speed_mps": 26.93,
+   "range_m": 146.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v194",
+   "type": "car",
+   "start": 28.8,
+   "last_detected": 32.2,
+   "speed_mps": 25.8,
+   "range_m": 152.3,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v154",
+   "type": "car",
+   "start": 29.2,
+   "last_detected": 32.4,
+   "speed_mps": 26.91,
+   "range_m": 144.4,
+   "latency_s": {
+    "legacy": 0.2,
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v189",
+   "type": "car",
+   "start": 46.4,
+   "last_detected": 49.6,
+   "speed_mps": 26.51,
+   "range_m": 146.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v185",
+   "type": "car",
+   "start": 60.8,
+   "last_detected": 64.2,
+   "speed_mps": 25.25,
+   "range_m": 148.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v226",
+   "type": "car",
+   "start": 63.0,
+   "last_detected": 66.4,
+   "speed_mps": 25.42,
+   "range_m": 149.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v138",
+   "type": "car",
+   "start": 76.4,
+   "last_detected": 79.6,
+   "speed_mps": 26.98,
+   "range_m": 144.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v178",
+   "type": "car",
+   "start": 78.4,
+   "last_detected": 81.8,
+   "speed_mps": 26.91,
+   "range_m": 147.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v217",
+   "type": "car",
+   "start": 84.2,
+   "last_detected": 87.6,
+   "speed_mps": 26.81,
+   "range_m": 148.8,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v176",
+   "type": "car",
+   "start": 85.2,
+   "last_detected": 88.6,
+   "speed_mps": 26.64,
+   "range_m": 147.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v215",
+   "type": "car",
+   "start": 91.0,
+   "last_detected": 94.4,
+   "speed_mps": 26.82,
+   "range_m": 149.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v214",
+   "type": "car",
+   "start": 92.0,
+   "last_detected": 95.2,
+   "speed_mps": 26.86,
+   "range_m": 145.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v173",
+   "type": "car",
+   "start": 95.2,
+   "last_detected": 98.6,
+   "speed_mps": 26.01,
+   "range_m": 144.6,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v174",
+   "type": "car",
+   "start": 96.0,
+   "last_detected": 99.4,
+   "speed_mps": 25.8,
+   "range_m": 145.7,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v211",
+   "type": "car",
+   "start": 102.0,
+   "last_detected": 105.6,
+   "speed_mps": 25.93,
+   "range_m": 152.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v128",
+   "type": "car",
+   "start": 106.2,
+   "last_detected": 109.8,
+   "speed_mps": 25.03,
+   "range_m": 149.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.6
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v206",
+   "type": "car",
+   "start": 114.4,
+   "last_detected": 117.8,
+   "speed_mps": 26.28,
+   "range_m": 147.0,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 2.4
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v205",
+   "type": "car",
+   "start": 115.2,
+   "last_detected": 118.6,
+   "speed_mps": 26.26,
+   "range_m": 147.9,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 1.2
+   }
+  },
+  {
+   "run_id": "lht-cut_in-1131-749154c2558a",
+   "vehicle": "v167",
+   "type": "car",
+   "start": 116.8,
+   "last_detected": 120.2,
+   "speed_mps": 26.32,
+   "range_m": 149.5,
+   "latency_s": {
+    "p1": 0.4,
+    "p1p2": 0.4,
+    "legacy": 3.4
+   }
+  }
+ ],
+ "short_episodes_excluded": 428,
+ "truth": "evaluation only"
+}

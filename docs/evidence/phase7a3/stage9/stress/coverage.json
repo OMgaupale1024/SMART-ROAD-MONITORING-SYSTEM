@@ -1,0 +1,108 @@
+{
+ "schema": "roadsense.stage9-coverage.v1",
+ "observable": "tools/perception_audit.py, cross-checked",
+ "bands": {
+  "within_100m": {
+   "05-10 m/s": {
+    "observable_frames": 1,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "10-15 m/s": {
+    "observable_frames": 307,
+    "vehicles": 6,
+    "runs": 3
+   },
+   "15-20 m/s": {
+    "observable_frames": 80,
+    "vehicles": 3,
+    "runs": 3
+   },
+   "20-25 m/s": {
+    "observable_frames": 709,
+    "vehicles": 2,
+    "runs": 2
+   },
+   "25-30 m/s": {
+    "observable_frames": 21,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "30-35 m/s": {
+    "observable_frames": 5,
+    "vehicles": 2,
+    "runs": 2
+   }
+  },
+  "any_range": {
+   "05-10 m/s": {
+    "observable_frames": 1,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "10-15 m/s": {
+    "observable_frames": 307,
+    "vehicles": 6,
+    "runs": 3
+   },
+   "15-20 m/s": {
+    "observable_frames": 80,
+    "vehicles": 3,
+    "runs": 3
+   },
+   "20-25 m/s": {
+    "observable_frames": 709,
+    "vehicles": 2,
+    "runs": 2
+   },
+   "25-30 m/s": {
+    "observable_frames": 30,
+    "vehicles": 2,
+    "runs": 2
+   },
+   "30-35 m/s": {
+    "observable_frames": 26,
+    "vehicles": 2,
+    "runs": 2
+   }
+  }
+ },
+ "above_25_mps": {
+  "within_100m": {
+   "observable_frames": 26,
+   "vehicles": 2,
+   "runs": 2
+  },
+  "any_range": {
+   "observable_frames": 56,
+   "vehicles": 3,
+   "runs": 3
+  }
+ },
+ "above_30_mps": {
+  "within_100m": {
+   "observable_frames": 5,
+   "vehicles": 2,
+   "runs": 2
+  },
+  "any_range": {
+   "observable_frames": 26,
+   "vehicles": 2,
+   "runs": 2
+  }
+ },
+ "above_25_mps_within_100m_by_builder": {
+  "sudden": {
+   "observable_frames": 26,
+   "vehicles": 2,
+   "runs": 2
+  }
+ },
+ "adequacy_thresholds": {
+  "frames_25": 2000,
+  "vehicles_25": 100,
+  "runs_25": 10,
+  "frames_30": 200
+ },
+ "adequate": false
+}

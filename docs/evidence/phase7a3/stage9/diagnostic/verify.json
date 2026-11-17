@@ -1,0 +1,72 @@
+{
+ "runs": {
+  "lht-cut_in-11-300e924cfb8e": {
+   "duration_s": 113.2,
+   "example": null,
+   "frames": 567,
+   "ground_truth_joined": 566,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 567,
+   "samples_live": 567
+  },
+  "lht-cut_in-11-7433d026deab": {
+   "duration_s": 111.0,
+   "example": null,
+   "frames": 556,
+   "ground_truth_joined": 555,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 556,
+   "samples_live": 556
+  },
+  "lht-cut_in-11-7c70121ffbef": {
+   "duration_s": 101.39999999999999,
+   "example": null,
+   "frames": 508,
+   "ground_truth_joined": 507,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 508,
+   "samples_live": 508
+  },
+  "lht-normal-11-bb7fe4bb2d4a": {
+   "duration_s": 146.0,
+   "example": null,
+   "frames": 731,
+   "ground_truth_joined": 730,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 731,
+   "samples_live": 731
+  },
+  "lht-normal-12-fed15a1ebc47": {
+   "duration_s": 128.60000000000002,
+   "example": null,
+   "frames": 644,
+   "ground_truth_joined": 643,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 644,
+   "samples_live": 644
+  },
+  "lht-sudden_brake-11-88cc34421e71": {
+   "duration_s": 165.60000000000002,
+   "example": null,
+   "frames": 829,
+   "ground_truth_joined": 828,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 829,
+   "samples_live": 829
+  }
+ },
+ "schema": "roadsense.recording-verification.v1",
+ "totals": {
+  "frames": 3835,
+  "mismatched_samples": 0,
+  "problems": 0,
+  "replayed_samples": 3835,
+  "runs": 6
+ }
+}

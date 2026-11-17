@@ -1,0 +1,37 @@
+{
+ "headed": false,
+ "product": "Chrome/156.0.8078.104",
+ "page_targets": [
+  [
+   "page",
+   "about:blank"
+  ]
+ ],
+ "browser_endpoint.Browser.getVersion": {
+  "protocolVersion": "1.3",
+  "product": "Chrome/156.0.8078.104",
+  "revision": "@46876a0c2df3492ed67a8846950ba6d37170b58c",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+  "jsVersion": "15.6.75.58"
+ },
+ "browser_endpoint.Target.getTargets": [
+  [
+   "page",
+   "about:blank",
+   false
+  ],
+  [
+   "app",
+   "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/main.htm",
+   false
+  ],
+  [
+   "app",
+   "chrome-extension://mpognobbkildjkofajifpdfhcoklimli/window.h",
+   false
+  ]
+ ],
+ "page_endpoint.Runtime.evaluate(1+1)": "NO REPLY in 8 s",
+ "attached_session.Runtime.evaluate(1+1)": "NO REPLY in 8 s",
+ "new_tab_session.Runtime.evaluate(1+1)": "NO REPLY in 8 s"
+}

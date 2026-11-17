@@ -1,0 +1,197 @@
+[
+ {
+  "criterion": "T2",
+  "what": "max missed_tracking rate within 100 m, any speed band",
+  "limit": 0.03,
+  "values": [
+   0.4559,
+   0.3249,
+   0.3755
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T3",
+  "what": "max missed_tracking rate within 100 m, any vehicle type",
+  "limit": 0.03,
+  "values": [
+   0.1851,
+   0.0507,
+   0.0543
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T4",
+  "what": "max missed_tracking rate 100-150 m (report; radar-limited)",
+  "limit": 0.1,
+  "values": [
+   0.3624,
+   0.2337,
+   0.2345
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T5",
+  "what": "identity switches + fragmentations per 1,000 matched slot frames",
+  "limit": 1.0,
+  "values": [
+   3.084,
+   4.055,
+   3.421
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T6",
+  "what": "wrong_vehicle + spurious share of non-empty adjacent-slot frames (worse side)",
+  "limit": 0.05,
+  "values": [
+   0.2199,
+   0.139,
+   0.1422
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T7a",
+  "what": "v_lat MAE during lateral motion (m/s)",
+  "limit": 0.3,
+  "values": [
+   0.578,
+   0.5,
+   0.474
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T7b",
+  "what": "v_lat p95 during lateral motion (m/s)",
+  "limit": 1.0,
+  "values": [
+   1.415,
+   1.32,
+   1.263
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T8a",
+  "what": "false lateral motion on steady vehicles, tracks < 1.5 s",
+  "limit": 0.1,
+  "values": [
+   0.2505,
+   0.2605,
+   0.2301
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T8b",
+  "what": "false lateral motion on steady vehicles, all tracks",
+  "limit": 0.04,
+  "values": [
+   0.1112,
+   0.1172,
+   0.1103
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T9a",
+  "what": "lateral cue latency p50 (s)",
+  "limit": 0.4,
+  "values": [
+   0.8,
+   0.8,
+   0.6
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T9b",
+  "what": "lateral cue latency p90 (s)",
+  "limit": 0.8,
+  "values": [
+   2.6,
+   2.0,
+   2.0
+  ],
+  "pass": [
+   false,
+   false,
+   false
+  ]
+ },
+ {
+  "criterion": "T10 lon MAE",
+  "what": "no worse than the baseline + 10%",
+  "limit": 1.882,
+  "values": [
+   1.711,
+   1.683,
+   1.682
+  ],
+  "pass": [
+   true,
+   true,
+   true
+  ]
+ },
+ {
+  "criterion": "T10 lat MAE",
+  "what": "no worse than the baseline + 10%",
+  "limit": 0.334,
+  "values": [
+   0.304,
+   0.314,
+   0.316
+  ],
+  "pass": [
+   true,
+   true,
+   true
+  ]
+ }
+]
