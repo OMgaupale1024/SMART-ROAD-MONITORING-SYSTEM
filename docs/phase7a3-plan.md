@@ -1,10 +1,10 @@
 # Phase 7A.3 — Perception and track observability (investigation and proposal)
 
-Status: investigation accepted (`1210f38`). **Stages 1–4 implemented and reported in §10**: raw-frame recording
+Status: investigation accepted (`1210f38`). **Stages 11–16 are reported in §12**: P4 (track lifecycle, opt-in), the A/B/C/D comparison, the corrected Stage 15 campaign (designed, not recorded) and the Pi benchmark. Stages 5–10 are in §11. **Stages 1–4 implemented and reported in §10**: raw-frame recording
 and a 30-run baseline (P8), label and cut-in staging corrections (P7), opt-in range-rate track initiation (P1, not
 active anywhere by default), and the Raspberry Pi CPU root cause. No model was trained or retrained; Phase 7B
-(live integration) is not started; the deployed service and the safety authority are unchanged. P2–P5 wait for
-review of the P1 results.
+(live integration) is not started; the deployed service and the safety authority are unchanged. P1, P2 and P4 are
+opt-in and off by default; P3 and P5 are not started.
 
 The frozen Phase 7A.2 model `roadsense-7a2-hgb15-v1` failed predictive acceptance and stays frozen and
 experimental. Its source, compact evidence, model and failed results were published in `29443b6`
@@ -855,3 +855,497 @@ acceptance.** Both stay opt-in, off by default, and are not deployed; the Pi run
 5. Vivaldi automation on this Mac needs a decision (e.g. a later Vivaldi build); until then a manual check in an
    isolated profile is the only browser evidence.
 6. No P5, P6, retraining or Phase 7B without review.
+
+## 12. Stages 11–16 (2026-11-18)
+
+**Commits, local, not pushed.** Origin `roadsense-v2-edge-ai` stays at `8d33a25`, the Stage 11 publication.
+
+| Commit | What |
+|---|---|
+| `283e6fb` | P4 v1, Stage 13 |
+| `5328b92` | `tools/track_failures.py`, Stages 12 and 14 |
+| `bb67ba3` | P4 v2 and the Stage 14 tables |
+| `53a7a7c` | the Stage 15 campaign plan, not recorded |
+| `480a950` | the benchmark's state digest, Stage 12 and 16 evidence |
+
+This report is in the commit after those.
+
+Evidence is in [stage12/](evidence/phase7a3/stage12/), [stage14/](evidence/phase7a3/stage14/),
+[stage15/](evidence/phase7a3/stage15/) and [stage16/](evidence/phase7a3/stage16/). Bulk outputs stay in
+`~/Library/Application Support/RoadSense/analysis/`:
+
+- `phase7a3-s12-20261117`
+- `phase7a3-s14{,b,c,d}-20261118`, one directory per P4 version
+- `phase7a3-s16-20261118`
+
+**Every recording used here is now historical development and regression data**: Stage 1 (30 runs, 16,618 frames)
+and the 40 Stage 9 runs. P4 was designed and tuned on them, including the Stage 9 "evaluation" subset, which
+therefore no longer counts as untouched. Figures below are labelled by recording set, not as acceptance.
+
+P4 is opt-in like P1 and P2: `Tracker(lifecycle="p4")`, default `"legacy"`. Nothing outside the tests and the
+offline tools selects it. The Raspberry Pi runs the legacy tracker, events-only history, service unchanged.
+Configurations:
+
+- **A**: legacy
+- **B**: P1
+- **C**: P1+P2
+- **D**: P1+P2+P4
+- **LP4**: the ablation, P4 on the legacy tracker
+
+### 12.1 Stage 11: publication
+
+The Stage 6–10 commits were pushed to `origin/roadsense-v2-edge-ai` (`8d33a25`). Nothing has been pushed since.
+
+### 12.2 Stage 12: tracking failures traced from radar target to safety decision
+
+The tool is `tools/track_failures.py`, run by [stage12/run.sh](evidence/phase7a3/stage12/run.sh):
+
+- `trace` replays any tracker and records every detection, the vehicle it came from, and the track that took it,
+  per cycle
+- `analyse` scores the failures against an oracle
+
+Truth only pairs and scores. No tracker reads it.
+
+**Radar measurement geometry** ([geometry.json](evidence/phase7a3/stage12/geometry.json), 125,532 paired
+targets). The two quantities refer to different points on each vehicle, as medians from the SUMO Solid along the
+heading:
+
+| Vehicle | Range point (body bounding-box centre) | Azimuth point (model origin, rear axle) |
+|---|---|---|
+| car | −1.48 m | −2.84 m |
+| bus | −3.12 m | −4.61 m |
+| truck | −2.02 m | −5.19 m |
+| motorcycle | −1.00 m | −1.70 m |
+
+The footprint oracle uses the Solid, so a body-centre oracle was added beside it.
+
+The inconsistency puts each detection off its range point, by an amount that grows as range shrinks:
+
+- **Adjacent same-direction vehicles, front radar:** outward by a median 0.59 m at 0–10 m, 0.35 m at 10–20 m,
+  0.20 m at 20–40 m and about 0.1 m beyond.
+- **Rear radar:** inward by 0.46 m at 0–10 m.
+- **Noise-free lateral speed this alone puts on steady vehicles, above 0.3 m/s in single cycles:**
+
+  | Range | Same direction | Oncoming |
+  |---|---|---|
+  | 0–10 m | 23% | 66% |
+  | 10–20 m | 2.9% | 49% |
+  | 20–40 m | 0.15% | 32% |
+
+**Geometry-consistent counterfactual** (evaluation only: each azimuth turned to its range point, noise kept),
+configuration C on the evaluation set:
+
+- Lane errors from displaced detections fall from 87 to 47, and lane-change mislabels from 160 to 112.
+- Unsupported CRITICAL frames do not fall: 91 → 103.
+- In `sudden_brake-104`, a stopped lead 8 m ahead, which the radar reports 1.75 m to the side, fills the lead slot
+  in 27 of 27 frames instead of 6.
+
+The reference-point mismatch is therefore a measured cause of neighbouring-lane errors and of the close-range
+stopped-lead misses (§12.4). It is not the cause of the unsupported CRITICAL frames.
+
+**The nine failure types.** Configuration C, evaluation set, footprint oracle:
+
+1. **Phantom leads.** The lead slot is wrong in 255 frames, excluding real radar targets beyond the truth window
+   (A 144, B 246). The largest cause is a track coasting on after its vehicle has passed beyond the front radar's
+   reach: 148 frames (A 38). The legacy lifecycle coasts for min(3 s, time seen) whether or not the vehicle could
+   still be seen, and P1 confirms more of the fast vehicles pulling away. Next come:
+   - a real vehicle that is not the lead: 26
+   - lane assignment during lane changes: 22
+   - a stale track after its vehicle changed lane: 17
+   - slot selection of a farther ego-lane vehicle: 15
+
+   Returns paired with no vehicle at all, true phantoms, account for 13 lead frames.
+2. **Stale tracks.** 554 of 1,656 removed tracks were off their vehicle before removal (p50 0.8 s, p90 2.8 s), with
+   3,861 stale coasting frames.
+3. **Duplicates.** 24 extra tracks (Stage 1: 59). In 22 of them the extra track is coasting: 12 beside another
+   coasting track, 10 beside a measured one.
+4. **Neighbouring-lane errors.** T6 is 14.2%. Causes: 160 lane changes in progress, and 87 detections displaced by
+   more than 0.75 m (all of those from the front radar).
+5. **Stationary losses.** With the ego stopped within 25 m of a stopped vehicle:
+   - Stage 1: the radar reports it in 0% of frames, and C tracks it in 57.8%.
+   - Evaluation: 69.8% and 72.3%.
+6. **Handover.** Confirmed same-direction tracks keep their identity in 96 of 110 front→rear passes and 20 of 25
+   rear→front passes; oncoming, 112 of 114.
+7. **Uncertainty while unseen.** P2's position σ is about 2.5× smaller than the true error while measured. The
+   return wandering over the body exceeds the filter's noise model. σ and the error meet at about 2 s unseen:
+   - measured: error p50 0.48 m, σ p50 0.19 m
+   - 2 s unseen: 1.72 m and 1.56 m
+8. **Radar measurement geometry.** As above.
+9. **Unsupported CRITICAL 71 → 91** (A → C; body oracle 44 → 55). Causes of C's 91, which overlap:
+
+   | Cause | Frames |
+   |---|---|
+   | lateral position error > 0.5 m | 45 |
+   | lateral speed error toward the ego lane | 39 |
+   | lateral position error toward the ego lane | 31 |
+   | no true vehicle behind the track | 27 |
+   | coasting in the blind zone with a wrong lateral speed | 9 |
+
+   Mostly, lateral noise on real neighbouring-lane vehicles moves them toward the ego lane.
+
+### 12.3 Stage 13: P4, the track lifecycle (opt-in)
+
+**States.**
+
+- **Tentative:** no identity yet; the legacy confirmation rule, unchanged.
+- **Confirmed:** measured this cycle.
+- **Coasting:** unseen, but kept.
+- **Expired:** removed, with a reason.
+
+**Zones.** Every unseen confirmed track is placed in a zone, from the radars' fields of view, ranges and this
+cycle's tracks:
+
+| Zone | When |
+|---|---|
+| beyond | past 150 m and the margin |
+| edge | within the margin of 150 m |
+| near | within 3 m of a radar; within 8 m for a stationary track |
+| occluded | behind a nearer track on the same ray |
+| fade | a small vehicle past 100 m |
+| outage | this radar returned under half its median count of the last 10 cycles (median at least 2) |
+| blind | between the two radars' fields, alongside |
+| visible | none of the above |
+
+**Existence.** Only a miss in clear view (zone visible) counts as evidence of absence. Each one multiplies the
+track's existence by (1 − p̂), where p̂ = (hits + 5 × prior) / (looks + 5), and the track expires below 1e-4. The
+priors are detection probabilities measured on the development recordings:
+
+| Situation | Detection probability |
+|---|---|
+| same direction, clear view | 0.97–0.99 |
+| occluded | 0–0.5 |
+| within 3 m | 0.32 |
+| oncoming, front radar | about 0.5 (0.23 beyond 100 m) |
+| oncoming, rear radar | 0.05 |
+| motorcycles beyond 100 m | 0 |
+
+Tracks are never deleted merely for being unseen:
+
+- In the other zones a track coasts for up to 4 s if moving, or 30 s if stationary, held in place.
+- A track beyond reach expires.
+- A coasting track inside a measured track's gate expires as a duplicate.
+- Re-association uses an along-road gate.
+- A Kalman track keeps its across-road speed for 1 s unseen (a cut-in's dropout), then decays with τ = 1.5 s,
+  since a lane change ends.
+
+**Scope.** Risk and safety logic are unchanged, and no warning is suppressed. P4 changes only which tracks exist
+and where they are predicted to be. The decision effects are evaluated in §12.4.
+
+**Versions, all results kept** (`summarize.py` labels the superseded ones):
+
+| Version | Change | Commit or outputs |
+|---|---|---|
+| v1 | first lifecycle | `283e6fb` |
+| v2a | outage judged on expected-versus-detected track counts | `s14b` |
+| v2b | outage judged on raw radar counts; this catches the radar outage in `lht-normal-103` at 146.8–147.4 s | `s14c` |
+| v2 | v2b plus the 1 s lateral hold | `bb67ba3`, `s14d` |
+
+v2b's immediate lateral decay had lost the evaluation `cut_in-102` CRITICAL warning; v2 restores it at +0.8 s, as
+C has it.
+
+**Tests.** `tests/test_tracking_p4.py`, plus T1 and the P1/P2 cases run through D. It covers:
+
+- expiry past the radars' reach
+- expiry within 1 s of leaving clear view
+- an outage
+- a flaky target
+- occlusion
+- a stopped vehicle held
+- the blind zone
+- an unseen lane change
+- a short cut-in dropout
+- a duplicate
+- a fading motorcycle
+
+### 12.4 Stage 14: A, B, C, D and LP4 on identical recordings
+
+The same frames are replayed for each configuration. A, B and C are byte-identical to Stage 12's replays
+(`stage14/run.sh` checks). Tables come from [comparison.json](evidence/phase7a3/stage14/comparison.json).
+Unless marked, the set is the Stage 9 evaluation set; [brackets] give Stage 1.
+
+**Missed tracking (T2–T4 denominators, the audit's definitions):**
+
+| By true speed, within 100 m | Frames | A | B | C | D | LP4 |
+|---|---|---|---|---|---|---|
+| 0–5 m/s | 237 | 33.3% | 32.5% | 37.6% | 39.7% | 32.9% |
+| 5–10 m/s | 210 | 13.8% | 13.8% | 14.3% | 13.3% | 12.9% |
+| 10–15 m/s | 5,821 | 1.9% | 1.9% | 2.0% | 2.0% | 1.9% |
+| 15–20 m/s | 1,672 | 2.2% | 2.2% | 2.3% | 2.3% | 2.6% |
+| 20–25 m/s | 3,087 | 0.8% | 0.5% | 0.6% | 0.8% | 0.9% |
+| 25–30 m/s | 877 | 45.3% | 2.1% | 1.7% | 2.4% | 44.6% |
+| 30–35 m/s | 487 | 45.6% | 0.4% | 0.6% | 0.6% | 45.4% |
+
+| By range | Frames | A | B | C | D | LP4 |
+|---|---|---|---|---|---|---|
+| 0–25 m | 3,571 | 8.1% | 4.6% | 5.0% | 5.2% | 8.2% |
+| 25–50 m | 3,799 | 4.7% | 1.7% | 1.8% | 1.8% | 4.6% |
+| 50–75 m | 2,337 | 8.9% | 1.2% | 1.4% | 1.5% | 8.9% |
+| 75–100 m | 2,687 | 8.4% | 1.1% | 1.1% | 1.3% | 8.4% |
+| 100–125 m | 1,815 | 18.4% | 7.2% | 6.9% | 7.4% | 19.9% |
+| 125–150 m | 1,228 | 36.2% | 23.4% | 23.5% | 19.9% | 36.3% |
+
+| By type, within 100 m | Frames | A | B | C | D | LP4 |
+|---|---|---|---|---|---|---|
+| autorickshaw | 5,480 | 1.0% | 1.0% | 1.1% | 1.1% | 1.0% |
+| bus | 1,132 | 1.3% | 1.3% | 1.2% | 1.4% | 2.0% |
+| car | 3,118 | 18.5% | 4.0% | 4.5% | 4.6% | 18.0% |
+| motorcycle | 1,245 | 14.5% | 1.7% | 1.5% | 2.2% | 15.0% |
+| truck | 1,419 | 5.1% | 5.1% | 5.4% | 5.6% | 5.3% |
+
+**Track quality:**
+
+| | A | B | C | D | LP4 |
+|---|---|---|---|---|---|
+| T5 identity switches + fragmentations per 1,000 | 3.08 [4.87] | 4.06 [4.65] | 3.42 [4.09] | 3.41 [3.57] | 2.76 [4.36] |
+| T6 neighbouring-lane errors, worse side | 22.0% [12.5%] | 13.9% [12.4%] | 14.2% [12.8%] | 12.0% [10.1%] | 26.3% [10.8%] |
+| duplicate extra tracks | 35 [84] | 26 [83] | 24 [59] | 30 [75] | 28 [56] |
+| lead slot wrong, excluding real targets beyond the window | 144 [277] | 246 [283] | 255 [279] | 155 [199] | 254 [208] |
+| lead coasting beyond the front radar's reach | 38 [126] | 158 [139] | 148 [140] | 45 [64] | 7 [59] |
+| tracks stale before removal | 475 / 890 | 367 / 1,670 | 554 / 1,656 | 245 / 1,593 | 537 / 854 |
+| stale duration p50 / p90 / max (s) | 0.2 / 2.0 / 2.8 | 1.6 / 2.8 / 2.8 | 0.8 / 2.8 / 2.8 | 0.8 / 2.8 / 3.8 | 3.8 / 3.8 / 3.8 |
+| coasting frames / stale coasting frames | 7,617 / 1,907 | 20,412 / 3,194 | 20,331 / 3,861 | 18,294 / 1,827 | 13,776 / 8,654 |
+| handover kept, same direction F→R / R→F | 95/110, 2/5 | 95/110, 21/25 | 96/110, 20/25 | 100/110, 24/26 | 99/110, 3/5 |
+| handover kept, Stage 1 F→R / R→F | 104/168, 5/11 | 104/168, 5/11 | 99/168, 5/11 | 116/168, 7/11 | 120/168, 7/11 |
+| stopped vehicle tracked, ego stopped < 25 m | 71.1% [24.4%] | 71.1% [24.4%] | 72.3% [57.8%] | 72.3% [**100%**] | 71.1% [24.4%] |
+| T7 lateral speed MAE / p95 in lateral motion (m/s) | 0.58 / 1.42 | 0.50 / 1.32 | 0.47 / 1.26 | 0.47 / 1.28 | 0.58 / 1.41 |
+| T8 false lateral motion, young / all | 25.1 / 11.1% | 26.1 / 11.7% | 23.0 / 11.0% | 23.4 / 11.0% | 24.5 / 11.1% |
+| T9 lateral cue latency p50 / p90 (s) | 0.8 / 2.6 | 0.8 / 2.0 | 0.6 / 2.0 | 0.6 / 2.0 | 0.8 / 2.2 |
+| T10 position MAE lon / lat (m) | 1.711 / 0.304 | 1.683 / 0.314 | 1.682 / 0.316 | 1.679 / 0.316 | 1.713 / 0.305 |
+
+In the stopped-vehicle row, the radar reports the vehicle in 69.8% of frames [0%].
+
+**Uncertainty while unseen**, C against D (error p50 / P2's σ p50):
+
+| Unseen for | C | D |
+|---|---|---|
+| measured | 0.48 / 0.19 m | 0.48 / 0.19 m |
+| under 1 s | 1.21 / 0.66 m | 1.35 / 0.66 m |
+| under 2 s | 1.72 / 1.56 m | 1.80 / 1.60 m |
+| under 3 s | 2.44 / 3.10 m | 1.87 / 2.95 m |
+| over 3 s | none | 1.27 / 5.81 m, 308 frames: only P4 holds a track this long |
+
+**Stationary vehicles.** In Stage 1, P4's 30 s hold keeps the stopped lead the radar has stopped reporting:
+tracked with the ego stopped rises from 57.8% (C) to 100% (D). LP4 stays at 24.4%, probably because the legacy window
+estimate of a braking vehicle is still above P4's 0.5 m/s stationary threshold when the radar loses it. That
+explanation is not verified.
+
+On the evaluation set, D's 0–5 m/s band is worse than C's, 39.7% against 37.6% (+5 frames). D and C differ on only
+14 frames, all in `sudden_brake-101`, where one leaves the lead slot empty and the other puts the wrong vehicle in
+it. No P4 expiry is involved. D's 94 misses there break down as:
+
+| Frames | What happened |
+|---|---|
+| 52 | a confirmed track sits on or near the stopped lead, displaced sideways (1.7–3.1 m in the frames inspected) at 6–8 m: 31 frames in the left slot, 21 in no slot. In `sudden_brake-104` this is the reference-point geometry of §12.2: there the consistent counterfactual fills the lead slot in every frame. In `sudden_brake-103` it changes nothing, and the cause there is not traced |
+| 10 | the lead 3.3–4.9 m to the side of the ego (the ego between lanes), neither detected nor tracked |
+| 31 | a vehicle slowing to a stop behind the ego (runs 101 and 104), which no configuration places in the follower slot |
+| 1 | a vehicle in the left slot |
+
+**Decisions against the oracles.** The oracle applies the same rules to the truth of the radar-detected vehicles,
+with the footprint oracle first and the body-centre oracle second. Frames are CRITICAL / HIGH.
+
+| Evaluation set | A | B | C | D | LP4 |
+|---|---|---|---|---|---|
+| unsupported CRITICAL / HIGH frames | 71 / 202 | 72 / 147 | 91 / 59 | 98 / 59 | 134 / 189 |
+| the same, before any collision | 52 / 100 | 53 / 43 | 62 / 39 | 63 / 39 | 109 / 87 |
+| body oracle: unsupported | 44 / 200 | 45 / 145 | 55 / 47 | 62 / 47 | 107 / 187 |
+| body oracle: before any collision | 24 / 92 | 25 / 35 | 26 / 27 | 26 / 27 | 81 / 79 |
+| missed frames (tracker lower), CRITICAL / HIGH / CAUTION | 26 / 33 / 27 | 19 / 30 / 27 | 27 / 36 / 25 | 21 / 37 / 25 | 26 / 33 / 27 |
+| body oracle: missed frames | 42 / 31 / 35 | 35 / 28 / 34 | 36 / 26 / 27 | 30 / 26 / 27 | 42 / 31 / 35 |
+| episodes never warned, CAUTION / HIGH / CRITICAL (of 55 / 37 / 12) | 2 / 3 / 5 | 2 / 3 / 4 | 8 / 7 / 3 | 6 / 5 / 3 | 2 / 3 / 5 |
+| warning onset p50 / p90 (s): CAUTION; CRITICAL | 0.0 / 0.8; 0.0 / 0.4 | 0.0 / 0.8; 0.0 / 0.4 | 0.0 / 0.6; 0.0 / 0.8 | 0.0 / 0.6; 0.0 / 0.8 | 0.0 / 0.8; 0.0 / 0.4 |
+
+| Stage 1 | A | B | C | D | LP4 |
+|---|---|---|---|---|---|
+| unsupported CRITICAL / HIGH frames | 70 / 94 | 70 / 92 | 90 / 82 | **153** / 84 | 84 / 90 |
+| missed CRITICAL / HIGH / CAUTION | 71 / 72 / 65 | 71 / 72 / 69 | 27 / 57 / 59 | 27 / 56 / 58 | 71 / 72 / 65 |
+
+**No real threat is hidden.** In no oracle episode before a collision does C warn while D never does, on any set.
+D warns in one episode where C does not: Stage 1 `cut_in-1113`, HIGH, 22.4–23.0 s. The 9 episodes in which D
+stays silent while C warns all come after the collision in stress `cut_in-101` (collision 26.8 s, episodes
+28.8–30.4 s).
+
+**What D adds.** D's unsupported frames that C does not have, classified by truth at D's threat track:
+
+- **Evaluation:** 15 D-only against 8 C-only.
+  - 13 are CRITICAL with no vehicle within 3 m: 9 unseen up to 3 s, 3 unseen longer, 1 measured.
+  - 1 is CRITICAL with a stopped vehicle truly there.
+  - 1 is HIGH.
+- **Stage 1:** 73 D-only against 8 C-only.
+
+  | Frames | What truth shows |
+  |---|---|
+  | 19 | CRITICAL, a stopped vehicle truly there, held more than 3 s. `TruthOracle` keeps the legacy 3 s coast, so it forgets such vehicles; these are real threats scored as unsupported |
+  | 12 | CRITICAL, a moving vehicle at the track |
+  | 38 | CRITICAL, no vehicle within 3 m (13 unseen up to 3 s, 25 longer): P4's persistence raising false CRITICAL warnings |
+  | 4 | HIGH |
+
+  These are P4's real decision cost.
+- **Diagnostic set:** D misses more CRITICAL frames than C (17 against 12), and its T5 is worse (7.82 against
+  5.44). Never-warned episodes are 2 / 2 / 3 for every configuration.
+- **Stress set:** D's extra never-warned episodes (10 / 10 / 6 against C's 7 / 7 / 3) all fall after the
+  collision.
+
+**The lost-cautions vehicle** (`sudden_brake-1107`, sequences 231–241, Stage 8). D decides exactly as C does:
+CAUTION from 235, with lateral speed 0.62 and 0.76 m/s against the true 1.01 and 0.95. It matches the oracle from
+237 and stays at CAUTION at 239–240, where A and B escalate to HIGH. P4 neither restores nor loses anything there.
+
+**LP4, the ablation, is worse than legacy alone.**
+
+- Stale coasting frames: 8,654 against 1,907.
+- Unsupported CRITICAL frames: 134 against 71.
+- T6: 26.3% against 22.0%.
+- 150 lead frames come from tracks coasting on in a lane their vehicle had left.
+
+P4's longer coasting relies on P2's estimator for the lateral speed and its hold and decay. On the legacy
+estimate it carries stale tracks; the mechanism is not traced further.
+
+**Latency and memory** (Stage 16, the same 5,458 frames):
+
+| Tracker update | Mac, Python 3.12 p99 | Mac, Python 3.9 p99 | Pi 5, Python 3.13 p99 |
+|---|---|---|---|
+| A | 14.5 µs | 22.0 µs | 48.8 µs |
+| B | 18.5 µs | 30.1 µs | 65.5 µs |
+| C | 110.9 µs | 255.7 µs | 392.2 µs |
+| D | 127.9 µs | 281.1 µs | **450.5 µs** |
+| LP4 | 27.4 µs | 43.3 µs | 94.5 µs |
+
+The full Pi figures are in §12.7.
+
+### 12.5 T1–T13 for A, B, C, D and LP4
+
+Values are on the Stage 9 evaluation set, now development data (§12), with Stage 1 in [brackets]. The limits of
+§5 are unchanged.
+
+| # | Limit | A | B | C | D | LP4 | Verdict A / B / C / D / LP4 |
+|---|---|---|---|---|---|---|---|
+| T1 | ≤ 0.6 s, 0–40 m/s (synthetic) | never > 25 m/s | all | all | all 40 cases | 18 of 40 cases over 0.6 s (24–40 m/s) | fail / pass / pass / **pass** / fail |
+| T2 | ≤ 3% every speed band | 45.6% (30–35) [87.5%] | 32.5% (0–5) [14.1%] | 37.6% (0–5) [18.8%] | 39.7% (0–5) [18.8%] | 45.4% (30–35) [87.5%] | all fail |
+| T3 | ≤ 3% every type | 18.5% car [3.6%] | 5.1% truck [3.6%] | 5.4% truck [3.5%] | 5.6% truck [2.5%] | 18.0% car [3.9%] | all fail |
+| T4 | ≤ 10% at 100–150 m | 36.2% [25.6%] | 23.4% [23.1%] | 23.5% [23.4%] | 19.9% [19.4%] | 36.3% [22.3%] | all fail |
+| T5 | ≤ 1.0 per 1,000 | 3.08 [4.87] | 4.06 [4.65] | 3.42 [4.09] | 3.41 [3.57] | 2.76 [4.36] | all fail |
+| T6 | ≤ 5% | 22.0% [12.5%] | 13.9% [12.4%] | 14.2% [12.8%] | 12.0% [10.1%] | 26.3% [10.8%] | all fail |
+| T7 | ≤ 0.30 / 1.00 m/s | 0.58 / 1.42 | 0.50 / 1.32 | 0.47 / 1.26 | 0.47 / 1.28 [0.51 / 1.82] | 0.58 / 1.41 | all fail |
+| T8 | ≤ 10% / 4% | 25.1 / 11.1% | 26.1 / 11.7% | 23.0 / 11.0% | 23.4 / 11.0% [27.9 / 8.3%] | 24.5 / 11.1% | all fail |
+| T9 | ≤ 0.4 / 0.8 s | 0.8 / 2.6 | 0.8 / 2.0 | 0.6 / 2.0 | 0.6 / 2.0 [0.6 / 2.4] | 0.8 / 2.2 | all fail |
+| T10 | ≤ A + 10% (1.882 / 0.334 m) | 1.711 / 0.304 | 1.683 / 0.314 | 1.682 / 0.316 | 1.679 / 0.316 | 1.713 / 0.305 | all pass |
+| T11 | ≥ 90% blind zone (P5 only) | not measured | | | | | unverified (P5 not approved) |
+| T12 | suites, Vivaldi smoke, every changed decision explained | suites pass | | | suites pass; D's changes classified (§12.4), not each reviewed by hand | | **unverified**: Vivaldi did not run |
+| T13 | p99 ≤ 2 ms on the Pi 5 | 48.8 µs | 65.5 µs | 392.2 µs | 450.5 µs | 94.5 µs | all pass |
+
+**D passes T1, T10 and T13, fails T2–T9, and leaves T11 and T12 unverified. It is not an acceptance candidate.**
+Against C, D improves T4, T6, stage-1 stationary tracking, handover and lead-slot phantoms. It is equal on T7–T10
+and slightly worse on T2's slow band (geometry, above). It also adds unsupported CRITICAL frames from persistence,
+mostly in Stage 1.
+
+### 12.6 Stage 15: the corrected campaign (designed, NOT recorded)
+
+The protocol is [stage15/protocol.md](evidence/phase7a3/stage15/protocol.md). Its plan, `plan.json`, has SHA-256
+`51ffb16d9ccf1d2e8e198314c2bcd630f475ad43665e266dffe896f71617f9e2`, frozen in `53a7a7c`.
+
+**Generator fix.** `scenarios.planned_traffic` is opt-in, and `routes()` is unchanged without it. It adds
+fixed-speed vehicles in the neighbouring lanes, either entering behind the ego, timed to draw level with it, or
+placed slower ahead.
+
+**Categories and budget.** Eight categories cover every requested scenario. There are 48 attempts, one each:
+
+| Subset | Runs | Use |
+|---|---|---|
+| feasibility | 4 | recorded first, inside the budget, then gated |
+| development | 8 | may be inspected |
+| evaluation | 32 | untouched until one analysis |
+| stress | 4 | reported separately |
+
+**Expected coverage.** A SUMO-only dry run, counting with the audit's own functions (no Webots, radar or RoadSense
+run, nothing recorded), estimates the evaluation subset at:
+
+- above 25 m/s within 100 m: 10,355 observable frames, from 208 vehicles in 27 runs (13,766 frames present)
+- above 30 m/s: 3,505 frames
+- the adequacy margins are 5.2×, 2.1× and 2.7×
+
+Calibrated on Stage 9, the dry run under-counts recorded fast coverage by 1.4–2.4×. That factor is not applied
+here, because the fast traffic is now planned. The stopped leads and cutters are estimated from their planned
+events, against Stage 9's recording.
+
+**Gate and limits.** Stage 9's adequacy is unchanged. The feasibility gate requires half the dry run's frames and
+vehicles. Stopping conditions:
+
+- 3 failures in a row
+- wall-time limits per subset
+- no retries
+
+The T1–T13 limits are unchanged. Four P4 comparisons are pre-registered; the first is a pass condition:
+- No real threat may be hidden.
+- D's extra unsupported frames are classified by truth.
+- Stationary tracking is reported.
+- Handover is reported.
+
+**Recording needs the user's approval of the SHA-256**, and `run` refuses without it.
+
+### 12.7 Stage 16: regression, the Pi benchmark, Vivaldi
+
+**Suites** at `480a950`, clean tree ([stage16-suites.txt](evidence/phase7a3/stage16/stage16-suites.txt)):
+
+- **728** Python tests pass (`pytest`)
+- **65 of 65** JavaScript tests (`node --test tests/js/`, Node 26.9.0)
+- **60** archived Arduino tests
+
+**Raspberry Pi 5 benchmark**
+([tracker-bench-pi.json](evidence/phase7a3/stage16/tracker-bench-pi.json)):
+
+- Python 3.13.5, `nice -n 10`, in a new directory, `~/roadsense-tracker-bench-7a3-p4-20261118`.
+- The same 10 recorded runs as Stage 8, 5,458 frames.
+- The bundle was checked against
+  [tracker-bench-bundle-SHA256SUMS](evidence/phase7a3/stage16/tracker-bench-bundle-SHA256SUMS). Its sources are
+  byte-identical to `480a950`.
+- The deployed service was untouched: before and after, MainPID 8944, NRestarts 0, active; load 0.00 before, 0.53
+  after.
+
+| Tracker update | mean | p50 | p95 | p99 | max | memory peak | most tracks |
+|---|---|---|---|---|---|---|---|
+| A legacy | 13.4 µs | 9.4 µs | 38.9 µs | 48.8 µs | 63.4 µs | 6.3 KiB | 14 |
+| B P1 | 18.2 µs | 12.9 µs | 50.7 µs | 65.5 µs | 101.8 µs | 8.5 KiB | 14 |
+| C P1+P2 | 118.3 µs | 81.6 µs | 334.8 µs | 392.2 µs | 494.9 µs | 20.8 KiB | 14 |
+| **D P1+P2+P4** | 143.1 µs | 112.1 µs | 375.4 µs | **450.5 µs** | 536.3 µs | 30.2 KiB | 13 |
+| LP4 | 29.2 µs | 22.6 µs | 79.0 µs | 94.5 µs | 187.2 µs | 14.7 KiB | 19 |
+
+D's p99 is 23% of T13's 2 ms, and about 0.2% of the 200 ms cycle. Stage 8's C, 387.2 µs, was reproduced as
+392.2 µs.
+
+**Numerical agreement.** `tracker_replay.py bench` now hashes every track's id, status, position and velocity after
+each cycle. The hashes are identical for all five trackers on the Pi (Python 3.13.5) and the Mac (Python 3.12.14
+and 3.9.6), at both 1e-6 and 1e-3 rounding, over all 5,458 cycles. The same bundle runs under Python 3.9, the
+Webots controllers' version.
+
+**Vivaldi.** Not re-run in Stage 16. Stage 10's result stands: page-level DevTools does not answer on this Mac,
+an environmental automation failure (§11.6). **Browser validation is unverified, not claimed.** No dashboard file
+changed in Stages 11–16.
+
+### 12.8 Limitations
+
+- Simulation only. Nothing here is real-world driving or safety evidence, and Mac results are not Pi acceptance.
+- No untouched evaluation data remains for P4. Every figure in §12.4–12.5 comes from recordings used to develop it.
+- `TruthOracle` forgets vehicles after the legacy 3 s coast. Some of D's "unsupported" frames are real stopped
+  vehicles (19 in Stage 1), so the oracle penalises correct holds, alongside P4's real false holds.
+- The geometry-consistent result is a counterfactual on truth. No tracker uses it.
+- The Stage 15 estimate is a SUMO dry run. The real ego slows behind vehicles in its lane, slows for cut-ins and
+  overtakes, which the feasibility gate exists to catch.
+- The Stage 15 evaluation subset has fewer gradual and assertive cut-ins than Stage 9 had (4 + 4 against 6 + 6).
+- Vivaldi automation is still unavailable (T12), and T11 is unmeasured (P5 not approved).
+
+### 12.9 Recommended next stage
+
+1. Keep A live and leave P1, P2 and P4 off. D improves several track-quality figures over C, but it fails T2–T9
+   and adds false CRITICAL frames from persistence, so it is not an acceptance candidate.
+2. Approve, or amend, the Stage 15 campaign by its SHA-256. It would give D its first untouched evaluation, with the
+   pre-registered comparisons.
+3. The radar's two reference points are now the largest measured cause of what remains. They drive:
+   - neighbouring-lane errors
+   - close-range stopped-lead misses (52 of D's 94 slow misses)
+   - the lateral-motion floor of T7–T9
+
+   A measurement model that accounts for them, or for the body's extent, is a design decision for review. It
+   would change the perception path, not a threshold.
+4. Then P3 (global association) for T5, T6 and duplicates, and a review of P4's stationary hold against its
+   Stage 1 false CRITICAL frames. Any tuning would use development data only.
+5. Make the oracle's persistence configurable, so that held real threats and phantoms are scored apart.
+6. Still requiring approval: P3, P5, retraining, Phase 7B, any deployment.
