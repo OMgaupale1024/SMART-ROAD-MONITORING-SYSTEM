@@ -1,0 +1,16 @@
+{
+ "frames": 22868,
+ "label": "EXPERIMENTAL offline demonstration; failed predictive acceptance; NOT safety-authoritative",
+ "model_sha256": "fc3235f96e86a0e85f01ca9e3f2c9d0dfb5a44c8f329f98bb547fe4a7793bce4",
+ "model_version": "roadsense-7a2-hgb15-v1",
+ "reference_platform": "macOS-27.2.1-arm64-arm-64bit",
+ "reference_python": "3.12.14",
+ "runs": 40,
+ "source": "recorded roadsense.features.v1 frames of the Phase 7A.2 campaign; Mac reference outputs from the same standard-library code",
+ "splits": [
+  "ordinary",
+  "stress",
+  "test"
+ ],
+ "threshold": 0.7599796005920636
+}
