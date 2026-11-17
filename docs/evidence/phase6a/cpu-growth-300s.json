@@ -1,0 +1,38 @@
+{
+ "frames": 1501,
+ "sim_s": 300,
+ "off": {
+  "cpu_s": 0.197,
+  "cpu_us_per_frame": 131.0
+ },
+ "events": {
+  "cpu_s": 0.274,
+  "cpu_us_per_frame": 182.7,
+  "rows": {
+   "hazard_updates": 78,
+   "decisions": 118,
+   "discontinuities": 2,
+   "samples": 0
+  },
+  "lost": 0,
+  "db_bytes": 118784,
+  "wal_bytes": 0,
+  "overhead_cpu_us_per_frame": 51.7,
+  "core_percent_at_5hz": 0.026
+ },
+ "dataset": {
+  "cpu_s": 0.32,
+  "cpu_us_per_frame": 213.2,
+  "rows": {
+   "hazard_updates": 78,
+   "decisions": 118,
+   "discontinuities": 2,
+   "samples": 1500
+  },
+  "lost": 0,
+  "db_bytes": 2244608,
+  "wal_bytes": 0,
+  "overhead_cpu_us_per_frame": 82.2,
+  "core_percent_at_5hz": 0.041
+ }
+}

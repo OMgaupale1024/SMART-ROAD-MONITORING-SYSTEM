@@ -26,11 +26,16 @@ explains decisions in a separate worker; safety processing does not wait for inf
   latency. Unavailable host readings are reported as unavailable.
 - `GET /api/hazards` exports deduplicated, run-local `roadsense.hazard.v1` records.
   Positions are Webots coordinates; geographic coordinates are null.
+- Opt-in persistent history (`ROADSENSE_HISTORY_ENABLE=1`): hazard updates, safety decisions,
+  processor lifetimes and stream gaps in one SQLite file, written by a background thread that
+  never delays a frame; optional dataset samples with a versioned, run-split export
+  (`python3 -m roadsense.web.history_export`). Labels are the rule's output, not ground truth.
 - Firmware, serial drivers, protocol and storage code are preserved in
   [legacy/arduino](legacy/arduino/README.md). The old Arduino web UI and APIs are retired.
 
-Persistent hazard storage, GNSS georeferencing, synchronization, Google Maps overlays and a
-trained decision model are **not implemented**. Historical Pi benchmarks are not measurements
+GNSS georeferencing, synchronization, a shared hazard map, Google Maps overlays and a trained
+decision model are **not implemented**; the history store is local, simulated-only and not yet
+deployed to the Pi. Historical Pi benchmarks are not measurements
 of this working tree. See [validation status](docs/validation.md) for the latest local checks.
 
 ## Run on the Mac
@@ -138,6 +143,7 @@ compatibility issue is resolved. See [validation details](docs/validation.md).
 - [AI explanations](docs/ai-explanations.md)
 - [Edge metrics](docs/edge-metrics.md)
 - [Hazard records and future persistence](docs/hazard-records.md)
+- [Persistent history and dataset export](docs/history.md)
 - [Deployment and rollback](docs/deployment.md)
 - [Webots world, sensors and simulation](simulation/webots/README.md)
 - [Local validation and deployment status](docs/validation.md)
@@ -146,7 +152,8 @@ compatibility issue is resolved. See [validation details](docs/validation.md).
 ## Operational limits
 
 Run one server process and one simulation producer: live state, tracking, hazards and metrics
-are in memory. Restarting loses them. The current geometry and sensor adapter are specific
+are in memory. Restarting loses them; the opt-in history keeps a record of them, but it is never
+restored into the live pipeline, and what was queued at a crash is lost. The current geometry and sensor adapter are specific
 to the straight Webots highway, not a general road model.
 
 The API has no authentication or TLS. Binding to `0.0.0.0` lets reachable machines read data

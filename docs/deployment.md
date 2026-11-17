@@ -183,6 +183,12 @@ The unit enables AI explanations, runs as `omgaupale`, uses port 8001 and has no
 dependency. `OOMScoreAdjust=-500` makes the server less likely to be killed under memory pressure;
 it does not guarantee which process the kernel will kill or uninterrupted processing.
 
+## Persistent history (Phase 6A, not deployed)
+
+The history store is off unless `ROADSENSE_HISTORY_ENABLE=1`. Its proposed Pi rollout (copy three
+files, restart with it off, then enable it with a user drop-in), acceptance thresholds and rollback
+are in [history.md](history.md#raspberry-pi-deployment-phase-6b-proposed). None of it has been done.
+
 ## Rollback
 
 Stop the exact process/service that was started for the deployment. On the Pi, choose the

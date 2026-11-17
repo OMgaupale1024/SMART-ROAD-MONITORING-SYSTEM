@@ -76,7 +76,8 @@ dashboards, tools/live_listen.py, ... (any number)
   FastAPI process and event loop.
 - **Optional.** The simulation runs exactly as before without the server. Publishing is off unless
   asked for; when it is on and the server is down, the controller prints one line and carries on.
-- **Memory only.** The server keeps the latest snapshot, nothing older, and writes nothing to disk.
+- **Memory only.** The server keeps the latest snapshot, nothing older. The opt-in history store
+  ([history.md](history.md)) keeps events from the states, never replays them into this path.
 
 ## Running it
 

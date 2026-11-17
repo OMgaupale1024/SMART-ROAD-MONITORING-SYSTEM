@@ -5,7 +5,7 @@ Routes (docs/architecture.md):
   POST /api/live-state      a state computed by the producer itself (standalone Webots)
   GET  /api/live-state      the latest state
   WS   /ws/live             every state, to any number of clients
-  GET  /api/system          edge-processing and host measurements (read-only)
+  GET  /api/system          edge-processing, host and history-store measurements (read-only)
   GET  /api/ai-explanation  the explanation of the latest safety decision (read-only)
   GET  /api/hazards         the hazard map as roadsense.hazard.v1 records (read-only)
   GET  /                    the dashboard; /autonomy, its old address, redirects here
@@ -29,11 +29,12 @@ from fastapi.staticfiles import StaticFiles
 
 from roadsense import __version__
 from roadsense.autonomy import prediction, risk, safety
-from roadsense.web import ai_explainer, hazard_records, live, metrics
+from roadsense.web import ai_explainer, hazard_records, history, live, metrics
 
 # one of each per app run, created by lifespan()
 live_hub: Optional[live.LiveStateHub] = None  # the latest live state and its WebSocket clients
 explainer: Optional[ai_explainer.AIExplainer] = None  # words the safety decision; never part of making it
+recorder: Optional[history.HistoryRecorder] = None  # keeps a history of the decisions; never part of making them
 host: Optional[metrics.Host] = None  # this computer's load
 started = (0.0, 0.0)  # when this app run began: (wall clock, monotonic)
 
@@ -45,19 +46,25 @@ SAFETY = {"critical_ttc_s": risk.CRITICAL_TTC_S, "high_ttc_s": risk.HIGH_TTC_S, 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global live_hub, explainer, host, started
+    global live_hub, explainer, recorder, host, started
     config = ai_explainer.config_from_environment()
     explainer = ai_explainer.AIExplainer(config)
-    live_hub = live.LiveStateHub(listeners=[explainer.observe])
+    recorder = history.HistoryRecorder(history.config_from_environment())
+    live_hub = live.LiveStateHub(listeners=[explainer.observe, recorder.observe])
     host = metrics.Host()
     started = (time.time(), time.monotonic())
     print("[RoadSense] AI explanations: %s" % (
         "model %s at %s" % (config.model, config.url) if config.enabled
         else "off (deterministic explanations; set ROADSENSE_AI_EXPLAIN=1 to use Ollama)"), flush=True)
+    print("[RoadSense] History: %s" % (
+        "on, database %s%s (its state: GET /api/system)" % (
+            recorder.path, ", with dataset samples" if recorder.config.dataset else "")
+        if recorder.config.enabled else "off (set ROADSENSE_HISTORY_ENABLE=1 to keep one)"), flush=True)
     try:
         yield
     finally:
         explainer.close()
+        recorder.close()
 
 
 # The UI is served from this app, so it is same-origin: no CORS middleware. Swagger UI and ReDoc load their
@@ -149,6 +156,7 @@ def get_system():
         "safety": SAFETY,
         "ai": {"enabled": ai["enabled"], "model": ai["model"], "availability": ai["availability"],
                "status": ai["status"], "latency_ms": ai["stats"]["latency_ms"]},
+        "history": recorder.status(),
     }
 
 

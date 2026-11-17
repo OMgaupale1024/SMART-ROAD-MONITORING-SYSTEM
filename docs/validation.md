@@ -166,3 +166,25 @@ explicit authorization.
 Durable hazard storage, real GNSS, geographic mapping/sync and a trained decision model remain
 future milestones. Recommendations remain advisory; heuristic model-output filtering does not
 prove semantic correctness or real-vehicle safety.
+
+## Phase 6A: persistent history, local validation (17 November 2026)
+
+Implemented and tested on the Mac only; during this validation nothing was deployed, and the Pi was
+inspected read-only once (service active, MainPID 1037, NRestarts 0; 97 GB free on a USB ext4 root;
+SQLite 3.46.1; `~/.local/state` present). Design, measurements and deployment plan: [history.md](history.md).
+
+| Check | Result |
+| --- | --- |
+| Active Python suite | **430 passed** (398 before Phase 6A + 32 in `tests/test_history.py`) |
+| JavaScript, independently | **65 passed**, 0 failed |
+| Archived Arduino tests | **60 passed** |
+| `tests/test_history.py`, three consecutive runs | 31 passed each time (before the 32nd, a state-immutability check, was added) |
+| Safety output with history on vs off | identical: 1,501 in-process states and a 302-frame replay through the app (BRAKE, EMERGENCY_BRAKE, CONSIDER_LANE_CHANGE, MONITOR, MAINTAIN) |
+| Vivaldi browser smoke | **not run**: the isolated headless Vivaldi's debugger did not answer, with history on and equally with it off (unchanged baseline), so an environment limitation of this session. No other browser was launched. The dashboard files are unchanged. |
+| `git diff --check` | passed |
+
+Fault tests use real SQLite/filesystem errors where safe (held lock, read-only file and directory,
+path under a file, corrupt/newer/foreign file, SQLite page limit for `SQLITE_FULL`, SIGKILL) and
+injection for a slow open, a writer exception and a dead writer thread. A real full disk, a
+read-only remount and power loss were not tested. Measurements are Mac-only and are not Raspberry
+Pi acceptance; evidence in [evidence/phase6a](evidence/phase6a/).

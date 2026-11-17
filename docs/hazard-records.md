@@ -68,9 +68,10 @@ Not built. This is the intended order, each step usable on its own:
 1. **Real positions.** A GNSS receiver on the vehicle gives each sensor frame a fix. The hazard map then
    keeps a `geo` beside the local position, and merges by distance on the ground (the same 2 m rule,
    widened by the fix's accuracy).
-2. **Keep records on the edge.** An append-only outbox on the Pi (one JSON record per line, with a
-   growing sequence number), written when a hazard is first mapped and when its severity or confidence
-   changes materially. It survives restarts and needs no network.
+2. **Keep records on the edge.** *Partly built:* the opt-in [history store](history.md) keeps each
+   hazard's material changes in SQLite on the edge, survives restarts and needs no network, with an
+   identity (`<segment_id>/<local_id>`) that never collides across processor lifetimes. A sync
+   outbox (acknowledged sequence numbers) is still to come.
 3. **Synchronise when online.** The edge sends the outbox from its last acknowledged sequence number.
    Records are idempotent by `record_id`, so sending again after a lost acknowledgement is harmless
    (at-least-once delivery). The edge never needs the central map to keep working.
