@@ -55,3 +55,21 @@ def test_irregular_timestamps_gaps_and_repeats_keep_a_finite_consistent_filter()
     assert all(math.isfinite(v) for row in cov for v in row)
     assert all(cov[i][i] > 0 and abs(cov[i][j] - cov[j][i]) < 1e-12 for i in range(4) for j in range(4))
     assert abs(track.velocity[0] - 20.0) < 0.5 and abs(track.velocity[1] - 0.5) < 0.2
+
+
+# P1's T1 cases, unchanged, through the Kalman estimator
+@pytest.mark.parametrize("lateral", [0.5, 1.0, 2.0, -2.0])
+@pytest.mark.parametrize("speed", [8.0, 30.0, 40.0])
+def test_t1_lateral_motion_up_to_2_mps_confirms(kalman, speed, lateral):
+    t1.test_t1_lateral_motion_up_to_2_mps_confirms(speed, lateral)
+
+
+def test_oncoming_overtaking_neighbouring_lanes_and_crossing(kalman):
+    t1.test_oncoming_and_overtaking_from_behind()
+    t1.test_neighbouring_lanes_stay_two_separate_tracks()
+    t1.test_crossing_trajectories()
+
+
+@pytest.mark.parametrize("first", [0.0, 70.0, -45.0])
+def test_a_wrong_first_range_rate_only_delays_confirmation_by_a_cycle(kalman, first):
+    t1.test_a_wrong_first_range_rate_only_delays_confirmation_by_a_cycle(first)
