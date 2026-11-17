@@ -91,3 +91,5 @@ Measure serialized size and batch-1 latency on Mac first. A later explicitly app
 The smoke export is a developmental artifact with 31 inputs and earlier filtering; use **dataset-v1**, with 30 inputs and the final audit/censoring rules, for any later training. Exact recording and export source snapshots are retained under the campaign's source/ directory. All recorded source hashes were verified against those snapshots.
 
 Phase 6D publication and a bounded Phase 7A logistic-regression experiment were approved on 2026-11-17. This report describes Phase 6D; later training is documented separately. Bulk campaign data remains outside Git.
+
+The approved Phase 7A experiment is complete: see [learned-risk.md](learned-risk.md) and [the evaluation report](evidence/phase7a/RESULTS.md). No additional simulation or Pi deployment was performed.

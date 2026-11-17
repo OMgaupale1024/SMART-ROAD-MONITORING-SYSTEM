@@ -1,0 +1,35 @@
+{
+  "artifact_directory": "/Users/smash_mario/Library/Application Support/RoadSense/ml/phase7a-20261117",
+  "full_artifacts": {
+    "SHA256SUMS": {
+      "bytes": 976,
+      "sha256": "7fae9b6ca6be823443e6f37106945385901e8db0da091f6116f6b27a2c385edd"
+    },
+    "balanced.json": {
+      "bytes": 6139,
+      "sha256": "ee68e0d7a852267fa771973db79e93fb80f239d022902b879f7dad495dfe28ab"
+    },
+    "evaluation.json": {
+      "bytes": 1096460,
+      "sha256": "77c5c23d28d03332f35c40f75df3a091855b8d79ce42bdf51b3096b63bd2157e"
+    },
+    "freeze.json": {
+      "bytes": 3083,
+      "sha256": "f0cc7f6a90065666370ecebfd19283d2169e15d128e1772d55d5df7ce2fccb0b"
+    },
+    "model.json": {
+      "bytes": 6131,
+      "sha256": "ea94c638fd7eec8362679553704cff029a8f50a5663b4e7a65e5bf605a69f32a"
+    },
+    "training-cv.json": {
+      "bytes": 141727,
+      "sha256": "10c6c81b22ef887e9e47ea2c79eb6ee5456c91d63d1cd37769a3a3ccfb2773ba"
+    },
+    "unweighted.json": {
+      "bytes": 6131,
+      "sha256": "ea94c638fd7eec8362679553704cff029a8f50a5663b4e7a65e5bf605a69f32a"
+    }
+  },
+  "note": "Full results and exact sources stay in the external artifact directory. Compact summaries omit group-count/incident arrays, repeated family breakdowns and 0.5 diagnostics; selected-family performance is in RESULTS.md.",
+  "source_commit": "7ae80d6c9015b4bb18c6c551a2cbe213b782ce87"
+}
