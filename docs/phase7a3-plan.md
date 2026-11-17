@@ -59,28 +59,37 @@ frames and **never confirms**: each detection opens a new track. A noiseless syn
 `Tracker` confirms at 24.9 m/s and never at 25.1 m/s (`tests/test_perception_audit.py`). Vehicles above 90 km/h
 are invisible to the tracker; with noise the boundary is lower.
 
-Missed-tracking rate for observable vehicles, after the 0.6 s confirmation allowance:
-
-> **Correction (Stage 3):** the first version of the audit counted each missed frame twice in the denominator, so
-> the rates below are m/(n+m) instead of m/n. Corrected: by speed 25.3 / 6.2 / 2.3 / 6.5 / 11.1 / **50.1%**; by
-> range 2.0 / 1.1 / 2.9 / 2.6 / 15.7 / 28.9%; motorcycle 15.9%, car 3.5%; within 100 m the 25–30 m/s band is
-> **40.2%** (612 frames). The original figures and file are kept as produced;
-> [perception-audit-corrected.json](evidence/phase7a3/perception-audit-corrected.json) has every corrected rate.
-> Slot outcomes, identity, kinematics, latencies and traces were not affected.
+Missed-tracking rate for observable vehicles, after the 0.6 s confirmation allowance (**corrected audit**,
+[perception-audit-corrected.json](evidence/phase7a3/perception-audit-corrected.json); see the errata below):
 
 | World speed | 0–5 | 5–10 | 10–15 | 15–20 | 20–25 | 25–30 m/s |
 |---|---|---|---|---|---|---|
-| miss rate | 20.2% | 5.9% | 2.3% | 6.1% | 10.0% | **33.4%** |
+| all ranges | 25.3% | 6.2% | 2.3% | 6.5% | 11.1% | **50.1%** |
+| within 100 m | 25.3% | 5.5% | 1.1% | 1.2% | 1.8% | **40.2%** (612 frames) |
 
 | Range | <25 | 25–50 | 50–75 | 75–100 | 100–125 | 125–150 m |
 |---|---|---|---|---|---|---|
-| miss rate | 2.0% | 1.1% | 2.8% | 2.5% | 13.6% | 22.4% |
+| miss rate | 2.0% | 1.1% | 2.9% | 2.6% | 15.7% | 28.9% |
 
-By type: motorcycle 13.7%, car 3.4%, truck 2.3%, autorickshaw 1.2%, bus 1.0%. Within 80 m the motorcycle rate
-drops to 2.0% (slow) / 3.5% (≥22 m/s); its high overall rate is mostly long range (small radar cross-section
-near the range limit) plus speed. Cars ≥22 m/s within 80 m: 7.5%. The 0–5 m/s band (20%) is vehicles that
-are stopped or just inserted, where the zero-velocity prediction is right but confirmation competes with
-the staging insertion.
+By type, all ranges: motorcycle 15.9%, car 3.5%, truck 2.4%, autorickshaw 1.3%, bus 1.0%; within 100 m: car
+2.9%, truck 2.6%, motorcycle 2.0%, autorickshaw 1.4%, bus 0.9%. The motorcycle's high overall rate is mostly long
+range (small radar cross-section near the range limit) plus speed. The 0–5 m/s band (25%) is vehicles that are
+stopped or just inserted, where the zero-velocity prediction is right but confirmation competes with the staging
+insertion.
+
+> **Errata.** Two sets of figures first published here in `1210f38` were wrong; the tables above supersede them.
+> The as-run file [perception-audit.json](evidence/phase7a3/perception-audit.json) is kept unchanged.
+>
+> 1. *Denominator* (fixed in `b89e25c`): every miss rate counted each missed frame twice, giving m/(n+m) instead
+>    of m/n. As first published, now **erroneous**: by speed 20.2 / 5.9 / 2.3 / 6.1 / 10.0 / 33.4%; by range
+>    2.0 / 1.1 / 2.8 / 2.5 / 13.6 / 22.4%; by type motorcycle 13.7%, car 3.4%, truck 2.3%, autorickshaw 1.2%,
+>    bus 1.0%; the right slot 12.9% (corrected 14.8%).
+> 2. *Mislabelled* (found in Stage 5): "within 80 m the motorcycle rate drops to 2.0% (slow) / 3.5% (≥22 m/s);
+>    cars ≥22 m/s within 80 m: 7.5%" came from a separate script that applied no 80 m filter and divided by slot
+>    frames whether or not the vehicle was yet observable. **Withdrawn**; the within-100 m figures above use the
+>    audit's definition.
+>
+> Slot outcome counts, identity, kinematics, latencies and the frame traces were not affected.
 
 ### 3.2 Slot assignment, association and lane errors
 
@@ -190,21 +199,26 @@ P1 alone is a small diff and removes the largest single defect; P2–P4 are one 
 Measured by `tools/perception_audit.py` on the **same captured frames** replayed through the baseline and the
 candidate tracker (§6). A criterion fails the candidate if any limit is missed.
 
-| # | Metric | Baseline (7A.2 campaign) | Accept |
+| # | Metric | Baseline, 7A.2 campaign (corrected audit) | Accept |
 |---|---|---|---|
 | T1 | synthetic constant-velocity target, every world speed 0–40 m/s and lateral speed 0–2 m/s, noiseless and with the world's noise | never confirms > 25 m/s | confirms ≤ 0.6 s at every speed |
-| T2 | missed_tracking, observable within 100 m, each speed band incl. 25–30 m/s | 2.3–33.4% (all ranges; corrected within 100 m: 1.1–40.2%) | ≤ 3% in every band |
-| T3 | missed_tracking, observable within 100 m, each vehicle type | car ≥22 m/s 7.5% (≤80 m) | ≤ 3% every type |
-| T4 | missed_tracking 100–150 m | 13.6% / 22.4% (corrected 15.7% / 28.9%) | ≤ 10% (report; radar-limited) |
+| T2 | missed_tracking, observable within 100 m, each speed band incl. 25–30 m/s | worst 40.2% (25–30 m/s); 0–5 m/s 25.3% | ≤ 3% in every band |
+| T3 | missed_tracking, observable within 100 m, each vehicle type | worst 2.9% (car) | ≤ 3% every type |
+| T4 | missed_tracking 100–150 m | 15.7% / 28.9% | ≤ 10% (report; radar-limited) |
 | T5 | identity switches + 3 s fragmentations per 1,000 matched slot frames | 2.9 | ≤ 1.0 |
 | T6 | wrong_vehicle + spurious, share of non-empty adjacent-slot frames | 8.5% left, 18.1% right | ≤ 5% |
 | T7 | v_lat MAE / p95 during lateral motion | 0.57 / 2.08 m/s | ≤ 0.30 / ≤ 1.00 m/s |
-| T8 | false lateral motion (\|v_lat err\| > 0.3 m/s) on steady vehicles, tracks < 1.5 s / all | 28.9% / 8.4% | ≤ 10% / ≤ 4% |
+| T8 | false lateral motion (\|v_lat err\| > 0.3 m/s) on steady vehicles, tracks < 1.5 s / all | 29.7% / 9.1% | ≤ 10% / ≤ 4% |
 | T9 | lateral cue latency p50 / p90 | 0.6 / 2.0 s | ≤ 0.4 / ≤ 0.8 s |
 | T10 | lon / lat MAE on correct slots | 1.57 (bias) / 0.31 m | no worse than baseline +10% |
 | T11 | blind zone: frames with a vehicle alongside (\|lon\| < 5 m, adjacent lane) represented in the slot | 0 (radar-only) | ≥ 90% (only if P5 approved) |
 | T12 | rule-based safety: full test suite, `tests/browser_smoke.py` in Vivaldi, and a decision diff of the recorded replays reviewed by hand | — | all pass, every changed decision explained |
 | T13 | tracker update cost on the Pi 5 at 5 Hz (measured on the Pi, not the Mac) | not measured | p99 ≤ 2 ms per frame |
+
+The limits are unchanged since `1210f38`. The baseline column is `criteria()` of `tools/perception_audit.py` on
+the corrected audit (its `criteria` block). Baselines first published in this table that were wrong: T2
+"2.3–33.4%" and T4 "13.6% / 22.4%" (denominator, §3.1 errata 1), T3 "car ≥22 m/s 7.5% (≤80 m)" (withdrawn,
+errata 2) and T8 "28.9% / 8.4%", whose 8.4% was tracks older than 3 s, not all tracks.
 
 Model metrics are deliberately not tracking criteria: a retrain is a separate, later approval (§6 step 6).
 
@@ -272,6 +286,8 @@ Evidence: [mac-bench.json](evidence/phase7a3/mac-bench.json), [pi-bench.json](ev
 
 ## 9. Observation on the Pi (not acted on)
 
+*Resolved: root cause in §10.4 (the history writer), fix deployed in Stage 6.*
+
 While preparing the demo, one thread of the `roadsense-edge` service (main PID 1041) was using 100% of a core
 for the whole 45 min since boot, with no edge frames received and history idle (queue 0). The deployed
 history files match their Phase 6B checksums, and an idle history recorder on the Mac uses no CPU, so the
@@ -304,9 +320,13 @@ test set**.
 | ground-truth join | 16,588 / 16,618 (each run's first frame, t = 0.2 s, precedes the first truth frame) |
 | **deterministic replay** | the server's code path (`edge.EdgeRun`) reproduces **all 16,618 live slot-feature rows exactly**, twice |
 
-Provenance: `run_one` snapshots the working tree per run, and the P1 edit was made while the campaign ran, so 10
-runs record a dirty `tracking.py`/`pipeline.py` (P1 code present, default legacy). The exact replay against the
-committed legacy tracker shows their live behaviour was the legacy tracker's.
+Provenance (`stage/recording-provenance.json`, every run at revision `85f3991`): `run_one` snapshots the working
+tree per run, and work continued in the tree while the campaign ran. **13 runs are clean. 10 runs captured
+uncommitted source changes**: `tracking.py` and `pipeline.py` with the P1 code (default still legacy) and
+`tools/scenario_dataset.py`. 7 more captured an uncommitted `tools/scenario_dataset.py` only, an analysis module
+that no participating component (batch runner, scenario plugin, controller, server) imports. The exact replay
+against the committed legacy tracker shows the live outputs of all 30 equal the legacy tracker's; that parity
+does not remove the caveat that 10 runs did not execute a committed revision.
 
 Two radar facts measured from the captures: the range-rate sign is "positive = opening" (agrees with the change
 of distance in 96.6% of matched returns); a target's first refresh often carries an implausible range rate
@@ -372,20 +392,20 @@ On the identical 16,618 recorded frames (`stage/audit-recording-*.json`, `stage/
 | legacy miss rate | 14.1% | 7.0% | 1.6% | 0.4% | 1.5% | **87.5%** |
 | P1 miss rate | 14.1% | 7.0% | 1.7% | 0.4% | 0.7% | **12.5%** |
 
-| Criterion (§5) | legacy | P1 | limit | P1 |
+| Criterion (§5) | legacy, recordings | P1, recordings | limit | P1 status |
 |---|---|---|---|---|
 | T1 synthetic confirmation, every speed | fails above 25 m/s | ≤ 0.6 s | ≤ 0.6 s | **pass** |
-| T2 worst speed band within 100 m | 87.5% | 14.1% (0–5 m/s; 25–30 m/s 12.5%) | ≤ 3% | fail |
-| T3 worst vehicle type within 100 m | 3.56% (motorcycle) | 3.56% | ≤ 3% | fail |
-| T4 worst band 100–150 m | 25.6% | 23.1% | ≤ 10% (report) | fail |
-| T5 identity switches + fragmentations / 1,000 | 4.87 | 4.65 | ≤ 1.0 | fail |
-| T6 wrong + spurious, worse adjacent side | 12.5% | 12.4% | ≤ 5% | fail |
-| T7 v_lat MAE / p95 in lateral motion | 0.51 / 1.80 | 0.51 / 1.80 | ≤ 0.30 / 1.00 | fail |
-| T8 false lateral, young / all tracks | 33.7% / 9.7% | 34.4% / 9.8% | ≤ 10% / 4% | fail |
-| T9 lateral cue p50 / p90 | 0.6 / 2.4 s | 0.6 / 2.4 s | ≤ 0.4 / 0.8 s | fail |
-| T10 lon / lat MAE | 1.574 / 0.309 m | 1.571 / 0.310 m | ≤ +10% | pass |
-| T11 blind zone | not applicable (P5 not approved) | | | — |
-| T12 regression | 600 tests pass; decision diff below; Vivaldi smoke **not run** (see below) | | | partial |
+| T2 worst speed band within 100 m | 87.5% | 14.1% (0–5 m/s; 25–30 m/s 12.5%) | ≤ 3% | **fail** |
+| T3 worst vehicle type within 100 m | 3.56% (motorcycle) | 3.56% | ≤ 3% | **fail** |
+| T4 worst band 100–150 m | 25.6% | 23.1% | ≤ 10% (report) | **fail** |
+| T5 identity switches + fragmentations / 1,000 | 4.87 | 4.65 | ≤ 1.0 | **fail** |
+| T6 wrong + spurious, worse adjacent side | 12.5% | 12.4% | ≤ 5% | **fail** |
+| T7 v_lat MAE / p95 in lateral motion | 0.51 / 1.80 | 0.51 / 1.80 | ≤ 0.30 / 1.00 | **fail** |
+| T8 false lateral, young / all tracks | 33.7% / 9.7% | 34.4% / 9.8% | ≤ 10% / 4% | **fail** |
+| T9 lateral cue p50 / p90 | 0.6 / 2.4 s | 0.6 / 2.4 s | ≤ 0.4 / 0.8 s | **fail** |
+| T10 lon / lat MAE | 1.574 / 0.309 m | 1.571 / 0.310 m | ≤ +10% | **pass** |
+| T11 blind zone | not measured (P5 not approved) | not measured | ≥ 90% | **unverified** |
+| T12 regression | 600 tests pass; decision diff below; Vivaldi smoke **not run** (see below) | | all pass | **unverified** |
 | T13 tracker update on the Pi 5, p99 | 45 µs | **62 µs** | ≤ 2 ms | **pass** |
 
 P1 eliminates the 25 m/s boundary in the synthetic tests and removes most of it in the recordings (14 → 2
