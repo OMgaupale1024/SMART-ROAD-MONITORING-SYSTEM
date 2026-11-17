@@ -40,6 +40,39 @@ def audit_features():
     return result
 
 
+CORRECTED_SCHEMA = "roadsense.forward-risk.v1+init-speed-fix"  # Phase 7A.3 P7: v1 with initialization speeds fixed
+STILL_MPS, MOVING_MPS, AGREE_MPS = 0.5, 2.0, 3.0
+
+
+def correct_initialization(frames):
+    """Frames with initialization-frame speed artifacts fixed, and the list of fixes; the input is not modified.
+
+    A vehicle's physical speed is its Webots node velocity, and a node SUMO has just placed (an inserted event vehicle,
+    a node reused for another vehicle) reports 0 on its first frame. A first-frame speed is replaced only when two
+    independent sources say the vehicle moves: its own displacement to the next frame and SUMO's logical speed, both
+    above MOVING_MPS and within AGREE_MPS of each other. Stationary vehicles, slow vehicles and every later frame keep
+    their recorded speed; near misses that do not rest on the artifact are unchanged."""
+    out, fixes, previous = [], [], set()
+    for i, frame in enumerate(frames):
+        nxt = {v["id"]: v for v in frames[i + 1]["vehicles"]} if i + 1 < len(frames) else {}
+        dt = frames[i + 1]["t"] - frame["t"] if i + 1 < len(frames) else 0
+        logical = {v["id"]: v.get("speed") for v in frame.get("sumo_vehicles") or ()}
+        vehicles = []
+        for v in frame["vehicles"]:
+            n = nxt.get(v["id"])
+            if v["id"] not in previous and n is not None and 0 < dt <= 0.4 and abs(v["speed"]) < STILL_MPS:
+                moved = ((n["x"] - v["x"]) * math.cos(v["yaw"]) + (n["y"] - v["y"]) * math.sin(v["yaw"])) / dt
+                sumo = logical.get(v["id"])
+                if sumo is not None and moved > MOVING_MPS and sumo > MOVING_MPS and abs(moved - sumo) < AGREE_MPS:
+                    fixes.append({"t": frame["t"], "vehicle": v["id"], "type": v.get("type"), "recorded_mps": v["speed"],
+                                  "displacement_mps": round(moved, 3), "sumo_mps": sumo})
+                    v = dict(v, speed=round(moved, 3))
+            vehicles.append(v)
+        previous = {v["id"] for v in frame["vehicles"]}
+        out.append(dict(frame, vehicles=vehicles))
+    return out, fixes
+
+
 def outcomes(frame):
     """Oriented intended-footprint proxy and forward/rear separation from physical Webots poses."""
     ego = frame["ego"]
