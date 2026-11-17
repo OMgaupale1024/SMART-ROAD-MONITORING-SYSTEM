@@ -1,0 +1,1674 @@
+{
+ "adequacy": {
+  "frames_25": 2000,
+  "frames_30": 200,
+  "runs_25": 10,
+  "vehicles_25": 100
+ },
+ "estimate": {
+  "assertive": {
+   "alongside": {
+    "frames": 140,
+    "runs": 4,
+    "vehicles": 25
+   },
+   "configurations": 5,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 369,
+      "runs": 1,
+      "vehicles": 4
+     },
+     "15-20 m/s": {
+      "frames": 333,
+      "runs": 3,
+      "vehicles": 3
+     },
+     "20-25 m/s": {
+      "frames": 271,
+      "runs": 4,
+      "vehicles": 7
+     },
+     "25-30 m/s": {
+      "frames": 648,
+      "runs": 3,
+      "vehicles": 16
+     },
+     "30-35 m/s": {
+      "frames": 402,
+      "runs": 3,
+      "vehicles": 13
+     },
+     "35-40 m/s": {
+      "frames": 42,
+      "runs": 3,
+      "vehicles": 3
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 329,
+      "runs": 1,
+      "vehicles": 4
+     },
+     "15-20 m/s": {
+      "frames": 201,
+      "runs": 2,
+      "vehicles": 2
+     },
+     "20-25 m/s": {
+      "frames": 245,
+      "runs": 4,
+      "vehicles": 5
+     },
+     "25-30 m/s": {
+      "frames": 541,
+      "runs": 3,
+      "vehicles": 15
+     },
+     "30-35 m/s": {
+      "frames": 344,
+      "runs": 3,
+      "vehicles": 13
+     },
+     "35-40 m/s": {
+      "frames": 31,
+      "runs": 2,
+      "vehicles": 2
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 916,
+    "runs": 4,
+    "vehicles": 24
+   },
+   "observable_above_30_within_100m": {
+    "frames": 375,
+    "runs": 4,
+    "vehicles": 14
+   },
+   "observable_by_range": {
+    "000-025 m": 465,
+    "025-050 m": 594,
+    "050-075 m": 345,
+    "075-100 m": 287,
+    "100-125 m": 189,
+    "125-150 m": 185
+   },
+   "observable_within_100m": {
+    "frames": 1691,
+    "runs": 5,
+    "vehicles": 30
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 406,
+     "runs": 2,
+     "vehicles": 5
+    },
+    "15-20 m/s": {
+     "frames": 359,
+     "runs": 3,
+     "vehicles": 3
+    },
+    "20-25 m/s": {
+     "frames": 278,
+     "runs": 4,
+     "vehicles": 8
+    },
+    "25-30 m/s": {
+     "frames": 753,
+     "runs": 4,
+     "vehicles": 19
+    },
+    "30-35 m/s": {
+     "frames": 482,
+     "runs": 3,
+     "vehicles": 13
+    },
+    "35-40 m/s": {
+     "frames": 49,
+     "runs": 3,
+     "vehicles": 3
+    }
+   },
+   "present_above_25": {
+    "frames": 1284,
+    "runs": 5,
+    "vehicles": 26
+   },
+   "present_all_speeds": {
+    "frames": 2327,
+    "runs": 5,
+    "vehicles": 34
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 424,
+    "radar rear -> radar front": 21
+   },
+   "stationary_lead_frames": {}
+  },
+  "dense": {
+   "alongside": {
+    "frames": 787,
+    "runs": 6,
+    "vehicles": 111
+   },
+   "configurations": 6,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 6315,
+      "runs": 6,
+      "vehicles": 28
+     },
+     "15-20 m/s": {
+      "frames": 1142,
+      "runs": 5,
+      "vehicles": 20
+     },
+     "20-25 m/s": {
+      "frames": 3738,
+      "runs": 6,
+      "vehicles": 62
+     },
+     "25-30 m/s": {
+      "frames": 1957,
+      "runs": 6,
+      "vehicles": 93
+     },
+     "30-35 m/s": {
+      "frames": 277,
+      "runs": 6,
+      "vehicles": 37
+     },
+     "35-40 m/s": {
+      "frames": 17,
+      "runs": 1,
+      "vehicles": 2
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 5955,
+      "runs": 6,
+      "vehicles": 28
+     },
+     "15-20 m/s": {
+      "frames": 1067,
+      "runs": 5,
+      "vehicles": 15
+     },
+     "20-25 m/s": {
+      "frames": 2521,
+      "runs": 6,
+      "vehicles": 50
+     },
+     "25-30 m/s": {
+      "frames": 1842,
+      "runs": 6,
+      "vehicles": 83
+     },
+     "30-35 m/s": {
+      "frames": 241,
+      "runs": 5,
+      "vehicles": 31
+     },
+     "35-40 m/s": {
+      "frames": 13,
+      "runs": 1,
+      "vehicles": 1
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 2096,
+    "runs": 6,
+    "vehicles": 102
+   },
+   "observable_above_30_within_100m": {
+    "frames": 254,
+    "runs": 5,
+    "vehicles": 32
+   },
+   "observable_by_range": {
+    "000-025 m": 6820,
+    "025-050 m": 2410,
+    "050-075 m": 1575,
+    "075-100 m": 834,
+    "100-125 m": 807,
+    "125-150 m": 1000
+   },
+   "observable_within_100m": {
+    "frames": 11639,
+    "runs": 6,
+    "vehicles": 148
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 6589,
+     "runs": 6,
+     "vehicles": 28
+    },
+    "15-20 m/s": {
+     "frames": 1209,
+     "runs": 5,
+     "vehicles": 20
+    },
+    "20-25 m/s": {
+     "frames": 3903,
+     "runs": 6,
+     "vehicles": 64
+    },
+    "25-30 m/s": {
+     "frames": 2569,
+     "runs": 6,
+     "vehicles": 96
+    },
+    "30-35 m/s": {
+     "frames": 441,
+     "runs": 6,
+     "vehicles": 45
+    },
+    "35-40 m/s": {
+     "frames": 25,
+     "runs": 2,
+     "vehicles": 3
+    }
+   },
+   "present_above_25": {
+    "frames": 3035,
+    "runs": 6,
+    "vehicles": 121
+   },
+   "present_all_speeds": {
+    "frames": 14736,
+    "runs": 6,
+    "vehicles": 172
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 363,
+    "radar rear -> radar front": 92
+   },
+   "stationary_lead_frames": {}
+  },
+  "development": {
+   "alongside": {
+    "frames": 986,
+    "runs": 8,
+    "vehicles": 95
+   },
+   "configurations": 8,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 2293,
+      "runs": 7,
+      "vehicles": 36
+     },
+     "15-20 m/s": {
+      "frames": 1460,
+      "runs": 6,
+      "vehicles": 16
+     },
+     "20-25 m/s": {
+      "frames": 2980,
+      "runs": 8,
+      "vehicles": 34
+     },
+     "25-30 m/s": {
+      "frames": 4442,
+      "runs": 8,
+      "vehicles": 71
+     },
+     "30-35 m/s": {
+      "frames": 1012,
+      "runs": 8,
+      "vehicles": 32
+     },
+     "35-40 m/s": {
+      "frames": 43,
+      "runs": 2,
+      "vehicles": 2
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 2006,
+      "runs": 7,
+      "vehicles": 35
+     },
+     "15-20 m/s": {
+      "frames": 1296,
+      "runs": 6,
+      "vehicles": 14
+     },
+     "20-25 m/s": {
+      "frames": 2736,
+      "runs": 8,
+      "vehicles": 30
+     },
+     "25-30 m/s": {
+      "frames": 3736,
+      "runs": 8,
+      "vehicles": 62
+     },
+     "30-35 m/s": {
+      "frames": 820,
+      "runs": 6,
+      "vehicles": 28
+     },
+     "35-40 m/s": {
+      "frames": 43,
+      "runs": 2,
+      "vehicles": 2
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 4599,
+    "runs": 8,
+    "vehicles": 73
+   },
+   "observable_above_30_within_100m": {
+    "frames": 863,
+    "runs": 6,
+    "vehicles": 28
+   },
+   "observable_by_range": {
+    "000-025 m": 3078,
+    "025-050 m": 3250,
+    "050-075 m": 2694,
+    "075-100 m": 1615,
+    "100-125 m": 887,
+    "125-150 m": 706
+   },
+   "observable_within_100m": {
+    "frames": 10637,
+    "runs": 8,
+    "vehicles": 118
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 2639,
+     "runs": 7,
+     "vehicles": 36
+    },
+    "15-20 m/s": {
+     "frames": 1558,
+     "runs": 6,
+     "vehicles": 16
+    },
+    "20-25 m/s": {
+     "frames": 3138,
+     "runs": 8,
+     "vehicles": 35
+    },
+    "25-30 m/s": {
+     "frames": 4993,
+     "runs": 8,
+     "vehicles": 72
+    },
+    "30-35 m/s": {
+     "frames": 1182,
+     "runs": 8,
+     "vehicles": 35
+    },
+    "35-40 m/s": {
+     "frames": 48,
+     "runs": 3,
+     "vehicles": 3
+    }
+   },
+   "present_above_25": {
+    "frames": 6223,
+    "runs": 8,
+    "vehicles": 83
+   },
+   "present_all_speeds": {
+    "frames": 13558,
+    "runs": 8,
+    "vehicles": 130
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 853,
+    "radar rear -> radar front": 60
+   },
+   "stationary_lead_frames": {}
+  },
+  "ego_overtakes": {
+   "alongside": {
+    "frames": 611,
+    "runs": 6,
+    "vehicles": 73
+   },
+   "configurations": 6,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 2947,
+      "runs": 6,
+      "vehicles": 52
+     },
+     "15-20 m/s": {
+      "frames": 3168,
+      "runs": 6,
+      "vehicles": 24
+     },
+     "20-25 m/s": {
+      "frames": 798,
+      "runs": 5,
+      "vehicles": 17
+     },
+     "25-30 m/s": {
+      "frames": 1176,
+      "runs": 6,
+      "vehicles": 25
+     },
+     "30-35 m/s": {
+      "frames": 157,
+      "runs": 5,
+      "vehicles": 8
+     },
+     "35-40 m/s": {
+      "frames": 1,
+      "runs": 1,
+      "vehicles": 1
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 2759,
+      "runs": 6,
+      "vehicles": 50
+     },
+     "15-20 m/s": {
+      "frames": 2888,
+      "runs": 5,
+      "vehicles": 22
+     },
+     "20-25 m/s": {
+      "frames": 704,
+      "runs": 5,
+      "vehicles": 14
+     },
+     "25-30 m/s": {
+      "frames": 943,
+      "runs": 6,
+      "vehicles": 17
+     },
+     "30-35 m/s": {
+      "frames": 146,
+      "runs": 3,
+      "vehicles": 6
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 1089,
+    "runs": 6,
+    "vehicles": 20
+   },
+   "observable_above_30_within_100m": {
+    "frames": 146,
+    "runs": 3,
+    "vehicles": 6
+   },
+   "observable_by_range": {
+    "000-025 m": 2651,
+    "025-050 m": 3058,
+    "050-075 m": 1098,
+    "075-100 m": 633,
+    "100-125 m": 427,
+    "125-150 m": 380
+   },
+   "observable_within_100m": {
+    "frames": 7440,
+    "runs": 6,
+    "vehicles": 87
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 3441,
+     "runs": 6,
+     "vehicles": 52
+    },
+    "15-20 m/s": {
+     "frames": 3317,
+     "runs": 6,
+     "vehicles": 26
+    },
+    "20-25 m/s": {
+     "frames": 851,
+     "runs": 5,
+     "vehicles": 17
+    },
+    "25-30 m/s": {
+     "frames": 1347,
+     "runs": 6,
+     "vehicles": 26
+    },
+    "30-35 m/s": {
+     "frames": 224,
+     "runs": 6,
+     "vehicles": 11
+    },
+    "35-40 m/s": {
+     "frames": 4,
+     "runs": 1,
+     "vehicles": 1
+    }
+   },
+   "present_above_25": {
+    "frames": 1575,
+    "runs": 6,
+    "vehicles": 30
+   },
+   "present_all_speeds": {
+    "frames": 9184,
+    "runs": 6,
+    "vehicles": 101
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 684,
+    "radar rear -> radar front": 18
+   },
+   "stationary_lead_frames": {}
+  },
+  "evaluation": {
+   "alongside": {
+    "frames": 2494,
+    "runs": 30,
+    "vehicles": 303
+   },
+   "configurations": 32,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 13520,
+      "runs": 27,
+      "vehicles": 124
+     },
+     "15-20 m/s": {
+      "frames": 5606,
+      "runs": 22,
+      "vehicles": 54
+     },
+     "20-25 m/s": {
+      "frames": 8204,
+      "runs": 26,
+      "vehicles": 101
+     },
+     "25-30 m/s": {
+      "frames": 7774,
+      "runs": 26,
+      "vehicles": 166
+     },
+     "30-35 m/s": {
+      "frames": 3840,
+      "runs": 25,
+      "vehicles": 122
+     },
+     "35-40 m/s": {
+      "frames": 327,
+      "runs": 10,
+      "vehicles": 17
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 12208,
+      "runs": 27,
+      "vehicles": 123
+     },
+     "15-20 m/s": {
+      "frames": 4651,
+      "runs": 17,
+      "vehicles": 45
+     },
+     "20-25 m/s": {
+      "frames": 6340,
+      "runs": 24,
+      "vehicles": 85
+     },
+     "25-30 m/s": {
+      "frames": 6850,
+      "runs": 25,
+      "vehicles": 146
+     },
+     "30-35 m/s": {
+      "frames": 3223,
+      "runs": 22,
+      "vehicles": 108
+     },
+     "35-40 m/s": {
+      "frames": 282,
+      "runs": 8,
+      "vehicles": 12
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 10355,
+    "runs": 27,
+    "vehicles": 208
+   },
+   "observable_above_30_within_100m": {
+    "frames": 3505,
+    "runs": 23,
+    "vehicles": 114
+   },
+   "observable_by_range": {
+    "000-025 m": 11899,
+    "025-050 m": 11542,
+    "050-075 m": 5730,
+    "075-100 m": 4383,
+    "100-125 m": 2926,
+    "125-150 m": 2791
+   },
+   "observable_within_100m": {
+    "frames": 33554,
+    "runs": 31,
+    "vehicles": 374
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 14785,
+     "runs": 28,
+     "vehicles": 126
+    },
+    "15-20 m/s": {
+     "frames": 5799,
+     "runs": 22,
+     "vehicles": 56
+    },
+    "20-25 m/s": {
+     "frames": 8703,
+     "runs": 26,
+     "vehicles": 105
+    },
+    "25-30 m/s": {
+     "frames": 8786,
+     "runs": 27,
+     "vehicles": 173
+    },
+    "30-35 m/s": {
+     "frames": 4575,
+     "runs": 26,
+     "vehicles": 133
+    },
+    "35-40 m/s": {
+     "frames": 405,
+     "runs": 13,
+     "vehicles": 20
+    }
+   },
+   "present_above_25": {
+    "frames": 13766,
+    "runs": 30,
+    "vehicles": 249
+   },
+   "present_all_speeds": {
+    "frames": 43053,
+    "runs": 32,
+    "vehicles": 430
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 2933,
+    "radar rear -> radar front": 186
+   },
+   "stationary_lead_frames": {}
+  },
+  "feasibility": {
+   "alongside": {
+    "frames": 363,
+    "runs": 4,
+    "vehicles": 59
+   },
+   "configurations": 4,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 2445,
+      "runs": 4,
+      "vehicles": 33
+     },
+     "15-20 m/s": {
+      "frames": 1017,
+      "runs": 4,
+      "vehicles": 15
+     },
+     "20-25 m/s": {
+      "frames": 1223,
+      "runs": 4,
+      "vehicles": 34
+     },
+     "25-30 m/s": {
+      "frames": 504,
+      "runs": 4,
+      "vehicles": 35
+     },
+     "30-35 m/s": {
+      "frames": 92,
+      "runs": 3,
+      "vehicles": 4
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 2349,
+      "runs": 4,
+      "vehicles": 33
+     },
+     "15-20 m/s": {
+      "frames": 911,
+      "runs": 4,
+      "vehicles": 13
+     },
+     "20-25 m/s": {
+      "frames": 1098,
+      "runs": 4,
+      "vehicles": 30
+     },
+     "25-30 m/s": {
+      "frames": 436,
+      "runs": 4,
+      "vehicles": 25
+     },
+     "30-35 m/s": {
+      "frames": 83,
+      "runs": 2,
+      "vehicles": 2
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 519,
+    "runs": 4,
+    "vehicles": 25
+   },
+   "observable_above_30_within_100m": {
+    "frames": 83,
+    "runs": 2,
+    "vehicles": 2
+   },
+   "observable_by_range": {
+    "000-025 m": 2390,
+    "025-050 m": 1398,
+    "050-075 m": 733,
+    "075-100 m": 356,
+    "100-125 m": 216,
+    "125-150 m": 188
+   },
+   "observable_within_100m": {
+    "frames": 4877,
+    "runs": 4,
+    "vehicles": 75
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 2723,
+     "runs": 4,
+     "vehicles": 33
+    },
+    "15-20 m/s": {
+     "frames": 1102,
+     "runs": 4,
+     "vehicles": 15
+    },
+    "20-25 m/s": {
+     "frames": 1340,
+     "runs": 4,
+     "vehicles": 35
+    },
+    "25-30 m/s": {
+     "frames": 688,
+     "runs": 4,
+     "vehicles": 37
+    },
+    "30-35 m/s": {
+     "frames": 146,
+     "runs": 4,
+     "vehicles": 7
+    }
+   },
+   "present_above_25": {
+    "frames": 834,
+    "runs": 4,
+    "vehicles": 39
+   },
+   "present_all_speeds": {
+    "frames": 5999,
+    "runs": 4,
+    "vehicles": 92
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 392,
+    "radar rear -> radar front": 28
+   },
+   "stationary_lead_frames": {}
+  },
+  "gradual": {
+   "alongside": {
+    "frames": 184,
+    "runs": 4,
+    "vehicles": 26
+   },
+   "configurations": 5,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 891,
+      "runs": 4,
+      "vehicles": 5
+     },
+     "15-20 m/s": {
+      "frames": 5,
+      "runs": 1,
+      "vehicles": 1
+     },
+     "20-25 m/s": {
+      "frames": 147,
+      "runs": 3,
+      "vehicles": 3
+     },
+     "25-30 m/s": {
+      "frames": 757,
+      "runs": 3,
+      "vehicles": 14
+     },
+     "30-35 m/s": {
+      "frames": 1020,
+      "runs": 3,
+      "vehicles": 18
+     },
+     "35-40 m/s": {
+      "frames": 48,
+      "runs": 2,
+      "vehicles": 2
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 686,
+      "runs": 4,
+      "vehicles": 5
+     },
+     "20-25 m/s": {
+      "frames": 143,
+      "runs": 2,
+      "vehicles": 2
+     },
+     "25-30 m/s": {
+      "frames": 619,
+      "runs": 3,
+      "vehicles": 14
+     },
+     "30-35 m/s": {
+      "frames": 827,
+      "runs": 3,
+      "vehicles": 17
+     },
+     "35-40 m/s": {
+      "frames": 48,
+      "runs": 2,
+      "vehicles": 2
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 1494,
+    "runs": 3,
+    "vehicles": 22
+   },
+   "observable_above_30_within_100m": {
+    "frames": 875,
+    "runs": 3,
+    "vehicles": 18
+   },
+   "observable_by_range": {
+    "000-025 m": 606,
+    "025-050 m": 706,
+    "050-075 m": 543,
+    "075-100 m": 468,
+    "100-125 m": 296,
+    "125-150 m": 249
+   },
+   "observable_within_100m": {
+    "frames": 2323,
+    "runs": 4,
+    "vehicles": 27
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 958,
+     "runs": 4,
+     "vehicles": 5
+    },
+    "15-20 m/s": {
+     "frames": 8,
+     "runs": 1,
+     "vehicles": 1
+    },
+    "20-25 m/s": {
+     "frames": 153,
+     "runs": 3,
+     "vehicles": 4
+    },
+    "25-30 m/s": {
+     "frames": 809,
+     "runs": 3,
+     "vehicles": 14
+    },
+    "30-35 m/s": {
+     "frames": 1156,
+     "runs": 3,
+     "vehicles": 18
+    },
+    "35-40 m/s": {
+     "frames": 58,
+     "runs": 2,
+     "vehicles": 2
+    }
+   },
+   "present_above_25": {
+    "frames": 2023,
+    "runs": 3,
+    "vehicles": 23
+   },
+   "present_all_speeds": {
+    "frames": 3142,
+    "runs": 5,
+    "vehicles": 31
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 346,
+    "radar rear -> radar front": 21
+   },
+   "stationary_lead_frames": {}
+  },
+  "overtaken_fast": {
+   "alongside": {
+    "frames": 1057,
+    "runs": 11,
+    "vehicles": 131
+   },
+   "configurations": 11,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 3731,
+      "runs": 10,
+      "vehicles": 47
+     },
+     "15-20 m/s": {
+      "frames": 2040,
+      "runs": 9,
+      "vehicles": 19
+     },
+     "20-25 m/s": {
+      "frames": 1664,
+      "runs": 11,
+      "vehicles": 44
+     },
+     "25-30 m/s": {
+      "frames": 4367,
+      "runs": 10,
+      "vehicles": 74
+     },
+     "30-35 m/s": {
+      "frames": 1956,
+      "runs": 11,
+      "vehicles": 61
+     },
+     "35-40 m/s": {
+      "frames": 217,
+      "runs": 4,
+      "vehicles": 9
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 3250,
+      "runs": 10,
+      "vehicles": 47
+     },
+     "15-20 m/s": {
+      "frames": 1468,
+      "runs": 8,
+      "vehicles": 16
+     },
+     "20-25 m/s": {
+      "frames": 1497,
+      "runs": 11,
+      "vehicles": 40
+     },
+     "25-30 m/s": {
+      "frames": 3560,
+      "runs": 10,
+      "vehicles": 64
+     },
+     "30-35 m/s": {
+      "frames": 1684,
+      "runs": 10,
+      "vehicles": 54
+     },
+     "35-40 m/s": {
+      "frames": 189,
+      "runs": 4,
+      "vehicles": 8
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 5433,
+    "runs": 10,
+    "vehicles": 93
+   },
+   "observable_above_30_within_100m": {
+    "frames": 1873,
+    "runs": 10,
+    "vehicles": 57
+   },
+   "observable_by_range": {
+    "000-025 m": 3255,
+    "025-050 m": 3880,
+    "050-075 m": 2481,
+    "075-100 m": 2032,
+    "100-125 m": 1300,
+    "125-150 m": 1027
+   },
+   "observable_within_100m": {
+    "frames": 11648,
+    "runs": 11,
+    "vehicles": 153
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 4325,
+     "runs": 10,
+     "vehicles": 47
+    },
+    "15-20 m/s": {
+     "frames": 2095,
+     "runs": 9,
+     "vehicles": 19
+    },
+    "20-25 m/s": {
+     "frames": 1747,
+     "runs": 11,
+     "vehicles": 45
+    },
+    "25-30 m/s": {
+     "frames": 4819,
+     "runs": 10,
+     "vehicles": 74
+    },
+    "30-35 m/s": {
+     "frames": 2330,
+     "runs": 11,
+     "vehicles": 64
+    },
+    "35-40 m/s": {
+     "frames": 259,
+     "runs": 5,
+     "vehicles": 10
+    }
+   },
+   "present_above_25": {
+    "frames": 7408,
+    "runs": 11,
+    "vehicles": 109
+   },
+   "present_all_speeds": {
+    "frames": 15575,
+    "runs": 11,
+    "vehicles": 173
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 1135,
+    "radar rear -> radar front": 89
+   },
+   "stationary_lead_frames": {}
+  },
+  "similar_speed": {
+   "alongside": {
+    "frames": 835,
+    "runs": 6,
+    "vehicles": 54
+   },
+   "configurations": 6,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 1454,
+      "runs": 6,
+      "vehicles": 38
+     },
+     "15-20 m/s": {
+      "frames": 880,
+      "runs": 6,
+      "vehicles": 16
+     },
+     "20-25 m/s": {
+      "frames": 5402,
+      "runs": 6,
+      "vehicles": 33
+     },
+     "25-30 m/s": {
+      "frames": 2898,
+      "runs": 6,
+      "vehicles": 30
+     },
+     "30-35 m/s": {
+      "frames": 40,
+      "runs": 3,
+      "vehicles": 4
+     },
+     "35-40 m/s": {
+      "frames": 45,
+      "runs": 1,
+      "vehicles": 2
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 1382,
+      "runs": 6,
+      "vehicles": 38
+     },
+     "15-20 m/s": {
+      "frames": 841,
+      "runs": 6,
+      "vehicles": 16
+     },
+     "20-25 m/s": {
+      "frames": 5031,
+      "runs": 6,
+      "vehicles": 32
+     },
+     "25-30 m/s": {
+      "frames": 2745,
+      "runs": 5,
+      "vehicles": 22
+     },
+     "30-35 m/s": {
+      "frames": 33,
+      "runs": 2,
+      "vehicles": 2
+     },
+     "35-40 m/s": {
+      "frames": 44,
+      "runs": 1,
+      "vehicles": 1
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 2822,
+    "runs": 6,
+    "vehicles": 23
+   },
+   "observable_above_30_within_100m": {
+    "frames": 77,
+    "runs": 2,
+    "vehicles": 2
+   },
+   "observable_by_range": {
+    "000-025 m": 2351,
+    "025-050 m": 4137,
+    "050-075 m": 2213,
+    "075-100 m": 1375,
+    "100-125 m": 411,
+    "125-150 m": 232
+   },
+   "observable_within_100m": {
+    "frames": 10076,
+    "runs": 6,
+    "vehicles": 80
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 1744,
+     "runs": 6,
+     "vehicles": 39
+    },
+    "15-20 m/s": {
+     "frames": 938,
+     "runs": 6,
+     "vehicles": 16
+    },
+    "20-25 m/s": {
+     "frames": 5853,
+     "runs": 6,
+     "vehicles": 33
+    },
+    "25-30 m/s": {
+     "frames": 3148,
+     "runs": 6,
+     "vehicles": 31
+    },
+    "30-35 m/s": {
+     "frames": 65,
+     "runs": 4,
+     "vehicles": 6
+    },
+    "35-40 m/s": {
+     "frames": 54,
+     "runs": 1,
+     "vehicles": 2
+    }
+   },
+   "present_above_25": {
+    "frames": 3267,
+    "runs": 6,
+    "vehicles": 33
+   },
+   "present_all_speeds": {
+    "frames": 11802,
+    "runs": 6,
+    "vehicles": 91
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 668,
+    "radar rear -> radar front": 12
+   },
+   "stationary_lead_frames": {}
+  },
+  "stationary": {
+   "alongside": {
+    "frames": 229,
+    "runs": 5,
+    "vehicles": 37
+   },
+   "configurations": 5,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 2551,
+      "runs": 5,
+      "vehicles": 19
+     },
+     "15-20 m/s": {
+      "frames": 515,
+      "runs": 2,
+      "vehicles": 2
+     },
+     "20-25 m/s": {
+      "frames": 387,
+      "runs": 3,
+      "vehicles": 3
+     },
+     "25-30 m/s": {
+      "frames": 917,
+      "runs": 4,
+      "vehicles": 20
+     },
+     "30-35 m/s": {
+      "frames": 1092,
+      "runs": 5,
+      "vehicles": 17
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 2202,
+      "runs": 5,
+      "vehicles": 19
+     },
+     "15-20 m/s": {
+      "frames": 393,
+      "runs": 1,
+      "vehicles": 1
+     },
+     "20-25 m/s": {
+      "frames": 33,
+      "runs": 2,
+      "vehicles": 2
+     },
+     "25-30 m/s": {
+      "frames": 772,
+      "runs": 4,
+      "vehicles": 18
+     },
+     "30-35 m/s": {
+      "frames": 851,
+      "runs": 4,
+      "vehicles": 15
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 1623,
+    "runs": 4,
+    "vehicles": 22
+   },
+   "observable_above_30_within_100m": {
+    "frames": 851,
+    "runs": 4,
+    "vehicles": 15
+   },
+   "observable_by_range": {
+    "000-025 m": 1219,
+    "025-050 m": 1405,
+    "050-075 m": 902,
+    "075-100 m": 725,
+    "100-125 m": 599,
+    "125-150 m": 612
+   },
+   "observable_within_100m": {
+    "frames": 4251,
+    "runs": 5,
+    "vehicles": 42
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 2684,
+     "runs": 5,
+     "vehicles": 19
+    },
+    "15-20 m/s": {
+     "frames": 533,
+     "runs": 2,
+     "vehicles": 2
+    },
+    "20-25 m/s": {
+     "frames": 396,
+     "runs": 3,
+     "vehicles": 4
+    },
+    "25-30 m/s": {
+     "frames": 1022,
+     "runs": 4,
+     "vehicles": 22
+    },
+    "30-35 m/s": {
+     "frames": 1205,
+     "runs": 5,
+     "vehicles": 18
+    },
+    "35-40 m/s": {
+     "frames": 4,
+     "runs": 2,
+     "vehicles": 2
+    }
+   },
+   "present_above_25": {
+    "frames": 2231,
+    "runs": 5,
+    "vehicles": 29
+   },
+   "present_all_speeds": {
+    "frames": 5844,
+    "runs": 5,
+    "vehicles": 50
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 558,
+    "radar rear -> radar front": 21
+   },
+   "stationary_lead_frames": {}
+  },
+  "stress": {
+   "alongside": {
+    "frames": 122,
+    "runs": 3,
+    "vehicles": 19
+   },
+   "configurations": 4,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 335,
+      "runs": 2,
+      "vehicles": 6
+     },
+     "15-20 m/s": {
+      "frames": 764,
+      "runs": 2,
+      "vehicles": 4
+     },
+     "20-25 m/s": {
+      "frames": 72,
+      "runs": 3,
+      "vehicles": 6
+     },
+     "25-30 m/s": {
+      "frames": 273,
+      "runs": 4,
+      "vehicles": 9
+     },
+     "30-35 m/s": {
+      "frames": 362,
+      "runs": 2,
+      "vehicles": 12
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 253,
+      "runs": 1,
+      "vehicles": 5
+     },
+     "15-20 m/s": {
+      "frames": 630,
+      "runs": 2,
+      "vehicles": 4
+     },
+     "20-25 m/s": {
+      "frames": 54,
+      "runs": 2,
+      "vehicles": 4
+     },
+     "25-30 m/s": {
+      "frames": 194,
+      "runs": 3,
+      "vehicles": 7
+     },
+     "30-35 m/s": {
+      "frames": 299,
+      "runs": 2,
+      "vehicles": 12
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 493,
+    "runs": 3,
+    "vehicles": 16
+   },
+   "observable_above_30_within_100m": {
+    "frames": 299,
+    "runs": 2,
+    "vehicles": 12
+   },
+   "observable_by_range": {
+    "000-025 m": 498,
+    "025-050 m": 397,
+    "050-075 m": 312,
+    "075-100 m": 223,
+    "100-125 m": 197,
+    "125-150 m": 179
+   },
+   "observable_within_100m": {
+    "frames": 1430,
+    "runs": 4,
+    "vehicles": 23
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 383,
+     "runs": 2,
+     "vehicles": 6
+    },
+    "15-20 m/s": {
+     "frames": 821,
+     "runs": 2,
+     "vehicles": 4
+    },
+    "20-25 m/s": {
+     "frames": 81,
+     "runs": 3,
+     "vehicles": 6
+    },
+    "25-30 m/s": {
+     "frames": 311,
+     "runs": 4,
+     "vehicles": 9
+    },
+    "30-35 m/s": {
+     "frames": 429,
+     "runs": 3,
+     "vehicles": 13
+    }
+   },
+   "present_above_25": {
+    "frames": 740,
+    "runs": 4,
+    "vehicles": 19
+   },
+   "present_all_speeds": {
+    "frames": 2025,
+    "runs": 4,
+    "vehicles": 29
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 301,
+    "radar rear -> radar front": 16
+   },
+   "stationary_lead_frames": {}
+  },
+  "sudden": {
+   "alongside": {
+    "frames": 122,
+    "runs": 3,
+    "vehicles": 19
+   },
+   "configurations": 4,
+   "observable": {
+    "any_range": {
+     "10-15 m/s": {
+      "frames": 335,
+      "runs": 2,
+      "vehicles": 6
+     },
+     "15-20 m/s": {
+      "frames": 764,
+      "runs": 2,
+      "vehicles": 4
+     },
+     "20-25 m/s": {
+      "frames": 72,
+      "runs": 3,
+      "vehicles": 6
+     },
+     "25-30 m/s": {
+      "frames": 273,
+      "runs": 4,
+      "vehicles": 9
+     },
+     "30-35 m/s": {
+      "frames": 362,
+      "runs": 2,
+      "vehicles": 12
+     }
+    },
+    "within_100m": {
+     "10-15 m/s": {
+      "frames": 253,
+      "runs": 1,
+      "vehicles": 5
+     },
+     "15-20 m/s": {
+      "frames": 630,
+      "runs": 2,
+      "vehicles": 4
+     },
+     "20-25 m/s": {
+      "frames": 54,
+      "runs": 2,
+      "vehicles": 4
+     },
+     "25-30 m/s": {
+      "frames": 194,
+      "runs": 3,
+      "vehicles": 7
+     },
+     "30-35 m/s": {
+      "frames": 299,
+      "runs": 2,
+      "vehicles": 12
+     }
+    }
+   },
+   "observable_above_25_within_100m": {
+    "frames": 493,
+    "runs": 3,
+    "vehicles": 16
+   },
+   "observable_above_30_within_100m": {
+    "frames": 299,
+    "runs": 2,
+    "vehicles": 12
+   },
+   "observable_by_range": {
+    "000-025 m": 498,
+    "025-050 m": 397,
+    "050-075 m": 312,
+    "075-100 m": 223,
+    "100-125 m": 197,
+    "125-150 m": 179
+   },
+   "observable_within_100m": {
+    "frames": 1430,
+    "runs": 4,
+    "vehicles": 23
+   },
+   "present": {
+    "10-15 m/s": {
+     "frames": 383,
+     "runs": 2,
+     "vehicles": 6
+    },
+    "15-20 m/s": {
+     "frames": 821,
+     "runs": 2,
+     "vehicles": 4
+    },
+    "20-25 m/s": {
+     "frames": 81,
+     "runs": 3,
+     "vehicles": 6
+    },
+    "25-30 m/s": {
+     "frames": 311,
+     "runs": 4,
+     "vehicles": 9
+    },
+    "30-35 m/s": {
+     "frames": 429,
+     "runs": 3,
+     "vehicles": 13
+    }
+   },
+   "present_above_25": {
+    "frames": 740,
+    "runs": 4,
+    "vehicles": 19
+   },
+   "present_all_speeds": {
+    "frames": 2025,
+    "runs": 4,
+    "vehicles": 29
+   },
+   "radar_transitions": {
+    "radar front -> radar rear": 301,
+    "radar rear -> radar front": 16
+   },
+   "stationary_lead_frames": {}
+  }
+ },
+ "schema": "roadsense.stage15-estimate.v1"
+}

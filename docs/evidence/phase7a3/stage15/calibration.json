@@ -1,0 +1,343 @@
+{
+ "recorded_count_equals_stage9_coverage": {
+  "above_25_mps": true,
+  "above_30_mps": true
+ },
+ "recorded_over_estimate": {
+  "observable_above_25_within_100m": {
+   "frames": 2.369,
+   "runs": 1.818,
+   "vehicles": 1.442
+  },
+  "observable_above_30_within_100m": {
+   "frames": 2.311,
+   "runs": 2.25,
+   "vehicles": 1.688
+  },
+  "present_above_25": {
+   "frames": 2.145,
+   "runs": 1.083,
+   "vehicles": 1.23
+  }
+ },
+ "schema": "roadsense.stage15-calibration.v1",
+ "stage9_evaluation_estimate": {
+  "alongside": {
+   "frames": 1483,
+   "runs": 18,
+   "vehicles": 91
+  },
+  "observable": {
+   "any_range": {
+    "10-15 m/s": {
+     "frames": 13494,
+     "runs": 22,
+     "vehicles": 83
+    },
+    "15-20 m/s": {
+     "frames": 1450,
+     "runs": 8,
+     "vehicles": 19
+    },
+    "20-25 m/s": {
+     "frames": 1972,
+     "runs": 10,
+     "vehicles": 37
+    },
+    "25-30 m/s": {
+     "frames": 608,
+     "runs": 14,
+     "vehicles": 46
+    },
+    "30-35 m/s": {
+     "frames": 299,
+     "runs": 13,
+     "vehicles": 32
+    },
+    "35-40 m/s": {
+     "frames": 25,
+     "runs": 2,
+     "vehicles": 3
+    }
+   },
+   "within_100m": {
+    "10-15 m/s": {
+     "frames": 12061,
+     "runs": 21,
+     "vehicles": 81
+    },
+    "15-20 m/s": {
+     "frames": 1119,
+     "runs": 7,
+     "vehicles": 17
+    },
+    "20-25 m/s": {
+     "frames": 1806,
+     "runs": 10,
+     "vehicles": 33
+    },
+    "25-30 m/s": {
+     "frames": 365,
+     "runs": 9,
+     "vehicles": 33
+    },
+    "30-35 m/s": {
+     "frames": 192,
+     "runs": 4,
+     "vehicles": 16
+    },
+    "35-40 m/s": {
+     "frames": 20,
+     "runs": 1,
+     "vehicles": 2
+    }
+   }
+  },
+  "observable_above_25_within_100m": {
+   "frames": 577,
+   "runs": 11,
+   "vehicles": 43
+  },
+  "observable_above_30_within_100m": {
+   "frames": 212,
+   "runs": 4,
+   "vehicles": 16
+  },
+  "observable_by_range": {
+   "000-025 m": 8323,
+   "025-050 m": 4073,
+   "050-075 m": 1784,
+   "075-100 m": 1383,
+   "100-125 m": 1142,
+   "125-150 m": 1143
+  },
+  "observable_within_100m": {
+   "frames": 15563,
+   "runs": 23,
+   "vehicles": 142
+  },
+  "present": {
+   "10-15 m/s": {
+    "frames": 14379,
+    "runs": 22,
+    "vehicles": 83
+   },
+   "15-20 m/s": {
+    "frames": 1544,
+    "runs": 8,
+    "vehicles": 19
+   },
+   "20-25 m/s": {
+    "frames": 2139,
+    "runs": 10,
+    "vehicles": 37
+   },
+   "25-30 m/s": {
+    "frames": 761,
+    "runs": 14,
+    "vehicles": 46
+   },
+   "30-35 m/s": {
+    "frames": 417,
+    "runs": 17,
+    "vehicles": 40
+   },
+   "35-40 m/s": {
+    "frames": 42,
+    "runs": 3,
+    "vehicles": 6
+   }
+  },
+  "present_above_25": {
+   "frames": 1220,
+   "runs": 24,
+   "vehicles": 74
+  },
+  "present_all_speeds": {
+   "frames": 19282,
+   "runs": 30,
+   "vehicles": 177
+  },
+  "radar_transitions": {
+   "radar front -> radar rear": 2597,
+   "radar rear -> radar front": 26
+  },
+  "stationary_lead_frames": {}
+ },
+ "stage9_evaluation_recorded_truth": {
+  "alongside": {
+   "frames": 768,
+   "runs": 25,
+   "vehicles": 115
+  },
+  "observable": {
+   "any_range": {
+    "00-05 m/s": {
+     "frames": 237,
+     "runs": 4,
+     "vehicles": 8
+    },
+    "05-10 m/s": {
+     "frames": 210,
+     "runs": 6,
+     "vehicles": 10
+    },
+    "10-15 m/s": {
+     "frames": 6699,
+     "runs": 27,
+     "vehicles": 97
+    },
+    "15-20 m/s": {
+     "frames": 1977,
+     "runs": 19,
+     "vehicles": 40
+    },
+    "20-25 m/s": {
+     "frames": 4068,
+     "runs": 22,
+     "vehicles": 61
+    },
+    "25-30 m/s": {
+     "frames": 1480,
+     "runs": 23,
+     "vehicles": 63
+    },
+    "30-35 m/s": {
+     "frames": 761,
+     "runs": 17,
+     "vehicles": 43
+    },
+    "35-40 m/s": {
+     "frames": 5,
+     "runs": 2,
+     "vehicles": 2
+    }
+   },
+   "within_100m": {
+    "00-05 m/s": {
+     "frames": 237,
+     "runs": 4,
+     "vehicles": 8
+    },
+    "05-10 m/s": {
+     "frames": 210,
+     "runs": 6,
+     "vehicles": 10
+    },
+    "10-15 m/s": {
+     "frames": 5821,
+     "runs": 27,
+     "vehicles": 94
+    },
+    "15-20 m/s": {
+     "frames": 1672,
+     "runs": 18,
+     "vehicles": 36
+    },
+    "20-25 m/s": {
+     "frames": 3087,
+     "runs": 20,
+     "vehicles": 50
+    },
+    "25-30 m/s": {
+     "frames": 877,
+     "runs": 20,
+     "vehicles": 52
+    },
+    "30-35 m/s": {
+     "frames": 487,
+     "runs": 9,
+     "vehicles": 26
+    },
+    "35-40 m/s": {
+     "frames": 3,
+     "runs": 1,
+     "vehicles": 1
+    }
+   }
+  },
+  "observable_above_25_within_100m": {
+   "frames": 1367,
+   "runs": 20,
+   "vehicles": 62
+  },
+  "observable_above_30_within_100m": {
+   "frames": 490,
+   "runs": 9,
+   "vehicles": 27
+  },
+  "observable_by_range": {
+   "000-025 m": 3571,
+   "025-050 m": 3799,
+   "050-075 m": 2337,
+   "075-100 m": 2687,
+   "100-125 m": 1815,
+   "125-150 m": 1228
+  },
+  "observable_within_100m": {
+   "frames": 12394,
+   "runs": 30,
+   "vehicles": 168
+  },
+  "present": {
+   "00-05 m/s": {
+    "frames": 285,
+    "runs": 6,
+    "vehicles": 14
+   },
+   "05-10 m/s": {
+    "frames": 234,
+    "runs": 6,
+    "vehicles": 13
+   },
+   "10-15 m/s": {
+    "frames": 7526,
+    "runs": 27,
+    "vehicles": 103
+   },
+   "15-20 m/s": {
+    "frames": 2168,
+    "runs": 19,
+    "vehicles": 43
+   },
+   "20-25 m/s": {
+    "frames": 4229,
+    "runs": 22,
+    "vehicles": 64
+   },
+   "25-30 m/s": {
+    "frames": 1667,
+    "runs": 23,
+    "vehicles": 65
+   },
+   "30-35 m/s": {
+    "frames": 935,
+    "runs": 19,
+    "vehicles": 50
+   },
+   "35-40 m/s": {
+    "frames": 15,
+    "runs": 3,
+    "vehicles": 4
+   }
+  },
+  "present_above_25": {
+   "frames": 2617,
+   "runs": 26,
+   "vehicles": 91
+  },
+  "present_all_speeds": {
+   "frames": 17059,
+   "runs": 30,
+   "vehicles": 209
+  },
+  "radar_transitions": {
+   "radar front -> radar rear": 2483,
+   "radar rear -> radar front": 117
+  },
+  "stationary_lead_frames": {
+   "observable": 82,
+   "present": 92
+  }
+ }
+}

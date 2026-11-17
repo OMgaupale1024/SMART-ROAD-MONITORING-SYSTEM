@@ -82,6 +82,24 @@ def test_a_max_speed_override_changes_only_the_named_vtypes():
     assert sc.routes(fast).replace('maxSpeed="36.1"', 'maxSpeed="27"') == sc.routes(plain)
 
 
+def test_planned_traffic_is_opt_in_and_drives_exactly_its_speed():
+    plain = sc.draw("normal", 3)
+    assert sc.routes(dict(plain, planned_traffic=[])) == sc.routes(plain)  # without it: the routes as before
+    planned = [{"type": "car", "lane": 3, "depart_s": 9.0, "pos_m": 0.0, "speed_mps": 34.0},
+               {"type": "motorcycle", "lane": 1, "depart_s": 2.5, "pos_m": 0.0, "speed_mps": 20.0}]
+    with_planned = sc.routes(dict(plain, planned_traffic=planned))
+    assert with_planned.startswith(sc.routes(plain).rsplit("</routes>", 1)[0])  # appended after the drawn traffic
+    r = ET.fromstring(with_planned)
+    types = {t.get("id"): t for t in r.iter("vType")}
+    behind = [v for v in r.iter("vehicle") if v.get("id").startswith("p")]
+    assert [v.get("depart") for v in behind] == ["2.5", "9.0"]  # in depart order, as SUMO requires
+    limit = plain["speed_limit_kmh"] / 3.6
+    for v, want in zip(behind, (20.0, 34.0)):
+        t = types[v.get("type")]
+        assert float(v.get("departPos")) < 40 and t.get("speedDev") == "0"  # behind the ego, at a fixed speed
+        assert float(t.get("maxSpeed")) == want and min(want, limit * float(t.get("speedFactor"))) == pytest.approx(want)
+
+
 def test_potholes_are_ahead_along_the_direction_of_travel():
     for profile, sign in (("highway", -1), ("highway_lht", 1)):
         p = sc.draw("potholes", 2, profile)

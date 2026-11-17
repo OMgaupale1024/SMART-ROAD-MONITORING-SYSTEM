@@ -181,8 +181,26 @@ def routes(params):
     for i, (edge, lane, pos, vtype) in enumerate(vehicles):
         lines.append('  <vehicle id="v%d" type="%s" route="%s" depart="0" departLane="%d" departPos="%.1f" '
                      'departSpeed="desired"/>' % (i, vtype, edge, lane, pos))
+    lines += planned_traffic(params)
     lines.append('</routes>')
     return "\n".join(lines) + "\n"
+
+
+def planned_traffic(params):
+    """Route lines for the scenario's planned_traffic (Phase 7A.3 Stage 15; none without the key): vehicles on the
+    ego's carriageway with a fixed speed, entering at depart_s at pos_m along edge "0". pos_m 0 is behind the ego,
+    which starts 40 m along the edge: the drawn traffic all starts ahead of it, so nothing else ever comes from
+    behind. Each has its own vType, its class's with maxSpeed and a fixed speedFactor giving exactly speed_mps."""
+    lines, lane_mps = [], params["speed_limit_kmh"] / 3.6
+    planned = sorted(params.get("planned_traffic") or (), key=lambda v: v["depart_s"])  # SUMO wants depart order
+    for i, v in enumerate(planned):
+        attrs = re.sub(r' speedFactor="[^"]*"', "", vehicle_type(v["type"], params))
+        attrs = re.sub(r'maxSpeed="[^"]*"', 'maxSpeed="%.2f"' % v["speed_mps"], attrs)
+        lines.append('  <vType id="planned%d" %s speedFactor="%.4f" speedDev="0"/>'
+                     % (i, attrs, max(1.0, v["speed_mps"] / lane_mps)))
+        lines.append('  <vehicle id="p%d" type="planned%d" route="0" depart="%.1f" departLane="%d" departPos="%.1f" '
+                     'departSpeed="max"/>' % (i, i, v["depart_s"], v["lane"], v["pos_m"]))
+    return lines
 
 
 def _turn(axis_angle, yaw):
