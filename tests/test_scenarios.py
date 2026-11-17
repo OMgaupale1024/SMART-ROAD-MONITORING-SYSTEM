@@ -73,6 +73,15 @@ def test_traffic_starts_clear_of_the_ego():
     assert {t.get("id") for t in r.iter("vType")} == set(sc.VTYPES)
 
 
+def test_a_max_speed_override_changes_only_the_named_vtypes():
+    plain = sc.draw("normal", 3)
+    fast = dict(plain, vtype_max_speed_mps={"car": 36.1})
+    speeds = {t.get("id"): t.get("maxSpeed") for t in ET.fromstring(sc.routes(fast)).iter("vType")}
+    assert speeds["car"] == "36.1" and speeds["truck"] == "22"
+    assert sc.routes(plain).count('maxSpeed="27"') == 1  # no override: the routes are exactly as before
+    assert sc.routes(fast).replace('maxSpeed="36.1"', 'maxSpeed="27"') == sc.routes(plain)
+
+
 def test_potholes_are_ahead_along_the_direction_of_travel():
     for profile, sign in (("highway", -1), ("highway_lht", 1)):
         p = sc.draw("potholes", 2, profile)

@@ -105,6 +105,13 @@ def vehicle_length(name):
     return float(ET.fromstring("<vType " + VTYPES[name] + "/>").get("length"))
 
 
+def vehicle_type(name, params):
+    """The SUMO vType attributes of a class, with the scenario's vtype_max_speed_mps override (Phase 7A.3 Stage 9:
+    expressway traffic able to exceed 25 m/s). Without the key every vType is exactly VTYPES's."""
+    fast = (params.get("vtype_max_speed_mps") or {}).get(name)
+    return VTYPES[name] if fast is None else re.sub(r'maxSpeed="[^"]*"', 'maxSpeed="%.1f"' % fast, VTYPES[name])
+
+
 def vehicle_max_speed(name):
     return float(ET.fromstring("<vType " + VTYPES[name] + "/>").get("maxSpeed"))
 
@@ -161,7 +168,7 @@ def routes(params):
     names = sorted(params["mix"])
     weights = [params["mix"][n] for n in names]
     lines = ['<routes>', '  <route id="0" edges="0"/>', '  <route id="1" edges="1"/>']
-    lines += ['  <vType id="%s" %s/>' % (name, VTYPES[name]) for name in sorted(VTYPES)]
+    lines += ['  <vType id="%s" %s/>' % (name, vehicle_type(name, params)) for name in sorted(VTYPES)]
     spacing = 1000.0 / params["density_per_km_lane"]
     vehicles = []
     for edge in ("0", "1"):
