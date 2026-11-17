@@ -40,7 +40,7 @@ class Pipeline:
         for name in perception.RADARS:
             radar = frame["radars"][name]
             detections.extend(perception.radar_detections(name, radar["targets"], radar["limits"], t, pose))
-        self.tracker.update(t, detections)
+        self.tracker.update(t, detections, pose=pose, ego_velocity=ego["velocity"])
         reports = [perception.track_report(track, t, pose, ego["velocity"]) for track in self.tracker.confirmed]
         assessments = [risk.assess(report, prediction.predict(report)) for report in reports]
         discoveries = self.hazard_map.update(hazards.simulated_detections(frame["objects"], t, pose))
