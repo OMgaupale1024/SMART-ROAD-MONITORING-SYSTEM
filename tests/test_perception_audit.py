@@ -54,3 +54,10 @@ def test_unconfirmed_tracks_of_vehicles_faster_than_25_mps_never_confirm():
         return len(tr.confirmed)
     assert confirmed(24.9) == 1
     assert confirmed(25.1) == 0
+
+
+def test_a_miss_rate_is_missed_over_observable_frames():
+    import collections
+    seen, missed = {"speed": collections.Counter({"25-30 m/s": 16})}, {"speed": collections.Counter({"25-30 m/s": 14})}
+    assert pa.miss_rates(missed, seen)["speed"]["25-30 m/s"] == {"missed": 14, "observable_frames": 16,
+                                                                 "miss_rate": 0.875}

@@ -1,6 +1,7 @@
 """Phase 7A.3 offline perception audit: recorded slot features against simulator ground truth.
 
     PYTHONPATH=src python3 tools/perception_audit.py CAMPAIGN OUT_DIR [--model docs/evidence/phase7a2/model.json]
+    PYTHONPATH=src python3 tools/perception_audit.py CAMPAIGN OUT_DIR --slots REPLAY/slots.jsonl   # a tracker replay
 
 Read-only. Simulator truth is used only to *evaluate* what RoadSense recorded (which true vehicle each recorded slot
 holds, how wrong its kinematics are, what the radars could geometrically have seen); it never becomes an input.
@@ -154,26 +155,33 @@ def main(argv=None):
     ap.add_argument("out", type=Path)
     ap.add_argument("--model", type=Path, default=Path("docs/evidence/phase7a2/model.json"))
     ap.add_argument("--failures", type=Path, default=Path("docs/evidence/phase7a2/fresh-failure-cases.json"))
+    ap.add_argument("--slots", type=Path, help="slot features from tools/tracker_replay.py replay, not the history")
     args = ap.parse_args(argv)
     if args.out.exists():
         sys.exit("output directory exists: %s (never overwritten)" % args.out)
     predictor = Predictor.load(args.model)
 
     supervised = {}  # (run_id, sequence) -> split, label, score
-    for line in open(args.campaign / "features-final/samples.jsonl"):
-        r = json.loads(line)
-        score = predictor.predict(r["features"], r["feature_schema"])["risk_score"]
-        supervised[(r["run_id"], r["sequence"])] = (r["split"], r["labels"]["forward_risk_3s"], score)
-    db = sqlite3.connect("file:%s?mode=ro" % (args.campaign / "history/roadsense-history.sqlite3"), uri=True)
+    if (args.campaign / "features-final/samples.jsonl").exists():
+        for line in open(args.campaign / "features-final/samples.jsonl"):
+            r = json.loads(line)
+            score = predictor.predict(r["features"], r["feature_schema"])["risk_score"]
+            supervised[(r["run_id"], r["sequence"])] = (r["split"], r["labels"]["forward_risk_3s"], score)
     recorded = collections.defaultdict(list)
-    for run_id, seq, sim_s, feats in db.execute(
-            "SELECT g.run_id, s.sequence, s.sim_s, s.features FROM samples s JOIN segments g USING (segment_id) "
-            "ORDER BY g.run_id, s.sim_s"):
-        recorded[run_id].append((seq, sim_s, json.loads(feats)))
+    if args.slots is not None:
+        for line in open(args.slots):
+            r = json.loads(line)
+            recorded[r["run_id"]].append((r["sequence"], r["sim_s"], r["features"]))
+    else:
+        db = sqlite3.connect("file:%s?mode=ro" % (args.campaign / "history/roadsense-history.sqlite3"), uri=True)
+        for run_id, seq, sim_s, feats in db.execute(
+                "SELECT g.run_id, s.sequence, s.sim_s, s.features FROM samples s JOIN segments g USING (segment_id) "
+                "ORDER BY g.run_id, s.sim_s"):
+            recorded[run_id].append((seq, sim_s, json.loads(feats)))
 
     slot_outcomes = collections.Counter()
-    miss_by = {k: collections.Counter() for k in ("speed", "type", "range", "slot")}
-    seen_by = {k: collections.Counter() for k in ("speed", "type", "range", "slot")}
+    miss_by = {k: collections.Counter() for k in ("speed", "type", "range", "slot", "speed_100m", "type_100m")}
+    seen_by = {k: collections.Counter() for k in ("speed", "type", "range", "slot", "speed_100m", "type_100m")}
     errors = collections.defaultdict(list)  # kinematic errors on correctly matched slots
     switches = fragments = continuous_frames = 0
     lag = []  # truth lateral-motion onset -> recorded |v_lat| > threshold, same vehicle, seconds
@@ -182,6 +190,8 @@ def main(argv=None):
     for run_dir in sorted(runs_dir.iterdir()):
         scenario = json.load(open(run_dir / "scenario.json"))
         run_id = scenario["run_id"]
+        if run_id not in recorded or not (run_dir / "ground_truth.jsonl").exists():
+            continue
         perception.use_road(scenario["profile"])
         truth = truth_frames(run_dir / "ground_truth.jsonl")
         prev_slot = {}
@@ -230,6 +240,9 @@ def main(argv=None):
                     if long_visible:
                         for k, b in bands.items():
                             miss_by[k][b] += 1
+                        if abs(r["lon"]) < 100:
+                            miss_by["speed_100m"][bands["speed"]] += 1
+                            miss_by["type_100m"][bands["type"]] += 1
                 elif got == want:
                     outcome = "correct"
                     r = rel[want]
@@ -240,11 +253,16 @@ def main(argv=None):
                         moving = abs(r["vlat"]) > LATERAL_MOTION_MPS
                         errors["v_lat_mps_" + ("lateral_motion" if moving else "steady")].append(
                             f[slot + "_v_lat_mps"] - r["vlat"])
+                        if not moving and (f[slot + "_age_s"] or 0) < 1.5:
+                            errors["v_lat_mps_steady_young"].append(f[slot + "_v_lat_mps"] - r["vlat"])
                 else:
                     outcome = "wrong_vehicle" if got is not None else "mislocalized"
                 if want is not None and vis[want].startswith("radar") and long_visible:
                     for k, b in bands.items():
                         seen_by[k][b] += 1
+                    if abs(r["lon"]) < 100:
+                        seen_by["speed_100m"][bands["speed"]] += 1
+                        seen_by["type_100m"][bands["type"]] += 1
                 slot_outcomes[(slot, outcome)] += 1
                 # identity: same slot, consecutive frame
                 p = prev_slot.get(slot)
@@ -289,14 +307,12 @@ def main(argv=None):
             artifacts.append({"run_id": run_id, "split": next((fr["split"] for fr in timeline if fr["split"]), None), "t": t,
                               "vehicle": vid, "positive_labels_within_3s_before": len(positives)})
 
-    missed = json.load(open(args.failures))["missed_pre_onset_incidents"]
+    missed = [m for m in json.load(open(args.failures))["missed_pre_onset_incidents"] if m["run_id"] in frame_trace]
     traces = [trace_incident(m, frame_trace.get(m["run_id"], []), predictor.threshold, runs_dir) for m in missed]
     args.out.mkdir(parents=True)
-    by = {k: {b: {"missed": miss_by[k][b], "observable_frames": seen_by[k][b] + miss_by[k][b],
-                  "miss_rate": round(miss_by[k][b] / (seen_by[k][b] + miss_by[k][b]), 4)}
-              for b in sorted(set(seen_by[k]) | set(miss_by[k]))} for k in miss_by}
+    by = miss_rates(miss_by, seen_by)
     result = {
-        "schema": "roadsense.perception-audit.v1", "analysis_only": True,
+        "schema": "roadsense.perception-audit.v2", "analysis_only": True,
         "visibility": "geometric model of the RoadSense front/rear radars; raw radar targets were not recorded",
         "frames": sum(len(t) for t in frame_trace.values()), "runs": len(frame_trace),
         "slot_outcomes": {"%s/%s" % k: n for k, n in sorted(slot_outcomes.items())},
@@ -305,13 +321,54 @@ def main(argv=None):
                      "fragmentations_within_3s": fragments},
         "kinematic_error_correct_slots": {k: summary(v) for k, v in sorted(errors.items())},
         "lateral_cue_latency_s": {"vehicles": len(lag), "p50": pct(lag, .5), "p90": pct(lag, .9), "max": max(lag, default=None)},
-        "cut_ins": cutins, "missed_incident_traces": traces, "insertion_speed_artifacts": artifacts}
+        "cut_ins": cutins, "missed_incident_traces": traces, "insertion_speed_artifacts": artifacts,
+        "source": "replay %s" % args.slots if args.slots else "live history"}
+    result["criteria"] = criteria(result, errors)
     (args.out / "perception-audit.json").write_text(json.dumps(result, indent=1, sort_keys=True) + "\n")
     with open(args.out / "frame-traces.jsonl", "w") as out:
         for run_id, timeline in sorted(frame_trace.items()):
             for frame in timeline:
                 out.write(json.dumps(dict(frame, run_id=run_id), separators=(",", ":")) + "\n")
     print(args.out / "perception-audit.json")
+
+
+def miss_rates(miss_by, seen_by):
+    """{breakdown: {band: missed, observable frames, rate}}. seen_by counts every observable frame, the missed ones
+    included (corrected in Phase 7A.3: the investigation's first version added the misses again, so each rate was
+    understated as m / (n + m))."""
+    return {k: {b: {"missed": miss_by[k][b], "observable_frames": seen_by[k][b],
+                    "miss_rate": round(miss_by[k][b] / seen_by[k][b], 4)}
+                for b in sorted(seen_by[k])} for k in miss_by}
+
+
+def criteria(result, errors):
+    """The measurable tracking criteria of docs/phase7a3-plan.md §5 (T2-T10) from one audit."""
+    by, outcomes = result["missed_after_confirmation_allowance_by"], result["slot_outcomes"]
+    def worst(key, keep=lambda band: True):  # every band counts, however few its frames (reported beside it)
+        rates = [v["miss_rate"] for band, v in by[key].items() if keep(band)]
+        return max(rates) if rates else None
+    adjacent = []
+    for side in ("left", "right"):
+        present = sum(outcomes.get("%s/%s" % (side, o), 0) for o in ("correct", "spurious", "lane_misassigned",
+                                                                      "wrong_vehicle", "mislocalized"))
+        wrong = outcomes.get(side + "/wrong_vehicle", 0) + outcomes.get(side + "/spurious", 0)
+        adjacent.append(round(wrong / present, 4) if present else None)
+    identity = result["identity"]
+    def false_lateral(values):
+        return round(sum(abs(v) > LATERAL_MOTION_MPS for v in values) / len(values), 4) if values else None
+    kin = result["kinematic_error_correct_slots"]
+    return {"max_speed_100m": worst("speed_100m"), "max_type_100m": worst("type_100m"),
+            "max_range_far": worst("range", lambda band: band >= "100"),
+            "identity_per_1000": round(1000 * (identity["identity_switches"] + identity["fragmentations_within_3s"])
+                                       / identity["continuous_matched_slot_frames"], 3)
+            if identity["continuous_matched_slot_frames"] else None,
+            "adjacent_wrong": max(a for a in adjacent if a is not None), "adjacent_wrong_left_right": adjacent,
+            "vlat_motion_mae": kin.get("v_lat_mps_lateral_motion", {}).get("mae"),
+            "vlat_motion_p95": kin.get("v_lat_mps_lateral_motion", {}).get("p95_abs"),
+            "false_lateral_young": false_lateral(errors.get("v_lat_mps_steady_young", [])),
+            "false_lateral_all": false_lateral(errors.get("v_lat_mps_steady", [])),
+            "cue_p50": result["lateral_cue_latency_s"]["p50"], "cue_p90": result["lateral_cue_latency_s"]["p90"],
+            "lon_mae": kin["lon_m"]["mae"], "lat_mae": kin["lat_m"]["mae"]}
 
 
 def first(timeline, test, start=None):
