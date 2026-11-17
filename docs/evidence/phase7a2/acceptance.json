@@ -1,0 +1,20 @@
+{
+  "live_deployment_approved": false,
+  "passed": false,
+  "performance_and_coverage": {
+    "beats_frozen_incident_recall": false,
+    "coverage": false,
+    "early_frame_recall": false,
+    "lead": false,
+    "model_size": true,
+    "native_parity": true,
+    "ordinary_false_alarms": false,
+    "stress_incident_recall": true,
+    "test_incident_recall": false
+  },
+  "runtime": {
+    "feature_plus_model_p95_le_2ms": true,
+    "model_load_rss_le_64MiB": true,
+    "model_p95_le_2ms": true
+  }
+}

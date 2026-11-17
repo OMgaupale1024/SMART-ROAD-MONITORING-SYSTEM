@@ -76,7 +76,9 @@ def sample_side(name):
 lanePositions = [10.6, 6.875, 3.2]
 currentLane = 1
 overtakingSide = None
-maxSpeed = 80
+maxSpeed = float(os.environ.get("ROADSENSE_EGO_SPEED_KMH", "80"))
+if not 20 <= maxSpeed <= 90:
+    raise ValueError("experiment ego speed must be 20–90 km/h")
 safeOvertake = False
 
 

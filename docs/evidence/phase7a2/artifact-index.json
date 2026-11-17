@@ -1,0 +1,102 @@
+{
+  "base_source_revision": "fac585738ce14d38f4e50a28c77f7f33d673f883",
+  "baseline_model_sha256": "ea94c638fd7eec8362679553704cff029a8f50a5663b4e7a65e5bf605a69f32a",
+  "files": [
+    {
+      "bytes": 172438,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/plan.json",
+      "sha256": "712bde92f3c369065182608e0038e84cd2e7612943a0110905851cf3c8a3cdb6"
+    },
+    {
+      "bytes": 332298,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/campaign.jsonl",
+      "sha256": "4f58029f465437e94e2452f2b7b4d9fa2a05ecbfe8ebb8f98ca919bf4050163c"
+    },
+    {
+      "bytes": 118837,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/dataset-final/manifest.json",
+      "sha256": "d02852d5b3574e82df05bb55ae45a39f4fc979c21ba3ebdeef4bca497a55d49c"
+    },
+    {
+      "bytes": 76892810,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/dataset-final/samples.jsonl",
+      "sha256": "41eb5b8f876a581a6e61f813392f1588d011e6c0e67b37f39b64bc1ed7d91c3d"
+    },
+    {
+      "bytes": 3055,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/features-final/manifest.json",
+      "sha256": "58eaeeb3d0f27161a47fb72ca15af0c824efdbf7f683f7354bfcf2814ec69449"
+    },
+    {
+      "bytes": 117110234,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/features-final/samples.jsonl",
+      "sha256": "aef2c3f5ca67342f35b6df5e3a471e35f3dacfbefbfc1076d31f8e32ebc63442"
+    },
+    {
+      "bytes": 333,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/development-checkpoint.json",
+      "sha256": "dc9eb73e9bbc8e553f88c7510a463dc0eb0a8c28dbd142a7df1b91f644c910f2"
+    },
+    {
+      "bytes": 14772,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/ml/phase7a2-20261117/freeze.json",
+      "sha256": "fae0a51af2f4b63933a38787a7f07dcffa7105cd6a521fd3aff7f5bd2626551d"
+    },
+    {
+      "bytes": 823460,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/ml/phase7a2-20261117/development.json",
+      "sha256": "506dc652f1fb5cc978a3a8fceca2fac01513864d31581572004fe845e8ca2c3f"
+    },
+    {
+      "bytes": 2622110,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/ml/phase7a2-20261117/evaluation.json",
+      "sha256": "c397e0bc56b824b80eb7df379c8b464c3657e0d5aa0ea8caf137a32ea458bdd4"
+    },
+    {
+      "bytes": 53075,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/ml/phase7a2-20261117/model.json",
+      "sha256": "fc3235f96e86a0e85f01ca9e3f2c9d0dfb5a44c8f329f98bb547fe4a7793bce4"
+    },
+    {
+      "bytes": 687,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/ml/phase7a2-20261117/runtime.json",
+      "sha256": "046788738939b06ea0b93cbf2bf03188114457a3bb73d598fc331cf2d4cad991"
+    },
+    {
+      "bytes": 89421,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/dataset-development/manifest.json",
+      "sha256": "37da96b0855443beb4e463e7cafcb57945ede7c1c09d849dfb387e46505689be"
+    },
+    {
+      "bytes": 54042400,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/dataset-development/samples.jsonl",
+      "sha256": "f285d33e844f42d959976fadc54ce5728a884770ce5e98ddc2ef8cc179551053"
+    },
+    {
+      "bytes": 2945,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/features-development/manifest.json",
+      "sha256": "3fd759196f85b2d49d1a2247ff8c54c6f2ad187450056682a0b3c2acc3a50aa2"
+    },
+    {
+      "bytes": 82578861,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/features-development/samples.jsonl",
+      "sha256": "bec09c7fb7c12a16d0237a96af60a7d0c1aa7501483c5f93a7af4c7eee2497c5"
+    },
+    {
+      "bytes": 2998,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/features-historical/manifest.json",
+      "sha256": "e5159717472708aa5698796e066f2f51757ae55a5c033c6a8da6c43014375eac"
+    },
+    {
+      "bytes": 77747531,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/features-historical/samples.jsonl",
+      "sha256": "5e2bf2eec2ae64148d75e624dc3e3e8692e70a1b475b3e8036954bd1fa751146"
+    },
+    {
+      "bytes": 188,
+      "path": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/heldout-gate.json",
+      "sha256": "cb64071d97653af462c7185c938bcb0e031389ad5b7acbe7608a05dae00a0401"
+    }
+  ],
+  "selected": "hgb15"
+}

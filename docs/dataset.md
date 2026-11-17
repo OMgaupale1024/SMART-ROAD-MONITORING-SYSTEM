@@ -93,3 +93,11 @@ The smoke export is a developmental artifact with 31 inputs and earlier filterin
 Phase 6D publication and a bounded Phase 7A logistic-regression experiment were approved on 2026-11-17. This report describes Phase 6D; later training is documented separately. Bulk campaign data remains outside Git.
 
 The approved Phase 7A experiment is complete: see [learned-risk.md](learned-risk.md) and [the evaluation report](evidence/phase7a/RESULTS.md). No additional simulation or Pi deployment was performed.
+
+## Phase 7A.2 prospective expansion
+
+The separate [frozen protocol](phase7a2-plan.md) authorizes 140 additional attempts, including six smoke attempts. `tools/scenario_expansion.py` reuses the existing generator with explicit type/mode/timing controls and isolated local ports. Its immutable plan allocates 80 train, 20 validation, 20 test, 10 stress and 10 ordinary-cohort configurations. Every new configuration is non-near to the old campaign and every other new configuration under a conservative extension of the grouping rule above. No split is reassigned after outcomes.
+
+The unchanged `roadsense.forward-risk.v1` target and quality mask are exported by `tools/scenario_dataset.py`. `tools/expand_features.py` appends the causal 14-field contract described in [learned-risk.md](learned-risk.md), processing all raw observations before filtering supervised rows. The original 30-feature export remains available. Model selection uses original train plus new train, and new validation only; original holdouts remain historical benchmarks. Fresh test/stress/ordinary collection requires a frozen model and threshold bound to the plan's checksum.
+
+The bounded campaign, comparison, artifact locations, checksum audit and collection shortfalls are documented in [the Phase 7A.2 results](evidence/phase7a2/RESULTS.md). Bulk recordings and derived datasets remain outside Git. There is no authorization for another automatic campaign or Pi deployment.

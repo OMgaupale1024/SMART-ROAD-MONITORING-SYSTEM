@@ -2,7 +2,7 @@
 
 A logistic model has been trained on the frozen Phase 6D corpus. [Results and limitations](evidence/phase7a/RESULTS.md) recommend expanding independent coverage before live/Pi integration. This is an uncalibrated score for a synthetic forward near-miss proxy within three seconds. It is not a probability of physical collision or a braking controller.
 
-Phase 6D is published at `7ae80d6`. Phase 7A files remain local for review. No new simulation campaign, live-server change or Pi action was performed.
+Phase 6D is published at `7ae80d6`; the reviewed Phase 7A experiment is published at `fac5857`. Its original artifact and negative findings are preserved. Phase 7A.2 source, compact evidence and the frozen `roadsense-7a2-hgb15-v1` artifact are published with its failed acceptance result; [its report](evidence/phase7a2/RESULTS.md) is checksummed and kept exactly as written at evaluation time, so its "remain local for review" sentence predates publication. The separate [Phase 7A.2 protocol](phase7a2-plan.md) governs the bounded expansion and candidate comparison; neither experiment is approved for live deployment.
 
 ## What is available
 
@@ -37,3 +37,23 @@ Do not flatten a whole training row into inputs. `labels`, `baseline`, `current_
 5. Before any later Pi deployment, separately approve/check ARM64 numerical parity, model validation failure isolation, model-load memory and batch-1 inference latency alongside the current pipeline. The Pi needs this module and JSON only; numpy/scipy/scikit-learn belong exclusively to Mac training. The current Mac latency does not establish Pi performance.
 
 No server hook, service, thread pool, endpoint, database schema or dashboard integration was added. The existing deterministic safety and Ollama code are unchanged.
+
+## Phase 7A.2 causal contract and portable trees
+
+`src/roadsense/expanded_risk.py` preserves all 30 v1 inputs in order and appends 14 causal inputs under `roadsense.forward-inputs.v2`. They cover measured lead TTC, nominal side corridor-crossing time, steering rate, lead range/closing-speed/absolute-speed trends, side range/lateral trends and slot continuity. The slot continuity measure checks observed age and motion; it is not a simulator identity. A one-second buffer resets on run/sequence/time discontinuities, absent/stale tracks, age resets or implausible slot jumps. Derivatives need at least 0.4 seconds of continuous observations. Nulls remain explicit and use training-only medians in the model.
+
+The TTC and corridor inputs are ordinary current kinematic calculations, so improvement cannot be attributed to learning them independently. The corridor uses a fixed nominal 1.85 m half-width sum rather than privileged vehicle dimensions. Version 2 does not consume scenario IDs, simulator poses, intended maneuvers, risk labels or future minima. The export processes every raw observed frame before applying the supervised eligibility mask; missing future truth never changes the past feature buffer.
+
+```python
+from roadsense.expanded_risk import TemporalFeatures, Predictor
+
+stream = TemporalFeatures()
+predictor = Predictor.load("phase7a2-model.json")
+# base_features contains the same current 30 observable fields as Phase 7A.
+current = stream.observe(base_features, sim_s, run_id, sequence)
+result = predictor.predict(current, "roadsense.forward-inputs.v2")
+```
+
+Run ID, sequence and timestamp reset the feature buffer and are excluded from numerical model inputs. Call `observe` on every frame, including frames that would lack an offline training label. A future observer must keep the same timing/units and isolate failures as described above. The current stream assumes the recorded 5 Hz contract; a different rate needs a separately validated feature version.
+
+Versioned JSON supports logistic regression, numerical random forests and numerical histogram boosting. Loading validates schema, dimensions, finite parameters and acyclic trees; inference uses only Python's standard library. Forest input rounding reproduces scikit-learn's float32 behavior; boosted trees use the exported numerical thresholds, weighted leaves and intercept. No pickle, training stack, server adapter or Pi deployment is required or performed. Scores remain uncalibrated on this enriched synthetic corpus. The [completed Phase 7A.2 report](evidence/phase7a2/RESULTS.md) records 140 attempts and the validation-selected boosted model's failed predictive acceptance; it is suitable only for a labeled offline demonstration, pending further approved research.

@@ -101,6 +101,14 @@ def run_id(params):
     return "%s-%s-%d" % ("lht" if params["traffic"] == "left" else "rht", params["family"], params["seed"])
 
 
+def vehicle_length(name):
+    return float(ET.fromstring("<vType " + VTYPES[name] + "/>").get("length"))
+
+
+def vehicle_max_speed(name):
+    return float(ET.fromstring("<vType " + VTYPES[name] + "/>").get("maxSpeed"))
+
+
 def pothole_positions(params):
     """Webots (x, y, yaw) of each pothole: at_m ahead of the ego's start along its direction of travel."""
     p = PROFILES[params["profile"]]
@@ -217,6 +225,10 @@ def world(wbt, params, port):
                      out)
     if n != 1:
         raise ValueError("SumoInterface not found in the world")
+    if "lane_change_delay_s" in params:
+        out, n = re.subn(r'laneChangeDelay [0-9.]+', 'laneChangeDelay %.2f' % params["lane_change_delay_s"], out)
+        if n != 1:
+            raise ValueError("laneChangeDelay not found")
     return out
 
 
