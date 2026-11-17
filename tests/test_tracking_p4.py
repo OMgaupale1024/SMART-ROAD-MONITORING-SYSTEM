@@ -69,22 +69,40 @@ def test_p1_and_p2_cases_through_configuration_d(configuration_d):
 
 
 @pytest.mark.parametrize("config", [D, LEGACY_P4])
-def test_a_track_past_the_radars_reach_expires_at_once(config):
+def test_a_track_past_the_radars_reach_expires_once_past_the_margin(config):
     target = [("car", (120.0, 6.88), (22.0, 0.0))]  # pulling away at 10 m/s: past 150 m from the radar after 3.4 s
     p4, legacy = run(config, 12.0, target, 5.0), run(without_p4(config), 12.0, target, 5.0)
     (tid,) = p4[3.4][0]
-    assert p4[3.6][1] == [(tid, "beyond sensor range")] and not p4[3.6][0]
+    assert p4[3.8][0][tid][0] == "edge"  # within P4_RANGE_MARGIN_M of the 150 m limit
+    assert p4[4.0][1] == [(tid, "beyond sensor range")] and not p4[4.0][0]
     assert tid in legacy[4.4][0]  # the legacy rule coasts it on, out of reach
 
 
 @pytest.mark.parametrize("config", [D, LEGACY_P4])
-def test_a_vehicle_gone_from_clear_view_expires_after_three_misses(config):
+def test_a_vehicle_gone_from_clear_view_expires_within_a_second(config):
     target = [("car", (40.0, 6.88), (20.0, 0.0))]
     gone = lambda tid, t: t >= 4.0 - 1e-9  # noqa: E731
     p4, legacy = run(config, 20.0, target, 7.0, gone), run(without_p4(config), 20.0, target, 7.0, gone)
     (tid,) = p4[3.8][0]
-    assert p4[4.2][0][tid][0] == "visible" and p4[4.4][1] == [(tid, "missed while visible")]
-    assert tid in legacy[6.6][0]
+    assert p4[4.2][0][tid][0] == "visible"
+    expired = min(t for t, (_, gone_now) in p4.items() if (tid, "missed while visible") in gone_now)
+    assert 4.0 < expired <= 5.0 and tid in legacy[6.6][0]
+
+
+def test_a_radar_outage_is_not_evidence_that_vehicles_left():
+    targets = [("a", (30.0, 3.13), (20.0, 0.0)), ("b", (60.0, 6.88), (20.0, 0.0)), ("c", (45.0, 10.63), (20.0, 0.0))]
+    dropout = lambda tid, t: 4.0 - 1e-9 <= t < 5.0  # noqa: E731  every return lost for 1 s
+    p4 = run(D, 20.0, targets, 7.0, dropout)
+    before = set(p4[3.8][0])
+    assert len(before) == 3 and {z for z, _, _ in p4[4.8][0].values()} == {"outage"} and set(p4[6.0][0]) == before
+
+
+def test_a_vehicle_the_radar_often_misses_needs_more_misses_to_expire():
+    target = [("car", (60.0, 3.13), (20.0, 0.0))]
+    flaky = lambda tid, t: (t < 4.0 and round(t / 0.2) % 2 == 1) or 4.0 - 1e-9 <= t < 4.8  # noqa: E731
+    p4 = run(D, 20.0, target, 5.4, flaky)
+    (tid,) = p4[3.8][0]
+    assert tid in p4[4.6][0] and p4[4.6][0][tid][0] == "visible"  # four misses running: not yet evidence enough
 
 
 def test_a_vehicle_hidden_behind_a_nearer_one_coasts_on():
@@ -114,12 +132,24 @@ def test_an_overtaking_vehicle_keeps_its_track_through_the_blind_zone():
     assert p4[6.4][0][before][0] == "blind" and set(p4[8.0][0]) == {before}
 
 
-def test_an_unseen_lane_change_decays_while_the_c_estimate_runs_on():
-    target = [("car", (-30.0, 12.0), (25.0, -0.3))]
-    p4, c = run(D, 20.0, target, 6.6), run(C, 20.0, target, 6.6)
-    (tid,) = p4[5.4][0]
-    assert p4[6.6][0][tid][0] == "blind"
-    assert abs(p4[6.6][0][tid][2][1]) < 0.6 * 0.3 < abs(c[6.6][0][tid][2][1])
+def test_an_unseen_lane_change_decays_after_the_hold_while_the_c_estimate_runs_on():
+    target = [("car", (-16.0, 12.0), (22.0, -0.3))]  # 2 m/s faster: in the blind zone for about 4 s
+    p4, c = run(D, 20.0, target, 12.0), run(C, 20.0, target, 12.0)
+    blind = min(t for t, (tracks, _) in p4.items() if any(z == "blind" for z, _, _ in tracks.values()))
+    (tid,) = p4[blind][0]
+    late = round(blind + 2.4, 1)
+    assert p4[late][0][tid][0] == "blind"
+    assert abs(p4[late][0][tid][2][1]) < 0.6 * 0.3 < abs(c[late][0][tid][2][1])
+
+
+def test_a_cut_in_lost_for_under_the_hold_keeps_its_lateral_speed():
+    target = [("car", (25.0, 3.13), (18.0, 1.2))]  # moving into the ego lane, its returns lost for 0.6 s
+    lost = lambda tid, t: 2.0 - 1e-9 <= t < 2.6  # noqa: E731
+    p4, c = run(D, 20.0, target, 2.6, lost), run(C, 20.0, target, 2.6, lost)
+    (tid,) = p4[1.8][0]
+    for t in (2.0, 2.2, 2.4):
+        zone, position, velocity = p4[t][0][tid]
+        assert zone == "visible" and position == pytest.approx(c[t][0][tid][1]) and velocity == pytest.approx(c[t][0][tid][2])
 
 
 def test_a_coasting_duplicate_beside_a_measured_track_expires():
@@ -129,3 +159,11 @@ def test_a_coasting_duplicate_beside_a_measured_track_expires():
     (rear,) = [k for k, (_, (x, _y), _) in p4[2.8][0].items() if x - 20.0 * 2.8 < 41]
     assert p4[3.0][1] == [(rear, "duplicate of a measured track")] and len(p4[3.0][0]) == 1
     assert len(legacy[4.0][0]) == 2
+
+
+def test_a_small_vehicle_fading_past_100_m_is_not_taken_for_gone():
+    target = [("motorcycle", (85.0, 3.13), (25.0, 0.0))]  # pulling away at 5 m/s; its returns stop past 100 m
+    fades = lambda tid, t: math.hypot(85.0 + 5.0 * t - 4.054, 3.75) > 100.0  # noqa: E731
+    p4 = run(D, 20.0, target, 6.0, fades)
+    (tid,) = p4[3.0][0]
+    assert p4[5.6][0][tid][0] == "fade"

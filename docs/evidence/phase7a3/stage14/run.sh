@@ -1,11 +1,11 @@
 #!/bin/bash
 # Phase 7A.3 Stage 14: configuration D (P1+P2+P4, "p1p2p4") and the legacy+P4 ablation ("legacyp4") on every
 # recorded set, beside A/B/C (Stages 8-12). Offline replays of the recorded sensor frames only; truth evaluates.
-# Existing outputs are never overwritten. Usage: PY=$PWD/venv/bin/python bash docs/evidence/phase7a3/stage14/run.sh
+# Existing outputs are never overwritten. Usage: PY=$PWD/venv/bin/python [OUT=dir] bash docs/evidence/phase7a3/stage14/run.sh
 set -u
 PY=${PY:?set PY to the repository venv python}
 R="$HOME/Library/Application Support/RoadSense"; C="$R/campaigns"; A="$R/analysis"
-O="$A/phase7a3-s14-20261118"; S12="$A/phase7a3-s12-20261117"
+O="$A/${OUT:-phase7a3-s14-20261118}"; S12="$A/phase7a3-s12-20261117"  # OUT: P4 v1 s14, v2 s14b
 T=tools/tracker_replay.py; F=tools/track_failures.py
 export PYTHONPATH=src PYTHONDONTWRITEBYTECODE=1
 campaign() { case $1 in stage1) echo "$C/phase7a3-recording-20261117";; *) echo "$C/phase7a3-s9-$1-20261117";; esac; }
@@ -27,6 +27,7 @@ run_set() {
     [ -e "$D/audit-$t" ] || $PY tools/perception_audit.py "$CA" "$D/audit-$t" --slots "$D/trace-$t/slots.jsonl" > /dev/null || return 1
     [ -e "$D/failures-$t.json" ] || $PY $F analyse "$CA" "$D/trace-$t" "$E/replay-oracle" "$D/failures-$t.json" > /dev/null || return 1
     [ -e "$D/failures-$t-body.json" ] || $PY $F analyse "$CA" "$D/trace-$t" "$S12/$s/replay-oracle-body" "$D/failures-$t-body.json" > /dev/null || return 1
+    [ -e "$D/expiries-$t.json" ] || $PY $F expiries "$CA" "$D/expiries-$t.json" --tracker $t > /dev/null || return 1
   done
   [ -e "$D/criteria.json" ] || $PY $T compare "$E/audit-legacy/perception-audit.json" "$E/audit-p1/perception-audit.json" \
     "$E/audit-p1p2/perception-audit.json" "$D/audit-p1p2p4/perception-audit.json" "$D/audit-legacyp4/perception-audit.json" > "$D/criteria.json" || return 1

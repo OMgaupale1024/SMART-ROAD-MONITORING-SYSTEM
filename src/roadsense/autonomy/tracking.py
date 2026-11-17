@@ -40,22 +40,34 @@ and stopped vehicles lost close ahead. States: tentative (no id yet; legacy rule
 this cycle), coasting (confirmed but unseen) and expired (removed; the reason is kept in Tracker.expired).
 
 Each cycle, an unseen confirmed track's predicted position is assigned a coverage zone:
-  beyond    inside a radar's field of view, past its maximum range. It can no longer be observed, so it expires
-            at once.
-  near      within P4_NEAR_M of a radar, where a vehicle is detected only about a third of the time.
+  beyond    inside a radar's field of view, more than P4_RANGE_MARGIN_M past its maximum range. It can no
+            longer be observed, so it expires at once.
+  edge      inside that margin: Webots applies the range limit to the bounding-box centre, up to 3.1 m (a bus)
+            from the vehicle's reference point.
+  near      within P4_NEAR_M of a radar (P4_NEAR_STATIONARY_M for a stationary track), where a vehicle close
+            ahead is often missed.
   occluded  another track lies across the line of sight, nearer the radar.
+  fade      past P4_FADE_M, for a track never detected 5 m farther out: a motorcycle is detected 0.93-0.95 of
+            the time within 95 m, 0.82 to 100 m and never beyond (its radar cross-section); other types 0.9+.
+  outage    in the view of a radar whose detections this cycle fell under P4_OUTAGE_SHARE of its median over the
+            last P4_OUTAGE_CYCLES cycles (a median of 2 or more): a sensor-level dropout, not vehicles leaving.
+            Judged on the radar's own counts, so stale tracks cannot trigger it.
   blind     outside both fields of view, alongside the ego.
   visible   anywhere else in range.
 
 Only a miss while visible is evidence that the vehicle has gone. The track's existence starts at 1 while measured.
-Each visible miss multiplies it by 1 - P(detection) (p4_detection_probability, measured on the development
-recordings). The track expires once existence falls below P4_EXISTENCE_MIN. A miss in any other zone carries no
-evidence, so coasting there is capped instead: a moving track coasts at most P4_MAX_COAST_S, and a stationary track
-(slower than P4_STATIONARY_MPS) is held where it was last seen for up to P4_STATIONARY_HOLD_S.
+Each visible miss multiplies it by 1 - P(detection). P(detection) is the track's own detection record (cycles
+detected out of cycles in view) weighed against the prior measured on the development recordings
+(p4_detection_probability, worth P4_PRIOR_LOOKS cycles), so a vehicle the radar often misses carries little
+evidence per miss. The track expires once existence falls below P4_EXISTENCE_MIN, a test strict enough to stay
+rare over a track's hundreds of cycles. A miss in any other zone carries no evidence, so coasting there is capped
+instead: a moving track coasts at most P4_MAX_COAST_S, and a stationary track (slower than P4_STATIONARY_MPS) is
+held where it was last seen for up to P4_STATIONARY_HOLD_S.
 
 A coasting track within P4_DUPLICATE_M and P4_DUPLICATE_MPS of a measured confirmed track is treated as a
-duplicate of it and expires. While unseen, a Kalman track's across-road speed decays with P4_LATERAL_TAU_S (a lane
-change does not go on unseen); the window estimator keeps its velocity. A coasting track keeps the legacy 3 m gate
+duplicate of it and expires. A Kalman track unseen for longer than P4_LATERAL_HOLD_S has its across-road speed
+decay with P4_LATERAL_TAU_S (a lane change does not go on unseen for long). Within the hold it keeps its full speed,
+so a short dropout during a cut-in delays no warning. The window estimator keeps its velocity throughout. A coasting track keeps the legacy 3 m gate
 and also accepts a detection inside an along-road gate that grows with its predicted uncertainty: 3 sigma, at most
 P4_ALONG_GATE_M along the road and never wider than P4_ACROSS_GATE_M across it.
 
@@ -101,13 +113,20 @@ LIFECYCLES = ("legacy", "p4")
 # P4 coverage, from roadsense_highway.wbt; detection probabilities measured on the development recordings (§12)
 P4_RANGE_M = {"radar_front": 150.0, "radar_rear": 100.0}  # maxRange
 P4_HALF_FOV_RAD = 1.3 - perception.EDGE_MARGIN_RAD  # horizontalFieldOfView 2.6; nearer its edge detections are dropped
-P4_NEAR_M = 3.0  # nearer a radar, a vehicle ahead is detected 0.32 of the time (0.96+ beyond): no evidence there
-P4_OCCLUDER_M = 1.2  # a track this close to the line of sight and 2 m+ nearer hides one behind (detected 0-0.5)
-P4_EXISTENCE_MIN = 0.01  # a real vehicle in view is missed that many cycles running with under 1 % probability
+P4_RANGE_MARGIN_M = 5.0  # the range limit is on the bounding-box centre: up to 3.1 m from the reference point
+P4_NEAR_M = 3.0  # nearer a radar, a car ahead is detected 0.32 of the time (0.96+ beyond): no evidence there
+P4_NEAR_STATIONARY_M = 8.0  # for a stationary track (a stopped lead close ahead; taller vehicles fade farther out)
+P4_OCCLUDER_M = 1.8  # this close to the line of sight and 2 m+ nearer: may hide one behind (bus half-width 1.25 m)
+P4_EXISTENCE_MIN = 1e-4  # a vehicle in view missed that many cycles running: under 0.01 %, rare over a track's life
+P4_PRIOR_LOOKS = 5.0  # the measured detection probability counts as this many cycles of the track's own record
+P4_OUTAGE_SHARE = 0.5  # a radar detecting under half its recent median count (2+) is in an outage...
+P4_OUTAGE_CYCLES = 10  # ...the median of its last 10 cycles (2 s)
+P4_FADE_M = 100.0  # farther, misses are evidence only for a track already detected 5 m farther out
 P4_MAX_COAST_S = 4.0  # a moving track coasts at most this long where its misses carry no evidence
 P4_STATIONARY_MPS = 0.5  # slower: held where it was seen...
 P4_STATIONARY_HOLD_S = 30.0  # ...for at most this long, unless a miss in view says it has gone
-P4_LATERAL_TAU_S = 1.5  # an unseen Kalman track's across-road speed decays: a lane change ends
+P4_LATERAL_HOLD_S = 1.0  # unseen this long, a Kalman track keeps its across-road speed (a cut-in's dropout)...
+P4_LATERAL_TAU_S = 1.5  # ...then it decays: a lane change ends
 P4_DUPLICATE_M = 2.5  # a coasting track this close to a measured confirmed one...
 P4_DUPLICATE_MPS = 3.0  # ...and this close in velocity follows the same vehicle
 P4_ALONG_GATE_M = 5.0  # a coasting track's gate grows along the road with its uncertainty, at most this...
@@ -117,27 +136,27 @@ P4_ONCOMING_MPS = -2.0  # a world speed along the ego's carriageway below this i
 
 
 def p4_detection_probability(source, distance, oncoming):
-    """P(detection) per cycle of a vehicle with a clear line of sight, rounded down from the development recordings:
-    same direction 0.97-0.99 within 100 m (0.85 the farther lanes), 0.69-0.81 beyond; oncoming 0.5 within 100 m,
-    0.23 beyond, and 0.05 for the rear radar, which is taken as no evidence."""
+    """Prior P(detection) per cycle of a vehicle with a clear line of sight, rounded down from the development
+    recordings: same direction 0.97-0.99 (0.85-0.92 the farther lanes; past P4_FADE_M only for tracks already
+    detected there); oncoming 0.5 within 100 m, 0.23 beyond, and 0.05 for the rear radar, taken as no evidence."""
     if source == "radar_rear":
         return 0.0 if oncoming else 0.85
     if oncoming:
         return 0.45 if distance <= 100.0 else 0.2
-    return 0.85 if distance <= 100.0 else 0.65
+    return 0.85
 
 
-def p4_zone(lon, lat, others):
-    """(zone, radar source, distance) of an ego-frame position: "beyond", "near", "occluded" or "visible" inside a
-    radar's field of view, else "blind" (None, None). others: the ego-frame positions of the other tracks."""
+def p4_zone(lon, lat, others, near_m=P4_NEAR_M):
+    """(zone, radar source, distance) of an ego-frame position: "beyond", "edge", "near", "occluded" or "visible"
+    inside a radar's field of view, else "blind" (None, None). others: the ego-frame positions of the other tracks."""
     for source, mx, my, myaw in perception.RADARS.values():
         dx, dy = lon - mx, lat - my
         r = math.hypot(dx, dy)
         if r < _EPS or abs(math.remainder(math.atan2(dy, dx) - myaw, math.tau)) > P4_HALF_FOV_RAD:
             continue
         if r > P4_RANGE_M[source]:
-            return "beyond", source, r
-        if r < P4_NEAR_M:
+            return "beyond" if r > P4_RANGE_M[source] + P4_RANGE_MARGIN_M else "edge", source, r
+        if r < near_m:
             return "near", source, r
         ux, uy = dx / r, dy / r
         for ox, oy in others:
@@ -358,6 +377,7 @@ class Tracker:
         self.initiation, self.estimator, self.lifecycle = initiation, estimator, lifecycle
         self.tracks = []
         self.expired = []  # P4: (track, reason) for each track the last update expired
+        self._p4_counts = {}  # P4: each radar's detection counts over the last P4_OUTAGE_CYCLES cycles
         self._next_id = 1
 
     @property
@@ -417,7 +437,17 @@ class Tracker:
                 track.track_id = "TRACK_%03d" % self._next_id
                 self._next_id += 1
         if p4:
-            self._p4_lifecycle(t, pose, ea)
+            counts = {source: 0 for source in MOUNTS}
+            for d in detections:
+                counts[d.source] = counts.get(d.source, 0) + 1
+            outage = set()
+            for source, n in counts.items():
+                recent = sorted(self._p4_counts.setdefault(source, []))
+                median = recent[len(recent) // 2] if recent else 0
+                if median >= 2 and n < P4_OUTAGE_SHARE * median:
+                    outage.add(source)
+                self._p4_counts[source] = (self._p4_counts[source] + [n])[-P4_OUTAGE_CYCLES:]
+            self._p4_lifecycle(t, pose, ea, outage)
 
     @staticmethod
     def _p4_along_gate(track, t, ea):
@@ -431,26 +461,44 @@ class Tracker:
                 KF_ACCEL_ALONG_MPS2 ** 2 * KF_NOMINAL_DT_S * dt ** 3 / 3
         return min(P4_ALONG_GATE_M, 3 * math.sqrt(var))
 
-    def _p4_lifecycle(self, t, pose, ea):
+    def _p4_lifecycle(self, t, pose, ea, outage):
         """P4 (module docstring): place each unseen confirmed track in a zone, weigh its miss, then expire it (with
         the reason) or coast it on."""
         where = [tr.position_at(t) for tr in self.tracks]
         ego = [perception.world_to_ego(x, y, pose) for x, y in where]
         measured = [abs(tr.last_seen - t) <= _EPS for tr in self.tracks]
+        zones = {}
+        for i, tr in enumerate(self.tracks):
+            if tr.track_id is None:
+                continue
+            if measured[i]:
+                mx, my = MOUNTS[tr.source]
+                if math.hypot(ego[i][0] - mx, ego[i][1] - my) > P4_FADE_M + 5.0:
+                    tr.p4_far = True
+                continue
+            near = P4_NEAR_STATIONARY_M if math.hypot(*tr.velocity) < P4_STATIONARY_MPS else P4_NEAR_M
+            zones[i] = p4_zone(*ego[i], ego[:i] + ego[i + 1:], near)
+            if zones[i][0] == "visible" and zones[i][2] > P4_FADE_M and not getattr(tr, "p4_far", False):
+                zones[i] = ("fade",) + zones[i][1:]
         kept, self.expired = [], []
         for i, tr in enumerate(self.tracks):
             if measured[i]:
                 tr.existence, tr.zone = 1.0, "measured"
+                tr.p4_hits, tr.p4_looks = getattr(tr, "p4_hits", 0) + 1, getattr(tr, "p4_looks", 0) + 1
             if measured[i] or tr.track_id is None:
                 tr.status = "confirmed" if tr.track_id is not None else "tentative"
                 kept.append(tr)
                 continue
             tr.status = "coasting"
-            tr.zone, source, r = p4_zone(*ego[i], ego[:i] + ego[i + 1:])
+            tr.zone, source, r = zones[i]
             vx, vy = tr.velocity
+            if tr.zone == "visible" and source in outage:
+                tr.zone = "outage"
             if tr.zone == "visible":
-                oncoming = vx * ea[0] + vy * ea[1] < P4_ONCOMING_MPS
-                tr.existence = getattr(tr, "existence", 1.0) * (1.0 - p4_detection_probability(source, r, oncoming))
+                prior = p4_detection_probability(source, r, vx * ea[0] + vy * ea[1] < P4_ONCOMING_MPS)
+                tr.p4_looks = getattr(tr, "p4_looks", 0) + 1
+                pd = (getattr(tr, "p4_hits", 0) + P4_PRIOR_LOOKS * prior) / (tr.p4_looks + P4_PRIOR_LOOKS)
+                tr.existence = getattr(tr, "existence", 1.0) * (1.0 - pd)
             stationary = math.hypot(vx, vy) < P4_STATIONARY_MPS
             reason = None
             if tr.zone == "beyond":
@@ -475,7 +523,8 @@ class Tracker:
     @staticmethod
     def _p4_coast(tr, t, stationary, ea):
         """Move an unseen track on: a stationary one stays where it was seen; a Kalman track's across-road speed
-        decays (its covariance is the constant-velocity prediction's, an upper bound)."""
+        decays once it has been unseen for P4_LATERAL_HOLD_S (its covariance is the constant-velocity prediction's,
+        an upper bound)."""
         if not isinstance(tr, KalmanTrack):
             if stationary:
                 tr.velocity = (0.0, 0.0)
@@ -484,7 +533,7 @@ class Tracker:
         if stationary:
             state[2] = state[3] = 0.0
         else:
-            f = math.exp(-max(0.0, t - tr.t) / P4_LATERAL_TAU_S)
+            f = math.exp(-max(0.0, t - max(tr.t, tr.last_seen + P4_LATERAL_HOLD_S)) / P4_LATERAL_TAU_S)
             along = state[2] * ea[0] + state[3] * ea[1]
             state[2] = along * ea[0] + f * (state[2] - along * ea[0])
             state[3] = along * ea[1] + f * (state[3] - along * ea[1])
