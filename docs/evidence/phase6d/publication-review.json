@@ -1,0 +1,19 @@
+{
+  "checksums": 611,
+  "sample_reexport_byte_identical": true,
+  "manifest_difference": "exporter source hash only after destination-path fix",
+  "source_provenance": true,
+  "group_isolation": true,
+  "counts": {
+    "train": 27457,
+    "validation": 4840,
+    "test": 6552,
+    "stress": 4384
+  },
+  "exclusions": {
+    "unmatched_truth": 229,
+    "incomplete_future_window": 1939,
+    "at_or_after_first_overlap_proxy": 6734
+  },
+  "dataset_sha256": "18d58ee83e05e11164876b68feb0cebacba9755eb3395d6f0a8097cb2eb652ed"
+}

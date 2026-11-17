@@ -131,7 +131,10 @@ def test_plugin_writes_vehicle_coordinates():
     plugin = SumoSupervisorPlugin.__new__(SumoSupervisorPlugin)
     plugin.done, plugin.event, plugin.frames = False, None, 0
     plugin.p = {"duration_s": 100}
-    plugin.sup = SimpleNamespace(getTime=lambda: 1.0)
+    node = SimpleNamespace(getPosition=lambda: (-0.25, 6.5, 0),
+                           getOrientation=lambda: [1, 0, 0, 0, 1, 0, 0, 0, 1],
+                           getVelocity=lambda: [5, 0, 0, 0, 0, 0])
+    plugin.sup = SimpleNamespace(getTime=lambda: 1.0, vehicles={0: SimpleNamespace(currentID="v", node=node, inUse=True)})
     plugin._ego_state = lambda: dict(ego(), travelled_m=10)
     plugin.traci = SimpleNamespace(vehicle=SimpleNamespace(
         getIDList=lambda: ["v"], getPosition=lambda _: (5001, 15.75), getTypeID=lambda _: "car@v",
@@ -141,5 +144,10 @@ def test_plugin_writes_vehicle_coordinates():
     plugin._write = records.append
     plugin.run(200)
     vehicle = records[0]["vehicles"][0]
-    assert (vehicle["x"], vehicle["y"], vehicle["type"]) == (1, 7, "car")
+    assert (vehicle["x"], vehicle["y"], vehicle["type"]) == (2, 6.5, "car")
+    assert vehicle["speed"] == 5
+    assert (records[0]["sumo_vehicles"][0]["x"], records[0]["sumo_vehicles"][0]["y"]) == (1, 7)
     assert sc.frame_outcomes(records[0], [])["collision"]
+    plugin.sup.vehicles = {}
+    plugin.run(200)
+    assert records[1]["vehicles"] == [] and records[1]["missing_physical"] == ["v"]

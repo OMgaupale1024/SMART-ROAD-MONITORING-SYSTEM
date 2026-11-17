@@ -33,14 +33,16 @@ class SumoSupervisorPlugin:
         self.event = dict(self.p["event"] or {}, phase="waiting") if self.p["event"] else None
         self.frames = 0
         self.done = False
-        self._write({"record": "header", "schema": scenarios.GT_SCHEMA, "run_id": self.p.get("run_id") or scenarios.run_id(self.p),
+        self._write({"record": "header", "schema": "roadsense.groundtruth.v2", "run_id": self.p.get("run_id") or scenarios.run_id(self.p),
                      "scenario": self.p, "coordinate_frame": "webots_world", "simulated": True,
                      "clock": "simulation", "period_s": 0.2,
                      "potholes": [{"x": round(x, 2), "y": round(y, 2), "yaw": yaw}
                                   for x, y, yaw in scenarios.pothole_positions(self.p)],
                      "ego_footprint_m": {"rear": scenarios.EGO_REAR_M, "front": scenarios.EGO_FRONT_M,
                                          "half_width": scenarios.EGO_HALF_WIDTH_M},
-                     "vehicle_position": "front bumper centre (SUMO)"})
+                     "vehicle_position": "front bumper centre reconstructed from physical Webots centre and intended SUMO length",
+                     "pose_source": "webots_physical", "dimensions_source": "SUMO intended (proxy)",
+                     "sumo_pose_source": "SUMO logical; may differ during Webots smoothing"})
 
     def _write(self, record):
         self.out.write(json.dumps(record, separators=(",", ":")) + "\n")
@@ -225,8 +227,25 @@ class SumoSupervisorPlugin:
                              "yaw": round(math.radians(90.0 - v.getAngle(vid)), 4), "speed": round(v.getSpeed(vid), 3),
                              "length": v.getLength(vid), "width": v.getWidth(vid), "edge": v.getRoadID(vid),
                              "lane": v.getLaneIndex(vid)})
+        # SUMO lane changes are smoothed by Webots; label the physical objects that radar observes.
+        logical = vehicles
+        physical = []
+        nodes = {car.currentID: car.node for car in self.sup.vehicles.values() if car.inUse}
+        missing = []
+        for vehicle in logical:
+            node = nodes.get(vehicle["id"])
+            if node is None:
+                missing.append(vehicle["id"])
+                continue
+            x, y, _ = node.getPosition()
+            m = node.getOrientation()
+            yaw = math.atan2(m[3], m[0])
+            vx, vy = node.getVelocity()[:2]
+            physical.append(dict(vehicle, x=round(x + vehicle["length"] / 2 * math.cos(yaw), 3),
+                                 y=round(y + vehicle["length"] / 2 * math.sin(yaw), 3),
+                                 yaw=round(yaw, 4), speed=round(vx * math.cos(yaw) + vy * math.sin(yaw), 3)))
         self._write({"record": "frame", "t": round(now, 2), "ego": ego, "ego_in_sumo": EGO in ids,
-                     "vehicles": vehicles})
+                     "vehicles": physical, "sumo_vehicles": logical, "missing_physical": missing})
         self.frames += 1
         if now >= self.p["duration_s"] or ego["travelled_m"] > 4900:
             self.done = True

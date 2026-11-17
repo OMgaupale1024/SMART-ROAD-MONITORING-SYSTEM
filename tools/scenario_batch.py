@@ -18,6 +18,8 @@ import sqlite3
 import subprocess
 import sys
 import time
+import uuid
+import hashlib
 import urllib.request
 from pathlib import Path
 
@@ -84,9 +86,9 @@ def get(url):
 
 
 def start_server(port, history_dir, profile, log):
-    env = dict(os.environ, PYTHONPATH=str(ROOT / "src"), PYTHONDONTWRITEBYTECODE="1",
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (str(ROOT / "src"), os.environ.get("PYTHONPATH", "")))), PYTHONDONTWRITEBYTECODE="1",
                ROADSENSE_HISTORY_ENABLE="1", ROADSENSE_HISTORY_DATASET="1", ROADSENSE_HISTORY_DIR=str(history_dir),
-               ROADSENSE_HISTORY_MAX_MB="4096", ROADSENSE_HISTORY_RETENTION_DAYS="3650",
+               ROADSENSE_HISTORY_MAX_MB="2048", ROADSENSE_HISTORY_RETENTION_DAYS="3650",
                ROADSENSE_ROAD_PROFILE=profile)
     env.pop("ROADSENSE_AI_EXPLAIN", None)  # no Ollama while generating data: explanations are not data
     process = subprocess.Popen([sys.executable, "-m", "roadsense.web", "--host", "127.0.0.1", "--port", str(port),
@@ -102,6 +104,7 @@ def start_server(port, history_dir, profile, log):
             break
         time.sleep(0.2)
     process.kill()
+    process.wait()
     raise RuntimeError("the RoadSense server did not start recording; see server.log")
 
 
@@ -139,9 +142,23 @@ def size(path):
     return sum(p.stat().st_size for p in Path(path).rglob("*") if p.is_file() and not p.is_symlink())
 
 
-def run_one(campaign, family, seed, profile, tag="", timeout_s=600):
+def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0):
     params = scenarios.draw(family, seed, profile)
-    params["run_id"] = scenarios.run_id(params) + tag
+    params["configuration_id"] = hashlib.sha256(json.dumps(params, sort_keys=True).encode()).hexdigest()[:20]
+    params["repetition"] = repetition
+    params["execution_tag"] = tag
+    params["run_id"] = scenarios.run_id(params) + "-" + uuid.uuid4().hex[:12]
+    params["execution_id"] = params["run_id"]
+    params["source_revision"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+    params["source_dirty"] = bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT))
+    source_paths = sorted((ROOT / "tools").glob("scenario*.py")) + sorted((ROOT / "src/roadsense").rglob("*.py"))
+    source_paths += [ROOT / "simulation/webots/controllers/roadsense_ego/roadsense_ego.py"]
+    params["source_sha256"] = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                               for p in source_paths}
+    params["simulator_versions"] = {"webots": (Path(WEBOTS).parents[1] / "resources/version.txt").read_text().strip(),
+                                    "sumo": subprocess.check_output(["sumo", "--version"], text=True).splitlines()[0]}
+    params["feature_schema"] = "roadsense.features.v1"
+    params["ground_truth_definition"] = "roadsense.forward-risk.v1"
     run_dir = campaign / "runs" / params["run_id"]
     if run_dir.exists():
         raise RuntimeError("%s exists: a run is never overwritten" % run_dir)
@@ -151,7 +168,7 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600):
         raise RuntimeError("port %d or %d is in use" % (port, sumo_port))
     world = prepare(run_dir, params, sumo_port)
     gt_path = run_dir / "ground_truth.jsonl"
-    record = {"run_id": params["run_id"], "family": family, "seed": seed, "profile": profile, "ok": False}
+    record = {"configuration_id": params["configuration_id"], "repetition": repetition, "run_id": params["run_id"], "family": family, "seed": seed, "profile": profile, "ok": False}
     with open(run_dir / "server.log", "w") as server_log, open(run_dir / "webots.log", "w") as webots_log:
         server = start_server(port, history_dir, profile, server_log)
         try:
@@ -172,10 +189,12 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600):
                     webots.wait(10)
                 except subprocess.TimeoutExpired:
                     webots.kill()
+                    webots.wait()
                 record["error"] = "Webots did not finish within %d s" % timeout_s
             record["wall_s"] = round(time.monotonic() - started, 1)
             time.sleep(1.5)  # the controller's end-of-run frame, then a history flush
             edge = get("http://127.0.0.1:%d/api/system" % port)["edge"]
+            record["history_status"] = get("http://127.0.0.1:%d/api/system" % port)["history"]
             record["server"] = {"accepted": edge["frames"]["accepted"], "missed": edge["frames"]["missed"],
                                 "rejected": edge["frames"]["rejected"], "process_p95_ms": edge["latency_ms"]
                                 ["process"]["p95"], "handler_p95_ms": edge["latency_ms"]["handler"]["p95"]}
@@ -191,11 +210,14 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600):
     summary, outcomes = scenarios.summarize(frames, params)
     with open(run_dir / "outcomes.jsonl", "w") as f:
         for o in outcomes:
+            o = dict(o, schema="roadsense.outcomes.descriptive.v2", collision_proxy=o["collision"],
+                     near_miss_any_direction=o["near_miss"])
+            del o["collision"], o["near_miss"]
             f.write(json.dumps(o, separators=(",", ":")) + "\n")
     sims, labels, gaps, tracks = samples_of(history_dir, params["run_id"])
     gt_times = {round(f["t"], 1) for f in frames}
     joined = sum(1 for s in sims if round(s, 1) in gt_times)
-    record.update(ok=end is not None and not record.get("error"), sim_s=end["t"] if end else None,
+    record.update(ok=end is not None and not record.get("error") and not errors, sim_s=end["t"] if end else None,
                   end=end and end["reason"], event=end and end["event"], events=[e["what"] for e in events],
                   speed_x=round(end["t"] / record["wall_s"], 2) if end else None,
                   ground_truth=summary, samples=len(sims), samples_joined_to_ground_truth=joined,
@@ -215,7 +237,7 @@ def export(campaign):
     out = campaign / ("export-%d" % len(list(campaign.glob("export-*"))))
     subprocess.run([sys.executable, "-m", "roadsense.web.history_export", "--dir", str(campaign / "history"), "export",
                     str(out), "--group-map", str(campaign / "groups.json")], check=True,
-                   env=dict(os.environ, PYTHONPATH=str(ROOT / "src")))
+                   env=dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, (str(ROOT / "src"), os.environ.get("PYTHONPATH", ""))))))
     return out
 
 
@@ -235,8 +257,10 @@ def main(argv=None):
             p.add_argument("--seeds", default="1")
         if name == "run":
             p.add_argument("--family", choices=scenarios.FAMILIES, action="append", required=True)
-            p.add_argument("--tag", default="", help="suffix for the run id, e.g. -repeat")
+            p.add_argument("--tag", default="", help="execution tag (run identities are always unique)")
     args = parser.parse_args(argv)
+    if Path(args.campaign).name != args.campaign or args.campaign in (".", ".."):
+        parser.error("campaign must be a simple directory name")
     campaign = campaign_root() / args.campaign
     campaign.mkdir(parents=True, exist_ok=True)
     if args.command == "export":

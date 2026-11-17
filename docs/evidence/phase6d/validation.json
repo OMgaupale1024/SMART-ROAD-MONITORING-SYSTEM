@@ -1,0 +1,44 @@
+{
+  "all_checksums_valid": true,
+  "positive_configurations": {
+    "stress": 3,
+    "test": 2,
+    "train": 16,
+    "validation": 2
+  },
+  "released_event_runs": 33,
+  "repetition_inputs": [
+    {
+      "family": "normal",
+      "inputs_identical": true
+    },
+    {
+      "family": "sudden_brake",
+      "inputs_identical": true
+    },
+    {
+      "family": "cut_in",
+      "inputs_identical": true
+    },
+    {
+      "family": "tailgating",
+      "inputs_identical": true
+    },
+    {
+      "family": "potholes",
+      "inputs_identical": true
+    },
+    {
+      "family": "mixed",
+      "inputs_identical": true
+    },
+    {
+      "family": "combined",
+      "inputs_identical": true
+    }
+  ],
+  "rows_checked": 43233,
+  "sqlite_quick_check": "ok",
+  "staged_act_runs": 34,
+  "unexpected_missing_when_track_present": {}
+}

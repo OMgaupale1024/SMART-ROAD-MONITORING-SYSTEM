@@ -3,7 +3,9 @@
 Seeded Webots + SUMO scenarios, run in fast batch mode on the Mac. Each run records RoadSense's
 numerical features and heuristic labels (history dataset mode, Phase 6A) and, separately, **ground
 truth from the simulator's true positions**. Status: implemented and piloted (7 families × 2 runs).
-No large campaign has been run, and no model has been trained. Nothing here runs on the Raspberry Pi.
+Phase 6C was reviewed and published as `f4d4047`. Phase 6D adds physical-pose truth and a 70-run local campaign: see [dataset.md](dataset.md) and [its report](evidence/phase6d/RESULTS.md). No model has been trained or deployed to the Raspberry Pi.
+
+The implementation description below records the published Phase 6C baseline and pilot. Current local batch tools also include Phase 6D unique execution IDs and physical-pose truth; [dataset.md](dataset.md) defines the current supervised export.
 
 ```sh
 PYTHONPATH=src venv/bin/python tools/scenario_batch.py pilot --campaign NAME [--seeds 1] [--traffic left|right]
@@ -127,8 +129,8 @@ computed without importing RoadSense, so it is independent of the pipeline it ev
   RoadSense's decisions are advisory and are recorded as labels. Ego collisions are therefore
   outcomes of the sample controller.
 - **Labels in the export are heuristic** (the safety rule's output, `label_provenance.ground_truth
-  = false`). The independent outcomes are in each run's `outcomes.jsonl`, and joining them into a
-  training table is Phase 7 work.
+  = false`). The independent outcomes are in each run's `outcomes.jsonl`, and Phase 6D now joins physical-pose outcomes into a separate supervised
+  training table (see dataset.md).
 - **Event triggers are positional.** The plugin acts when the ego reaches `at_m`, so the staged
   situation depends on the traffic present at that moment (see reproducibility below).
 

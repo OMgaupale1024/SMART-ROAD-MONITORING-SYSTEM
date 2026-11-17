@@ -1,6 +1,6 @@
 # Phase 6C plan: randomized Indian-road scenario generation
 
-**Status 2026-11-17:** implemented locally and piloted (not committed, not deployed). See
+**Status 2026-11-17:** reviewed and published as `f4d4047`; not deployed to the Pi. See
 [scenarios.md](scenarios.md) for the implementation, approximations and pilot results. Differences
 from this plan:
 - Left-hand traffic uses the existing net with both edges reversed and `lefthand="true"`, not
