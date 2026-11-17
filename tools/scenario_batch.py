@@ -142,7 +142,8 @@ def size(path):
     return sum(p.stat().st_size for p in Path(path).rglob("*") if p.is_file() and not p.is_symlink())
 
 
-def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0, parameters=None):
+def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0, parameters=None, capture=False):
+    """One run; capture=True also records every raw sensor frame the ego sends (sensor_frames.jsonl, Phase 7A.3)."""
     params = dict(parameters) if parameters is not None else scenarios.draw(family, seed, profile)
     expected_id = params.pop("configuration_id", None)
     if (params["family"], params["seed"], params["profile"]) != (family, seed, profile):
@@ -190,6 +191,9 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0
                        ROADSENSE_SCENARIO=str(run_dir / "scenario.json"), ROADSENSE_GROUND_TRUTH=str(gt_path),
                        PYTHONDONTWRITEBYTECODE="1")
             env["ROADSENSE_EGO_SPEED_KMH"] = str(params.get("ego_speed_kmh", 80))
+            env.pop("ROADSENSE_FRAME_CAPTURE", None)
+            if capture:
+                env["ROADSENSE_FRAME_CAPTURE"] = str(run_dir / "sensor_frames.jsonl")
             env.pop("ROADSENSE_LIVE_PUBLISH", None)
             started = time.monotonic()
             webots = subprocess.Popen([WEBOTS, "--batch", "--mode=fast", "--no-rendering", "--stdout", "--stderr",
@@ -229,6 +233,11 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0
             del o["collision"], o["near_miss"]
             f.write(json.dumps(o, separators=(",", ":")) + "\n")
     sims, labels, gaps, tracks = samples_of(history_dir, params["run_id"])
+    if capture:
+        frames_path = run_dir / "sensor_frames.jsonl"
+        record["sensor_frames"] = {"lines": sum(1 for _ in open(frames_path, "rb")),
+                                   "sha256": hashlib.sha256(frames_path.read_bytes()).hexdigest()} \
+            if frames_path.exists() else None
     gt_times = {round(f["t"], 1) for f in frames}
     joined = sum(1 for s in sims if round(s, 1) in gt_times)
     record.update(ok=end is not None and not record.get("error") and not errors, sim_s=end["t"] if end else None,

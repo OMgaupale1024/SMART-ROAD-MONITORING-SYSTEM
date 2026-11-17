@@ -23,7 +23,8 @@
 # every radar cycle, printed once per simulated second; no recommendations feed the driving logic.
 # Added optional live-state publishing to the RoadSense web server (ROADSENSE_LIVE_PUBLISH=1), from a
 # background thread that the control loop never waits for. ROADSENSE_EDGE_URL offloads the
-# autonomy pipeline to an edge server by sending sensor readings from the same cycle.
+# autonomy pipeline to an edge server by sending sensor readings from the same cycle. Added an opt-in raw
+# sensor-frame recording for offline tracker replay (ROADSENSE_FRAME_CAPTURE), off by default.
 
 """RoadSense ego controller: the Webots highway_overtake driving logic plus local telemetry, perception, risk,
 road hazards, safety recommendations and an optional live-state stream."""
@@ -170,6 +171,11 @@ localPipeline = None if edgeMode else pipeline.Pipeline(
 # ROADSENSE_RUN_ID: a scenario generator names the run, so its ground truth joins the edge history on run id
 liveRunId = os.environ.get("ROADSENSE_RUN_ID", "").strip()[:64] or live_state.new_run_id()
 liveSequence, nextLive, liveState = 0, 0.0, None
+# ROADSENSE_FRAME_CAPTURE=path (diagnostic, edge mode only, off by default): every sensor frame, exactly the bytes
+# sent to the edge server, one per line, for offline tracker replay. It changes nothing that is sent or computed;
+# an existing file is never overwritten.
+captureTo = os.environ.get("ROADSENSE_FRAME_CAPTURE", "").strip()
+frameCapture = open(captureTo, "xb") if captureTo and edgeMode else None
 
 
 while driver.step() != -1:
@@ -268,7 +274,10 @@ while driver.step() != -1:
                 liveState = frame
             else:
                 liveState = cycle.snapshot(liveRunId, liveSequence)
-            livePublisher.publish(live_state.encode(liveState))
+            payload = live_state.encode(liveState)
+            if frameCapture is not None:
+                frameCapture.write(payload + b"\n")
+            livePublisher.publish(payload)
     if localPipeline is not None and now >= nextPerception - 1e-6:
         nextPerception += PERCEPTION_PERIOD_S
         print(perception.format_summary(now, cycle.reports))
@@ -281,3 +290,5 @@ if livePublisher:
     if liveState:
         livePublisher.publish(live_state.encode(live_state.finished(liveState)))
     livePublisher.close()
+if frameCapture is not None:
+    frameCapture.close()
