@@ -1,0 +1,80 @@
+{
+ "legacy": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 55.29,
+  "mean_us": 6.37,
+  "most_tracks": 14,
+  "p50_us": 4.71,
+  "p95_us": 16.79,
+  "p99_us": 21.96,
+  "state_sha256": {
+   "1e-3": "a10614cd8a2102817afb6a2448b3893159ac696058d0ec842374727a5af9e561",
+   "1e-6": "8205e577910d19579a82edc8f5aa15e4ccaf708a10342197f8afa11159af3070"
+  },
+  "tracker_memory_peak_kib": 6.3
+ },
+ "legacyp4": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 107.38,
+  "mean_us": 13.43,
+  "most_tracks": 19,
+  "p50_us": 10.5,
+  "p95_us": 34.88,
+  "p99_us": 43.33,
+  "state_sha256": {
+   "1e-3": "11943d7784960583c163e64503da5c4651ad6f8ed697e8ad3e0fc5ece62b91f4",
+   "1e-6": "d70fc6bb930a2192ea225685892b383ebc86e23184b50ac31d0f328e4de22446"
+  },
+  "tracker_memory_peak_kib": 16.4
+ },
+ "offline": true,
+ "p1": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 100.04,
+  "mean_us": 8.74,
+  "most_tracks": 14,
+  "p50_us": 6.46,
+  "p95_us": 23.21,
+  "p99_us": 30.08,
+  "state_sha256": {
+   "1e-3": "8c6f180e4b1c02b0b4ec6b8df5be2e300235136b7a23ab9d163a65edeb98a41b",
+   "1e-6": "d3702411d214db6fdeb5e8ef1821a3dd2527ba948089d673c94874213ca976c9"
+  },
+  "tracker_memory_peak_kib": 8.3
+ },
+ "p1p2": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 434.75,
+  "mean_us": 76.87,
+  "most_tracks": 14,
+  "p50_us": 54.12,
+  "p95_us": 208.5,
+  "p99_us": 255.67,
+  "state_sha256": {
+   "1e-3": "4d5495908354d2ceb633d2a93ac37e175df51fc6c36c84566618f5d8d6466d1c",
+   "1e-6": "3a28353f66f091b014dcd92aa01f9452772c96f518e034254569dc966e35028b"
+  },
+  "tracker_memory_peak_kib": 19.8
+ },
+ "p1p2p4": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 501.79,
+  "mean_us": 91.09,
+  "most_tracks": 13,
+  "p50_us": 73.83,
+  "p95_us": 232.71,
+  "p99_us": 281.12,
+  "state_sha256": {
+   "1e-3": "2129b4549bfd1c7dd17d01054a9470c65dbae477cd7c6bac5145c10114830379",
+   "1e-6": "9040225bd83c8cf4aef3d4cd05f737afe70a836013174f2bd0eed0d7b589f01b"
+  },
+  "tracker_memory_peak_kib": 19.5
+ },
+ "platform": "macOS-27.2.1-arm64-arm-64bit",
+ "python": "3.9.6"
+}

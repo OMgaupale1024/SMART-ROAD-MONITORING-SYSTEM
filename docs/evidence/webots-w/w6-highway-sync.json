@@ -1,0 +1,50 @@
+{
+ "v_100_100": {
+  "radar_period_s": 0.1,
+  "cycles": 600,
+  "sim_s": 60.0,
+  "wall_s": 11.4,
+  "rtf": 5.28,
+  "max_rss_mb": null,
+  "linked_target_pairs": 2369,
+  "range_rate_jumps_gt3mps": 17,
+  "jump_share": 0.007,
+  "errors": []
+ },
+ "v_200_200": {
+  "radar_period_s": 0.2,
+  "cycles": 300,
+  "sim_s": 60.0,
+  "wall_s": 10.5,
+  "rtf": 5.69,
+  "max_rss_mb": null,
+  "linked_target_pairs": 1905,
+  "range_rate_jumps_gt3mps": 11,
+  "jump_share": 0.006,
+  "errors": []
+ },
+ "v_200_50": {
+  "radar_period_s": 0.05,
+  "cycles": 1200,
+  "sim_s": 60.0,
+  "wall_s": 9.9,
+  "rtf": 6.07,
+  "max_rss_mb": null,
+  "linked_target_pairs": 8451,
+  "range_rate_jumps_gt3mps": 15,
+  "jump_share": 0.002,
+  "errors": []
+ },
+ "v_50_50": {
+  "radar_period_s": 0.05,
+  "cycles": 1200,
+  "sim_s": 60.0,
+  "wall_s": 16.6,
+  "rtf": 3.61,
+  "max_rss_mb": null,
+  "linked_target_pairs": 6769,
+  "range_rate_jumps_gt3mps": 14,
+  "jump_share": 0.002,
+  "errors": []
+ }
+}

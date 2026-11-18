@@ -1,0 +1,139 @@
+{
+  "final_event_phases": {
+    "done": 114,
+    "failed": 4,
+    "waiting": 2
+  },
+  "no_retries": true,
+  "noncompleted_events": [
+    {
+      "attempt": 1,
+      "event": {
+        "at_m": 473.8,
+        "decel_mps2": 8.96,
+        "gap_m": 8.5,
+        "hold_s": 5.5,
+        "id_suffix": "",
+        "kind": "sudden_brake",
+        "phase": "failed",
+        "settle_s": 3.4,
+        "to_kmh": 0,
+        "triggered_at": 26.2,
+        "vehicle_type": "autorickshaw"
+      },
+      "run_id": "lht-sudden_brake-1001-316461f78df0",
+      "split": "train"
+    },
+    {
+      "attempt": 4,
+      "event": {
+        "at_m": 277.3,
+        "from_lane": 1,
+        "gap_m": 3.9,
+        "id_suffix": "",
+        "kind": "cut_in",
+        "lane_change_mode": 0,
+        "phase": "failed",
+        "release_after_s": 8.0,
+        "request_s": 6.0,
+        "settle_s": 1.5,
+        "side": "left",
+        "speed_delta_kmh": -11.8,
+        "to_lane": 2,
+        "triggered_at": 16.2,
+        "vehicle_type": "autorickshaw"
+      },
+      "run_id": "lht-cut_in-1004-6f4d50e88ac4",
+      "split": "train"
+    },
+    {
+      "attempt": 5,
+      "event": {
+        "at_m": 517.9,
+        "blocked_by": [
+          "v184",
+          708.3,
+          4.5,
+          699.7
+        ],
+        "decel_mps2": 5.26,
+        "gap_m": 6.9,
+        "hold_s": 5.7,
+        "id_suffix": "",
+        "kind": "sudden_brake",
+        "phase": "failed",
+        "settle_s": 2.4,
+        "to_kmh": 5,
+        "triggered_at": 35.2,
+        "vehicle_type": "motorcycle"
+      },
+      "run_id": "lht-combined-1005-6e7115d15972",
+      "split": "train"
+    },
+    {
+      "attempt": 5,
+      "event": {
+        "at_m": 547.9,
+        "blocked_by": [
+          "v94",
+          729.7,
+          8.0,
+          729.3
+        ],
+        "from_lane": 2,
+        "gap_m": 4.7,
+        "id_suffix": "_2",
+        "kind": "cut_in",
+        "lane_change_mode": 0,
+        "phase": "failed",
+        "release_after_s": 8.0,
+        "request_s": 6.0,
+        "settle_s": 0.6,
+        "side": "left",
+        "side_switched": true,
+        "speed_delta_kmh": -18.4,
+        "to_lane": 3,
+        "triggered_at": 37.6,
+        "vehicle_type": "autorickshaw"
+      },
+      "run_id": "lht-combined-1005-6e7115d15972",
+      "split": "train"
+    },
+    {
+      "attempt": 62,
+      "event": {
+        "at_m": 418.7,
+        "gap_m": 7.2,
+        "id_suffix": "",
+        "kind": "cut_in",
+        "lane_change_mode": 0,
+        "phase": "waiting",
+        "release_after_s": 8.0,
+        "request_s": 6.0,
+        "settle_s": 0.6,
+        "side": "left",
+        "speed_delta_kmh": -25.1,
+        "vehicle_type": "motorcycle"
+      },
+      "run_id": "lht-cut_in-1062-368e22f688f9",
+      "split": "train"
+    },
+    {
+      "attempt": 94,
+      "event": {
+        "at_m": 311.0,
+        "decel_mps2": 1.61,
+        "gap_m": 55.0,
+        "hold_s": 3.6,
+        "id_suffix": "",
+        "kind": "sudden_brake",
+        "phase": "waiting",
+        "settle_s": 3.5,
+        "to_kmh": 20,
+        "vehicle_type": "autorickshaw"
+      },
+      "run_id": "lht-combined-1094-6a39b12d12f1",
+      "split": "validation"
+    }
+  ]
+}

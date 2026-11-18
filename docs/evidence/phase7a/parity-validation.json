@@ -1,0 +1,8 @@
+{
+  "rows": 43233,
+  "reference": "scikit-learn LogisticRegression.predict_proba restored from frozen learned coefficients, after exported median/scaler preprocessing",
+  "fit_calls": 0,
+  "max_abs_error": 6.661338147750939e-16,
+  "threshold_mismatches": 0,
+  "standard_library_only_load_and_predict_all_rows": true
+}

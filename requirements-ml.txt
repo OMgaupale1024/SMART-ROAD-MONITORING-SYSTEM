@@ -1,0 +1,8 @@
+# Mac-only training stack. Not required for standard-library JSON inference or the Pi web service.
+scikit-learn==1.9.1
+numpy==2.5.5
+scipy==1.18.1
+joblib==1.6.0
+threadpoolctl==3.8.0
+narwhals==2.28.0
+cloudpickle==3.1.2

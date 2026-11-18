@@ -1,0 +1,390 @@
+{
+  "features": {
+    "ego_acceleration_mps2": {
+      "category": "historical_inference_available",
+      "description": "speed change since the previous processed frame; null on a run's first",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "m/s^2"
+    },
+    "ego_speed_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "ego speed",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "ego_steering_rad": {
+      "category": "inference_available_in_prototype",
+      "description": "steering angle, positive right",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "rad"
+    },
+    "ego_steering_rate_radps": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true
+    },
+    "lead_age_s": {
+      "category": "historical_inference_available",
+      "description": "lead vehicle: time since the track was first seen",
+      "missing_count": 40837,
+      "missing_rate": 0.6219748084743439,
+      "selected": true,
+      "unit": "s"
+    },
+    "lead_closing_accel_mps2": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 42581,
+      "missing_rate": 0.6485370942930685,
+      "selected": true
+    },
+    "lead_continuity_s": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true
+    },
+    "lead_lat_m": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: lateral position, positive left",
+      "missing_count": 40837,
+      "missing_rate": 0.6219748084743439,
+      "selected": true,
+      "unit": "m"
+    },
+    "lead_lon_m": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "missing_count": 40837,
+      "missing_rate": 0.6219748084743439,
+      "selected": true,
+      "unit": "m"
+    },
+    "lead_lon_trend_mps": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 42581,
+      "missing_rate": 0.6485370942930685,
+      "selected": true
+    },
+    "lead_present": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "0/1"
+    },
+    "lead_range_rate_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: radar range rate; null when the radar gave none",
+      "missing_count": 40837,
+      "missing_rate": 0.6219748084743439,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "lead_speed_accel_mps2": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 42581,
+      "missing_rate": 0.6485370942930685,
+      "selected": true
+    },
+    "lead_unseen_s": {
+      "category": "historical_inference_available",
+      "description": "lead vehicle: time since the track was last measured (0 when measured in this frame)",
+      "missing_count": 40837,
+      "missing_rate": 0.6219748084743439,
+      "selected": true,
+      "unit": "s"
+    },
+    "lead_v_lat_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: relative lateral velocity",
+      "missing_count": 40837,
+      "missing_rate": 0.6219748084743439,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "lead_v_lon_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "lead vehicle: relative longitudinal velocity, negative closing from ahead",
+      "missing_count": 40837,
+      "missing_rate": 0.6219748084743439,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "left_age_s": {
+      "category": "historical_inference_available",
+      "description": "left vehicle: time since the track was first seen",
+      "missing_count": 20190,
+      "missing_rate": 0.307507196490854,
+      "selected": true,
+      "unit": "s"
+    },
+    "left_continuity_s": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true
+    },
+    "left_lane_driving": {
+      "category": "inference_available_in_prototype",
+      "description": "a driving lane exists to the ego's left (road geometry)",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "0/1"
+    },
+    "left_lat_m": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: lateral position, positive left",
+      "missing_count": 20190,
+      "missing_rate": 0.307507196490854,
+      "selected": true,
+      "unit": "m"
+    },
+    "left_lat_trend_mps": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 25896,
+      "missing_rate": 0.3944133908037224,
+      "selected": true
+    },
+    "left_lon_m": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "missing_count": 20190,
+      "missing_rate": 0.307507196490854,
+      "selected": true,
+      "unit": "m"
+    },
+    "left_lon_trend_mps": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 25896,
+      "missing_rate": 0.3944133908037224,
+      "selected": true
+    },
+    "left_present": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "0/1"
+    },
+    "left_range_rate_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: radar range rate; null when the radar gave none",
+      "missing_count": 20190,
+      "missing_rate": 0.307507196490854,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "left_unseen_s": {
+      "category": "historical_inference_available",
+      "description": "left vehicle: time since the track was last measured (0 when measured in this frame)",
+      "missing_count": 20190,
+      "missing_rate": 0.307507196490854,
+      "selected": true,
+      "unit": "s"
+    },
+    "left_v_lat_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: relative lateral velocity",
+      "missing_count": 20190,
+      "missing_rate": 0.307507196490854,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "left_v_lon_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "left vehicle: relative longitudinal velocity, negative closing from ahead",
+      "missing_count": 20190,
+      "missing_rate": 0.307507196490854,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "right_age_s": {
+      "category": "historical_inference_available",
+      "description": "right vehicle: time since the track was first seen",
+      "missing_count": 55825,
+      "missing_rate": 0.8502520675632453,
+      "selected": true,
+      "unit": "s"
+    },
+    "right_continuity_s": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true
+    },
+    "right_lane_driving": {
+      "category": "inference_available_in_prototype",
+      "description": "a driving lane exists to the ego's right (road geometry)",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "0/1"
+    },
+    "right_lat_m": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: lateral position, positive left",
+      "missing_count": 55825,
+      "missing_rate": 0.8502520675632453,
+      "selected": true,
+      "unit": "m"
+    },
+    "right_lat_trend_mps": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 57491,
+      "missing_rate": 0.8756263612409949,
+      "selected": true
+    },
+    "right_lon_m": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: longitudinal position relative to the ego rear axle, positive ahead",
+      "missing_count": 55825,
+      "missing_rate": 0.8502520675632453,
+      "selected": true,
+      "unit": "m"
+    },
+    "right_lon_trend_mps": {
+      "category": "historical_inference_available",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 57491,
+      "missing_rate": 0.8756263612409949,
+      "selected": true
+    },
+    "right_present": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: a confirmed track is in the slot (the other slot fields are null when not)",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "0/1"
+    },
+    "right_range_rate_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: radar range rate; null when the radar gave none",
+      "missing_count": 55831,
+      "missing_rate": 0.8503434515740896,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "right_unseen_s": {
+      "category": "historical_inference_available",
+      "description": "right vehicle: time since the track was last measured (0 when measured in this frame)",
+      "missing_count": 55825,
+      "missing_rate": 0.8502520675632453,
+      "selected": true,
+      "unit": "s"
+    },
+    "right_v_lat_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: relative lateral velocity",
+      "missing_count": 55825,
+      "missing_rate": 0.8502520675632453,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "right_v_lon_mps": {
+      "category": "inference_available_in_prototype",
+      "description": "right vehicle: relative longitudinal velocity, negative closing from ahead",
+      "missing_count": 55825,
+      "missing_rate": 0.8502520675632453,
+      "selected": true,
+      "unit": "m/s"
+    },
+    "sensor_lead_ttc_s": {
+      "category": "current_observable_kinematics",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 51935,
+      "missing_rate": 0.7910047671992324,
+      "selected": true
+    },
+    "sensor_left_corridor_time_s": {
+      "category": "current_observable_kinematics",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 59540,
+      "missing_rate": 0.9068340009443014,
+      "selected": true
+    },
+    "sensor_right_corridor_time_s": {
+      "category": "current_observable_kinematics",
+      "description": "Version 2 causal numerical input; definition in roadsense.expanded_risk.TemporalFeatures",
+      "missing_count": 63457,
+      "missing_rate": 0.9664925293571135,
+      "selected": true
+    },
+    "track_count": {
+      "category": "inference_available_in_prototype",
+      "description": "confirmed vehicle tracks",
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "selected": true,
+      "unit": "count"
+    }
+  },
+  "ordered_features": [
+    "ego_speed_mps",
+    "ego_acceleration_mps2",
+    "ego_steering_rad",
+    "left_lane_driving",
+    "right_lane_driving",
+    "track_count",
+    "lead_present",
+    "lead_lon_m",
+    "lead_lat_m",
+    "lead_v_lon_mps",
+    "lead_v_lat_mps",
+    "lead_range_rate_mps",
+    "lead_age_s",
+    "lead_unseen_s",
+    "left_present",
+    "left_lon_m",
+    "left_lat_m",
+    "left_v_lon_mps",
+    "left_v_lat_mps",
+    "left_range_rate_mps",
+    "left_age_s",
+    "left_unseen_s",
+    "right_present",
+    "right_lon_m",
+    "right_lat_m",
+    "right_v_lon_mps",
+    "right_v_lat_mps",
+    "right_range_rate_mps",
+    "right_age_s",
+    "right_unseen_s",
+    "sensor_lead_ttc_s",
+    "sensor_left_corridor_time_s",
+    "sensor_right_corridor_time_s",
+    "ego_steering_rate_radps",
+    "lead_lon_trend_mps",
+    "lead_closing_accel_mps2",
+    "lead_speed_accel_mps2",
+    "lead_continuity_s",
+    "left_lat_trend_mps",
+    "left_lon_trend_mps",
+    "left_continuity_s",
+    "right_lat_trend_mps",
+    "right_lon_trend_mps",
+    "right_continuity_s"
+  ],
+  "privileged_inference_features": false,
+  "schema": "roadsense.forward-inputs.v2"
+}

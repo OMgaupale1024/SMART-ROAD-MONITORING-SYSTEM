@@ -101,6 +101,21 @@ def run_id(params):
     return "%s-%s-%d" % ("lht" if params["traffic"] == "left" else "rht", params["family"], params["seed"])
 
 
+def vehicle_length(name):
+    return float(ET.fromstring("<vType " + VTYPES[name] + "/>").get("length"))
+
+
+def vehicle_type(name, params):
+    """The SUMO vType attributes of a class, with the scenario's vtype_max_speed_mps override (Phase 7A.3 Stage 9:
+    expressway traffic able to exceed 25 m/s). Without the key every vType is exactly VTYPES's."""
+    fast = (params.get("vtype_max_speed_mps") or {}).get(name)
+    return VTYPES[name] if fast is None else re.sub(r'maxSpeed="[^"]*"', 'maxSpeed="%.1f"' % fast, VTYPES[name])
+
+
+def vehicle_max_speed(name):
+    return float(ET.fromstring("<vType " + VTYPES[name] + "/>").get("maxSpeed"))
+
+
 def pothole_positions(params):
     """Webots (x, y, yaw) of each pothole: at_m ahead of the ego's start along its direction of travel."""
     p = PROFILES[params["profile"]]
@@ -153,7 +168,7 @@ def routes(params):
     names = sorted(params["mix"])
     weights = [params["mix"][n] for n in names]
     lines = ['<routes>', '  <route id="0" edges="0"/>', '  <route id="1" edges="1"/>']
-    lines += ['  <vType id="%s" %s/>' % (name, VTYPES[name]) for name in sorted(VTYPES)]
+    lines += ['  <vType id="%s" %s/>' % (name, vehicle_type(name, params)) for name in sorted(VTYPES)]
     spacing = 1000.0 / params["density_per_km_lane"]
     vehicles = []
     for edge in ("0", "1"):
@@ -166,8 +181,26 @@ def routes(params):
     for i, (edge, lane, pos, vtype) in enumerate(vehicles):
         lines.append('  <vehicle id="v%d" type="%s" route="%s" depart="0" departLane="%d" departPos="%.1f" '
                      'departSpeed="desired"/>' % (i, vtype, edge, lane, pos))
+    lines += planned_traffic(params)
     lines.append('</routes>')
     return "\n".join(lines) + "\n"
+
+
+def planned_traffic(params):
+    """Route lines for the scenario's planned_traffic (Phase 7A.3 Stage 15; none without the key): vehicles on the
+    ego's carriageway with a fixed speed, entering at depart_s at pos_m along edge "0". pos_m 0 is behind the ego,
+    which starts 40 m along the edge: the drawn traffic all starts ahead of it, so nothing else ever comes from
+    behind. Each has its own vType, its class's with maxSpeed and a fixed speedFactor giving exactly speed_mps."""
+    lines, lane_mps = [], params["speed_limit_kmh"] / 3.6
+    planned = sorted(params.get("planned_traffic") or (), key=lambda v: v["depart_s"])  # SUMO wants depart order
+    for i, v in enumerate(planned):
+        attrs = re.sub(r' speedFactor="[^"]*"', "", vehicle_type(v["type"], params))
+        attrs = re.sub(r'maxSpeed="[^"]*"', 'maxSpeed="%.2f"' % v["speed_mps"], attrs)
+        lines.append('  <vType id="planned%d" %s speedFactor="%.4f" speedDev="0"/>'
+                     % (i, attrs, max(1.0, v["speed_mps"] / lane_mps)))
+        lines.append('  <vehicle id="p%d" type="planned%d" route="0" depart="%.1f" departLane="%d" departPos="%.1f" '
+                     'departSpeed="max"/>' % (i, i, v["depart_s"], v["lane"], v["pos_m"]))
+    return lines
 
 
 def _turn(axis_angle, yaw):
@@ -217,6 +250,10 @@ def world(wbt, params, port):
                      out)
     if n != 1:
         raise ValueError("SumoInterface not found in the world")
+    if "lane_change_delay_s" in params:
+        out, n = re.subn(r'laneChangeDelay [0-9.]+', 'laneChangeDelay %.2f' % params["lane_change_delay_s"], out)
+        if n != 1:
+            raise ValueError("laneChangeDelay not found")
     return out
 
 

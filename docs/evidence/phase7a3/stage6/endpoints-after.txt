@@ -1,0 +1,8 @@
+/ 200
+/autonomy 307
+/api/system 200
+/api/live-state 404
+/api/ai-explanation 200
+/api/hazards 200
+/static/styles.css 200
+/ws/live handshake ok

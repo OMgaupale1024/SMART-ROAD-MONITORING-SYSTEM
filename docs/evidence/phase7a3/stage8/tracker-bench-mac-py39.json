@@ -1,0 +1,38 @@
+{
+ "legacy": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 30.12,
+  "mean_us": 5.75,
+  "most_tracks": 14,
+  "p50_us": 4.25,
+  "p95_us": 15.88,
+  "p99_us": 20.08,
+  "tracker_memory_peak_kib": 6.2
+ },
+ "offline": true,
+ "p1": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 43.42,
+  "mean_us": 8.14,
+  "most_tracks": 14,
+  "p50_us": 6.04,
+  "p95_us": 21.75,
+  "p99_us": 28.71,
+  "tracker_memory_peak_kib": 8.2
+ },
+ "p1p2": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 574.96,
+  "mean_us": 76.05,
+  "most_tracks": 14,
+  "p50_us": 52.79,
+  "p95_us": 208.96,
+  "p99_us": 264.12,
+  "tracker_memory_peak_kib": 19.7
+ },
+ "platform": "macOS-27.2.1-arm64-arm-64bit",
+ "python": "3.9.6"
+}

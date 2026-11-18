@@ -321,13 +321,13 @@ def test_edge_server_needs_only_the_web_extra():
     """The Pi has the web dependencies and nothing else: no Qt, no serial port library, no model client. The
     Arduino stack is archived under legacy/, outside the package."""
     code = ("import sys\n"
-            "sys.modules.update(PySide6=None, pyqtgraph=None, serial=None, ollama=None, psutil=None)\n"  # importing any now fails
-            "import roadsense.web.__main__, roadsense.web.server\n"
+            "sys.modules.update(PySide6=None, pyqtgraph=None, serial=None, ollama=None, psutil=None, sklearn=None, numpy=None, scipy=None, joblib=None)\n"  # importing any now fails
+            "import roadsense.web.__main__, roadsense.web.server, roadsense.learned_risk, roadsense.expanded_risk\n"
             "import roadsense, pkgutil\n"
             "print(sorted(m.name for m in pkgutil.iter_modules(roadsense.__path__)))\n")
     result = subprocess.run([sys.executable, "-c", code], env=subprocess_env(), capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
-    assert result.stdout.strip() == "['autonomy', 'web']"
+    assert result.stdout.strip() == "['autonomy', 'expanded_risk', 'learned_risk', 'web']"
 
 
 SYSTEM_PYTHON = "/usr/bin/python3"  # what Webots runs controllers with on this Mac: Python 3.9

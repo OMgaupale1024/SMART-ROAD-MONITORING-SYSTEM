@@ -1,0 +1,96 @@
+{
+  "candidate_sha256": {
+    "balanced": "ee68e0d7a852267fa771973db79e93fb80f239d022902b879f7dad495dfe28ab",
+    "unweighted": "ea94c638fd7eec8362679553704cff029a8f50a5663b4e7a65e5bf605a69f32a"
+  },
+  "chosen_variant": "unweighted",
+  "dataset_manifest_sha256": "de66b438d0332237e96fcb6267a9d5fe2c95dde51e53393a1b3c9828bfdb1bd6",
+  "dataset_sha256": "18d58ee83e05e11164876b68feb0cebacba9755eb3395d6f0a8097cb2eb652ed",
+  "fit_count": 10,
+  "fit_wall_s": 4.312,
+  "heldout_evaluated": false,
+  "peak_process_rss_bytes": 474005504,
+  "schema": "roadsense.training-freeze.v1",
+  "selection_splits": [
+    "train"
+  ],
+  "source_commit": "7ae80d6c9015b4bb18c6c551a2cbe213b782ce87",
+  "source_dirty": true,
+  "source_sha256": {
+    "docs/phase7a-plan.md": "107dcf04fd232344edf35f7706b0625d3f827d43003d6bacbb34f9623e6f7ffc",
+    "requirements-ml.txt": "0badd13faa965efcb396ac4555bee2188f00bc18e34b4c9d30e72f9c9e3d142f",
+    "src/roadsense/learned_risk.py": "4ccafd28d6b416f43e613db344226277a78426fd12a0c729142c286c369ae8d9",
+    "tools/forward_risk_metrics.py": "91f8d579d9dae18b61897127b19b243d4f3758f716849db0ee70de1133d7c044",
+    "tools/train_forward_risk.py": "75bc95bf761f9bcdd2914f8ab22763134f49651040593dae045b14e051213617"
+  },
+  "thresholds": {
+    "balanced": 0.8003510428463375,
+    "unweighted": 0.10232068373836772
+  },
+  "training": {
+    "C": 1,
+    "class_weight_balanced": {
+      "0": 0.5097656975233003,
+      "1": 26.09980988593156
+    },
+    "folds": 4,
+    "max_iter": 2000,
+    "preprocessing": "train-fold median then train-fold StandardScaler",
+    "seed": 20261117,
+    "selection": "training OOF F2; false alarms, pre-event recall and lead tie-breaks",
+    "solver": "lbfgs",
+    "threads": 1,
+    "threshold_grid": [
+      0.001,
+      0.0011869791493260974,
+      0.001408919500934906,
+      0.0016723580706886627,
+      0.0019850541601146624,
+      0.002356217898339133,
+      0.002796781516597509,
+      0.0033197213454218637,
+      0.003940440018588527,
+      0.004677220141234722,
+      0.00555176278445368,
+      0.006589826667151115,
+      0.007821986851581463,
+      0.009284535299130084,
+      0.011020549811249544,
+      0.013081162840062862,
+      0.015527067540093972,
+      0.018430305420269605,
+      0.021876388249571766,
+      0.02596681671480413,
+      0.030822070014844875,
+      0.036585154446689985,
+      0.043425815503095974,
+      0.051545537544656884,
+      0.061183478306313245,
+      0.07262351303283944,
+      0.08620259572079246,
+      0.10232068373836772,
+      0.12145251814223237,
+      0.1441616066679794,
+      0.17111682124824146,
+      0.20311209892062354,
+      0.24108982639463988,
+      0.2861685970450861,
+      0.3396761578844191,
+      0.4031885169320046,
+      0.47857636284600164,
+      0.5680601640585248,
+      0.6742755703002311,
+      0.8003510428463375,
+      0.95,
+      1.0
+    ],
+    "tol": 1e-06
+  },
+  "training_cv_sha256": "10c6c81b22ef887e9e47ea2c79eb6ee5456c91d63d1cd37769a3a3ccfb2773ba",
+  "versions": {
+    "numpy": "2.5.5",
+    "python": "3.12.14",
+    "scipy": "1.18.1",
+    "sklearn": "1.9.1"
+  }
+}

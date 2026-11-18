@@ -1,0 +1,5 @@
+checksums-ok
+0.53 0.14 0.05 1/342 42990
+MainPID=8944
+NRestarts=0
+ActiveState=active

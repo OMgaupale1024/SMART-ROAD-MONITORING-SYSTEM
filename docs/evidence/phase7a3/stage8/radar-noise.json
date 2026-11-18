@@ -1,0 +1,90 @@
+{
+ "campaign": "phase7a3-recording-20261117",
+ "pair_within_m": 3.0,
+ "position_noise_from_first_differences_m": {
+  "0-25 m across": 0.168,
+  "0-25 m along": 0.263,
+  "100-150 m across": 0.17,
+  "100-150 m along": 0.251,
+  "25-50 m across": 0.084,
+  "25-50 m along": 0.251,
+  "50-100 m across": 0.125,
+  "50-100 m along": 0.251
+ },
+ "position_residual_m": {
+  "0-25 m across": {
+   "median": 0.971,
+   "n": 13905,
+   "p95_abs": 2.481,
+   "robust_sigma": 0.822
+  },
+  "0-25 m along": {
+   "median": 0.169,
+   "n": 13905,
+   "p95_abs": 1.856,
+   "robust_sigma": 1.633
+  },
+  "100-150 m across": {
+   "median": 0.215,
+   "n": 8838,
+   "p95_abs": 0.623,
+   "robust_sigma": 0.198
+  },
+  "100-150 m along": {
+   "median": -1.246,
+   "n": 8838,
+   "p95_abs": 2.048,
+   "robust_sigma": 0.728
+  },
+  "25-50 m across": {
+   "median": 0.433,
+   "n": 15604,
+   "p95_abs": 1.152,
+   "robust_sigma": 0.341
+  },
+  "25-50 m along": {
+   "median": 0.927,
+   "n": 15604,
+   "p95_abs": 2.083,
+   "robust_sigma": 1.118
+  },
+  "50-100 m across": {
+   "median": 0.222,
+   "n": 28148,
+   "p95_abs": 0.796,
+   "robust_sigma": 0.222
+  },
+  "50-100 m along": {
+   "median": 0.775,
+   "n": 28148,
+   "p95_abs": 2.075,
+   "robust_sigma": 1.664
+  }
+ },
+ "radial_speed_outliers_over_3_mps": {
+  "first_refresh": 0.0136,
+  "lever": 0.0007,
+  "no_lever": 0.0008
+ },
+ "radial_speed_residual_mps": {
+  "first_refresh": {
+   "median": -0.009,
+   "n": 2951,
+   "p95_abs": 0.739,
+   "robust_sigma": 0.207
+  },
+  "lever": {
+   "median": 0.003,
+   "n": 63351,
+   "p95_abs": 0.552,
+   "robust_sigma": 0.17
+  },
+  "no_lever": {
+   "median": 0.002,
+   "n": 63351,
+   "p95_abs": 0.553,
+   "robust_sigma": 0.171
+  }
+ },
+ "schema": "roadsense.radar-noise.v1"
+}

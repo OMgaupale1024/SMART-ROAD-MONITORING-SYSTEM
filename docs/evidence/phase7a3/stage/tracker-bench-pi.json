@@ -1,0 +1,23 @@
+{
+ "legacy": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 75.2,
+  "mean_us": 12.0,
+  "p50_us": 8.19,
+  "p95_us": 35.93,
+  "p99_us": 45.46
+ },
+ "offline": true,
+ "p1": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 96.54,
+  "mean_us": 16.88,
+  "p50_us": 11.83,
+  "p95_us": 47.87,
+  "p99_us": 61.69
+ },
+ "platform": "Linux-6.18.50+rpt-rpi-2712-aarch64-with-glibc2.41",
+ "python": "3.13.5"
+}

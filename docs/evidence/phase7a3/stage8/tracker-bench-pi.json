@@ -1,0 +1,38 @@
+{
+ "legacy": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 70.57,
+  "mean_us": 13.02,
+  "most_tracks": 14,
+  "p50_us": 8.8,
+  "p95_us": 38.22,
+  "p99_us": 50.46,
+  "tracker_memory_peak_kib": 6.3
+ },
+ "offline": true,
+ "p1": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 96.87,
+  "mean_us": 17.12,
+  "most_tracks": 14,
+  "p50_us": 12.13,
+  "p95_us": 48.3,
+  "p99_us": 62.19,
+  "tracker_memory_peak_kib": 8.2
+ },
+ "p1p2": {
+  "files": 10,
+  "frames": 5458,
+  "max_us": 487.77,
+  "mean_us": 116.29,
+  "most_tracks": 14,
+  "p50_us": 79.81,
+  "p95_us": 327.98,
+  "p99_us": 387.2,
+  "tracker_memory_peak_kib": 20.7
+ },
+ "platform": "Linux-6.18.50+rpt-rpi-2712-aarch64-with-glibc2.41",
+ "python": "3.13.5"
+}

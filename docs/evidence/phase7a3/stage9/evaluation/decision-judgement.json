@@ -1,0 +1,62 @@
+{
+ "schema": "roadsense.decision-judgement.v1",
+ "reference": "oracle (evaluation only)",
+ "frames": 19994,
+ "oracle_levels": {
+  "SAFE": 19435,
+  "CAUTION": 294,
+  "HIGH": 175,
+  "CRITICAL": 90
+ },
+ "legacy": {
+  "agree": 19538,
+  "agree when oracle CAUTION": 253,
+  "agree when oracle CRITICAL": 54,
+  "agree when oracle HIGH": 127,
+  "agree when oracle SAFE": 19104,
+  "over": 355,
+  "over when oracle CAUTION": 14,
+  "over when oracle HIGH": 10,
+  "over when oracle SAFE": 331,
+  "over: warning without oracle warning": 331,
+  "under": 101,
+  "under when oracle CAUTION": 27,
+  "under when oracle CRITICAL": 36,
+  "under when oracle HIGH": 38,
+  "under: warning missing": 86
+ },
+ "p1": {
+  "agree": 19606,
+  "agree when oracle CAUTION": 253,
+  "agree when oracle CRITICAL": 61,
+  "agree when oracle HIGH": 129,
+  "agree when oracle SAFE": 19163,
+  "over": 297,
+  "over when oracle CAUTION": 14,
+  "over when oracle HIGH": 11,
+  "over when oracle SAFE": 272,
+  "over: warning without oracle warning": 272,
+  "under": 91,
+  "under when oracle CAUTION": 27,
+  "under when oracle CRITICAL": 29,
+  "under when oracle HIGH": 35,
+  "under: warning missing": 76
+ },
+ "p1p2": {
+  "agree": 19703,
+  "agree when oracle CAUTION": 261,
+  "agree when oracle CRITICAL": 58,
+  "agree when oracle HIGH": 125,
+  "agree when oracle SAFE": 19259,
+  "over": 196,
+  "over when oracle CAUTION": 8,
+  "over when oracle HIGH": 12,
+  "over when oracle SAFE": 176,
+  "over: warning without oracle warning": 176,
+  "under": 95,
+  "under when oracle CAUTION": 25,
+  "under when oracle CRITICAL": 32,
+  "under when oracle HIGH": 38,
+  "under: warning missing": 88
+ }
+}

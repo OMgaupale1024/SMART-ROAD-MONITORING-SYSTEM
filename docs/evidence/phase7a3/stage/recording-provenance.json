@@ -1,0 +1,281 @@
+{
+ "campaigns": {
+  "phase7a3-recording-20261117": [
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-sudden_brake-1102-7549758537c5",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1103-d65bfc289ecd",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1104-120ac8d7cd22",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-combined-1105-ad5c86d0d6f6",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1106-467095345ca7",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1108-260c23980d48",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1109-2c0f9153cdb4",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-combined-1110-4ab2c968d9a3",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1111-01219770f0cb",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1113-028e46c6a632",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1114-d9d2f0362992",
+    "source_dirty": false,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-combined-1115-d2b557f98be6",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1116-9be20d2b7417",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-sudden_brake-1117-719e692b4686",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1118-368a6f105bbd",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-sudden_brake-1119-4a1680ee8880",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-combined-1120-0e86d60588e6",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-mixed-1121-d69a19ea781d",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-combined-1122-933ebc0dbf4d",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1123-d182c2e45275",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1124-104c033c3b57",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1126-36ad3b1d74b7",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-combined-1127-807e05579f11",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1128-7134baf381f6",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1129-ceea76814dbd",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-sudden_brake-1130-cf311ecb9e07",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   },
+   {
+    "files_differing_from_revision": [
+     "src/roadsense/autonomy/pipeline.py",
+     "src/roadsense/autonomy/tracking.py",
+     "tools/scenario_dataset.py"
+    ],
+    "run_id": "lht-cut_in-1131-749154c2558a",
+    "source_dirty": true,
+    "source_revision": "85f3991"
+   }
+  ],
+  "phase7a3-staging-check-20261117": [
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1-52521380f21a",
+    "source_dirty": true,
+    "source_revision": "2be33c7"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1-a871dd6fed01",
+    "source_dirty": true,
+    "source_revision": "2be33c7"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-1-e0002b57aadc",
+    "source_dirty": true,
+    "source_revision": "2be33c7"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-2-a495f7aaa116",
+    "source_dirty": true,
+    "source_revision": "2be33c7"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-2-f9f50f56c9af",
+    "source_dirty": true,
+    "source_revision": "2be33c7"
+   },
+   {
+    "files_differing_from_revision": [],
+    "run_id": "lht-cut_in-2-d36490c9f516",
+    "source_dirty": true,
+    "source_revision": "2be33c7"
+   }
+  ]
+ },
+ "note": "tools/scenario_dataset.py is analysis-only: not imported by the batch runner, scenario plugin, ego controller or server. The staging-check runs are dirty from untracked files only.",
+ "schema": "roadsense.recording-provenance.v1",
+ "what": "source revision recorded by tools/scenario_batch.run_one for each run, and which snapshotted files differed from that revision (sha256 of the snapshot vs git show <revision>:<file>)"
+}

@@ -10,6 +10,7 @@ import importlib.util
 import json
 import math
 import os
+import shutil
 import signal
 import sqlite3
 import subprocess
@@ -17,6 +18,7 @@ import sys
 import threading
 import time
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -448,6 +450,73 @@ def test_shutdown_is_bounded_when_the_database_cannot_be_written(tmp_path, fast)
         blocker.execute("ROLLBACK")
         blocker.close()
     assert rows(tmp_path, "SELECT end_reason FROM processors")[0]["end_reason"] is None  # no clean end recorded
+
+
+def writer_steps(recorder, seconds):
+    """How many times the writer's loop ran in this many seconds."""
+    count = [0]
+    step = recorder._step
+
+    def counted():
+        count[0] += 1
+        step()
+    recorder._step = counted
+    time.sleep(seconds)
+    del recorder._step
+    return count[0]
+
+
+@pytest.mark.parametrize("condition", ["idle_after_records", "never_fed", "unavailable", "incompatible", "paused"])
+def test_a_writer_with_nothing_to_do_sleeps_and_stops_at_once(tmp_path, monkeypatch, condition):
+    """Phase 7A.3: with nothing to write, the heartbeat deadline (or, with no database, the maintenance one) stayed
+    in the past, so queue.get(timeout=0) spun a core until the next state: 100% of a Pi core for hours."""
+    monkeypatch.setattr(history, "HEARTBEAT_S", 0.1)
+    monkeypatch.setattr(history, "RETRY_S", (0.2, 0.2))
+    directory, disk = tmp_path, shutil.disk_usage
+    if condition == "unavailable":
+        (tmp_path / "file").write_text("not a directory")
+        directory = tmp_path / "file" / "history"
+    elif condition == "incompatible":
+        (tmp_path / history.DB_NAME).write_bytes(b"this is not an SQLite database" * 200)
+    elif condition == "paused":
+        disk = lambda path: SimpleNamespace(free=0)  # noqa: E731 (below min_free_mb: writing pauses)
+    recorder = history.HistoryRecorder(config(directory), disk_usage=disk)
+    if condition == "idle_after_records":
+        feed(recorder, bench.scenario(2, end=False))
+        wait_for(lambda: recorder.status()["states"]["absorbed"] == 10)
+    state = {"unavailable": "unavailable", "incompatible": "incompatible", "paused": "paused"}.get(condition, "recording")
+    wait_for(lambda: recorder.status()["state"] == state and not recorder._has_rows() and not recorder._dirty)
+    time.sleep(0.3)  # past the heartbeat, with nothing left to write
+    if condition != "unavailable":  # (a retry falls due every 0.2 s there)
+        now = time.monotonic()
+        assert recorder._wake_at(now) > now
+    assert writer_steps(recorder, 0.6) <= 6  # about one wake-up a second, one per retry; spinning was > 10,000
+    started = time.monotonic()
+    recorder.close()
+    assert time.monotonic() - started < 0.5 and not recorder._thread.is_alive()
+    assert recorder.status()["state"] == ("incompatible" if condition == "incompatible" else "stopped")
+
+
+def test_states_after_an_idle_spell_are_written_and_the_end_is_clean(tmp_path, monkeypatch):
+    monkeypatch.setattr(history, "HEARTBEAT_S", 0.1)
+    recorder = history.HistoryRecorder(config(tmp_path, dataset=True))
+    frames = list(bench.scenario(4, end=False))
+    hub = feed(recorder, frames[:10])
+    wait_for(lambda: recorder.status()["rows"]["samples"] == 10 and not recorder._dirty)
+    time.sleep(0.3)  # idle, past the heartbeat
+    assert writer_steps(recorder, 0.3) <= 3
+    started = time.monotonic()
+    feed(recorder, frames[10:], hub)
+    wait_for(lambda: recorder.status()["rows"]["samples"] == 20, timeout=2.0)
+    assert time.monotonic() - started < 0.5  # written within the flush period, not a heartbeat later
+    recorder.close()
+    status = recorder.status()
+    assert status["state"] == "stopped" and not status["losses_observed"]
+    processor, = rows(tmp_path, "SELECT end_reason, ended_utc FROM processors")
+    assert processor["end_reason"] == "clean" and processor["ended_utc"]
+    assert rows(tmp_path, "SELECT max(last_sequence) AS last FROM segments")[0]["last"] == 20
+    with db(tmp_path) as conn:
+        assert conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
 
 
 CRASH = """

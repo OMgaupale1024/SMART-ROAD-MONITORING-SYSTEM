@@ -1,0 +1,47 @@
+diff --git a/src/roadsense/web/history.py b/src/roadsense/web/history.py
+index 2f747ac..2974a37 100644
+--- a/src/roadsense/web/history.py
++++ b/src/roadsense/web/history.py
+@@ -633,13 +633,8 @@ class HistoryRecorder:
+         now = self._clock()
+         if self._conn is None and not self._permanent and now >= self._retry_at:
+             self._try_open()
+-        due = [self._last_maintenance + self.config.maintenance_s]
+-        if self._conn is not None:
+-            due.append(self._last_flush + (self.config.flush_s if self._has_rows() else HEARTBEAT_S))
+-        elif not self._permanent:
+-            due.append(self._retry_at)
+         try:
+-            item = self._queue.get(timeout=min(1.0, max(0.0, min(due) - now)))
++            item = self._queue.get(timeout=min(1.0, max(0.0, self._wake_at(now) - now)))
+         except queue.Empty:
+             item = None
+         taken = 0
+@@ -660,9 +655,26 @@ class HistoryRecorder:
+         if (self._has_rows() and (self._rows() >= self.config.batch_rows or since >= self.config.flush_s)
+                 or self._dirty and since >= HEARTBEAT_S):
+             self._flush()
+-        if now - self._last_maintenance >= (10.0 if self._paused else self.config.maintenance_s):
++        if now >= self._maintenance_due():
+             self._maintain()
+ 
++    def _maintenance_due(self) -> float:
++        return self._last_maintenance + (10.0 if self._paused else self.config.maintenance_s)
++
++    def _wake_at(self, now: float) -> float:
++        """When the writer next has work it can do: a flush while something waits to be written, maintenance while
++        the database is open, a retry while one is possible; with none of these, in a second (close() wakes it at
++        once). A deadline that nothing moves, such as the heartbeat with nothing to write, would leave a zero
++        timeout and the thread spinning until the next state arrives (Phase 7A.3: 100% of a Pi core when idle)."""
++        due = []
++        if self._conn is not None:
++            due.append(self._maintenance_due())
++            if self._has_rows() or self._dirty:
++                due.append(self._last_flush + (self.config.flush_s if self._has_rows() else HEARTBEAT_S))
++        elif not self._permanent:
++            due.append(self._retry_at)
++        return min(due, default=now + 1.0)
++
+     def _take(self, item) -> None:
+         state, utc, mono, dropped_full = item
+         if dropped_full > self._seen_full:

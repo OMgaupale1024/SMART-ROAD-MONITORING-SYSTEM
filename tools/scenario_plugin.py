@@ -30,7 +30,10 @@ class SumoSupervisorPlugin:
         children = supervisor.getRoot().getField("children")
         for node in scenarios.pothole_nodes(self.p):
             children.importMFNodeFromString(-1, node)
-        self.event = dict(self.p["event"] or {}, phase="waiting") if self.p["event"] else None
+        self.events = [dict(e, phase="waiting") for e in (self.p.get("event"), self.p.get("secondary_event")) if e]
+        for index, event in enumerate(self.events):
+            event["id_suffix"] = "" if index == 0 else "_%d" % (index + 1)
+        self.event = self.events[0] if self.events else None
         self.frames = 0
         self.done = False
         self._write({"record": "header", "schema": "roadsense.groundtruth.v2", "run_id": self.p.get("run_id") or scenarios.run_id(self.p),
@@ -85,7 +88,8 @@ class SumoSupervisorPlugin:
     def _spawn(self, name, vtype, lane, front_pos, speed, now, ids):
         """Place an event vehicle as sumo_supervisor places the ego (add, then moveToXY, which bypasses SUMO's
         insertion checks), once its slot in the lane is clear; False while it is not."""
-        blocker = self._blocker(lane, front_pos, 4.5, ids)
+        speed = min(max(0., speed), scenarios.vehicle_max_speed(vtype))
+        blocker = self._blocker(lane, front_pos, scenarios.vehicle_length(vtype), ids)
         if blocker:
             self.event["blocked_by"] = blocker
             return False
@@ -117,6 +121,7 @@ class SumoSupervisorPlugin:
         lane = self._ego_lane(ego)
         front = self._lane_pos(ego["x"] + self.profile["direction"] * scenarios.EGO_FRONT_M)
         rear = self._lane_pos(ego["x"] - self.profile["direction"] * scenarios.EGO_REAR_M)
+        vtype, suffix = e.get("vehicle_type", "car"), e.get("id_suffix", "")
         if e["phase"] == "waiting":
             if ego["travelled_m"] < e["at_m"]:
                 return
@@ -126,7 +131,7 @@ class SumoSupervisorPlugin:
                 self._log_event(now, "slot_never_clear", ego_lane=lane, blocked_by=e.get("blocked_by"))
                 return
             if e["kind"] == "sudden_brake":
-                ok = self._spawn("rs_lead", "car", lane, front + e["gap_m"] + 4.5, ego["speed"], now, ids)
+                ok = self._spawn("rs_lead" + suffix, vtype, lane, front + e["gap_m"] + scenarios.vehicle_length(vtype), ego["speed"], now, ids)
             elif e["kind"] == "cut_in":
                 target = self._toward(e["side"], lane)
                 if target not in (1, 2, 3):
@@ -134,10 +139,10 @@ class SumoSupervisorPlugin:
                     target = self._toward(e["side"], lane)
                     e["side_switched"] = True
                 e["from_lane"], e["to_lane"] = target, lane
-                ok = self._spawn("rs_cutter", "car", target, front + e["gap_m"] + 4.5,
+                ok = self._spawn("rs_cutter" + suffix, vtype, target, front + e["gap_m"] + scenarios.vehicle_length(vtype),
                                  ego["speed"] + e["speed_delta_kmh"] / 3.6, now, ids)
             else:
-                ok = self._spawn("rs_tailgater", "car", lane, rear - 15.0, ego["speed"], now, ids)
+                ok = self._spawn("rs_tailgater" + suffix, vtype, lane, rear - 15.0, ego["speed"], now, ids)
             if ok:
                 self._log_event(now, "spawn_requested", ego_lane=lane, ego_speed=ego["speed"],
                                 ego_travelled_m=ego["travelled_m"], waited_s=round(now - e["triggered_at"], 2))
@@ -166,7 +171,7 @@ class SumoSupervisorPlugin:
             e["phase"] = "done"
             self._log_event(now, "vehicle_left", vehicle=name)
             return
-        if e["phase"] == "settling" and now - e["since"] >= {"sudden_brake": 3.0, "cut_in": 1.0}.get(e["kind"], 0.0):
+        if e["phase"] == "settling" and now - e["since"] >= e.get("settle_s", {"sudden_brake": 3.0, "cut_in": 1.0}.get(e["kind"], 0.0)):
             if e["kind"] != "tailgating":
                 v.setSpeedMode(name, 31)  # SUMO's own limits again for the manoeuvre
             if e["kind"] == "sudden_brake":
@@ -175,8 +180,8 @@ class SumoSupervisorPlugin:
                 v.setSpeed(name, to)  # held until released (slowDown would hand back control after braking)
                 e["phase"], e["since"], e["brake_s"] = "acting", now, duration
             elif e["kind"] == "cut_in":
-                v.setLaneChangeMode(name, 512)  # a TraCI change without the safety gap: the unsafe cut-in
-                v.changeLane(name, e["to_lane"], 3.0)
+                v.setLaneChangeMode(name, e.get("lane_change_mode", 512))  # 512 enforces gaps; 0 deliberately bypasses them.
+                v.changeLane(name, e["to_lane"], e.get("request_s", 3.0))
                 e["phase"], e["since"] = "acting", now
             else:
                 e["phase"], e["since"] = "acting", now
@@ -192,7 +197,7 @@ class SumoSupervisorPlugin:
             if e["kind"] == "sudden_brake" and now - e["since"] >= e["brake_s"] + e["hold_s"]:
                 v.setSpeed(name, -1)
                 e["phase"] = "done"
-            elif e["kind"] == "cut_in" and now - e["since"] >= 6.0:
+            elif e["kind"] == "cut_in" and now - e["since"] >= e.get("release_after_s", 6.0):
                 v.setSpeed(name, -1)
                 v.setLaneChangeMode(name, 1621)
                 e["phase"] = "done"
@@ -212,8 +217,11 @@ class SumoSupervisorPlugin:
         ego = self._ego_state()
         v = self.traci.vehicle
         ids = v.getIDList()
-        if self.event:
+        for event in getattr(self, "events", [self.event] if self.event else []):
+            self.event = event
             self._step_event(now, ego, ids)
+        if hasattr(self, "events"):
+            self.event = self.events[0] if self.events else None
         vehicles = []
         for vid in ids:
             if vid.startswith("webotsVehicle"):
@@ -251,6 +259,7 @@ class SumoSupervisorPlugin:
             self.done = True
             self._write({"record": "end", "t": round(now, 2), "frames": self.frames,
                          "reason": "duration" if now >= self.p["duration_s"] else "end_of_road",
-                         "event": {k: val for k, val in (self.event or {}).items() if k != "since"} or None})
+                         "event": {k: val for k, val in (self.event or {}).items() if k != "since"} or None,
+                         "events": [{k: val for k, val in e.items() if k != "since"} for e in getattr(self, "events", [])]})
             self.out.close()
             self.sup.simulationQuit(0)

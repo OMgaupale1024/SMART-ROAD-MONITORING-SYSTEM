@@ -1,0 +1,73 @@
+{
+ "connected_to_live_pipeline": false,
+ "cpu": {
+  "cpu_fraction_of_one_core_at_5hz": 0.000633,
+  "note": "replay runs back to back; at the live 5 Hz rate the cost is the last figure",
+  "one_core_utilisation_during_replay": 1.0,
+  "replay_cpu_s": 3.165,
+  "replay_wall_s": 3.165
+ },
+ "cpu_count": 4,
+ "experimental": true,
+ "frames": 22868,
+ "label": "EXPERIMENTAL offline demonstration; failed predictive acceptance; NOT safety-authoritative",
+ "latency_us_batch1": {
+  "features": {
+   "max": 71.425,
+   "mean": 26.757,
+   "p50": 26.259,
+   "p95": 35.574,
+   "p99": 37.129
+  },
+  "features_plus_model": {
+   "max": 261.348,
+   "mean": 126.696,
+   "p50": 127.998,
+   "p95": 137.702,
+   "p99": 141.053
+  },
+  "model": {
+   "max": 189.923,
+   "mean": 99.939,
+   "p50": 102.387,
+   "p95": 108.294,
+   "p99": 110.424
+  }
+ },
+ "load_average_at_end": [
+  1.080078125,
+  1.017578125,
+  1.00537109375
+ ],
+ "machine": "aarch64",
+ "memory": {
+  "note": "the end figure includes all replay frames held in memory, not needed live",
+  "peak_rss_kib_after_load": 21904,
+  "peak_rss_kib_end": 199632
+ },
+ "model_load": {
+  "cpu_us": 10772.6,
+  "note": "includes importing the two bundled modules",
+  "rss_after_kib": 21904,
+  "rss_before_kib": 20352,
+  "rss_increase_kib": 1552,
+  "wall_us": 10770.7
+ },
+ "model_sha256": "fc3235f96e86a0e85f01ca9e3f2c9d0dfb5a44c8f329f98bb547fe4a7793bce4",
+ "model_version": "roadsense-7a2-hgb15-v1",
+ "niceness": 10,
+ "parity_vs_mac_reference": {
+  "feature_null_mismatches": 0,
+  "max_abs_feature_error": 0.0,
+  "max_abs_score_error": 5.551115123125783e-17,
+  "reference_platform": "macOS-27.2.1-arm64-arm-64bit",
+  "status_mismatches": 0,
+  "threshold_disagreements": 0
+ },
+ "platform": "Linux-6.18.50+rpt-rpi-2712-aarch64-with-glibc2.41",
+ "python": "3.13.5",
+ "runs": 40,
+ "safety_authoritative": false,
+ "threshold": 0.7599796005920636,
+ "warnings_issued_offline": 1211
+}

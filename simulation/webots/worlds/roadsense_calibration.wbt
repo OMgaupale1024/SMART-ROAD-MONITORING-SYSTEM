@@ -1,0 +1,403 @@
+#VRML_SIM R2025b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/vehicles/protos/lincoln/LincolnMKZ.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/devices/ibeo/protos/IbeoLux.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/vehicles/protos/toyota/ToyotaPriusSimple.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/vehicles/protos/bmw/BmwX5Simple.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/vehicles/protos/generic/TruckSimple.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/vehicles/protos/generic/MotorbikeSimple.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/838bb6fd3f56adf46579422651179f215ff570ce/projects/vehicles/protos/generic/MotorbikeDriver.proto"
+
+# RoadSense sensor calibration laboratory (Stage W2). Diagnostic only: no SUMO, no road, no driving logic.
+# The ego is the highway world's EGO_ROADSENSE (LincolnMKZ) with the same radars, IbeoLux lidars, cameras, GPS and
+# inertial unit at the same poses, plus diagnostic and experimental devices that stay off unless a calibration plan
+# enables them. Targets reproduce SUMO's traffic nodes: a physics-less wrapper Solid with the Webots vehicle model
+# offset behind it (car -2.85 m, truck -5.2 m, motorcycle -1.7 m), parked at x = 10000 until a case places them.
+# roadsense_calib (supervisor) places the targets and records ground truth beside the raw sensor output.
+WorldInfo {
+  info [
+    "RoadSense sensor calibration laboratory: known targets around the EGO_ROADSENSE sensor set."
+    "Derived from roadsense_highway.wbt (itself from the Webots R2025b highway_overtake sample, Cyberbotics Ltd., Apache License 2.0), see simulation/webots/THIRD_PARTY_NOTICES.md."
+  ]
+  title "RoadSense Calibration Lab"
+  ERP 0.6
+  basicTimeStep 10
+  lineScale 1
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+    ContactProperties {
+      material2 "LincolnMKZWheels"
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.2 0 0.98 3.1
+  position -18 2 8
+  near 1
+  follow "EGO_ROADSENSE"
+  followSmoothness 0
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+DEF FLOOR Solid {
+  translation 2000 0 0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.35 0.35 0.37
+        roughness 1
+        metalness 0
+      }
+      geometry Plane {
+        size 8000 400
+      }
+    }
+  ]
+  name "floor"
+  boundingObject Plane {
+    size 8000 400
+  }
+}
+DEF WEBOTS_VEHICLE0 LincolnMKZ {
+  translation -1900 0 0.4
+  name "EGO_ROADSENSE"
+  controller "roadsense_calib"
+  supervisor TRUE
+  sensorsSlotFront [
+    DEF FRONT_RIGHT_LIDAR IbeoLux {
+      translation -0.225167 0.71 0
+      rotation 0 0 1 0.785398
+      name "ibeo 1"
+      useExtendedFieldOfView TRUE
+    }
+    DEF FRONT_LEFT_LIDAR IbeoLux {
+      translation -0.225 -0.71 0
+      rotation 0 0 -1 0.819204
+      name "ibeo 2"
+      useExtendedFieldOfView TRUE
+    }
+    Radar {
+      translation 0.11 0 0
+      name "radar front"
+      maxRange 150
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    Radar {
+      translation 0.11 0 0
+      name "diag radar front"
+      maxRange 150
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    Radar {
+      translation 0.11 0 0
+      name "diag radar front noocc"
+      maxRange 150
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+    }
+    Radar {
+      translation 0.11 0 -0.138
+      name "diag radar front low"
+      maxRange 150
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    Radar {
+      translation 0.11 0 0
+      name "exp radar front vfov"
+      maxRange 150
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.25
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+  ]
+  sensorsSlotRear [
+    DEF REAR_LEFT_LIDAR IbeoLux {
+      translation -0.164545 0.745 0
+      rotation 0 0 1 0.721593
+      name "ibeo 3"
+      useExtendedFieldOfView TRUE
+    }
+    DEF REAR_RIGHT_LIDAR IbeoLux {
+      translation -0.189857 -0.75851 0
+      rotation 0 0 1 -0.7915953071795858
+      name "ibeo 4"
+      useExtendedFieldOfView TRUE
+    }
+    Radar {
+      translation 0.1 0 0
+      name "radar rear"
+      maxRange 100
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    Radar {
+      translation 0.1 0 0
+      name "diag radar rear"
+      maxRange 100
+      horizontalFieldOfView 2.6
+      verticalFieldOfView 0.07854
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+  ]
+  sensorsSlotTop [
+    Camera {
+      translation 0.5 0 0
+      name "hazard camera"
+      fieldOfView 0.87
+      width 512
+      height 256
+      recognition Recognition {
+        maxRange 60
+        frameThickness 0
+      }
+    }
+    Camera {
+      translation 0.5 0 0
+      name "exp camera 720p"
+      fieldOfView 1.05
+      width 1280
+      height 720
+      near 0.5
+      far 300
+    }
+    Lidar {
+      translation 0 0 0.35
+      name "exp lidar roof"
+      horizontalResolution 1800
+      fieldOfView 6.283
+      verticalFieldOfView 0.5236
+      numberOfLayers 16
+      near 0.3
+      minRange 0.5
+      maxRange 100
+      noise 0.0003
+      defaultFrequency 10
+      maxFrequency 20
+    }
+  ]
+  sensorsSlotCenter [
+    Radar {
+      translation 3.85 0.85 0.142
+      rotation 0 0 1 0.7854
+      name "exp radar corner fl"
+      maxRange 80
+      horizontalFieldOfView 1.6
+      verticalFieldOfView 0.25
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    Radar {
+      translation 3.85 -0.85 0.142
+      rotation 0 0 1 -0.7854
+      name "exp radar corner fr"
+      maxRange 80
+      horizontalFieldOfView 1.6
+      verticalFieldOfView 0.25
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    Radar {
+      translation -1.1 0.85 0.33
+      rotation 0 0 1 2.3562
+      name "exp radar corner rl"
+      maxRange 80
+      horizontalFieldOfView 1.6
+      verticalFieldOfView 0.25
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    Radar {
+      translation -1.1 -0.85 0.33
+      rotation 0 0 1 -2.3562
+      name "exp radar corner rr"
+      maxRange 80
+      horizontalFieldOfView 1.6
+      verticalFieldOfView 0.25
+      rangeNoise 0.25
+      speedNoise 0.12
+      angularNoise 0.001
+      frequency 76.5
+      transmittedPower 31
+      minDetectableSignal -80
+      occlusion TRUE
+    }
+    GPS {
+      name "telemetry gps"
+    }
+    InertialUnit {
+    }
+  ]
+}
+DEF T_BOX_C Solid {
+  translation 10000 0 0.75
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.8 0.5 0.1
+        metalness 0
+      }
+      geometry DEF BOX_C_GEOM Box {
+        size 4.5 1.8 1.5
+      }
+    }
+  ]
+  name "box centred"
+  model "calibration box, origin at its centre"
+  boundingObject USE BOX_C_GEOM
+  radarCrossSection 100
+}
+DEF T_BOX_O Solid {
+  translation 10000 10 0.317
+  children [
+    Pose {
+      translation 1.4 0 0.433
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.1 0.5 0.8
+            metalness 0
+          }
+          geometry DEF BOX_O_GEOM Box {
+            size 4.5 1.8 1.5
+          }
+        }
+      ]
+    }
+  ]
+  name "box offset"
+  model "calibration box, origin 1.4 m behind its centre like a car's rear axle"
+  boundingObject Pose {
+    translation 1.4 0 0.433
+    children [
+      USE BOX_O_GEOM
+    ]
+  }
+  radarCrossSection 100
+}
+DEF T_CAR Solid {
+  translation 10000 20 0.317
+  children [
+    ToyotaPriusSimple {
+      translation -2.85 0 0
+      color 0.85 0.85 0.85
+      name "car"
+    }
+  ]
+  name "sumo-style car"
+}
+DEF T_CAR2 Solid {
+  translation 10000 30 0.374
+  children [
+    BmwX5Simple {
+      translation -2.85 0 0
+      color 0.2 0.2 0.25
+      name "car2"
+    }
+  ]
+  name "sumo-style car 2"
+}
+DEF T_TRUCK Solid {
+  translation 10000 40 0.5
+  children [
+    TruckSimple {
+      translation -5.2 0 0
+      name "truck"
+      trailer NULL
+    }
+  ]
+  name "sumo-style truck"
+}
+DEF T_MOTO Solid {
+  translation 10000 50 0.25
+  children [
+    MotorbikeSimple {
+      translation -1.7 0 0
+      name "motorcycle"
+      driver MotorbikeDriver {
+      }
+    }
+  ]
+  name "sumo-style motorcycle"
+}
+DEF T_RICK Solid {
+  translation 10000 60 0.317
+  children [
+    ToyotaPriusSimple {
+      translation -2.85 0 0
+      color 0.95 0.8 0.1
+      name "autorickshaw"
+    }
+  ]
+  name "sumo-style autorickshaw"
+}

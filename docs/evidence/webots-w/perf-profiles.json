@@ -1,0 +1,170 @@
+{
+ "original": {
+  "devices": [
+   "radar front",
+   "radar rear"
+  ],
+  "sim_s": 60,
+  "case_wall_s": 1.3968,
+  "rtf": 43.0,
+  "step_ms_p50": 0.089,
+  "step_ms_p95": 0.129,
+  "process": {
+   "real_s": 3.51,
+   "user_s": 2.55,
+   "sys_s": 1.36,
+   "max_rss_mb": 668.6,
+   "peak_footprint_mb": 840.2
+  },
+  "gpu_util_pct": {
+   "n": 8,
+   "median": 40.5,
+   "max": 98
+  },
+  "recorded_raw_bytes": 0
+ },
+ "radar_experimental": {
+  "devices": [
+   "radar front",
+   "radar rear",
+   "exp radar corner fl",
+   "exp radar corner fr",
+   "exp radar corner rl",
+   "exp radar corner rr"
+  ],
+  "sim_s": 60,
+  "case_wall_s": 1.4415,
+  "rtf": 41.6,
+  "step_ms_p50": 0.089,
+  "step_ms_p95": 0.199,
+  "process": {
+   "real_s": 3.41,
+   "user_s": 2.59,
+   "sys_s": 1.35,
+   "max_rss_mb": 647.8,
+   "peak_footprint_mb": 845.9
+  },
+  "gpu_util_pct": {
+   "n": 8,
+   "median": 43.5,
+   "max": 100
+  },
+  "recorded_raw_bytes": 0
+ },
+ "radar_lidar": {
+  "devices": [
+   "radar front",
+   "radar rear",
+   "exp radar corner fl",
+   "exp radar corner fr",
+   "exp radar corner rl",
+   "exp radar corner rr",
+   "exp lidar roof"
+  ],
+  "sim_s": 60,
+  "case_wall_s": 2.5874,
+  "rtf": 23.2,
+  "step_ms_p50": 0.091,
+  "step_ms_p95": 1.217,
+  "process": {
+   "real_s": 4.56,
+   "user_s": 3.18,
+   "sys_s": 1.81,
+   "max_rss_mb": 653.3,
+   "peak_footprint_mb": 836.0
+  },
+  "gpu_util_pct": {
+   "n": 10,
+   "median": 44.5,
+   "max": 100
+  },
+  "recorded_raw_bytes": 69120000
+ },
+ "ibeo": {
+  "devices": [
+   "radar front",
+   "radar rear",
+   "ibeo 1",
+   "ibeo 2",
+   "ibeo 3",
+   "ibeo 4"
+  ],
+  "sim_s": 60,
+  "case_wall_s": 3.6352,
+  "rtf": 16.5,
+  "step_ms_p50": 0.092,
+  "step_ms_p95": 2.386,
+  "process": {
+   "real_s": 5.63,
+   "user_s": 3.78,
+   "sys_s": 2.49,
+   "max_rss_mb": 673.0,
+   "peak_footprint_mb": 862.9
+  },
+  "gpu_util_pct": {
+   "n": 12,
+   "median": 57.0,
+   "max": 83
+  },
+  "recorded_raw_bytes": 6528000
+ },
+ "camera720": {
+  "devices": [
+   "radar front",
+   "radar rear",
+   "exp camera 720p"
+  ],
+  "sim_s": 60,
+  "case_wall_s": 2.1587,
+  "rtf": 27.8,
+  "step_ms_p50": 0.09,
+  "step_ms_p95": 1.305,
+  "process": {
+   "real_s": 4.17,
+   "user_s": 2.85,
+   "sys_s": 1.41,
+   "max_rss_mb": 669.2,
+   "peak_footprint_mb": 852.4
+  },
+  "gpu_util_pct": {
+   "n": 10,
+   "median": 40.5,
+   "max": 100
+  },
+  "recorded_raw_bytes": 0
+ },
+ "all": {
+  "devices": [
+   "radar front",
+   "radar rear",
+   "exp radar corner fl",
+   "exp radar corner fr",
+   "exp radar corner rl",
+   "exp radar corner rr",
+   "exp lidar roof",
+   "ibeo 1",
+   "ibeo 2",
+   "ibeo 3",
+   "ibeo 4",
+   "exp camera 720p"
+  ],
+  "sim_s": 60,
+  "case_wall_s": 4.7334,
+  "rtf": 12.7,
+  "step_ms_p50": 0.096,
+  "step_ms_p95": 2.611,
+  "process": {
+   "real_s": 6.72,
+   "user_s": 4.33,
+   "sys_s": 2.9,
+   "max_rss_mb": 700.7,
+   "peak_footprint_mb": 914.5
+  },
+  "gpu_util_pct": {
+   "n": 14,
+   "median": 60.5,
+   "max": 100
+  },
+  "recorded_raw_bytes": 75648000
+ }
+}

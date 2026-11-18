@@ -1,0 +1,7 @@
+{
+  "baseline_model_sha256": "ea94c638fd7eec8362679553704cff029a8f50a5663b4e7a65e5bf605a69f32a",
+  "source_and_artifact_checksums_verified": true,
+  "metrics_reproduced": true,
+  "historical_partitions_unchanged": true,
+  "deployment_approved": false
+}

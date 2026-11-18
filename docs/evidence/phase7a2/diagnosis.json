@@ -1,0 +1,104 @@
+{
+  "frame_failures": {
+    "fp": {
+      "samples": 588,
+      "lead_absent": 185,
+      "lead_immature": 25,
+      "left_or_right_present": 363,
+      "already_developing": 7,
+      "lateral_motion_over_0_3": 271
+    },
+    "tn": {
+      "samples": 41907,
+      "lead_absent": 16363,
+      "lead_immature": 380,
+      "left_or_right_present": 38873,
+      "already_developing": 22,
+      "lateral_motion_over_0_3": 7628
+    },
+    "fn": {
+      "samples": 434,
+      "lead_absent": 121,
+      "lead_immature": 9,
+      "left_or_right_present": 387,
+      "already_developing": 35,
+      "lateral_motion_over_0_3": 167
+    },
+    "tp": {
+      "samples": 304,
+      "lead_absent": 129,
+      "lead_immature": 5,
+      "left_or_right_present": 166,
+      "already_developing": 138,
+      "lateral_motion_over_0_3": 91
+    }
+  },
+  "stress_pre_event_cases": [
+    {
+      "run_id": "lht-combined-19-c2df9ab0dde8",
+      "family": "combined",
+      "onset_s": 46.4,
+      "pre_samples": 15,
+      "max_score": 0.04683204396222743,
+      "detected": false,
+      "lead_present_frames": 15,
+      "minimum_lead_age_s": 42.6,
+      "maximum_lateral_speed_mps": 0.67
+    },
+    {
+      "run_id": "lht-combined-19-c2df9ab0dde8",
+      "family": "combined",
+      "onset_s": 74.0,
+      "pre_samples": 15,
+      "max_score": 0.0050048171680189294,
+      "detected": false,
+      "lead_present_frames": 0,
+      "minimum_lead_age_s": null,
+      "maximum_lateral_speed_mps": 0.12
+    },
+    {
+      "run_id": "lht-mixed-16-e918b9b32180",
+      "family": "mixed",
+      "onset_s": 89.8,
+      "pre_samples": 15,
+      "max_score": 0.011717419513252551,
+      "detected": false,
+      "lead_present_frames": 15,
+      "minimum_lead_age_s": 60.6,
+      "maximum_lateral_speed_mps": 0.63
+    },
+    {
+      "run_id": "lht-sudden_brake-17-ca785151b360",
+      "family": "sudden_brake",
+      "onset_s": 35.2,
+      "pre_samples": 15,
+      "max_score": 0.009036275085470124,
+      "detected": false,
+      "lead_present_frames": 1,
+      "minimum_lead_age_s": 31.4,
+      "maximum_lateral_speed_mps": 0.57
+    },
+    {
+      "run_id": "lht-sudden_brake-17-ca785151b360",
+      "family": "sudden_brake",
+      "onset_s": 40.2,
+      "pre_samples": 15,
+      "max_score": 0.19692111287465044,
+      "detected": true,
+      "lead_present_frames": 15,
+      "minimum_lead_age_s": 2.0,
+      "maximum_lateral_speed_mps": 0.17
+    },
+    {
+      "run_id": "lht-sudden_brake-17-ca785151b360",
+      "family": "sudden_brake",
+      "onset_s": 49.8,
+      "pre_samples": 15,
+      "max_score": 0.175888871843455,
+      "detected": true,
+      "lead_present_frames": 12,
+      "minimum_lead_age_s": 0.4,
+      "maximum_lateral_speed_mps": 2.12
+    }
+  ]
+}

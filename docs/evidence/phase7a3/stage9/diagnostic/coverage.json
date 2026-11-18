@@ -1,0 +1,143 @@
+{
+ "schema": "roadsense.stage9-coverage.v1",
+ "observable": "tools/perception_audit.py, cross-checked",
+ "bands": {
+  "within_100m": {
+   "00-05 m/s": {
+    "observable_frames": 46,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "05-10 m/s": {
+    "observable_frames": 17,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "10-15 m/s": {
+    "observable_frames": 1137,
+    "vehicles": 18,
+    "runs": 5
+   },
+   "15-20 m/s": {
+    "observable_frames": 366,
+    "vehicles": 9,
+    "runs": 3
+   },
+   "20-25 m/s": {
+    "observable_frames": 579,
+    "vehicles": 9,
+    "runs": 2
+   },
+   "25-30 m/s": {
+    "observable_frames": 157,
+    "vehicles": 8,
+    "runs": 1
+   },
+   "30-35 m/s": {
+    "observable_frames": 21,
+    "vehicles": 1,
+    "runs": 1
+   }
+  },
+  "any_range": {
+   "00-05 m/s": {
+    "observable_frames": 46,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "05-10 m/s": {
+    "observable_frames": 17,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "10-15 m/s": {
+    "observable_frames": 1368,
+    "vehicles": 18,
+    "runs": 5
+   },
+   "15-20 m/s": {
+    "observable_frames": 366,
+    "vehicles": 9,
+    "runs": 3
+   },
+   "20-25 m/s": {
+    "observable_frames": 635,
+    "vehicles": 12,
+    "runs": 2
+   },
+   "25-30 m/s": {
+    "observable_frames": 266,
+    "vehicles": 15,
+    "runs": 4
+   },
+   "30-35 m/s": {
+    "observable_frames": 21,
+    "vehicles": 1,
+    "runs": 1
+   },
+   "35-40 m/s": {
+    "observable_frames": 2,
+    "vehicles": 1,
+    "runs": 1
+   }
+  }
+ },
+ "above_25_mps": {
+  "within_100m": {
+   "observable_frames": 178,
+   "vehicles": 8,
+   "runs": 1
+  },
+  "any_range": {
+   "observable_frames": 289,
+   "vehicles": 16,
+   "runs": 5
+  }
+ },
+ "above_30_mps": {
+  "within_100m": {
+   "observable_frames": 21,
+   "vehicles": 1,
+   "runs": 1
+  },
+  "any_range": {
+   "observable_frames": 23,
+   "vehicles": 2,
+   "runs": 2
+  }
+ },
+ "above_25_mps_within_100m_by_builder": {
+  "assertive": {
+   "observable_frames": 0,
+   "vehicles": 0,
+   "runs": 0
+  },
+  "expressway": {
+   "observable_frames": 0,
+   "vehicles": 0,
+   "runs": 0
+  },
+  "gradual": {
+   "observable_frames": 0,
+   "vehicles": 0,
+   "runs": 0
+  },
+  "stationary": {
+   "observable_frames": 178,
+   "vehicles": 8,
+   "runs": 1
+  },
+  "sudden": {
+   "observable_frames": 0,
+   "vehicles": 0,
+   "runs": 0
+  }
+ },
+ "adequacy_thresholds": {
+  "frames_25": 2000,
+  "vehicles_25": 100,
+  "runs_25": 10,
+  "frames_30": 200
+ },
+ "adequate": false
+}

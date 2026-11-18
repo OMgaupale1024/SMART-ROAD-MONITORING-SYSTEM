@@ -1,0 +1,463 @@
+{
+ "schema": "roadsense.lost-cautions.v1",
+ "run": "lht-sudden_brake-1107-0fd8409f6e00",
+ "what": "the four CAUTION frames P1 removed (sequences 233-236): each configuration's decision, and the oracle's (same rules on the true state of the radar-detected vehicles; evaluation only)",
+ "decisions": {
+  "legacy": [
+   {
+    "sequence": 228,
+    "sim_s": 45.6,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 229,
+    "sim_s": 45.8,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 230,
+    "sim_s": 46.0,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 231,
+    "sim_s": 46.2,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 232,
+    "sim_s": 46.4,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 233,
+    "sim_s": 46.6,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.8,
+    "threat_lon_m": -46.75
+   },
+   {
+    "sequence": 234,
+    "sim_s": 46.8,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.69,
+    "threat_lon_m": -44.98
+   },
+   {
+    "sequence": 235,
+    "sim_s": 47.0,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.65,
+    "threat_lon_m": -42.71
+   },
+   {
+    "sequence": 236,
+    "sim_s": 47.2,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.7,
+    "threat_lon_m": -40.78
+   },
+   {
+    "sequence": 237,
+    "sim_s": 47.4,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.71,
+    "threat_lon_m": -38.49
+   },
+   {
+    "sequence": 238,
+    "sim_s": 47.6,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.84,
+    "threat_lon_m": -36.56
+   },
+   {
+    "sequence": 239,
+    "sim_s": 47.8,
+    "risk": "HIGH",
+    "action": "BRAKE",
+    "threat_rel_lat_mps": 0.83,
+    "threat_lon_m": -34.93
+   },
+   {
+    "sequence": 240,
+    "sim_s": 48.0,
+    "risk": "HIGH",
+    "action": "BRAKE",
+    "threat_rel_lat_mps": 0.8,
+    "threat_lon_m": -33.33
+   },
+   {
+    "sequence": 241,
+    "sim_s": 48.2,
+    "risk": "HIGH",
+    "action": "BRAKE",
+    "threat_rel_lat_mps": 0.75,
+    "threat_lon_m": -31.24
+   }
+  ],
+  "p1": [
+   {
+    "sequence": 228,
+    "sim_s": 45.6,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 229,
+    "sim_s": 45.8,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 230,
+    "sim_s": 46.0,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 231,
+    "sim_s": 46.2,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 232,
+    "sim_s": 46.4,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 233,
+    "sim_s": 46.6,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 234,
+    "sim_s": 46.8,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 235,
+    "sim_s": 47.0,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 236,
+    "sim_s": 47.2,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 237,
+    "sim_s": 47.4,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.71,
+    "threat_lon_m": -38.49
+   },
+   {
+    "sequence": 238,
+    "sim_s": 47.6,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.84,
+    "threat_lon_m": -36.56
+   },
+   {
+    "sequence": 239,
+    "sim_s": 47.8,
+    "risk": "HIGH",
+    "action": "BRAKE",
+    "threat_rel_lat_mps": 0.83,
+    "threat_lon_m": -34.93
+   },
+   {
+    "sequence": 240,
+    "sim_s": 48.0,
+    "risk": "HIGH",
+    "action": "BRAKE",
+    "threat_rel_lat_mps": 0.8,
+    "threat_lon_m": -33.33
+   },
+   {
+    "sequence": 241,
+    "sim_s": 48.2,
+    "risk": "HIGH",
+    "action": "BRAKE",
+    "threat_rel_lat_mps": 0.75,
+    "threat_lon_m": -31.24
+   }
+  ],
+  "p1p2": [
+   {
+    "sequence": 228,
+    "sim_s": 45.6,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 229,
+    "sim_s": 45.8,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 230,
+    "sim_s": 46.0,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 231,
+    "sim_s": 46.2,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 232,
+    "sim_s": 46.4,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 233,
+    "sim_s": 46.6,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 234,
+    "sim_s": 46.8,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 235,
+    "sim_s": 47.0,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.62,
+    "threat_lon_m": -42.61
+   },
+   {
+    "sequence": 236,
+    "sim_s": 47.2,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.76,
+    "threat_lon_m": -40.63
+   },
+   {
+    "sequence": 237,
+    "sim_s": 47.4,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.85,
+    "threat_lon_m": -38.61
+   },
+   {
+    "sequence": 238,
+    "sim_s": 47.6,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.86,
+    "threat_lon_m": -36.65
+   },
+   {
+    "sequence": 239,
+    "sim_s": 47.8,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.84,
+    "threat_lon_m": -34.81
+   },
+   {
+    "sequence": 240,
+    "sim_s": 48.0,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.84,
+    "threat_lon_m": -33.04
+   },
+   {
+    "sequence": 241,
+    "sim_s": 48.2,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.81,
+    "threat_lon_m": -31.25
+   }
+  ],
+  "oracle": [
+   {
+    "sequence": 228,
+    "sim_s": 45.6,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 229,
+    "sim_s": 45.8,
+    "risk": "SAFE",
+    "action": "MAINTAIN",
+    "threat_rel_lat_mps": null,
+    "threat_lon_m": null
+   },
+   {
+    "sequence": 230,
+    "sim_s": 46.0,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 1.22,
+    "threat_lon_m": -52.75
+   },
+   {
+    "sequence": 231,
+    "sim_s": 46.2,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 1.4,
+    "threat_lon_m": -50.1
+   },
+   {
+    "sequence": 232,
+    "sim_s": 46.4,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 1.3,
+    "threat_lon_m": -47.69
+   },
+   {
+    "sequence": 233,
+    "sim_s": 46.6,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 1.19,
+    "threat_lon_m": -45.48
+   },
+   {
+    "sequence": 234,
+    "sim_s": 46.8,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 1.09,
+    "threat_lon_m": -43.41
+   },
+   {
+    "sequence": 235,
+    "sim_s": 47.0,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 1.01,
+    "threat_lon_m": -41.35
+   },
+   {
+    "sequence": 236,
+    "sim_s": 47.2,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.95,
+    "threat_lon_m": -39.34
+   },
+   {
+    "sequence": 237,
+    "sim_s": 47.4,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.89,
+    "threat_lon_m": -37.39
+   },
+   {
+    "sequence": 238,
+    "sim_s": 47.6,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.85,
+    "threat_lon_m": -35.49
+   },
+   {
+    "sequence": 239,
+    "sim_s": 47.8,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.82,
+    "threat_lon_m": -33.67
+   },
+   {
+    "sequence": 240,
+    "sim_s": 48.0,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.78,
+    "threat_lon_m": -31.86
+   },
+   {
+    "sequence": 241,
+    "sim_s": 48.2,
+    "risk": "CAUTION",
+    "action": "SLOW_DOWN",
+    "threat_rel_lat_mps": 0.75,
+    "threat_lon_m": -30.11
+   }
+  ]
+ }
+}

@@ -1,0 +1,486 @@
+{
+ "hazard_camera": [
+  {
+   "target": "T_CAR",
+   "lon": 12.4,
+   "lat": 0.0,
+   "w_px": 130,
+   "h_px": 109,
+   "area_px": 10438
+  },
+  {
+   "target": "T_CAR",
+   "lon": 12.4,
+   "lat": 3.8,
+   "w_px": 115,
+   "h_px": 109,
+   "area_px": 7431
+  },
+  {
+   "target": "T_CAR",
+   "lon": 22.4,
+   "lat": 0.0,
+   "w_px": 58,
+   "h_px": 48,
+   "area_px": 2019
+  },
+  {
+   "target": "T_CAR",
+   "lon": 22.4,
+   "lat": 3.8,
+   "w_px": 71,
+   "h_px": 48,
+   "area_px": 2332
+  },
+  {
+   "target": "T_CAR",
+   "lon": 47.4,
+   "lat": 0.0,
+   "w_px": 26,
+   "h_px": 20,
+   "area_px": 371
+  },
+  {
+   "target": "T_CAR",
+   "lon": 47.4,
+   "lat": 3.8,
+   "w_px": 27,
+   "h_px": 20,
+   "area_px": 400
+  },
+  {
+   "target": "T_CAR",
+   "lon": 87.4,
+   "lat": 0.0,
+   "w_px": 13,
+   "h_px": 10,
+   "area_px": 92
+  },
+  {
+   "target": "T_CAR",
+   "lon": 87.4,
+   "lat": 3.8,
+   "w_px": 13,
+   "h_px": 10,
+   "area_px": 98
+  },
+  {
+   "target": "T_CAR",
+   "lon": 127.4,
+   "lat": 0.0,
+   "w_px": 8,
+   "h_px": 7,
+   "area_px": 46
+  },
+  {
+   "target": "T_CAR",
+   "lon": 127.4,
+   "lat": 3.8,
+   "w_px": 9,
+   "h_px": 7,
+   "area_px": 49
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 11.0,
+   "lat": 0.0,
+   "w_px": 76,
+   "h_px": 108,
+   "area_px": 3513
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 11.0,
+   "lat": 3.8,
+   "w_px": 58,
+   "h_px": 102,
+   "area_px": 3479
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 21.0,
+   "lat": 0.0,
+   "w_px": 36,
+   "h_px": 48,
+   "area_px": 717
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 21.0,
+   "lat": 3.8,
+   "w_px": 36,
+   "h_px": 48,
+   "area_px": 819
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 46.0,
+   "lat": 0.0,
+   "w_px": 16,
+   "h_px": 20,
+   "area_px": 123
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 46.0,
+   "lat": 3.8,
+   "w_px": 14,
+   "h_px": 20,
+   "area_px": 128
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 86.0,
+   "lat": 0.0,
+   "w_px": 4,
+   "h_px": 10,
+   "area_px": 32
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 86.0,
+   "lat": 3.8,
+   "w_px": 6,
+   "h_px": 10,
+   "area_px": 34
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 126.0,
+   "lat": 0.0,
+   "w_px": 4,
+   "h_px": 6,
+   "area_px": 14
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 126.0,
+   "lat": 3.8,
+   "w_px": 4,
+   "h_px": 7,
+   "area_px": 18
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 14.8,
+   "lat": 0.0,
+   "w_px": 190,
+   "h_px": 228,
+   "area_px": 24517
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 14.8,
+   "lat": 3.8,
+   "w_px": 168,
+   "h_px": 228,
+   "area_px": 23711
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 24.8,
+   "lat": 0.0,
+   "w_px": 82,
+   "h_px": 123,
+   "area_px": 7140
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 24.8,
+   "lat": 3.8,
+   "w_px": 107,
+   "h_px": 123,
+   "area_px": 7763
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 49.8,
+   "lat": 0.0,
+   "w_px": 34,
+   "h_px": 55,
+   "area_px": 1477
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 49.8,
+   "lat": 3.8,
+   "w_px": 39,
+   "h_px": 55,
+   "area_px": 1548
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 89.8,
+   "lat": 0.0,
+   "w_px": 18,
+   "h_px": 29,
+   "area_px": 420
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 89.8,
+   "lat": 3.8,
+   "w_px": 20,
+   "h_px": 29,
+   "area_px": 430
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 129.8,
+   "lat": 0.0,
+   "w_px": 12,
+   "h_px": 20,
+   "area_px": 202
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 129.8,
+   "lat": 3.8,
+   "w_px": 13,
+   "h_px": 20,
+   "area_px": 204
+  }
+ ],
+ "exp_camera_720p": [
+  {
+   "target": "T_CAR",
+   "lon": 12.4,
+   "lat": 0.0,
+   "w_px": 262,
+   "h_px": 219,
+   "area_px": 42065
+  },
+  {
+   "target": "T_CAR",
+   "lon": 12.4,
+   "lat": 3.8,
+   "w_px": 358,
+   "h_px": 219,
+   "area_px": 51056
+  },
+  {
+   "target": "T_CAR",
+   "lon": 22.4,
+   "lat": 0.0,
+   "w_px": 116,
+   "h_px": 97,
+   "area_px": 8201
+  },
+  {
+   "target": "T_CAR",
+   "lon": 22.4,
+   "lat": 3.8,
+   "w_px": 143,
+   "h_px": 97,
+   "area_px": 9377
+  },
+  {
+   "target": "T_CAR",
+   "lon": 47.4,
+   "lat": 0.0,
+   "w_px": 50,
+   "h_px": 40,
+   "area_px": 1437
+  },
+  {
+   "target": "T_CAR",
+   "lon": 47.4,
+   "lat": 3.8,
+   "w_px": 55,
+   "h_px": 40,
+   "area_px": 1580
+  },
+  {
+   "target": "T_CAR",
+   "lon": 87.4,
+   "lat": 0.0,
+   "w_px": 28,
+   "h_px": 21,
+   "area_px": 395
+  },
+  {
+   "target": "T_CAR",
+   "lon": 87.4,
+   "lat": 3.8,
+   "w_px": 26,
+   "h_px": 21,
+   "area_px": 414
+  },
+  {
+   "target": "T_CAR",
+   "lon": 127.4,
+   "lat": 0.0,
+   "w_px": 17,
+   "h_px": 14,
+   "area_px": 180
+  },
+  {
+   "target": "T_CAR",
+   "lon": 127.4,
+   "lat": 3.8,
+   "w_px": 18,
+   "h_px": 14,
+   "area_px": 189
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 11.0,
+   "lat": 0.0,
+   "w_px": 151,
+   "h_px": 220,
+   "area_px": 14295
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 11.0,
+   "lat": 3.8,
+   "w_px": 210,
+   "h_px": 220,
+   "area_px": 21862
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 21.0,
+   "lat": 0.0,
+   "w_px": 70,
+   "h_px": 96,
+   "area_px": 2905
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 21.0,
+   "lat": 3.8,
+   "w_px": 70,
+   "h_px": 96,
+   "area_px": 3317
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 46.0,
+   "lat": 0.0,
+   "w_px": 28,
+   "h_px": 40,
+   "area_px": 525
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 46.0,
+   "lat": 3.8,
+   "w_px": 28,
+   "h_px": 40,
+   "area_px": 540
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 86.0,
+   "lat": 0.0,
+   "w_px": 14,
+   "h_px": 20,
+   "area_px": 127
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 86.0,
+   "lat": 3.8,
+   "w_px": 15,
+   "h_px": 20,
+   "area_px": 142
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 126.0,
+   "lat": 0.0,
+   "w_px": 10,
+   "h_px": 14,
+   "area_px": 69
+  },
+  {
+   "target": "T_MOTO",
+   "lon": 126.0,
+   "lat": 3.8,
+   "w_px": 8,
+   "h_px": 14,
+   "area_px": 59
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 14.8,
+   "lat": 0.0,
+   "w_px": 380,
+   "h_px": 495,
+   "area_px": 99126
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 14.8,
+   "lat": 3.8,
+   "w_px": 464,
+   "h_px": 495,
+   "area_px": 106786
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 24.8,
+   "lat": 0.0,
+   "w_px": 164,
+   "h_px": 248,
+   "area_px": 28518
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 24.8,
+   "lat": 3.8,
+   "w_px": 215,
+   "h_px": 248,
+   "area_px": 31437
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 49.8,
+   "lat": 0.0,
+   "w_px": 68,
+   "h_px": 111,
+   "area_px": 5929
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 49.8,
+   "lat": 3.8,
+   "w_px": 80,
+   "h_px": 111,
+   "area_px": 6185
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 89.8,
+   "lat": 0.0,
+   "w_px": 36,
+   "h_px": 59,
+   "area_px": 1663
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 89.8,
+   "lat": 3.8,
+   "w_px": 40,
+   "h_px": 59,
+   "area_px": 1754
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 129.8,
+   "lat": 0.0,
+   "w_px": 24,
+   "h_px": 40,
+   "area_px": 797
+  },
+  {
+   "target": "T_TRUCK",
+   "lon": 129.8,
+   "lat": 3.8,
+   "w_px": 26,
+   "h_px": 40,
+   "area_px": 790
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+  "feature_and_inference_us": {
+    "p50": 33.042,
+    "p95": 37.75,
+    "p99": 43.583
+  },
+  "inference_us": {
+    "p50": 26.208,
+    "p95": 29.459,
+    "p99": 34.667
+  },
+  "model_bytes": 53075,
+  "model_load_peak_rss_increase_bytes": 245760,
+  "model_load_us": 1262.459,
+  "model_sha256": "fc3235f96e86a0e85f01ca9e3f2c9d0dfb5a44c8f329f98bb547fe4a7793bce4",
+  "note": "Peak RSS increase measured across model loading before input-row allocation; latency excludes DB I/O but combined latency includes causal feature preparation.",
+  "pi_measured": false,
+  "platform": "macOS-27.2.1-arm64-arm-64bit",
+  "python": "3.12.14",
+  "rows": 10000,
+  "third_party_ml_imports_blocked": true
+}

@@ -1,0 +1,15 @@
+{
+ "schema": "roadsense.decision-diff.v1",
+ "what": "safety decisions of the legacy and P1 trackers on the identical 16,618 recorded frames (offline replay; the deployed service is unchanged)",
+ "frames": 16618, "changed": 8, "direction": "all 8: P1 removes a legacy CAUTION or BRAKE; none added",
+ "cases": [
+  {"run": "lht-combined-1127", "sequence": 140, "legacy": "HIGH/BRAKE", "p1": "SAFE/MAINTAIN",
+   "explanation": "legacy threat: a fresh (0.6 s) track of an oncoming motorcycle on the other carriageway with lateral speed 6.8 m/s (truth 1.3); P1's track of it has 1.6 m/s", "true_forward_near_miss_within_3s": false, "verdict": "P1 removes a false alarm"},
+  {"run": "lht-cut_in-1118", "sequence": 462, "legacy": "HIGH/BRAKE", "p1": "SAFE/MAINTAIN",
+   "explanation": "legacy threat: a fresh (0.6 s) track of an oncoming motorcycle, lateral speed 7.0 m/s (truth 0.0); P1 0.37 m/s", "true_forward_near_miss_within_3s": false, "verdict": "P1 removes a false alarm"},
+  {"run": "lht-cut_in-1126", "sequences": [332, 333], "legacy": "CAUTION/SLOW_DOWN", "p1": "SAFE/MAINTAIN",
+   "explanation": "legacy threat: a motorcycle beyond the right lane moving away (truth lateral -0.9 m/s); the true near miss at 69.4 s is a truck, flagged identically by both trackers from 68.4 s (CAUTION, BRAKE, EMERGENCY_BRAKE)", "true_forward_near_miss_within_3s": "yes, by another vehicle that both trackers flag identically", "verdict": "caution about an uninvolved vehicle removed; no effect on the real threat"},
+  {"run": "lht-sudden_brake-1107", "sequences": [233, 234, 235, 236], "legacy": "CAUTION/SLOW_DOWN", "p1": "SAFE/MAINTAIN",
+   "explanation": "a car closing from behind in the right lane drifting toward the ego lane (truth lateral 1.0-1.2 m/s); P1 confirmed it earlier, so its 1.5 s velocity window was full and lagged (0.2-0.5 m/s) where the younger legacy track read 0.7-0.8 m/s", "true_forward_near_miss_within_3s": false, "verdict": "loss of a plausible caution, caused by the unchanged 1.5 s finite-difference velocity (P2's subject)"}
+ ]
+}

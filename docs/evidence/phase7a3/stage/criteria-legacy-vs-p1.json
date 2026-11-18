@@ -1,0 +1,106 @@
+[
+ {
+  "criterion": "T2",
+  "what": "max missed_tracking rate within 100 m, any speed band",
+  "baseline": 0.875,
+  "candidate": 0.1409,
+  "limit": 0.03,
+  "pass": false
+ },
+ {
+  "criterion": "T3",
+  "what": "max missed_tracking rate within 100 m, any vehicle type",
+  "baseline": 0.0356,
+  "candidate": 0.0356,
+  "limit": 0.03,
+  "pass": false
+ },
+ {
+  "criterion": "T4",
+  "what": "max missed_tracking rate 100-150 m (report; radar-limited)",
+  "baseline": 0.2562,
+  "candidate": 0.2313,
+  "limit": 0.1,
+  "pass": false
+ },
+ {
+  "criterion": "T5",
+  "what": "identity switches + fragmentations per 1,000 matched slot frames",
+  "baseline": 4.871,
+  "candidate": 4.651,
+  "limit": 1.0,
+  "pass": false
+ },
+ {
+  "criterion": "T6",
+  "what": "wrong_vehicle + spurious share of non-empty adjacent-slot frames (worse side)",
+  "baseline": 0.1248,
+  "candidate": 0.1242,
+  "limit": 0.05,
+  "pass": false
+ },
+ {
+  "criterion": "T7a",
+  "what": "v_lat MAE during lateral motion (m/s)",
+  "baseline": 0.508,
+  "candidate": 0.508,
+  "limit": 0.3,
+  "pass": false
+ },
+ {
+  "criterion": "T7b",
+  "what": "v_lat p95 during lateral motion (m/s)",
+  "baseline": 1.8,
+  "candidate": 1.8,
+  "limit": 1.0,
+  "pass": false
+ },
+ {
+  "criterion": "T8a",
+  "what": "false lateral motion on steady vehicles, tracks < 1.5 s",
+  "baseline": 0.3374,
+  "candidate": 0.3441,
+  "limit": 0.1,
+  "pass": false
+ },
+ {
+  "criterion": "T8b",
+  "what": "false lateral motion on steady vehicles, all tracks",
+  "baseline": 0.097,
+  "candidate": 0.0983,
+  "limit": 0.04,
+  "pass": false
+ },
+ {
+  "criterion": "T9a",
+  "what": "lateral cue latency p50 (s)",
+  "baseline": 0.6,
+  "candidate": 0.6,
+  "limit": 0.4,
+  "pass": false
+ },
+ {
+  "criterion": "T9b",
+  "what": "lateral cue latency p90 (s)",
+  "baseline": 2.4,
+  "candidate": 2.4,
+  "limit": 0.8,
+  "pass": false
+ },
+ {
+  "criterion": "T10 lon MAE",
+  "what": "no worse than baseline + 10%",
+  "baseline": 1.574,
+  "candidate": 1.571,
+  "limit": 1.731,
+  "pass": true
+ },
+ {
+  "criterion": "T10 lat MAE",
+  "what": "no worse than baseline + 10%",
+  "baseline": 0.309,
+  "candidate": 0.31,
+  "limit": 0.34,
+  "pass": true
+ }
+]

@@ -1,0 +1,1924 @@
+{
+ "attempt_limit": 40,
+ "campaign": "phase7a3-s9-%s-20261117",
+ "configurations": [
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "8d8473e182482806f049",
+    "density_per_km_lane": 5.4,
+    "duration_s": 146.2,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 11,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1295545927,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "diagnostic"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "b2f63aba2350386d7d19",
+    "density_per_km_lane": 9.0,
+    "duration_s": 128.8,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 12,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 1355891559,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "diagnostic"
+  },
+  {
+   "builder": "gradual",
+   "params": {
+    "configuration_id": "265dec38755f3ae08b76",
+    "density_per_km_lane": 5.0,
+    "duration_s": 101.5,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 290.6,
+     "gap_m": 49.7,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 5.05,
+     "side": "right",
+     "speed_delta_kmh": -14.1,
+     "staging": {
+      "act_gap_m": 30.0,
+      "design_entry_s": 1.3,
+      "design_warning_s": 6.35,
+      "kind": "gradual",
+      "lane_change_s": 3.81,
+      "observe_s": 5.05,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "car"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 3.81,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 11,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1610966055,
+    "traffic": "left",
+    "variant": "cutin_v2_gradual_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "diagnostic"
+  },
+  {
+   "builder": "assertive",
+   "params": {
+    "configuration_id": "bfce8774b8b1e3705f99",
+    "density_per_km_lane": 4.0,
+    "duration_s": 111.2,
+    "ego_speed_kmh": 55,
+    "event": {
+     "at_m": 444.6,
+     "gap_m": 21.5,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 2.7,
+     "side": "right",
+     "speed_delta_kmh": -18.6,
+     "staging": {
+      "act_gap_m": 7.5,
+      "design_entry_s": 0.88,
+      "design_warning_s": 3.58,
+      "kind": "assertive",
+      "lane_change_s": 2.03,
+      "observe_s": 2.7,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 2.03,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 11,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1610966055,
+    "traffic": "left",
+    "variant": "cutin_v2_assertive_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "diagnostic"
+  },
+  {
+   "builder": "sudden",
+   "params": {
+    "configuration_id": "c6d11b0877a470b67ef9",
+    "density_per_km_lane": 4.6,
+    "duration_s": 113.4,
+    "ego_speed_kmh": 70,
+    "event": {
+     "at_m": 439.7,
+     "gap_m": 7.0,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 0.42,
+     "side": "right",
+     "speed_delta_kmh": -14.6,
+     "staging": {
+      "act_gap_m": 5.3,
+      "design_entry_s": 0.69,
+      "design_warning_s": 1.11,
+      "kind": "sudden",
+      "lane_change_s": 1.27,
+      "observe_s": 0.42,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": true
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 1.27,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 11,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1610966055,
+    "traffic": "left",
+    "variant": "cutin_v2_sudden_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "diagnostic"
+  },
+  {
+   "builder": "stationary",
+   "params": {
+    "configuration_id": "3cdfc72891e673cafd0c",
+    "density_per_km_lane": 13.3,
+    "duration_s": 165.8,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 953.2,
+     "decel_mps2": 5.78,
+     "gap_m": 22.7,
+     "hold_s": 6.0,
+     "kind": "sudden_brake",
+     "to_kmh": 0
+    },
+    "family": "sudden_brake",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 11,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 257513884,
+    "traffic": "left",
+    "variant": "stationary_lead_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "diagnostic"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "c294d9948be3975d5ef5",
+    "density_per_km_lane": 8.1,
+    "duration_s": 138.2,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 171.9,
+      "depth_m": 0.092,
+      "lane": 1,
+      "length_m": 1.46,
+      "offset_m": 0.06,
+      "severity": "LOW",
+      "width_m": 1.03,
+      "yaw_rad": 0.38
+     },
+     {
+      "at_m": 1289.4,
+      "depth_m": 0.112,
+      "lane": 1,
+      "length_m": 1.15,
+      "offset_m": 0.18,
+      "severity": "HIGH",
+      "width_m": 0.9,
+      "yaw_rad": 0.1
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 101,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1566951615,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "5b0ee04c13ab9d7a4ba7",
+    "density_per_km_lane": 7.6,
+    "duration_s": 142.2,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 102,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 174427249,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "10b1ad8de0d51c9e0c2f",
+    "density_per_km_lane": 11.8,
+    "duration_s": 156.2,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 1744.6,
+      "depth_m": 0.095,
+      "lane": 1,
+      "length_m": 1.15,
+      "offset_m": -0.46,
+      "severity": "HIGH",
+      "width_m": 1.19,
+      "yaw_rad": 0.49
+     },
+     {
+      "at_m": 2356.7,
+      "depth_m": 0.095,
+      "lane": 1,
+      "length_m": 0.92,
+      "offset_m": -0.29,
+      "severity": "MEDIUM",
+      "width_m": 1.18,
+      "yaw_rad": 0.14
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 103,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 940535046,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "1959763e7ba76e5d6208",
+    "density_per_km_lane": 4.9,
+    "duration_s": 150.5,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 1510.5,
+      "depth_m": 0.114,
+      "lane": 2,
+      "length_m": 0.91,
+      "offset_m": -0.26,
+      "severity": "MEDIUM",
+      "width_m": 1.14,
+      "yaw_rad": 0.11
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 104,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 1015073464,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "2a96dae3c52fd9c0854d",
+    "density_per_km_lane": 8.0,
+    "duration_s": 167.0,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 2848.7,
+      "depth_m": 0.039,
+      "lane": 3,
+      "length_m": 1.55,
+      "offset_m": -0.21,
+      "severity": "LOW",
+      "width_m": 1.11,
+      "yaw_rad": -0.28
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 105,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 2098562191,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "c5d7d52179797cea616c",
+    "density_per_km_lane": 6.2,
+    "duration_s": 125.7,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 1384.7,
+      "depth_m": 0.096,
+      "lane": 1,
+      "length_m": 1.44,
+      "offset_m": 0.01,
+      "severity": "HIGH",
+      "width_m": 1.15,
+      "yaw_rad": -0.48
+     },
+     {
+      "at_m": 2146.3,
+      "depth_m": 0.048,
+      "lane": 2,
+      "length_m": 1.09,
+      "offset_m": 0.35,
+      "severity": "MEDIUM",
+      "width_m": 1.09,
+      "yaw_rad": 0.44
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 106,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 862095809,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "4ece665db6697f778a6f",
+    "density_per_km_lane": 11.0,
+    "duration_s": 132.3,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 107,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 859666003,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "19100b78b5f77591e1c0",
+    "density_per_km_lane": 7.5,
+    "duration_s": 170.6,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 294.6,
+      "depth_m": 0.074,
+      "lane": 2,
+      "length_m": 0.67,
+      "offset_m": -0.04,
+      "severity": "LOW",
+      "width_m": 1.15,
+      "yaw_rad": -0.11
+     },
+     {
+      "at_m": 2464.7,
+      "depth_m": 0.069,
+      "lane": 1,
+      "length_m": 0.67,
+      "offset_m": 0.31,
+      "severity": "MEDIUM",
+      "width_m": 0.84,
+      "yaw_rad": 0.17
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 108,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 1401443954,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "34aaa6f5fe86551401e5",
+    "density_per_km_lane": 7.6,
+    "duration_s": 138.1,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 2045.6,
+      "depth_m": 0.041,
+      "lane": 1,
+      "length_m": 0.77,
+      "offset_m": 0.1,
+      "severity": "HIGH",
+      "width_m": 0.77,
+      "yaw_rad": 0.13
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 109,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 2115569931,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "86ce7cc70033867093e6",
+    "density_per_km_lane": 6.4,
+    "duration_s": 174.3,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 280.2,
+      "depth_m": 0.055,
+      "lane": 1,
+      "length_m": 1.52,
+      "offset_m": -0.01,
+      "severity": "LOW",
+      "width_m": 0.98,
+      "yaw_rad": -0.34
+     },
+     {
+      "at_m": 900.1,
+      "depth_m": 0.095,
+      "lane": 3,
+      "length_m": 0.94,
+      "offset_m": -0.56,
+      "severity": "HIGH",
+      "width_m": 0.85,
+      "yaw_rad": 0.01
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 110,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 2122604683,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "09b7d7d2fdea11d42a03",
+    "density_per_km_lane": 9.0,
+    "duration_s": 159.0,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 962.3,
+      "depth_m": 0.112,
+      "lane": 1,
+      "length_m": 0.73,
+      "offset_m": -0.34,
+      "severity": "HIGH",
+      "width_m": 0.98,
+      "yaw_rad": -0.48
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 111,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1571854455,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "29bfaec980e9b0bcf7a1",
+    "density_per_km_lane": 8.8,
+    "duration_s": 178.9,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 1516.5,
+      "depth_m": 0.079,
+      "lane": 1,
+      "length_m": 1.25,
+      "offset_m": 0.26,
+      "severity": "MEDIUM",
+      "width_m": 0.67,
+      "yaw_rad": 0.47
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 112,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 2046942971,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "3877ee211dd6473a4a2c",
+    "density_per_km_lane": 7.6,
+    "duration_s": 143.5,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 113,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 959928925,
+    "traffic": "left",
+    "variant": "expressway_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "expressway",
+   "params": {
+    "configuration_id": "66b787c80ff4c1edead9",
+    "density_per_km_lane": 5.4,
+    "duration_s": 142.4,
+    "ego_speed_kmh": 80,
+    "event": null,
+    "family": "normal",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 114,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 486320675,
+    "traffic": "left",
+    "variant": "expressway_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "gradual",
+   "params": {
+    "configuration_id": "1571441694123d0921a4",
+    "density_per_km_lane": 5.0,
+    "duration_s": 104.6,
+    "ego_speed_kmh": 40,
+    "event": {
+     "at_m": 254.3,
+     "gap_m": 40.7,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 3.72,
+     "side": "left",
+     "speed_delta_kmh": -10.8,
+     "staging": {
+      "act_gap_m": 29.6,
+      "design_entry_s": 0.99,
+      "design_warning_s": 4.71,
+      "kind": "gradual",
+      "lane_change_s": 3.69,
+      "observe_s": 3.72,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "truck"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 3.69,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 101,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 2093774812,
+    "traffic": "left",
+    "variant": "cutin_v2_gradual_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "gradual",
+   "params": {
+    "configuration_id": "186e1a77f8d20ada8c49",
+    "density_per_km_lane": 4.0,
+    "duration_s": 109.1,
+    "ego_speed_kmh": 70,
+    "event": {
+     "at_m": 359.9,
+     "gap_m": 27.6,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 3.37,
+     "side": "right",
+     "speed_delta_kmh": -11.2,
+     "staging": {
+      "act_gap_m": 17.1,
+      "design_entry_s": 1.42,
+      "design_warning_s": 4.79,
+      "kind": "gradual",
+      "lane_change_s": 3.34,
+      "observe_s": 3.37,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 3.34,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 102,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 819572087,
+    "traffic": "left",
+    "variant": "cutin_v2_gradual_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "gradual",
+   "params": {
+    "configuration_id": "b119c018dfe14e3e6640",
+    "density_per_km_lane": 5.8,
+    "duration_s": 105.4,
+    "ego_speed_kmh": 40,
+    "event": {
+     "at_m": 490.9,
+     "gap_m": 35.0,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 5.62,
+     "side": "left",
+     "speed_delta_kmh": -3.2,
+     "staging": {
+      "act_gap_m": 30.0,
+      "design_entry_s": 1.39,
+      "design_warning_s": 7.01,
+      "kind": "gradual",
+      "lane_change_s": 4.05,
+      "observe_s": 5.62,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "car"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 4.05,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 103,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 49508861,
+    "traffic": "left",
+    "variant": "cutin_v2_gradual_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "gradual",
+   "params": {
+    "configuration_id": "a60c1ce4da79b5e60a0e",
+    "density_per_km_lane": 9.6,
+    "duration_s": 111.8,
+    "ego_speed_kmh": 40,
+    "event": {
+     "at_m": 495.9,
+     "gap_m": 13.5,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 5.73,
+     "side": "right",
+     "speed_delta_kmh": 1.4,
+     "staging": {
+      "act_gap_m": 13.5,
+      "design_entry_s": 1.78,
+      "design_warning_s": 7.51,
+      "kind": "gradual",
+      "lane_change_s": 4.2,
+      "observe_s": 5.73,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 4.2,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 104,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 1282587712,
+    "traffic": "left",
+    "variant": "cutin_v2_gradual_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "gradual",
+   "params": {
+    "configuration_id": "9d1a8ad26a2e1b025e56",
+    "density_per_km_lane": 9.5,
+    "duration_s": 112.3,
+    "ego_speed_kmh": 40,
+    "event": {
+     "at_m": 285.1,
+     "gap_m": 34.7,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 5.23,
+     "side": "left",
+     "speed_delta_kmh": -12.9,
+     "staging": {
+      "act_gap_m": 16.0,
+      "design_entry_s": 1.38,
+      "design_warning_s": 6.61,
+      "kind": "gradual",
+      "lane_change_s": 3.64,
+      "observe_s": 5.23,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "autorickshaw"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 3.64,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 105,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1251620590,
+    "traffic": "left",
+    "variant": "cutin_v2_gradual_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "gradual",
+   "params": {
+    "configuration_id": "40efc066cff4ad223c21",
+    "density_per_km_lane": 3.9,
+    "duration_s": 96.7,
+    "ego_speed_kmh": 70,
+    "event": {
+     "at_m": 408.0,
+     "gap_m": 20.3,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 5.19,
+     "side": "right",
+     "speed_delta_kmh": -7.0,
+     "staging": {
+      "act_gap_m": 10.2,
+      "design_entry_s": 1.35,
+      "design_warning_s": 6.54,
+      "kind": "gradual",
+      "lane_change_s": 3.17,
+      "observe_s": 5.19,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 3.17,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 106,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 253229887,
+    "traffic": "left",
+    "variant": "cutin_v2_gradual_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "assertive",
+   "params": {
+    "configuration_id": "160875258a7610584781",
+    "density_per_km_lane": 5.3,
+    "duration_s": 111.2,
+    "ego_speed_kmh": 70,
+    "event": {
+     "at_m": 453.3,
+     "gap_m": 15.0,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 1.74,
+     "side": "right",
+     "speed_delta_kmh": -17.0,
+     "staging": {
+      "act_gap_m": 6.8,
+      "design_entry_s": 1.08,
+      "design_warning_s": 2.82,
+      "kind": "assertive",
+      "lane_change_s": 2.54,
+      "observe_s": 1.74,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 2.54,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 101,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 2093774812,
+    "traffic": "left",
+    "variant": "cutin_v2_assertive_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "assertive",
+   "params": {
+    "configuration_id": "4fe98999e69dd1a31518",
+    "density_per_km_lane": 4.0,
+    "duration_s": 109.9,
+    "ego_speed_kmh": 55,
+    "event": {
+     "at_m": 280.6,
+     "gap_m": 10.0,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 1.61,
+     "side": "right",
+     "speed_delta_kmh": -6.4,
+     "staging": {
+      "act_gap_m": 7.2,
+      "design_entry_s": 0.87,
+      "design_warning_s": 2.48,
+      "kind": "assertive",
+      "lane_change_s": 2.55,
+      "observe_s": 1.61,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "car"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 2.55,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 102,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 819572087,
+    "traffic": "left",
+    "variant": "cutin_v2_assertive_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "assertive",
+   "params": {
+    "configuration_id": "c4500f1b5f4c27927e16",
+    "density_per_km_lane": 5.1,
+    "duration_s": 109.1,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 451.5,
+     "gap_m": 17.7,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 1.68,
+     "side": "left",
+     "speed_delta_kmh": -5.2,
+     "staging": {
+      "act_gap_m": 15.3,
+      "design_entry_s": 1.26,
+      "design_warning_s": 2.94,
+      "kind": "assertive",
+      "lane_change_s": 2.97,
+      "observe_s": 1.68,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 2.97,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 103,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 49508861,
+    "traffic": "left",
+    "variant": "cutin_v2_assertive_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "assertive",
+   "params": {
+    "configuration_id": "8de1f60ef5731706b2fc",
+    "density_per_km_lane": 7.2,
+    "duration_s": 113.6,
+    "ego_speed_kmh": 55,
+    "event": {
+     "at_m": 465.3,
+     "gap_m": 12.6,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 1.72,
+     "side": "right",
+     "speed_delta_kmh": -7.4,
+     "staging": {
+      "act_gap_m": 9.1,
+      "design_entry_s": 0.84,
+      "design_warning_s": 2.56,
+      "kind": "assertive",
+      "lane_change_s": 2.46,
+      "observe_s": 1.72,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "car"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 2.46,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 104,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 1282587712,
+    "traffic": "left",
+    "variant": "cutin_v2_assertive_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "assertive",
+   "params": {
+    "configuration_id": "6846e440e6c32e128d11",
+    "density_per_km_lane": 9.7,
+    "duration_s": 110.6,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 392.1,
+     "gap_m": 14.6,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 1.66,
+     "side": "left",
+     "speed_delta_kmh": -0.5,
+     "staging": {
+      "act_gap_m": 14.3,
+      "design_entry_s": 1.0,
+      "design_warning_s": 2.66,
+      "kind": "assertive",
+      "lane_change_s": 2.92,
+      "observe_s": 1.66,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "car"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 2.92,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 105,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 1251620590,
+    "traffic": "left",
+    "variant": "cutin_v2_assertive_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "assertive",
+   "params": {
+    "configuration_id": "82b1cff111d4abc8fe1f",
+    "density_per_km_lane": 6.8,
+    "duration_s": 95.7,
+    "ego_speed_kmh": 55,
+    "event": {
+     "at_m": 298.3,
+     "gap_m": 16.7,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 1.6,
+     "side": "right",
+     "speed_delta_kmh": -16.1,
+     "staging": {
+      "act_gap_m": 9.6,
+      "design_entry_s": 0.98,
+      "design_warning_s": 2.58,
+      "kind": "assertive",
+      "lane_change_s": 2.59,
+      "observe_s": 1.6,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": false
+     },
+     "vehicle_type": "autorickshaw"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 2.59,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 106,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 253229887,
+    "traffic": "left",
+    "variant": "cutin_v2_assertive_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "stationary",
+   "params": {
+    "configuration_id": "858824bca3cf7793a220",
+    "density_per_km_lane": 14.9,
+    "duration_s": 157.5,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 1547.2,
+     "decel_mps2": 6.86,
+     "gap_m": 36.4,
+     "hold_s": 6.0,
+     "kind": "sudden_brake",
+     "to_kmh": 0
+    },
+    "family": "sudden_brake",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 101,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 436280852,
+    "traffic": "left",
+    "variant": "stationary_lead_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "stationary",
+   "params": {
+    "configuration_id": "d6628084f5973c360b7f",
+    "density_per_km_lane": 10.6,
+    "duration_s": 143.4,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 835.7,
+     "decel_mps2": 4.46,
+     "gap_m": 17.1,
+     "hold_s": 6.5,
+     "kind": "sudden_brake",
+     "to_kmh": 0
+    },
+    "family": "sudden_brake",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 655.2,
+      "depth_m": 0.12,
+      "lane": 1,
+      "length_m": 0.78,
+      "offset_m": 0.38,
+      "severity": "HIGH",
+      "width_m": 0.77,
+      "yaw_rad": -0.48
+     },
+     {
+      "at_m": 1756.2,
+      "depth_m": 0.079,
+      "lane": 3,
+      "length_m": 0.74,
+      "offset_m": -0.17,
+      "severity": "LOW",
+      "width_m": 0.88,
+      "yaw_rad": -0.38
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 102,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 52704853,
+    "traffic": "left",
+    "variant": "stationary_lead_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "stationary",
+   "params": {
+    "configuration_id": "08f6363fe3176aec05aa",
+    "density_per_km_lane": 10.1,
+    "duration_s": 133.9,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 1748.1,
+     "decel_mps2": 7.66,
+     "gap_m": 37.1,
+     "hold_s": 6.0,
+     "kind": "sudden_brake",
+     "to_kmh": 0
+    },
+    "family": "sudden_brake",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 925.5,
+      "depth_m": 0.078,
+      "lane": 1,
+      "length_m": 0.97,
+      "offset_m": 0.2,
+      "severity": "HIGH",
+      "width_m": 1.09,
+      "yaw_rad": -0.24
+     },
+     {
+      "at_m": 1555.3,
+      "depth_m": 0.044,
+      "lane": 2,
+      "length_m": 0.81,
+      "offset_m": 0.36,
+      "severity": "MEDIUM",
+      "width_m": 1.13,
+      "yaw_rad": 0.18
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 103,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 698245609,
+    "traffic": "left",
+    "variant": "stationary_lead_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "stationary",
+   "params": {
+    "configuration_id": "c17dc8283b61d49c4862",
+    "density_per_km_lane": 13.6,
+    "duration_s": 153.5,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 1633.0,
+     "decel_mps2": 5.58,
+     "gap_m": 38.9,
+     "hold_s": 6.7,
+     "kind": "sudden_brake",
+     "to_kmh": 0
+    },
+    "family": "sudden_brake",
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [
+     {
+      "at_m": 1011.2,
+      "depth_m": 0.086,
+      "lane": 2,
+      "length_m": 0.91,
+      "offset_m": 0.41,
+      "severity": "HIGH",
+      "width_m": 1.01,
+      "yaw_rad": 0.29
+     }
+    ],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 104,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 1149445891,
+    "traffic": "left",
+    "variant": "stationary_lead_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "evaluation"
+  },
+  {
+   "builder": "sudden",
+   "params": {
+    "configuration_id": "8d7dfe78d73b0e28b4f5",
+    "density_per_km_lane": 6.2,
+    "duration_s": 110.3,
+    "ego_speed_kmh": 70,
+    "event": {
+     "at_m": 437.8,
+     "gap_m": 11.7,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 0.92,
+     "side": "left",
+     "speed_delta_kmh": -17.0,
+     "staging": {
+      "act_gap_m": 7.3,
+      "design_entry_s": 0.68,
+      "design_warning_s": 1.6,
+      "kind": "sudden",
+      "lane_change_s": 1.23,
+      "observe_s": 0.92,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": true
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 1.23,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 101,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 2093774812,
+    "traffic": "left",
+    "variant": "cutin_v2_sudden_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "stress"
+  },
+  {
+   "builder": "sudden",
+   "params": {
+    "configuration_id": "45878b3d7d987d7c1d4c",
+    "density_per_km_lane": 8.5,
+    "duration_s": 95.5,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 298.5,
+     "gap_m": 11.0,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 0.58,
+     "side": "right",
+     "speed_delta_kmh": -14.1,
+     "staging": {
+      "act_gap_m": 8.8,
+      "design_entry_s": 0.71,
+      "design_warning_s": 1.29,
+      "kind": "sudden",
+      "lane_change_s": 1.41,
+      "observe_s": 0.58,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": true
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 1.41,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 102,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 819572087,
+    "traffic": "left",
+    "variant": "cutin_v2_sudden_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "stress"
+  },
+  {
+   "builder": "sudden",
+   "params": {
+    "configuration_id": "e94cff1dfcf651ca19c2",
+    "density_per_km_lane": 4.2,
+    "duration_s": 98.8,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 462.9,
+     "gap_m": 7.4,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 0.5,
+     "side": "left",
+     "speed_delta_kmh": -22.5,
+     "staging": {
+      "act_gap_m": 4.2,
+      "design_entry_s": 0.58,
+      "design_warning_s": 1.08,
+      "kind": "sudden",
+      "lane_change_s": 1.23,
+      "observe_s": 0.5,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": true
+     },
+     "vehicle_type": "autorickshaw"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 1.23,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 103,
+    "speed_limit_kmh": 100,
+    "sumo_seed": 49508861,
+    "traffic": "left",
+    "variant": "cutin_v2_sudden_100",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "stress"
+  },
+  {
+   "builder": "sudden",
+   "params": {
+    "configuration_id": "69e98ba8946a0b85cca7",
+    "density_per_km_lane": 7.9,
+    "duration_s": 95.9,
+    "ego_speed_kmh": 80,
+    "event": {
+     "at_m": 400.4,
+     "gap_m": 12.0,
+     "kind": "cut_in",
+     "lane_change_mode": 0,
+     "release_after_s": 8.0,
+     "request_s": 6.0,
+     "settle_s": 0.45,
+     "side": "left",
+     "speed_delta_kmh": -24.6,
+     "staging": {
+      "act_gap_m": 8.9,
+      "design_entry_s": 0.66,
+      "design_warning_s": 1.11,
+      "kind": "sudden",
+      "lane_change_s": 1.12,
+      "observe_s": 0.45,
+      "schema": "roadsense.cut-in-staging.v2",
+      "stress_only": true
+     },
+     "vehicle_type": "motorcycle"
+    },
+    "family": "cut_in",
+    "lane_change_delay_s": 1.12,
+    "mix": {
+     "autorickshaw": 0.12,
+     "bus": 0.04,
+     "car": 0.5,
+     "motorcycle": 0.25,
+     "truck": 0.09
+    },
+    "potholes": [],
+    "profile": "highway_lht",
+    "schema": "roadsense.scenario.v1",
+    "seed": 104,
+    "speed_limit_kmh": 120,
+    "sumo_seed": 1282587712,
+    "traffic": "left",
+    "variant": "cutin_v2_sudden_120",
+    "vtype_max_speed_mps": {
+     "car": 36.1,
+     "motorcycle": 30.6
+    }
+   },
+   "subset": "stress"
+  }
+ ],
+ "fast_mps": {
+  "car": 36.1,
+  "motorcycle": 30.6
+ },
+ "limits_kmh": [
+  100,
+  120
+ ],
+ "max_consecutive_failures": 3,
+ "schema": "roadsense.phase7a3-stage9-plan.v1",
+ "tag": "phase7a3-stage9",
+ "wall_limit_s": 5400
+}

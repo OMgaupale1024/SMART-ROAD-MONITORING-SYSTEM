@@ -1,0 +1,4 @@
+v_100_100: SumoInterface {   gui FALSE   step 100   radius 250 
+v_200_200: SumoInterface {   gui FALSE   step 200   radius 250 
+v_200_50: SumoInterface {   gui FALSE   step 200   radius 250 
+v_50_50: SumoInterface {   gui FALSE   step 50   radius 250 

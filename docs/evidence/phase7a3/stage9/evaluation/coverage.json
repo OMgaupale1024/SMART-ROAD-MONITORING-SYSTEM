@@ -1,0 +1,143 @@
+{
+ "schema": "roadsense.stage9-coverage.v1",
+ "observable": "tools/perception_audit.py, cross-checked",
+ "bands": {
+  "within_100m": {
+   "00-05 m/s": {
+    "observable_frames": 237,
+    "vehicles": 8,
+    "runs": 4
+   },
+   "05-10 m/s": {
+    "observable_frames": 210,
+    "vehicles": 10,
+    "runs": 6
+   },
+   "10-15 m/s": {
+    "observable_frames": 5821,
+    "vehicles": 94,
+    "runs": 27
+   },
+   "15-20 m/s": {
+    "observable_frames": 1672,
+    "vehicles": 36,
+    "runs": 18
+   },
+   "20-25 m/s": {
+    "observable_frames": 3087,
+    "vehicles": 50,
+    "runs": 20
+   },
+   "25-30 m/s": {
+    "observable_frames": 877,
+    "vehicles": 52,
+    "runs": 20
+   },
+   "30-35 m/s": {
+    "observable_frames": 487,
+    "vehicles": 26,
+    "runs": 9
+   },
+   "35-40 m/s": {
+    "observable_frames": 3,
+    "vehicles": 1,
+    "runs": 1
+   }
+  },
+  "any_range": {
+   "00-05 m/s": {
+    "observable_frames": 237,
+    "vehicles": 8,
+    "runs": 4
+   },
+   "05-10 m/s": {
+    "observable_frames": 210,
+    "vehicles": 10,
+    "runs": 6
+   },
+   "10-15 m/s": {
+    "observable_frames": 6699,
+    "vehicles": 97,
+    "runs": 27
+   },
+   "15-20 m/s": {
+    "observable_frames": 1977,
+    "vehicles": 40,
+    "runs": 19
+   },
+   "20-25 m/s": {
+    "observable_frames": 4068,
+    "vehicles": 61,
+    "runs": 22
+   },
+   "25-30 m/s": {
+    "observable_frames": 1480,
+    "vehicles": 63,
+    "runs": 23
+   },
+   "30-35 m/s": {
+    "observable_frames": 761,
+    "vehicles": 43,
+    "runs": 17
+   },
+   "35-40 m/s": {
+    "observable_frames": 5,
+    "vehicles": 2,
+    "runs": 2
+   }
+  }
+ },
+ "above_25_mps": {
+  "within_100m": {
+   "observable_frames": 1367,
+   "vehicles": 62,
+   "runs": 20
+  },
+  "any_range": {
+   "observable_frames": 2246,
+   "vehicles": 84,
+   "runs": 26
+  }
+ },
+ "above_30_mps": {
+  "within_100m": {
+   "observable_frames": 490,
+   "vehicles": 27,
+   "runs": 9
+  },
+  "any_range": {
+   "observable_frames": 766,
+   "vehicles": 45,
+   "runs": 17
+  }
+ },
+ "above_25_mps_within_100m_by_builder": {
+  "assertive": {
+   "observable_frames": 166,
+   "vehicles": 4,
+   "runs": 4
+  },
+  "expressway": {
+   "observable_frames": 255,
+   "vehicles": 18,
+   "runs": 7
+  },
+  "gradual": {
+   "observable_frames": 63,
+   "vehicles": 5,
+   "runs": 5
+  },
+  "stationary": {
+   "observable_frames": 883,
+   "vehicles": 35,
+   "runs": 4
+  }
+ },
+ "adequacy_thresholds": {
+  "frames_25": 2000,
+  "vehicles_25": 100,
+  "runs_25": 10,
+  "frames_30": 200
+ },
+ "adequate": false
+}

@@ -1,0 +1,135 @@
+{
+  "all_new_pairs_and_old_pairs_non_near": true,
+  "baseline_unchanged": true,
+  "checksums_verified": 1147,
+  "dataset_sha256": "aef2c3f5ca67342f35b6df5e3a471e35f3dacfbefbfc1076d31f8e32ebc63442",
+  "freeze_sha256": "fae0a51af2f4b63933a38787a7f07dcffa7105cd6a521fd3aff7f5bd2626551d",
+  "missing_feature_counts": {
+    "lead_age_s": 40837,
+    "lead_closing_accel_mps2": 42581,
+    "lead_lat_m": 40837,
+    "lead_lon_m": 40837,
+    "lead_lon_trend_mps": 42581,
+    "lead_range_rate_mps": 40837,
+    "lead_speed_accel_mps2": 42581,
+    "lead_unseen_s": 40837,
+    "lead_v_lat_mps": 40837,
+    "lead_v_lon_mps": 40837,
+    "left_age_s": 20190,
+    "left_lat_m": 20190,
+    "left_lat_trend_mps": 25896,
+    "left_lon_m": 20190,
+    "left_lon_trend_mps": 25896,
+    "left_range_rate_mps": 20190,
+    "left_unseen_s": 20190,
+    "left_v_lat_mps": 20190,
+    "left_v_lon_mps": 20190,
+    "right_age_s": 55825,
+    "right_lat_m": 55825,
+    "right_lat_trend_mps": 57491,
+    "right_lon_m": 55825,
+    "right_lon_trend_mps": 57491,
+    "right_range_rate_mps": 55831,
+    "right_unseen_s": 55825,
+    "right_v_lat_mps": 55825,
+    "right_v_lon_mps": 55825,
+    "sensor_lead_ttc_s": 51935,
+    "sensor_left_corridor_time_s": 59540,
+    "sensor_right_corridor_time_s": 63457
+  },
+  "missing_physical_truth_frames": 521,
+  "native_parity": {
+    "hgb15": {
+      "max_abs_error": 3.3306690738754696e-16,
+      "rows": 81433,
+      "threshold_mismatches": 0
+    },
+    "hgb7": {
+      "max_abs_error": 3.3306690738754696e-16,
+      "rows": 81433,
+      "threshold_mismatches": 0
+    },
+    "lr30": {
+      "max_abs_error": 8.881784197001252e-16,
+      "rows": 81433,
+      "threshold_mismatches": 0
+    },
+    "lr44": {
+      "max_abs_error": 7.771561172376096e-16,
+      "rows": 81433,
+      "threshold_mismatches": 0
+    },
+    "lr44_balanced": {
+      "max_abs_error": 4.996003610813204e-16,
+      "rows": 81433,
+      "threshold_mismatches": 0
+    },
+    "rf6": {
+      "max_abs_error": 5.662137425588298e-15,
+      "rows": 81433,
+      "threshold_mismatches": 0
+    },
+    "rf8": {
+      "max_abs_error": 3.9968028886505635e-15,
+      "rows": 81433,
+      "threshold_mismatches": 0
+    }
+  },
+  "plan_sha256": "712bde92f3c369065182608e0038e84cd2e7612943a0110905851cf3c8a3cdb6",
+  "positive_groups": {
+    "ordinary": 1,
+    "stress": 6,
+    "test": 8,
+    "train": 24,
+    "validation": 9
+  },
+  "privileged_inference_features": false,
+  "raw_samples": 78365,
+  "runs": 140,
+  "simulator_versions": [
+    {
+      "sumo": "Eclipse SUMO sumo 1.27.1",
+      "webots": "R2025b"
+    }
+  ],
+  "source_snapshot_run_counts": {
+    "source/2ad4084cf1a54a442b8a": 84,
+    "source/695e4b73764dfc435ae7": 10,
+    "source/c8684d99fdc0449adade": 28,
+    "source/ca31b81cdd8dede12ddc": 6,
+    "source/e0ece6c745ba1e09c6de": 12
+  },
+  "split_groups": {
+    "ordinary": 10,
+    "stress": 10,
+    "test": 20,
+    "train": 80,
+    "validation": 20
+  },
+  "split_samples": {
+    "ordinary": 5709,
+    "stress": 4855,
+    "test": 8958,
+    "train": 36442,
+    "validation": 9693
+  },
+  "staged_log_counts": {
+    "act": 114,
+    "inserted": 114,
+    "released": 114,
+    "slot_never_clear": 2,
+    "spawn_failed": 2,
+    "spawn_requested": 116
+  },
+  "successful_runs": 140,
+  "supervised_labels_and_causal_features_recomputed": 65657,
+  "termination_reasons": {
+    "duration": 140
+  },
+  "truth_frames": 78225,
+  "unique_configurations": 140,
+  "unmatched_truth_reasons": {
+    "missing_physical_pose": 521,
+    "no_truth_frame": 140
+  }
+}

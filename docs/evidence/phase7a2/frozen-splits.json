@@ -1,0 +1,1135 @@
+{
+  "allocations": {
+    "ordinary": 10,
+    "stress": 10,
+    "test": 20,
+    "train": 80,
+    "validation": 20
+  },
+  "attempt_limit": 140,
+  "configurations": [
+    {
+      "configuration_id": "0501e2f60e862d149d43",
+      "family": "sudden_brake",
+      "group": "0501e2f60e862d149d43",
+      "seed": 1001,
+      "split": "train",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "a211c2655b7c4b627383",
+      "family": "cut_in",
+      "group": "a211c2655b7c4b627383",
+      "seed": 1002,
+      "split": "train",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "88ee882c51bc14768de9",
+      "family": "cut_in",
+      "group": "88ee882c51bc14768de9",
+      "seed": 1003,
+      "split": "train",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "8f0f4a28031ec60ae036",
+      "family": "cut_in",
+      "group": "8f0f4a28031ec60ae036",
+      "seed": 1004,
+      "split": "train",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "0046ec41fddadca8bcb2",
+      "family": "combined",
+      "group": "0046ec41fddadca8bcb2",
+      "seed": 1005,
+      "split": "train",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "6d8be2b134d9d81694ac",
+      "family": "mixed",
+      "group": "6d8be2b134d9d81694ac",
+      "seed": 1006,
+      "split": "train",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "5b3cc972f1211e36cf88",
+      "family": "sudden_brake",
+      "group": "5b3cc972f1211e36cf88",
+      "seed": 1007,
+      "split": "train",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "a3553534eaae1693d3d8",
+      "family": "cut_in",
+      "group": "a3553534eaae1693d3d8",
+      "seed": 1008,
+      "split": "train",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "482a17388a02667753cc",
+      "family": "sudden_brake",
+      "group": "482a17388a02667753cc",
+      "seed": 1009,
+      "split": "train",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "605740efc76ac2f19fe6",
+      "family": "combined",
+      "group": "605740efc76ac2f19fe6",
+      "seed": 1010,
+      "split": "train",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "f8f510cdb58f33732232",
+      "family": "sudden_brake",
+      "group": "f8f510cdb58f33732232",
+      "seed": 1011,
+      "split": "train",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "331c1c013074e7e51f63",
+      "family": "cut_in",
+      "group": "331c1c013074e7e51f63",
+      "seed": 1012,
+      "split": "train",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "519fe7f63209b896ff18",
+      "family": "cut_in",
+      "group": "519fe7f63209b896ff18",
+      "seed": 1013,
+      "split": "train",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "371e24a0231bf62ec295",
+      "family": "cut_in",
+      "group": "371e24a0231bf62ec295",
+      "seed": 1014,
+      "split": "train",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "38633bc939622346ccce",
+      "family": "combined",
+      "group": "38633bc939622346ccce",
+      "seed": 1015,
+      "split": "train",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "94ebbb095c6a544038be",
+      "family": "mixed",
+      "group": "94ebbb095c6a544038be",
+      "seed": 1016,
+      "split": "train",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "e6e84e22b67c90180a20",
+      "family": "sudden_brake",
+      "group": "e6e84e22b67c90180a20",
+      "seed": 1017,
+      "split": "train",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "c7b32e9d946999df66df",
+      "family": "cut_in",
+      "group": "c7b32e9d946999df66df",
+      "seed": 1018,
+      "split": "train",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "041c59fd0dc37c532579",
+      "family": "sudden_brake",
+      "group": "041c59fd0dc37c532579",
+      "seed": 1019,
+      "split": "train",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "15c7e8d20d1c5a71679d",
+      "family": "combined",
+      "group": "15c7e8d20d1c5a71679d",
+      "seed": 1020,
+      "split": "train",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "05f66529bc8e9d64d6c6",
+      "family": "sudden_brake",
+      "group": "05f66529bc8e9d64d6c6",
+      "seed": 1021,
+      "split": "train",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "d145a69c51247d20e569",
+      "family": "cut_in",
+      "group": "d145a69c51247d20e569",
+      "seed": 1022,
+      "split": "train",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "56a698947af2633b64b1",
+      "family": "cut_in",
+      "group": "56a698947af2633b64b1",
+      "seed": 1023,
+      "split": "train",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "4ff977fdbf5a03cdee01",
+      "family": "cut_in",
+      "group": "4ff977fdbf5a03cdee01",
+      "seed": 1024,
+      "split": "train",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "b2811a8af87a36ae6a79",
+      "family": "combined",
+      "group": "b2811a8af87a36ae6a79",
+      "seed": 1025,
+      "split": "train",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "9f26a29cef6dde5015be",
+      "family": "mixed",
+      "group": "9f26a29cef6dde5015be",
+      "seed": 1026,
+      "split": "train",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "76c3ca26256b97fc5bc5",
+      "family": "sudden_brake",
+      "group": "76c3ca26256b97fc5bc5",
+      "seed": 1027,
+      "split": "train",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "a6e47e90fdb8cf8e32f4",
+      "family": "cut_in",
+      "group": "a6e47e90fdb8cf8e32f4",
+      "seed": 1028,
+      "split": "train",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "b2142085f3804f06aaf5",
+      "family": "sudden_brake",
+      "group": "b2142085f3804f06aaf5",
+      "seed": 1029,
+      "split": "train",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "00a8a08a2f0e903ddc05",
+      "family": "combined",
+      "group": "00a8a08a2f0e903ddc05",
+      "seed": 1030,
+      "split": "train",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "6bb441a8fece75e9e520",
+      "family": "sudden_brake",
+      "group": "6bb441a8fece75e9e520",
+      "seed": 1031,
+      "split": "train",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "dc4059c87963f430791e",
+      "family": "cut_in",
+      "group": "dc4059c87963f430791e",
+      "seed": 1032,
+      "split": "train",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "fa190520d41e9ead72d7",
+      "family": "cut_in",
+      "group": "fa190520d41e9ead72d7",
+      "seed": 1033,
+      "split": "train",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "3d5cbdc7f2ba4452e0d8",
+      "family": "cut_in",
+      "group": "3d5cbdc7f2ba4452e0d8",
+      "seed": 1034,
+      "split": "train",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "76cb2218cfc841885361",
+      "family": "combined",
+      "group": "76cb2218cfc841885361",
+      "seed": 1035,
+      "split": "train",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "ea5e9f93b2cd5404bc6e",
+      "family": "mixed",
+      "group": "ea5e9f93b2cd5404bc6e",
+      "seed": 1036,
+      "split": "train",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "462ef5071bd192b25e8b",
+      "family": "sudden_brake",
+      "group": "462ef5071bd192b25e8b",
+      "seed": 1037,
+      "split": "train",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "0dcda9c64a6add97a5af",
+      "family": "cut_in",
+      "group": "0dcda9c64a6add97a5af",
+      "seed": 1038,
+      "split": "train",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "4631d9a72fdaf39ae601",
+      "family": "sudden_brake",
+      "group": "4631d9a72fdaf39ae601",
+      "seed": 1039,
+      "split": "train",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "80c2d180ed117592953f",
+      "family": "combined",
+      "group": "80c2d180ed117592953f",
+      "seed": 1040,
+      "split": "train",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "0b7e614b984d71dd12aa",
+      "family": "sudden_brake",
+      "group": "0b7e614b984d71dd12aa",
+      "seed": 1041,
+      "split": "train",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "18887e86aa4415d00111",
+      "family": "cut_in",
+      "group": "18887e86aa4415d00111",
+      "seed": 1042,
+      "split": "train",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "16e9253bc369eb0473dc",
+      "family": "cut_in",
+      "group": "16e9253bc369eb0473dc",
+      "seed": 1043,
+      "split": "train",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "a593e8b605244cb2d650",
+      "family": "cut_in",
+      "group": "a593e8b605244cb2d650",
+      "seed": 1044,
+      "split": "train",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "d796bcb5bcfb97ccbd0b",
+      "family": "combined",
+      "group": "d796bcb5bcfb97ccbd0b",
+      "seed": 1045,
+      "split": "train",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "9f796496e052a4c0080e",
+      "family": "mixed",
+      "group": "9f796496e052a4c0080e",
+      "seed": 1046,
+      "split": "train",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "f4e7e037b041076fb37b",
+      "family": "sudden_brake",
+      "group": "f4e7e037b041076fb37b",
+      "seed": 1047,
+      "split": "train",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "a713469c7e982c05202e",
+      "family": "cut_in",
+      "group": "a713469c7e982c05202e",
+      "seed": 1048,
+      "split": "train",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "e2c27254d820e2e4155f",
+      "family": "sudden_brake",
+      "group": "e2c27254d820e2e4155f",
+      "seed": 1049,
+      "split": "train",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "670b06426977cbe004ae",
+      "family": "combined",
+      "group": "670b06426977cbe004ae",
+      "seed": 1050,
+      "split": "train",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "dac2812907bc7d0f4336",
+      "family": "sudden_brake",
+      "group": "dac2812907bc7d0f4336",
+      "seed": 1051,
+      "split": "train",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "c9ce9101e4cc893b473e",
+      "family": "cut_in",
+      "group": "c9ce9101e4cc893b473e",
+      "seed": 1052,
+      "split": "train",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "901a245f16e9eeece49d",
+      "family": "cut_in",
+      "group": "901a245f16e9eeece49d",
+      "seed": 1053,
+      "split": "train",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "3859929551634add7ea1",
+      "family": "cut_in",
+      "group": "3859929551634add7ea1",
+      "seed": 1054,
+      "split": "train",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "b93997254c7a40f8e12f",
+      "family": "combined",
+      "group": "b93997254c7a40f8e12f",
+      "seed": 1055,
+      "split": "train",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "9a7ca8647ea033a7a703",
+      "family": "mixed",
+      "group": "9a7ca8647ea033a7a703",
+      "seed": 1056,
+      "split": "train",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "61716ad3a0c07ed80916",
+      "family": "sudden_brake",
+      "group": "61716ad3a0c07ed80916",
+      "seed": 1057,
+      "split": "train",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "bc19627b958ad3912df6",
+      "family": "cut_in",
+      "group": "bc19627b958ad3912df6",
+      "seed": 1058,
+      "split": "train",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "047a570cd17912c1b416",
+      "family": "sudden_brake",
+      "group": "047a570cd17912c1b416",
+      "seed": 1059,
+      "split": "train",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "6a6d2f04342604037c3d",
+      "family": "combined",
+      "group": "6a6d2f04342604037c3d",
+      "seed": 1060,
+      "split": "train",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "a9958ed3daa71ab98665",
+      "family": "sudden_brake",
+      "group": "a9958ed3daa71ab98665",
+      "seed": 1061,
+      "split": "train",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "2fc6c279f6c1ae7606ef",
+      "family": "cut_in",
+      "group": "2fc6c279f6c1ae7606ef",
+      "seed": 1062,
+      "split": "train",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "7150450efee3b164fa90",
+      "family": "cut_in",
+      "group": "7150450efee3b164fa90",
+      "seed": 1063,
+      "split": "train",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "8890066f39b1e963ee69",
+      "family": "cut_in",
+      "group": "8890066f39b1e963ee69",
+      "seed": 1064,
+      "split": "train",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "9ff5e013833366c88590",
+      "family": "combined",
+      "group": "9ff5e013833366c88590",
+      "seed": 1065,
+      "split": "train",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "f3baa1af87d38c32318d",
+      "family": "mixed",
+      "group": "f3baa1af87d38c32318d",
+      "seed": 1066,
+      "split": "train",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "d7217bacb0c07e617ceb",
+      "family": "sudden_brake",
+      "group": "d7217bacb0c07e617ceb",
+      "seed": 1067,
+      "split": "train",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "21fee4420c89ee69e155",
+      "family": "cut_in",
+      "group": "21fee4420c89ee69e155",
+      "seed": 1068,
+      "split": "train",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "056198983a4c86968681",
+      "family": "sudden_brake",
+      "group": "056198983a4c86968681",
+      "seed": 1069,
+      "split": "train",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "d6ad6b32d50986bb2db4",
+      "family": "combined",
+      "group": "d6ad6b32d50986bb2db4",
+      "seed": 1070,
+      "split": "train",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "f113aa1222264db8ed20",
+      "family": "normal",
+      "group": "f113aa1222264db8ed20",
+      "seed": 1071,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "7ca83a32daa451a5f085",
+      "family": "normal",
+      "group": "7ca83a32daa451a5f085",
+      "seed": 1072,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "d037ac2481a4afffac5c",
+      "family": "normal",
+      "group": "d037ac2481a4afffac5c",
+      "seed": 1073,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "1540ebe8b22f800551f3",
+      "family": "normal",
+      "group": "1540ebe8b22f800551f3",
+      "seed": 1074,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "1271c34e669fa5332372",
+      "family": "normal",
+      "group": "1271c34e669fa5332372",
+      "seed": 1075,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "e6dfbf564ea234226aa2",
+      "family": "normal",
+      "group": "e6dfbf564ea234226aa2",
+      "seed": 1076,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "dffa1e840a2de0cb7f06",
+      "family": "normal",
+      "group": "dffa1e840a2de0cb7f06",
+      "seed": 1077,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "c5e0d7bf9ce0b9b9f8a3",
+      "family": "normal",
+      "group": "c5e0d7bf9ce0b9b9f8a3",
+      "seed": 1078,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "746a6466a3e23e363a30",
+      "family": "normal",
+      "group": "746a6466a3e23e363a30",
+      "seed": 1079,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "5b8274886af99e280a6b",
+      "family": "normal",
+      "group": "5b8274886af99e280a6b",
+      "seed": 1080,
+      "split": "train",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "f7de20f5a6fdaab6172e",
+      "family": "sudden_brake",
+      "group": "f7de20f5a6fdaab6172e",
+      "seed": 1081,
+      "split": "validation",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "b5af590e9dd0daa8c29f",
+      "family": "cut_in",
+      "group": "b5af590e9dd0daa8c29f",
+      "seed": 1082,
+      "split": "validation",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "e0494c2ae48934a2de9c",
+      "family": "cut_in",
+      "group": "e0494c2ae48934a2de9c",
+      "seed": 1083,
+      "split": "validation",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "1b2d8c580ed6965b3a7b",
+      "family": "combined",
+      "group": "1b2d8c580ed6965b3a7b",
+      "seed": 1084,
+      "split": "validation",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "161f18f7452ad53e081e",
+      "family": "cut_in",
+      "group": "161f18f7452ad53e081e",
+      "seed": 1085,
+      "split": "validation",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "ca15307feb0a00b399db",
+      "family": "combined",
+      "group": "ca15307feb0a00b399db",
+      "seed": 1086,
+      "split": "validation",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "6c416e394a1e6a326bf5",
+      "family": "cut_in",
+      "group": "6c416e394a1e6a326bf5",
+      "seed": 1087,
+      "split": "validation",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "b740c05ad58ea6d3420a",
+      "family": "mixed",
+      "group": "b740c05ad58ea6d3420a",
+      "seed": 1088,
+      "split": "validation",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "6448559b2da8decae85e",
+      "family": "sudden_brake",
+      "group": "6448559b2da8decae85e",
+      "seed": 1089,
+      "split": "validation",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "c844e254d0b216c86163",
+      "family": "cut_in",
+      "group": "c844e254d0b216c86163",
+      "seed": 1090,
+      "split": "validation",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "3ca7dc750d16cddd1715",
+      "family": "cut_in",
+      "group": "3ca7dc750d16cddd1715",
+      "seed": 1091,
+      "split": "validation",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "9f91c367570bd626b7d2",
+      "family": "combined",
+      "group": "9f91c367570bd626b7d2",
+      "seed": 1092,
+      "split": "validation",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "e386e416f01a76f585a1",
+      "family": "cut_in",
+      "group": "e386e416f01a76f585a1",
+      "seed": 1093,
+      "split": "validation",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "8120bd47b2cc6481c668",
+      "family": "combined",
+      "group": "8120bd47b2cc6481c668",
+      "seed": 1094,
+      "split": "validation",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "f08802aa93e4dba21381",
+      "family": "cut_in",
+      "group": "f08802aa93e4dba21381",
+      "seed": 1095,
+      "split": "validation",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "56fcf7b0b46833fd02f3",
+      "family": "mixed",
+      "group": "56fcf7b0b46833fd02f3",
+      "seed": 1096,
+      "split": "validation",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "2e03aadcec8d79a93056",
+      "family": "normal",
+      "group": "2e03aadcec8d79a93056",
+      "seed": 1098,
+      "split": "validation",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "13d1e42e2a8edac114fa",
+      "family": "normal",
+      "group": "13d1e42e2a8edac114fa",
+      "seed": 1099,
+      "split": "validation",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "f6b1ce50a6527f041042",
+      "family": "normal",
+      "group": "f6b1ce50a6527f041042",
+      "seed": 1100,
+      "split": "validation",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "28e3b022f35dcf7c4844",
+      "family": "normal",
+      "group": "28e3b022f35dcf7c4844",
+      "seed": 1101,
+      "split": "validation",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "2b16f663898c8b469723",
+      "family": "sudden_brake",
+      "group": "2b16f663898c8b469723",
+      "seed": 1102,
+      "split": "test",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "3192767e793354343ecb",
+      "family": "cut_in",
+      "group": "3192767e793354343ecb",
+      "seed": 1103,
+      "split": "test",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "3b49d12bb0bc1e778953",
+      "family": "cut_in",
+      "group": "3b49d12bb0bc1e778953",
+      "seed": 1104,
+      "split": "test",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "46985564b07c0d4f92e1",
+      "family": "combined",
+      "group": "46985564b07c0d4f92e1",
+      "seed": 1105,
+      "split": "test",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "06f28f8a72637793a77f",
+      "family": "cut_in",
+      "group": "06f28f8a72637793a77f",
+      "seed": 1106,
+      "split": "test",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "a2a6a3adf76184f48c6b",
+      "family": "sudden_brake",
+      "group": "a2a6a3adf76184f48c6b",
+      "seed": 1107,
+      "split": "test",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "8a78b42abc527b044c38",
+      "family": "cut_in",
+      "group": "8a78b42abc527b044c38",
+      "seed": 1108,
+      "split": "test",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "60f545738e8cbadfd94d",
+      "family": "cut_in",
+      "group": "60f545738e8cbadfd94d",
+      "seed": 1109,
+      "split": "test",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "c69440d20d7fc4f3a175",
+      "family": "combined",
+      "group": "c69440d20d7fc4f3a175",
+      "seed": 1110,
+      "split": "test",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "3e5a7bf4bc2a3ff4e968",
+      "family": "cut_in",
+      "group": "3e5a7bf4bc2a3ff4e968",
+      "seed": 1111,
+      "split": "test",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "f6743bc0173afb54ad3a",
+      "family": "sudden_brake",
+      "group": "f6743bc0173afb54ad3a",
+      "seed": 1112,
+      "split": "test",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "e1c1066ede92d5bdfb33",
+      "family": "cut_in",
+      "group": "e1c1066ede92d5bdfb33",
+      "seed": 1113,
+      "split": "test",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "8b85242862c037044c95",
+      "family": "cut_in",
+      "group": "8b85242862c037044c95",
+      "seed": 1114,
+      "split": "test",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "4109007e9a585d959800",
+      "family": "combined",
+      "group": "4109007e9a585d959800",
+      "seed": 1115,
+      "split": "test",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "2cadd52756d341e06eda",
+      "family": "cut_in",
+      "group": "2cadd52756d341e06eda",
+      "seed": 1116,
+      "split": "test",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "b55cd1c789181876ef87",
+      "family": "sudden_brake",
+      "group": "b55cd1c789181876ef87",
+      "seed": 1117,
+      "split": "test",
+      "variant": "brake_moderate"
+    },
+    {
+      "configuration_id": "148e1357c6ef69b33439",
+      "family": "cut_in",
+      "group": "148e1357c6ef69b33439",
+      "seed": 1118,
+      "split": "test",
+      "variant": "safe_overtake"
+    },
+    {
+      "configuration_id": "db57c618e5a4f6b9a62e",
+      "family": "sudden_brake",
+      "group": "db57c618e5a4f6b9a62e",
+      "seed": 1119,
+      "split": "test",
+      "variant": "close_safe"
+    },
+    {
+      "configuration_id": "543c97f414da702e769e",
+      "family": "combined",
+      "group": "543c97f414da702e769e",
+      "seed": 1120,
+      "split": "test",
+      "variant": "resolving"
+    },
+    {
+      "configuration_id": "0c75ff326be43b6259be",
+      "family": "mixed",
+      "group": "0c75ff326be43b6259be",
+      "seed": 1121,
+      "split": "test",
+      "variant": "dense_mixed"
+    },
+    {
+      "configuration_id": "8bf95815e7f57681630d",
+      "family": "combined",
+      "group": "8bf95815e7f57681630d",
+      "seed": 1122,
+      "split": "stress",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "016e9572bae8f08ed19e",
+      "family": "cut_in",
+      "group": "016e9572bae8f08ed19e",
+      "seed": 1123,
+      "split": "stress",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "3e54ff52883a7b1f02af",
+      "family": "cut_in",
+      "group": "3e54ff52883a7b1f02af",
+      "seed": 1124,
+      "split": "stress",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "30537da78aa259bacfe7",
+      "family": "sudden_brake",
+      "group": "30537da78aa259bacfe7",
+      "seed": 1125,
+      "split": "stress",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "70a99397481ed2ae05df",
+      "family": "cut_in",
+      "group": "70a99397481ed2ae05df",
+      "seed": 1126,
+      "split": "stress",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "22dc49651c05aeade55f",
+      "family": "combined",
+      "group": "22dc49651c05aeade55f",
+      "seed": 1127,
+      "split": "stress",
+      "variant": "combined_dual"
+    },
+    {
+      "configuration_id": "8a83f741e31604fb5c65",
+      "family": "cut_in",
+      "group": "8a83f741e31604fb5c65",
+      "seed": 1128,
+      "split": "stress",
+      "variant": "cut_motorcycle"
+    },
+    {
+      "configuration_id": "19c428d276c26081a92d",
+      "family": "cut_in",
+      "group": "19c428d276c26081a92d",
+      "seed": 1129,
+      "split": "stress",
+      "variant": "cut_autorickshaw"
+    },
+    {
+      "configuration_id": "9f042ed493ead4daea65",
+      "family": "sudden_brake",
+      "group": "9f042ed493ead4daea65",
+      "seed": 1130,
+      "split": "stress",
+      "variant": "brake_severe"
+    },
+    {
+      "configuration_id": "0f3d0f48a8dfc941b4c5",
+      "family": "cut_in",
+      "group": "0f3d0f48a8dfc941b4c5",
+      "seed": 1131,
+      "split": "stress",
+      "variant": "slow_entry"
+    },
+    {
+      "configuration_id": "4cad6fbcb377206c761f",
+      "family": "normal",
+      "group": "4cad6fbcb377206c761f",
+      "seed": 1132,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "2f2245f19ce486915fb6",
+      "family": "normal",
+      "group": "2f2245f19ce486915fb6",
+      "seed": 1133,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "01a729d8f5c715ee53f0",
+      "family": "normal",
+      "group": "01a729d8f5c715ee53f0",
+      "seed": 1134,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "a03e8670a09600e39561",
+      "family": "normal",
+      "group": "a03e8670a09600e39561",
+      "seed": 1135,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "fbd1df5eccdbec4e87f8",
+      "family": "normal",
+      "group": "fbd1df5eccdbec4e87f8",
+      "seed": 1136,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "a68715326fe2d7a25603",
+      "family": "normal",
+      "group": "a68715326fe2d7a25603",
+      "seed": 1137,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "cd940752d5d8e1c0ddb8",
+      "family": "normal",
+      "group": "cd940752d5d8e1c0ddb8",
+      "seed": 1138,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "3e2e0fe1aac0b34613c6",
+      "family": "normal",
+      "group": "3e2e0fe1aac0b34613c6",
+      "seed": 1139,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "62aee020147d2acfda81",
+      "family": "normal",
+      "group": "62aee020147d2acfda81",
+      "seed": 1140,
+      "split": "ordinary",
+      "variant": "ordinary"
+    },
+    {
+      "configuration_id": "f7dfd44dc1ef4fc79411",
+      "family": "normal",
+      "group": "f7dfd44dc1ef4fc79411",
+      "seed": 1141,
+      "split": "ordinary",
+      "variant": "ordinary"
+    }
+  ],
+  "full_plan": "/Users/smash_mario/Library/Application Support/RoadSense/campaigns/phase7a2-20261117/plan.json",
+  "plan_sha256": "712bde92f3c369065182608e0038e84cd2e7612943a0110905851cf3c8a3cdb6",
+  "schema": "roadsense.expansion-plan.v1"
+}

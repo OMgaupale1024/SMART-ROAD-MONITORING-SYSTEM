@@ -1,0 +1,1485 @@
+{
+ "schema": "roadsense.radar-geometry.v1",
+ "campaigns": [
+  "phase7a3-recording-20261117",
+  "phase7a3-s9-diagnostic-20261117",
+  "phase7a3-s9-evaluation-20261117",
+  "phase7a3-s9-stress-20261117"
+ ],
+ "truth": "evaluation only",
+ "paired_targets": 125532,
+ "model_back_m": {
+  "car": 2.85,
+  "autorickshaw": 2.85,
+  "bus": 4.6,
+  "truck": 5.2,
+  "motorcycle": 1.7
+ },
+ "body_from_rear_axle_m": {
+  "car": [
+   -0.9,
+   4.55
+  ],
+  "autorickshaw": [
+   -0.9,
+   4.55
+  ],
+  "bus": [
+   -3.4,
+   6.35
+  ],
+  "truck": [
+   -0.7,
+   7.0
+  ],
+  "motorcycle": [
+   0.2,
+   1.4
+  ]
+ },
+ "fit": {
+  "by_type": {
+   "autorickshaw": {
+    "k_range_m": {
+     "median": -1.461,
+     "robust_sigma": 0.288,
+     "p05": -1.922,
+     "p95": -0.968,
+     "n": 36987
+    },
+    "k_azimuth_m": {
+     "median": -2.826,
+     "robust_sigma": 0.109,
+     "p05": -3.101,
+     "p95": -2.359,
+     "n": 12216
+    }
+   },
+   "bus": {
+    "k_range_m": {
+     "median": -3.123,
+     "robust_sigma": 0.27,
+     "p05": -3.562,
+     "p95": -2.618,
+     "n": 5025
+    },
+    "k_azimuth_m": {
+     "median": -4.605,
+     "robust_sigma": 0.071,
+     "p05": -4.883,
+     "p95": -4.314,
+     "n": 1402
+    }
+   },
+   "car": {
+    "k_range_m": {
+     "median": -1.482,
+     "robust_sigma": 0.296,
+     "p05": -1.955,
+     "p95": -0.969,
+     "n": 41783
+    },
+    "k_azimuth_m": {
+     "median": -2.837,
+     "robust_sigma": 0.125,
+     "p05": -3.23,
+     "p95": -2.298,
+     "n": 14899
+    }
+   },
+   "motorcycle": {
+    "k_range_m": {
+     "median": -0.998,
+     "robust_sigma": 0.279,
+     "p05": -1.46,
+     "p95": -0.54,
+     "n": 29278
+    },
+    "k_azimuth_m": {
+     "median": -1.702,
+     "robust_sigma": 0.126,
+     "p05": -2.141,
+     "p95": -1.217,
+     "n": 17702
+    }
+   },
+   "truck": {
+    "k_range_m": {
+     "median": -2.022,
+     "robust_sigma": 0.299,
+     "p05": -2.601,
+     "p95": -1.461,
+     "n": 9991
+    },
+    "k_azimuth_m": {
+     "median": -5.191,
+     "robust_sigma": 0.076,
+     "p05": -5.516,
+     "p95": -4.911,
+     "n": 1758
+    }
+   }
+  },
+  "by_type_median": {
+   "autorickshaw": [
+    -1.461,
+    -2.826
+   ],
+   "bus": [
+    -3.123,
+    -4.605
+   ],
+   "car": [
+    -1.482,
+    -2.837
+   ],
+   "motorcycle": [
+    -0.998,
+    -1.702
+   ],
+   "truck": [
+    -2.022,
+    -5.191
+   ]
+  },
+  "per_vehicle_medians": {
+   "autorickshaw": {
+    "k_range": {
+     "median": -1.486,
+     "robust_sigma": 0.11,
+     "p05": -1.658,
+     "p95": -1.157,
+     "n": 395
+    },
+    "k_azimuth": {
+     "median": -2.824,
+     "robust_sigma": 0.036,
+     "p05": -2.889,
+     "p95": -2.762,
+     "n": 338
+    }
+   },
+   "bus": {
+    "k_range": {
+     "median": -3.112,
+     "robust_sigma": 0.033,
+     "p05": -3.176,
+     "p95": -3.028,
+     "n": 31
+    },
+    "k_azimuth": {
+     "median": -4.606,
+     "robust_sigma": 0.011,
+     "p05": -4.754,
+     "p95": -4.597,
+     "n": 23
+    }
+   },
+   "car": {
+    "k_range": {
+     "median": -1.513,
+     "robust_sigma": 0.13,
+     "p05": -1.702,
+     "p95": -1.271,
+     "n": 1308
+    },
+    "k_azimuth": {
+     "median": -2.838,
+     "robust_sigma": 0.036,
+     "p05": -2.922,
+     "p95": -2.723,
+     "n": 388
+    }
+   },
+   "motorcycle": {
+    "k_range": {
+     "median": -0.994,
+     "robust_sigma": 0.134,
+     "p05": -1.175,
+     "p95": -0.812,
+     "n": 1004
+    },
+    "k_azimuth": {
+     "median": -1.706,
+     "robust_sigma": 0.043,
+     "p05": -1.79,
+     "p95": -1.626,
+     "n": 755
+    }
+   },
+   "truck": {
+    "k_range": {
+     "median": -2.039,
+     "robust_sigma": 0.071,
+     "p05": -2.234,
+     "p95": -1.769,
+     "n": 53
+    },
+    "k_azimuth": {
+     "median": -5.202,
+     "robust_sigma": 0.035,
+     "p05": -5.374,
+     "p95": -5.12,
+     "n": 31
+    }
+   }
+  },
+  "range_residual_vs_range_rate_s": -0.0,
+  "range_residual_samples": 117523
+ },
+ "lateral_offset_from_range_point_m": {
+  "radar front | oncoming | adjacent | 00-10 m": {
+   "n": 82,
+   "measured_outward": {
+    "median": 0.386,
+    "robust_sigma": 1.088,
+    "p05": -1.684,
+    "p95": 1.668,
+    "n": 82
+   },
+   "predicted_outward": {
+    "median": -0.386,
+    "robust_sigma": 1.342,
+    "p05": -2.771,
+    "p95": 1.151,
+    "n": 82
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | adjacent | 40-80 m": {
+   "n": 31,
+   "measured_outward": {
+    "median": -0.046,
+    "robust_sigma": 0.114,
+    "p05": -0.185,
+    "p95": 0.188,
+    "n": 31
+   },
+   "predicted_outward": {
+    "median": -0.096,
+    "robust_sigma": 0.021,
+    "p05": -0.218,
+    "p95": -0.072,
+    "n": 31
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | adjacent | 80+ m": {
+   "n": 82,
+   "measured_outward": {
+    "median": 0.1,
+    "robust_sigma": 0.297,
+    "p05": -0.223,
+    "p95": 0.924,
+    "n": 82
+   },
+   "predicted_outward": {
+    "median": -0.092,
+    "robust_sigma": 0.038,
+    "p05": -0.215,
+    "p95": -0.058,
+    "n": 82
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | beyond | 00-10 m": {
+   "n": 2260,
+   "measured_outward": {
+    "median": -0.362,
+    "robust_sigma": 0.301,
+    "p05": -0.814,
+    "p95": 0.156,
+    "n": 2260
+   },
+   "predicted_outward": {
+    "median": -0.334,
+    "robust_sigma": 0.168,
+    "p05": -0.649,
+    "p95": -0.152,
+    "n": 2260
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | beyond | 10-20 m": {
+   "n": 2755,
+   "measured_outward": {
+    "median": -0.461,
+    "robust_sigma": 0.237,
+    "p05": -0.818,
+    "p95": -0.105,
+    "n": 2755
+   },
+   "predicted_outward": {
+    "median": -0.353,
+    "robust_sigma": 0.105,
+    "p05": -0.666,
+    "p95": -0.295,
+    "n": 2755
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | beyond | 20-40 m": {
+   "n": 5432,
+   "measured_outward": {
+    "median": -0.342,
+    "robust_sigma": 0.17,
+    "p05": -0.661,
+    "p95": -0.097,
+    "n": 5432
+   },
+   "predicted_outward": {
+    "median": -0.325,
+    "robust_sigma": 0.142,
+    "p05": -0.604,
+    "p95": -0.186,
+    "n": 5432
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | beyond | 40-80 m": {
+   "n": 10667,
+   "measured_outward": {
+    "median": -0.201,
+    "robust_sigma": 0.122,
+    "p05": -0.424,
+    "p95": -0.017,
+    "n": 10667
+   },
+   "predicted_outward": {
+    "median": -0.194,
+    "robust_sigma": 0.086,
+    "p05": -0.394,
+    "p95": -0.1,
+    "n": 10667
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | beyond | 80+ m": {
+   "n": 10909,
+   "measured_outward": {
+    "median": -0.127,
+    "robust_sigma": 0.127,
+    "p05": -0.339,
+    "p95": 0.094,
+    "n": 10909
+   },
+   "predicted_outward": {
+    "median": -0.135,
+    "robust_sigma": 0.046,
+    "p05": -0.24,
+    "p95": -0.079,
+    "n": 10909
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | same lane | 00-10 m": {
+   "n": 44,
+   "measured_outward": {
+    "median": 0.305,
+    "robust_sigma": 2.977,
+    "p05": -3.683,
+    "p95": 2.419,
+    "n": 44
+   },
+   "predicted_outward": {
+    "median": -0.644,
+    "robust_sigma": 1.062,
+    "p05": -2.967,
+    "p95": 1.951,
+    "n": 44
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | two over | 00-10 m": {
+   "n": 527,
+   "measured_outward": {
+    "median": -0.398,
+    "robust_sigma": 0.296,
+    "p05": -0.792,
+    "p95": 0.344,
+    "n": 527
+   },
+   "predicted_outward": {
+    "median": -0.343,
+    "robust_sigma": 0.225,
+    "p05": -0.645,
+    "p95": 0.312,
+    "n": 527
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | two over | 10-20 m": {
+   "n": 480,
+   "measured_outward": {
+    "median": -0.366,
+    "robust_sigma": 0.18,
+    "p05": -0.628,
+    "p95": -0.1,
+    "n": 480
+   },
+   "predicted_outward": {
+    "median": -0.344,
+    "robust_sigma": 0.154,
+    "p05": -0.565,
+    "p95": -0.208,
+    "n": 480
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | two over | 20-40 m": {
+   "n": 948,
+   "measured_outward": {
+    "median": -0.203,
+    "robust_sigma": 0.105,
+    "p05": -0.386,
+    "p95": -0.046,
+    "n": 948
+   },
+   "predicted_outward": {
+    "median": -0.206,
+    "robust_sigma": 0.096,
+    "p05": -0.36,
+    "p95": -0.114,
+    "n": 948
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | two over | 40-80 m": {
+   "n": 1934,
+   "measured_outward": {
+    "median": -0.107,
+    "robust_sigma": 0.083,
+    "p05": -0.236,
+    "p95": 0.045,
+    "n": 1934
+   },
+   "predicted_outward": {
+    "median": -0.108,
+    "robust_sigma": 0.051,
+    "p05": -0.199,
+    "p95": -0.058,
+    "n": 1934
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | oncoming | two over | 80+ m": {
+   "n": 2050,
+   "measured_outward": {
+    "median": -0.054,
+    "robust_sigma": 0.12,
+    "p05": -0.241,
+    "p95": 0.174,
+    "n": 2050
+   },
+   "predicted_outward": {
+    "median": -0.072,
+    "robust_sigma": 0.021,
+    "p05": -0.129,
+    "p95": -0.047,
+    "n": 2050
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | same direction | adjacent | 00-10 m": {
+   "n": 1980,
+   "measured_outward": {
+    "median": 0.594,
+    "robust_sigma": 0.293,
+    "p05": 0.185,
+    "p95": 1.354,
+    "n": 1980
+   },
+   "predicted_outward": {
+    "median": 0.598,
+    "robust_sigma": 0.197,
+    "p05": 0.258,
+    "p95": 0.809,
+    "n": 1980
+   },
+   "lane_changed_measured": 0.0247,
+   "lane_changed_predicted": 0.0071
+  },
+  "radar front | same direction | adjacent | 10-20 m": {
+   "n": 2249,
+   "measured_outward": {
+    "median": 0.354,
+    "robust_sigma": 0.171,
+    "p05": 0.105,
+    "p95": 0.787,
+    "n": 2249
+   },
+   "predicted_outward": {
+    "median": 0.336,
+    "robust_sigma": 0.135,
+    "p05": 0.122,
+    "p95": 0.583,
+    "n": 2249
+   },
+   "lane_changed_measured": 0.0067,
+   "lane_changed_predicted": 0.004
+  },
+  "radar front | same direction | adjacent | 20-40 m": {
+   "n": 4142,
+   "measured_outward": {
+    "median": 0.195,
+    "robust_sigma": 0.085,
+    "p05": 0.071,
+    "p95": 0.467,
+    "n": 4142
+   },
+   "predicted_outward": {
+    "median": 0.179,
+    "robust_sigma": 0.058,
+    "p05": 0.075,
+    "p95": 0.408,
+    "n": 4142
+   },
+   "lane_changed_measured": 0.0022,
+   "lane_changed_predicted": 0.0014
+  },
+  "radar front | same direction | adjacent | 40-80 m": {
+   "n": 8849,
+   "measured_outward": {
+    "median": 0.123,
+    "robust_sigma": 0.094,
+    "p05": -0.021,
+    "p95": 0.32,
+    "n": 8849
+   },
+   "predicted_outward": {
+    "median": 0.088,
+    "robust_sigma": 0.036,
+    "p05": 0.037,
+    "p95": 0.23,
+    "n": 8849
+   },
+   "lane_changed_measured": 0.0023,
+   "lane_changed_predicted": 0.0019
+  },
+  "radar front | same direction | adjacent | 80+ m": {
+   "n": 11074,
+   "measured_outward": {
+    "median": 0.109,
+    "robust_sigma": 0.13,
+    "p05": -0.1,
+    "p95": 0.382,
+    "n": 11074
+   },
+   "predicted_outward": {
+    "median": 0.05,
+    "robust_sigma": 0.015,
+    "p05": 0.014,
+    "p95": 0.143,
+    "n": 11074
+   },
+   "lane_changed_measured": 0.0027,
+   "lane_changed_predicted": 0.0027
+  },
+  "radar front | same direction | beyond | 00-10 m": {
+   "n": 37,
+   "measured_outward": {
+    "median": -0.03,
+    "robust_sigma": 0.455,
+    "p05": -0.484,
+    "p95": 0.615,
+    "n": 37
+   },
+   "predicted_outward": {
+    "median": -0.103,
+    "robust_sigma": 0.306,
+    "p05": -0.572,
+    "p95": 0.278,
+    "n": 37
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | same direction | beyond | 40-80 m": {
+   "n": 28,
+   "measured_outward": {
+    "median": 0.2,
+    "robust_sigma": 0.226,
+    "p05": 0.004,
+    "p95": 1.247,
+    "n": 28
+   },
+   "predicted_outward": {
+    "median": 0.054,
+    "robust_sigma": 0.068,
+    "p05": -0.193,
+    "p95": 0.152,
+    "n": 28
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | same direction | beyond | 80+ m": {
+   "n": 130,
+   "measured_outward": {
+    "median": 0.193,
+    "robust_sigma": 0.192,
+    "p05": -0.08,
+    "p95": 0.882,
+    "n": 130
+   },
+   "predicted_outward": {
+    "median": 0.061,
+    "robust_sigma": 0.016,
+    "p05": -0.157,
+    "p95": 0.149,
+    "n": 130
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | same direction | same lane | 00-10 m": {
+   "n": 914,
+   "measured_outward": {
+    "median": 0.318,
+    "robust_sigma": 0.196,
+    "p05": 0.095,
+    "p95": 1.635,
+    "n": 914
+   },
+   "predicted_outward": {
+    "median": 0.133,
+    "robust_sigma": 0.194,
+    "p05": 0.002,
+    "p95": 0.75,
+    "n": 914
+   },
+   "lane_changed_measured": 0.0514,
+   "lane_changed_predicted": 0.0164
+  },
+  "radar front | same direction | same lane | 10-20 m": {
+   "n": 1486,
+   "measured_outward": {
+    "median": 0.097,
+    "robust_sigma": 0.103,
+    "p05": -0.006,
+    "p95": 0.567,
+    "n": 1486
+   },
+   "predicted_outward": {
+    "median": 0.013,
+    "robust_sigma": 0.017,
+    "p05": -0.003,
+    "p95": 0.312,
+    "n": 1486
+   },
+   "lane_changed_measured": 0.0054,
+   "lane_changed_predicted": 0.0054
+  },
+  "radar front | same direction | same lane | 20-40 m": {
+   "n": 1762,
+   "measured_outward": {
+    "median": 0.08,
+    "robust_sigma": 0.108,
+    "p05": -0.031,
+    "p95": 0.381,
+    "n": 1762
+   },
+   "predicted_outward": {
+    "median": 0.008,
+    "robust_sigma": 0.009,
+    "p05": -0.003,
+    "p95": 0.137,
+    "n": 1762
+   },
+   "lane_changed_measured": 0.0074,
+   "lane_changed_predicted": 0.0074
+  },
+  "radar front | same direction | same lane | 40-80 m": {
+   "n": 3108,
+   "measured_outward": {
+    "median": 0.116,
+    "robust_sigma": 0.166,
+    "p05": -0.064,
+    "p95": 0.86,
+    "n": 3108
+   },
+   "predicted_outward": {
+    "median": 0.003,
+    "robust_sigma": 0.004,
+    "p05": -0.049,
+    "p95": 0.069,
+    "n": 3108
+   },
+   "lane_changed_measured": 0.0045,
+   "lane_changed_predicted": 0.0035
+  },
+  "radar front | same direction | same lane | 80+ m": {
+   "n": 4211,
+   "measured_outward": {
+    "median": 0.375,
+    "robust_sigma": 0.3,
+    "p05": -0.014,
+    "p95": 1.386,
+    "n": 4211
+   },
+   "predicted_outward": {
+    "median": 0.002,
+    "robust_sigma": 0.002,
+    "p05": -0.059,
+    "p95": 0.05,
+    "n": 4211
+   },
+   "lane_changed_measured": 0.0114,
+   "lane_changed_predicted": 0.0059
+  },
+  "radar front | same direction | two over | 00-10 m": {
+   "n": 736,
+   "measured_outward": {
+    "median": 0.634,
+    "robust_sigma": 0.295,
+    "p05": 0.054,
+    "p95": 1.115,
+    "n": 736
+   },
+   "predicted_outward": {
+    "median": 0.663,
+    "robust_sigma": 0.072,
+    "p05": 0.31,
+    "p95": 0.737,
+    "n": 736
+   },
+   "lane_changed_measured": 0.0136,
+   "lane_changed_predicted": 0.0082
+  },
+  "radar front | same direction | two over | 10-20 m": {
+   "n": 1077,
+   "measured_outward": {
+    "median": 0.573,
+    "robust_sigma": 0.21,
+    "p05": 0.176,
+    "p95": 1.435,
+    "n": 1077
+   },
+   "predicted_outward": {
+    "median": 0.568,
+    "robust_sigma": 0.111,
+    "p05": 0.268,
+    "p95": 1.32,
+    "n": 1077
+   },
+   "lane_changed_measured": 0.0232,
+   "lane_changed_predicted": 0.0074
+  },
+  "radar front | same direction | two over | 20-40 m": {
+   "n": 1961,
+   "measured_outward": {
+    "median": 0.337,
+    "robust_sigma": 0.14,
+    "p05": 0.131,
+    "p95": 0.746,
+    "n": 1961
+   },
+   "predicted_outward": {
+    "median": 0.322,
+    "robust_sigma": 0.1,
+    "p05": 0.148,
+    "p95": 0.678,
+    "n": 1961
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar front | same direction | two over | 40-80 m": {
+   "n": 4162,
+   "measured_outward": {
+    "median": 0.186,
+    "robust_sigma": 0.098,
+    "p05": 0.021,
+    "p95": 0.432,
+    "n": 4162
+   },
+   "predicted_outward": {
+    "median": 0.164,
+    "robust_sigma": 0.06,
+    "p05": 0.072,
+    "p95": 0.377,
+    "n": 4162
+   },
+   "lane_changed_measured": 0.001,
+   "lane_changed_predicted": 0.0012
+  },
+  "radar front | same direction | two over | 80+ m": {
+   "n": 5102,
+   "measured_outward": {
+    "median": 0.141,
+    "robust_sigma": 0.129,
+    "p05": -0.069,
+    "p95": 0.389,
+    "n": 5102
+   },
+   "predicted_outward": {
+    "median": 0.099,
+    "robust_sigma": 0.029,
+    "p05": 0.057,
+    "p95": 0.266,
+    "n": 5102
+   },
+   "lane_changed_measured": 0.0014,
+   "lane_changed_predicted": 0.001
+  },
+  "radar rear | oncoming | beyond | 00-10 m": {
+   "n": 224,
+   "measured_outward": {
+    "median": 0.364,
+    "robust_sigma": 0.193,
+    "p05": -0.035,
+    "p95": 0.789,
+    "n": 224
+   },
+   "predicted_outward": {
+    "median": 0.33,
+    "robust_sigma": 0.041,
+    "p05": 0.229,
+    "p95": 0.603,
+    "n": 224
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | oncoming | beyond | 10-20 m": {
+   "n": 316,
+   "measured_outward": {
+    "median": 0.365,
+    "robust_sigma": 0.181,
+    "p05": 0.12,
+    "p95": 0.642,
+    "n": 316
+   },
+   "predicted_outward": {
+    "median": 0.335,
+    "robust_sigma": 0.03,
+    "p05": 0.292,
+    "p95": 0.358,
+    "n": 316
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0032
+  },
+  "radar rear | oncoming | beyond | 20-40 m": {
+   "n": 627,
+   "measured_outward": {
+    "median": 0.267,
+    "robust_sigma": 0.11,
+    "p05": 0.095,
+    "p95": 0.497,
+    "n": 627
+   },
+   "predicted_outward": {
+    "median": 0.224,
+    "robust_sigma": 0.051,
+    "p05": 0.172,
+    "p95": 0.322,
+    "n": 627
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | oncoming | beyond | 40-80 m": {
+   "n": 1201,
+   "measured_outward": {
+    "median": 0.19,
+    "robust_sigma": 0.081,
+    "p05": 0.048,
+    "p95": 0.344,
+    "n": 1201
+   },
+   "predicted_outward": {
+    "median": 0.121,
+    "robust_sigma": 0.032,
+    "p05": 0.089,
+    "p95": 0.191,
+    "n": 1201
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | oncoming | beyond | 80+ m": {
+   "n": 517,
+   "measured_outward": {
+    "median": 0.161,
+    "robust_sigma": 0.094,
+    "p05": 0.01,
+    "p95": 0.325,
+    "n": 517
+   },
+   "predicted_outward": {
+    "median": 0.08,
+    "robust_sigma": 0.007,
+    "p05": 0.072,
+    "p95": 0.119,
+    "n": 517
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | same direction | adjacent | 00-10 m": {
+   "n": 2088,
+   "measured_outward": {
+    "median": -0.458,
+    "robust_sigma": 0.228,
+    "p05": -0.815,
+    "p95": -0.038,
+    "n": 2088
+   },
+   "predicted_outward": {
+    "median": -0.524,
+    "robust_sigma": 0.144,
+    "p05": -1.228,
+    "p95": -0.219,
+    "n": 2088
+   },
+   "lane_changed_measured": 0.0029,
+   "lane_changed_predicted": 0.0029
+  },
+  "radar rear | same direction | adjacent | 10-20 m": {
+   "n": 1953,
+   "measured_outward": {
+    "median": -0.253,
+    "robust_sigma": 0.116,
+    "p05": -0.517,
+    "p95": -0.031,
+    "n": 1953
+   },
+   "predicted_outward": {
+    "median": -0.275,
+    "robust_sigma": 0.072,
+    "p05": -0.547,
+    "p95": -0.147,
+    "n": 1953
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | same direction | adjacent | 20-40 m": {
+   "n": 4364,
+   "measured_outward": {
+    "median": -0.082,
+    "robust_sigma": 0.112,
+    "p05": -0.325,
+    "p95": 0.107,
+    "n": 4364
+   },
+   "predicted_outward": {
+    "median": -0.149,
+    "robust_sigma": 0.06,
+    "p05": -0.364,
+    "p95": -0.071,
+    "n": 4364
+   },
+   "lane_changed_measured": 0.0011,
+   "lane_changed_predicted": 0.0018
+  },
+  "radar rear | same direction | adjacent | 40-80 m": {
+   "n": 6647,
+   "measured_outward": {
+    "median": 0.009,
+    "robust_sigma": 0.109,
+    "p05": -0.192,
+    "p95": 0.263,
+    "n": 6647
+   },
+   "predicted_outward": {
+    "median": -0.09,
+    "robust_sigma": 0.032,
+    "p05": -0.22,
+    "p95": -0.036,
+    "n": 6647
+   },
+   "lane_changed_measured": 0.0003,
+   "lane_changed_predicted": 0.0008
+  },
+  "radar rear | same direction | adjacent | 80+ m": {
+   "n": 2626,
+   "measured_outward": {
+    "median": 0.088,
+    "robust_sigma": 0.117,
+    "p05": -0.118,
+    "p95": 0.31,
+    "n": 2626
+   },
+   "predicted_outward": {
+    "median": -0.059,
+    "robust_sigma": 0.008,
+    "p05": -0.137,
+    "p95": -0.028,
+    "n": 2626
+   },
+   "lane_changed_measured": 0.0008,
+   "lane_changed_predicted": 0.0008
+  },
+  "radar rear | same direction | beyond | 40-80 m": {
+   "n": 47,
+   "measured_outward": {
+    "median": -0.065,
+    "robust_sigma": 0.15,
+    "p05": -0.353,
+    "p95": 0.599,
+    "n": 47
+   },
+   "predicted_outward": {
+    "median": -0.136,
+    "robust_sigma": 0.071,
+    "p05": -0.351,
+    "p95": -0.051,
+    "n": 47
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | same direction | same lane | 00-10 m": {
+   "n": 191,
+   "measured_outward": {
+    "median": -0.2,
+    "robust_sigma": 1.437,
+    "p05": -2.16,
+    "p95": 0.81,
+    "n": 191
+   },
+   "predicted_outward": {
+    "median": -0.001,
+    "robust_sigma": 0.542,
+    "p05": -0.811,
+    "p95": 0.543,
+    "n": 191
+   },
+   "lane_changed_measured": 0.0105,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | same direction | same lane | 10-20 m": {
+   "n": 153,
+   "measured_outward": {
+    "median": 0.408,
+    "robust_sigma": 0.36,
+    "p05": -1.426,
+    "p95": 0.865,
+    "n": 153
+   },
+   "predicted_outward": {
+    "median": -0.01,
+    "robust_sigma": 0.073,
+    "p05": -0.571,
+    "p95": 0.156,
+    "n": 153
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  },
+  "radar rear | same direction | same lane | 20-40 m": {
+   "n": 1634,
+   "measured_outward": {
+    "median": 0.702,
+    "robust_sigma": 0.326,
+    "p05": 0.066,
+    "p95": 1.038,
+    "n": 1634
+   },
+   "predicted_outward": {
+    "median": -0.001,
+    "robust_sigma": 0.0,
+    "p05": -0.099,
+    "p95": 0.001,
+    "n": 1634
+   },
+   "lane_changed_measured": 0.0092,
+   "lane_changed_predicted": 0.0055
+  },
+  "radar rear | same direction | same lane | 40-80 m": {
+   "n": 2241,
+   "measured_outward": {
+    "median": 0.763,
+    "robust_sigma": 0.419,
+    "p05": -0.003,
+    "p95": 1.196,
+    "n": 2241
+   },
+   "predicted_outward": {
+    "median": -0.002,
+    "robust_sigma": 0.002,
+    "p05": -0.092,
+    "p95": 0.039,
+    "n": 2241
+   },
+   "lane_changed_measured": 0.0094,
+   "lane_changed_predicted": 0.0013
+  },
+  "radar rear | same direction | same lane | 80+ m": {
+   "n": 646,
+   "measured_outward": {
+    "median": 0.77,
+    "robust_sigma": 0.458,
+    "p05": 0.027,
+    "p95": 1.344,
+    "n": 646
+   },
+   "predicted_outward": {
+    "median": -0.005,
+    "robust_sigma": 0.007,
+    "p05": -0.097,
+    "p95": 0.032,
+    "n": 646
+   },
+   "lane_changed_measured": 0.0294,
+   "lane_changed_predicted": 0.0062
+  },
+  "radar rear | same direction | two over | 00-10 m": {
+   "n": 1024,
+   "measured_outward": {
+    "median": -0.573,
+    "robust_sigma": 0.238,
+    "p05": -1.035,
+    "p95": -0.115,
+    "n": 1024
+   },
+   "predicted_outward": {
+    "median": -0.624,
+    "robust_sigma": 0.055,
+    "p05": -1.388,
+    "p95": -0.286,
+    "n": 1024
+   },
+   "lane_changed_measured": 0.0059,
+   "lane_changed_predicted": 0.0068
+  },
+  "radar rear | same direction | two over | 10-20 m": {
+   "n": 1020,
+   "measured_outward": {
+    "median": -0.482,
+    "robust_sigma": 0.159,
+    "p05": -0.849,
+    "p95": -0.181,
+    "n": 1020
+   },
+   "predicted_outward": {
+    "median": -0.504,
+    "robust_sigma": 0.091,
+    "p05": -0.788,
+    "p95": -0.271,
+    "n": 1020
+   },
+   "lane_changed_measured": 0.0039,
+   "lane_changed_predicted": 0.0039
+  },
+  "radar rear | same direction | two over | 20-40 m": {
+   "n": 1841,
+   "measured_outward": {
+    "median": -0.282,
+    "robust_sigma": 0.12,
+    "p05": -0.584,
+    "p95": -0.07,
+    "n": 1841
+   },
+   "predicted_outward": {
+    "median": -0.305,
+    "robust_sigma": 0.074,
+    "p05": -0.605,
+    "p95": -0.16,
+    "n": 1841
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0011
+  },
+  "radar rear | same direction | two over | 40-80 m": {
+   "n": 3508,
+   "measured_outward": {
+    "median": -0.119,
+    "robust_sigma": 0.107,
+    "p05": -0.318,
+    "p95": 0.09,
+    "n": 3508
+   },
+   "predicted_outward": {
+    "median": -0.167,
+    "robust_sigma": 0.049,
+    "p05": -0.314,
+    "p95": -0.081,
+    "n": 3508
+   },
+   "lane_changed_measured": 0.0011,
+   "lane_changed_predicted": 0.0011
+  },
+  "radar rear | same direction | two over | 80+ m": {
+   "n": 1324,
+   "measured_outward": {
+    "median": -0.035,
+    "robust_sigma": 0.112,
+    "p05": -0.219,
+    "p95": 0.194,
+    "n": 1324
+   },
+   "predicted_outward": {
+    "median": -0.113,
+    "robust_sigma": 0.012,
+    "p05": -0.134,
+    "p95": -0.056,
+    "n": 1324
+   },
+   "lane_changed_measured": 0.0,
+   "lane_changed_predicted": 0.0
+  }
+ },
+ "geometric_lateral_velocity_steady_vehicles_mps": {
+  "oncoming, 00-10 m": {
+   "one_cycle_outward": {
+    "median": 0.3,
+    "robust_sigma": 0.539,
+    "p05": -0.752,
+    "p95": 1.389,
+    "n": 2583
+   },
+   "share_over_0_3_one_cycle": 0.664,
+   "window_1_6s_outward": {
+    "median": -0.132,
+    "robust_sigma": 0.095,
+    "p05": -0.322,
+    "p95": 0.043,
+    "n": 2194
+   },
+   "share_over_0_3_window": 0.1276,
+   "measured_median_by_predicted": {
+    "-1.00": -1.005,
+    "-0.75": -0.433,
+    "-0.50": -0.505,
+    "-0.25": -0.219,
+    "+0.00": 0.148,
+    "+0.25": 0.294,
+    "+0.50": 0.504,
+    "+0.75": 0.811,
+    "+1.00": 0.834,
+    "+1.25": 1.02,
+    "+1.50": 1.819,
+    "+1.75": 1.84
+   }
+  },
+  "oncoming, 10-20 m": {
+   "one_cycle_outward": {
+    "median": -0.282,
+    "robust_sigma": 0.237,
+    "p05": -0.769,
+    "p95": 0.143,
+    "n": 3193
+   },
+   "share_over_0_3_one_cycle": 0.4854,
+   "window_1_6s_outward": {
+    "median": -0.166,
+    "robust_sigma": 0.079,
+    "p05": -0.298,
+    "p95": -0.101,
+    "n": 2514
+   },
+   "share_over_0_3_window": 0.0446,
+   "measured_median_by_predicted": {
+    "-1.00": -0.91,
+    "-0.75": -0.725,
+    "-0.50": -0.468,
+    "-0.25": -0.215,
+    "+0.00": -0.011,
+    "+0.25": 0.391,
+    "+0.50": 0.29
+   }
+  },
+  "oncoming, 20-40 m": {
+   "one_cycle_outward": {
+    "median": -0.239,
+    "robust_sigma": 0.113,
+    "p05": -0.504,
+    "p95": -0.109,
+    "n": 6383
+   },
+   "share_over_0_3_one_cycle": 0.3215,
+   "window_1_6s_outward": {
+    "median": -0.131,
+    "robust_sigma": 0.062,
+    "p05": -0.23,
+    "p95": -0.063,
+    "n": 4106
+   },
+   "share_over_0_3_window": 0.0,
+   "measured_median_by_predicted": {
+    "-0.75": -0.575,
+    "-0.50": -0.463,
+    "-0.25": -0.229,
+    "+0.00": -0.069
+   }
+  },
+  "oncoming, 40-80 m": {
+   "one_cycle_outward": {
+    "median": -0.095,
+    "robust_sigma": 0.052,
+    "p05": -0.227,
+    "p95": -0.037,
+    "n": 12665
+   },
+   "share_over_0_3_one_cycle": 0.0073,
+   "window_1_6s_outward": {
+    "median": -0.078,
+    "robust_sigma": 0.034,
+    "p05": -0.142,
+    "p95": -0.037,
+    "n": 5106
+   },
+   "share_over_0_3_window": 0.0002,
+   "measured_median_by_predicted": {
+    "-0.25": -0.166,
+    "+0.00": -0.083
+   }
+  },
+  "oncoming, 80+ m": {
+   "one_cycle_outward": {
+    "median": -0.043,
+    "robust_sigma": 0.018,
+    "p05": -0.087,
+    "p95": -0.021,
+    "n": 10277
+   },
+   "share_over_0_3_one_cycle": 0.0,
+   "window_1_6s_outward": {
+    "median": -0.048,
+    "robust_sigma": 0.022,
+    "p05": -0.166,
+    "p95": -0.024,
+    "n": 1363
+   },
+   "share_over_0_3_window": 0.0,
+   "measured_median_by_predicted": {
+    "+0.00": -0.068
+   }
+  },
+  "same direction, 00-10 m": {
+   "one_cycle_outward": {
+    "median": 0.01,
+    "robust_sigma": 0.165,
+    "p05": -0.665,
+    "p95": 0.403,
+    "n": 5891
+   },
+   "share_over_0_3_one_cycle": 0.2343,
+   "window_1_6s_outward": {
+    "median": 0.031,
+    "robust_sigma": 0.089,
+    "p05": -0.133,
+    "p95": 0.268,
+    "n": 3945
+   },
+   "share_over_0_3_window": 0.0347,
+   "measured_median_by_predicted": {
+    "-1.00": -0.721,
+    "-0.75": -0.662,
+    "-0.50": -0.761,
+    "-0.25": -0.22,
+    "+0.00": 0.021,
+    "+0.25": 0.258,
+    "+0.50": 0.445,
+    "+0.75": 0.785
+   }
+  },
+  "same direction, 10-20 m": {
+   "one_cycle_outward": {
+    "median": 0.051,
+    "robust_sigma": 0.079,
+    "p05": -0.084,
+    "p95": 0.236,
+    "n": 7382
+   },
+   "share_over_0_3_one_cycle": 0.029,
+   "window_1_6s_outward": {
+    "median": 0.034,
+    "robust_sigma": 0.057,
+    "p05": -0.076,
+    "p95": 0.196,
+    "n": 6275
+   },
+   "share_over_0_3_window": 0.0126,
+   "measured_median_by_predicted": {
+    "-0.50": -0.607,
+    "-0.25": -0.231,
+    "+0.00": 0.013,
+    "+0.25": 0.178,
+    "+0.50": 0.565
+   }
+  },
+  "same direction, 20-40 m": {
+   "one_cycle_outward": {
+    "median": 0.012,
+    "robust_sigma": 0.024,
+    "p05": -0.024,
+    "p95": 0.104,
+    "n": 14641
+   },
+   "share_over_0_3_one_cycle": 0.0015,
+   "window_1_6s_outward": {
+    "median": 0.013,
+    "robust_sigma": 0.022,
+    "p05": -0.021,
+    "p95": 0.123,
+    "n": 13705
+   },
+   "share_over_0_3_window": 0.002,
+   "measured_median_by_predicted": {
+    "-0.25": -0.192,
+    "+0.00": 0.022,
+    "+0.25": 0.141
+   }
+  },
+  "same direction, 40-80 m": {
+   "one_cycle_outward": {
+    "median": 0.004,
+    "robust_sigma": 0.008,
+    "p05": -0.009,
+    "p95": 0.033,
+    "n": 26831
+   },
+   "share_over_0_3_one_cycle": 0.0,
+   "window_1_6s_outward": {
+    "median": 0.004,
+    "robust_sigma": 0.007,
+    "p05": -0.008,
+    "p95": 0.035,
+    "n": 24828
+   },
+   "share_over_0_3_window": 0.0,
+   "measured_median_by_predicted": {
+    "+0.00": 0.013
+   }
+  },
+  "same direction, 80+ m": {
+   "one_cycle_outward": {
+    "median": 0.001,
+    "robust_sigma": 0.003,
+    "p05": -0.004,
+    "p95": 0.011,
+    "n": 22762
+   },
+   "share_over_0_3_one_cycle": 0.0,
+   "window_1_6s_outward": {
+    "median": 0.001,
+    "robust_sigma": 0.003,
+    "p05": -0.003,
+    "p95": 0.011,
+    "n": 18931
+   },
+   "share_over_0_3_window": 0.0,
+   "measured_median_by_predicted": {
+    "+0.00": 0.004
+   }
+  }
+ }
+}

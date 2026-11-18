@@ -142,9 +142,15 @@ def size(path):
     return sum(p.stat().st_size for p in Path(path).rglob("*") if p.is_file() and not p.is_symlink())
 
 
-def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0):
-    params = scenarios.draw(family, seed, profile)
+def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0, parameters=None, capture=False):
+    """One run; capture=True also records every raw sensor frame the ego sends (sensor_frames.jsonl, Phase 7A.3)."""
+    params = dict(parameters) if parameters is not None else scenarios.draw(family, seed, profile)
+    expected_id = params.pop("configuration_id", None)
+    if (params["family"], params["seed"], params["profile"]) != (family, seed, profile):
+        raise ValueError("scenario identity mismatch")
     params["configuration_id"] = hashlib.sha256(json.dumps(params, sort_keys=True).encode()).hexdigest()[:20]
+    if expected_id is not None and expected_id != params["configuration_id"]:
+        raise ValueError("configuration checksum mismatch")
     params["repetition"] = repetition
     params["execution_tag"] = tag
     params["run_id"] = scenarios.run_id(params) + "-" + uuid.uuid4().hex[:12]
@@ -153,8 +159,16 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0
     params["source_dirty"] = bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT))
     source_paths = sorted((ROOT / "tools").glob("scenario*.py")) + sorted((ROOT / "src/roadsense").rglob("*.py"))
     source_paths += [ROOT / "simulation/webots/controllers/roadsense_ego/roadsense_ego.py"]
-    params["source_sha256"] = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-                               for p in source_paths}
+    contents = {str(p.relative_to(ROOT)): p.read_bytes() for p in source_paths}
+    params["source_sha256"] = {name: hashlib.sha256(data).hexdigest() for name, data in contents.items()}
+    source_id = hashlib.sha256(json.dumps(params["source_sha256"], sort_keys=True).encode()).hexdigest()[:20]
+    snapshot = campaign / "source" / source_id
+    if not snapshot.exists():
+        for name, data in contents.items():
+            path = snapshot / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+    params["source_snapshot"] = str(snapshot.relative_to(campaign))
     params["simulator_versions"] = {"webots": (Path(WEBOTS).parents[1] / "resources/version.txt").read_text().strip(),
                                     "sumo": subprocess.check_output(["sumo", "--version"], text=True).splitlines()[0]}
     params["feature_schema"] = "roadsense.features.v1"
@@ -176,6 +190,10 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0
                        ROADSENSE_RUN_ID=params["run_id"], ROADSENSE_ROAD_PROFILE=profile,
                        ROADSENSE_SCENARIO=str(run_dir / "scenario.json"), ROADSENSE_GROUND_TRUTH=str(gt_path),
                        PYTHONDONTWRITEBYTECODE="1")
+            env["ROADSENSE_EGO_SPEED_KMH"] = str(params.get("ego_speed_kmh", 80))
+            env.pop("ROADSENSE_FRAME_CAPTURE", None)
+            if capture:
+                env["ROADSENSE_FRAME_CAPTURE"] = str(run_dir / "sensor_frames.jsonl")
             env.pop("ROADSENSE_LIVE_PUBLISH", None)
             started = time.monotonic()
             webots = subprocess.Popen([WEBOTS, "--batch", "--mode=fast", "--no-rendering", "--stdout", "--stderr",
@@ -215,6 +233,11 @@ def run_one(campaign, family, seed, profile, tag="", timeout_s=600, repetition=0
             del o["collision"], o["near_miss"]
             f.write(json.dumps(o, separators=(",", ":")) + "\n")
     sims, labels, gaps, tracks = samples_of(history_dir, params["run_id"])
+    if capture:
+        frames_path = run_dir / "sensor_frames.jsonl"
+        record["sensor_frames"] = {"lines": sum(1 for _ in open(frames_path, "rb")),
+                                   "sha256": hashlib.sha256(frames_path.read_bytes()).hexdigest()} \
+            if frames_path.exists() else None
     gt_times = {round(f["t"], 1) for f in frames}
     joined = sum(1 for s in sims if round(s, 1) in gt_times)
     record.update(ok=end is not None and not record.get("error") and not errors, sim_s=end["t"] if end else None,

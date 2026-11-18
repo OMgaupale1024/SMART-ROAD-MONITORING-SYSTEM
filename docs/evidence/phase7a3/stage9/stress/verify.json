@@ -1,0 +1,52 @@
+{
+ "runs": {
+  "lht-cut_in-101-246f0b97c6a0": {
+   "duration_s": 110.2,
+   "example": null,
+   "frames": 552,
+   "ground_truth_joined": 551,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 552,
+   "samples_live": 552
+  },
+  "lht-cut_in-102-73005ae28302": {
+   "duration_s": 95.39999999999999,
+   "example": null,
+   "frames": 478,
+   "ground_truth_joined": 477,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 478,
+   "samples_live": 478
+  },
+  "lht-cut_in-103-012ad3bfd014": {
+   "duration_s": 98.6,
+   "example": null,
+   "frames": 494,
+   "ground_truth_joined": 493,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 494,
+   "samples_live": 494
+  },
+  "lht-cut_in-104-dc71a892b02b": {
+   "duration_s": 95.8,
+   "example": null,
+   "frames": 480,
+   "ground_truth_joined": 479,
+   "mismatched": 0,
+   "problems": [],
+   "replayed": 480,
+   "samples_live": 480
+  }
+ },
+ "schema": "roadsense.recording-verification.v1",
+ "totals": {
+  "frames": 2004,
+  "mismatched_samples": 0,
+  "problems": 0,
+  "replayed_samples": 2004,
+  "runs": 4
+ }
+}

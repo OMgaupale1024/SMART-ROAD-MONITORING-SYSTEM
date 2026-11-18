@@ -1,0 +1,662 @@
+[
+ {
+  "configuration_id": "2b16f663898c8b469723",
+  "ok": true,
+  "run_bytes": 3739845,
+  "run_id": "lht-sudden_brake-1102-7549758537c5",
+  "samples": 548,
+  "sensor_frames": {
+   "lines": 548,
+   "sha256": "9fd3f5904077493fac7d4a974bf73585c63fb0026fa6afc8aab1faa5a036d10a"
+  },
+  "server": {
+   "accepted": 549,
+   "handler_p95_ms": 1.075,
+   "missed": 0,
+   "process_p95_ms": 0.594,
+   "rejected": 0
+  },
+  "sim_s": 109.6,
+  "source_split": "test",
+  "variant": "brake_severe",
+  "wall_s": 30.3
+ },
+ {
+  "configuration_id": "3192767e793354343ecb",
+  "ok": true,
+  "run_bytes": 3270152,
+  "run_id": "lht-cut_in-1103-d65bfc289ecd",
+  "samples": 545,
+  "sensor_frames": {
+   "lines": 545,
+   "sha256": "88873454ddd3f1a519c7d50ccc570d9117c6762ef8205772bc24e0c13593db82"
+  },
+  "server": {
+   "accepted": 546,
+   "handler_p95_ms": 1.047,
+   "missed": 0,
+   "process_p95_ms": 0.609,
+   "rejected": 0
+  },
+  "sim_s": 109.0,
+  "source_split": "test",
+  "variant": "cut_motorcycle",
+  "wall_s": 22.4
+ },
+ {
+  "configuration_id": "3b49d12bb0bc1e778953",
+  "ok": true,
+  "run_bytes": 2570231,
+  "run_id": "lht-cut_in-1104-120ac8d7cd22",
+  "samples": 624,
+  "sensor_frames": {
+   "lines": 624,
+   "sha256": "c2179a5e448df3650b1890414d75ff2fbadd4e3ac8a9d1741c033bffa517a2c5"
+  },
+  "server": {
+   "accepted": 625,
+   "handler_p95_ms": 0.723,
+   "missed": 0,
+   "process_p95_ms": 0.351,
+   "rejected": 0
+  },
+  "sim_s": 124.8,
+  "source_split": "test",
+  "variant": "cut_autorickshaw",
+  "wall_s": 20.1
+ },
+ {
+  "configuration_id": "46985564b07c0d4f92e1",
+  "ok": true,
+  "run_bytes": 1429476,
+  "run_id": "lht-combined-1105-ad5c86d0d6f6",
+  "samples": 545,
+  "sensor_frames": {
+   "lines": 545,
+   "sha256": "76d32788bd666d2e1ca2813b97cc03f2bea5381d58055d2fa21984af3b8b88a8"
+  },
+  "server": {
+   "accepted": 546,
+   "handler_p95_ms": 0.682,
+   "missed": 0,
+   "process_p95_ms": 0.338,
+   "rejected": 0
+  },
+  "sim_s": 109.0,
+  "source_split": "test",
+  "variant": "combined_dual",
+  "wall_s": 17.2
+ },
+ {
+  "configuration_id": "06f28f8a72637793a77f",
+  "ok": true,
+  "run_bytes": 1307081,
+  "run_id": "lht-cut_in-1106-467095345ca7",
+  "samples": 584,
+  "sensor_frames": {
+   "lines": 584,
+   "sha256": "89b677b8a3a88e5e78dc5e9c35a713b1fb6d5ea58bb450d8e0e69b5715a6a763"
+  },
+  "server": {
+   "accepted": 585,
+   "handler_p95_ms": 0.624,
+   "missed": 0,
+   "process_p95_ms": 0.287,
+   "rejected": 0
+  },
+  "sim_s": 116.8,
+  "source_split": "test",
+  "variant": "slow_entry",
+  "wall_s": 13.3
+ },
+ {
+  "configuration_id": "a2a6a3adf76184f48c6b",
+  "ok": true,
+  "run_bytes": 3920175,
+  "run_id": "lht-sudden_brake-1107-0fd8409f6e00",
+  "samples": 602,
+  "sensor_frames": {
+   "lines": 602,
+   "sha256": "897e74dd1f9fd8ace88c294a2b9a970f4b185e13e6ed9c9e71c57339b6b954d6"
+  },
+  "server": {
+   "accepted": 603,
+   "handler_p95_ms": 1.18,
+   "missed": 0,
+   "process_p95_ms": 0.671,
+   "rejected": 0
+  },
+  "sim_s": 120.4,
+  "source_split": "test",
+  "variant": "brake_severe",
+  "wall_s": 21.6
+ },
+ {
+  "configuration_id": "8a78b42abc527b044c38",
+  "ok": true,
+  "run_bytes": 1991941,
+  "run_id": "lht-cut_in-1108-260c23980d48",
+  "samples": 479,
+  "sensor_frames": {
+   "lines": 479,
+   "sha256": "6bddd1cd3c5ff1995601a5f3b96a170ae1dfe6ef1467c9e109dbadd440e6300d"
+  },
+  "server": {
+   "accepted": 480,
+   "handler_p95_ms": 0.886,
+   "missed": 0,
+   "process_p95_ms": 0.501,
+   "rejected": 0
+  },
+  "sim_s": 95.8,
+  "source_split": "test",
+  "variant": "cut_motorcycle",
+  "wall_s": 15.4
+ },
+ {
+  "configuration_id": "60f545738e8cbadfd94d",
+  "ok": true,
+  "run_bytes": 4907114,
+  "run_id": "lht-cut_in-1109-2c0f9153cdb4",
+  "samples": 560,
+  "sensor_frames": {
+   "lines": 560,
+   "sha256": "f571b1b4a387ece8f7fcd89815698e1153419f1612a5ba6874b17ab9b1686932"
+  },
+  "server": {
+   "accepted": 561,
+   "handler_p95_ms": 1.313,
+   "missed": 0,
+   "process_p95_ms": 0.78,
+   "rejected": 0
+  },
+  "sim_s": 112.0,
+  "source_split": "test",
+  "variant": "cut_autorickshaw",
+  "wall_s": 34.7
+ },
+ {
+  "configuration_id": "c69440d20d7fc4f3a175",
+  "ok": true,
+  "run_bytes": 4175351,
+  "run_id": "lht-combined-1110-4ab2c968d9a3",
+  "samples": 598,
+  "sensor_frames": {
+   "lines": 598,
+   "sha256": "f21a0dcc15e20e5b467ce7735adb4d91081176d9bc13c230fc6dca2e45f4a001"
+  },
+  "server": {
+   "accepted": 599,
+   "handler_p95_ms": 1.267,
+   "missed": 0,
+   "process_p95_ms": 0.736,
+   "rejected": 0
+  },
+  "sim_s": 119.6,
+  "source_split": "test",
+  "variant": "combined_dual",
+  "wall_s": 27.4
+ },
+ {
+  "configuration_id": "3e5a7bf4bc2a3ff4e968",
+  "ok": true,
+  "run_bytes": 1462655,
+  "run_id": "lht-cut_in-1111-01219770f0cb",
+  "samples": 504,
+  "sensor_frames": {
+   "lines": 504,
+   "sha256": "d49ea2c1f2b75a3da0f172b3d2eecd552a54f3aa3b12b5b8851a1ae1fc2fc891"
+  },
+  "server": {
+   "accepted": 505,
+   "handler_p95_ms": 0.66,
+   "missed": 0,
+   "process_p95_ms": 0.297,
+   "rejected": 0
+  },
+  "sim_s": 100.8,
+  "source_split": "test",
+  "variant": "slow_entry",
+  "wall_s": 16.3
+ },
+ {
+  "configuration_id": "f6743bc0173afb54ad3a",
+  "ok": true,
+  "run_bytes": 2006441,
+  "run_id": "lht-sudden_brake-1112-dbbc77e4ef3d",
+  "samples": 606,
+  "sensor_frames": {
+   "lines": 606,
+   "sha256": "b549e2fffa8d1f68b442ef9e5b028cce56253bb188956ac3c31dee5729664dc3"
+  },
+  "server": {
+   "accepted": 607,
+   "handler_p95_ms": 0.598,
+   "missed": 0,
+   "process_p95_ms": 0.266,
+   "rejected": 0
+  },
+  "sim_s": 121.2,
+  "source_split": "test",
+  "variant": "brake_severe",
+  "wall_s": 16.0
+ },
+ {
+  "configuration_id": "e1c1066ede92d5bdfb33",
+  "ok": true,
+  "run_bytes": 2968406,
+  "run_id": "lht-cut_in-1113-028e46c6a632",
+  "samples": 500,
+  "sensor_frames": {
+   "lines": 500,
+   "sha256": "5b34baa53b944ba286024d5b12cb43b1719f037cafe025494d5f1da518ae40ac"
+  },
+  "server": {
+   "accepted": 501,
+   "handler_p95_ms": 1.113,
+   "missed": 0,
+   "process_p95_ms": 0.668,
+   "rejected": 0
+  },
+  "sim_s": 100.0,
+  "source_split": "test",
+  "variant": "cut_motorcycle",
+  "wall_s": 17.3
+ },
+ {
+  "configuration_id": "8b85242862c037044c95",
+  "ok": true,
+  "run_bytes": 3598134,
+  "run_id": "lht-cut_in-1114-d9d2f0362992",
+  "samples": 615,
+  "sensor_frames": {
+   "lines": 615,
+   "sha256": "d6408db8f8dae66434dd6525291e39b3b08b5454d8dee9b1284008c371ba43be"
+  },
+  "server": {
+   "accepted": 616,
+   "handler_p95_ms": 1.068,
+   "missed": 0,
+   "process_p95_ms": 0.617,
+   "rejected": 0
+  },
+  "sim_s": 123.0,
+  "source_split": "test",
+  "variant": "cut_autorickshaw",
+  "wall_s": 27.8
+ },
+ {
+  "configuration_id": "4109007e9a585d959800",
+  "ok": true,
+  "run_bytes": 1893599,
+  "run_id": "lht-combined-1115-d2b557f98be6",
+  "samples": 479,
+  "sensor_frames": {
+   "lines": 479,
+   "sha256": "2748b1a1cbf5881d4f8c87d6b160f4bc2e1bf945510a70504f22be89b592c2d5"
+  },
+  "server": {
+   "accepted": 480,
+   "handler_p95_ms": 1.045,
+   "missed": 0,
+   "process_p95_ms": 0.593,
+   "rejected": 0
+  },
+  "sim_s": 95.8,
+  "source_split": "test",
+  "variant": "combined_dual",
+  "wall_s": 16.1
+ },
+ {
+  "configuration_id": "2cadd52756d341e06eda",
+  "ok": true,
+  "run_bytes": 2365042,
+  "run_id": "lht-cut_in-1116-9be20d2b7417",
+  "samples": 533,
+  "sensor_frames": {
+   "lines": 533,
+   "sha256": "d260aa9a633e3606c2e23a629e17460f19c5935dc0d6b9f3029f6f9c40955aef"
+  },
+  "server": {
+   "accepted": 534,
+   "handler_p95_ms": 0.765,
+   "missed": 0,
+   "process_p95_ms": 0.404,
+   "rejected": 0
+  },
+  "sim_s": 106.6,
+  "source_split": "test",
+  "variant": "slow_entry",
+  "wall_s": 19.7
+ },
+ {
+  "configuration_id": "b55cd1c789181876ef87",
+  "ok": true,
+  "run_bytes": 2701580,
+  "run_id": "lht-sudden_brake-1117-719e692b4686",
+  "samples": 527,
+  "sensor_frames": {
+   "lines": 527,
+   "sha256": "e655c1f01e1cb0388aa076a069c73dfc7d3a5f4f03d56926db446a8ee85a7632"
+  },
+  "server": {
+   "accepted": 528,
+   "handler_p95_ms": 0.712,
+   "missed": 0,
+   "process_p95_ms": 0.408,
+   "rejected": 0
+  },
+  "sim_s": 105.4,
+  "source_split": "test",
+  "variant": "brake_moderate",
+  "wall_s": 16.3
+ },
+ {
+  "configuration_id": "148e1357c6ef69b33439",
+  "ok": true,
+  "run_bytes": 2271944,
+  "run_id": "lht-cut_in-1118-368a6f105bbd",
+  "samples": 621,
+  "sensor_frames": {
+   "lines": 621,
+   "sha256": "e2f5b2d0337529b8f25b24a93c9790f7921a7613d0540c3d320671acd2436992"
+  },
+  "server": {
+   "accepted": 622,
+   "handler_p95_ms": 0.555,
+   "missed": 0,
+   "process_p95_ms": 0.278,
+   "rejected": 0
+  },
+  "sim_s": 124.2,
+  "source_split": "test",
+  "variant": "safe_overtake",
+  "wall_s": 15.3
+ },
+ {
+  "configuration_id": "db57c618e5a4f6b9a62e",
+  "ok": true,
+  "run_bytes": 4939854,
+  "run_id": "lht-sudden_brake-1119-4a1680ee8880",
+  "samples": 543,
+  "sensor_frames": {
+   "lines": 543,
+   "sha256": "230506b7e56eedfeb72bc50255b9387c4a638f6260fd893a760947a66b73e60c"
+  },
+  "server": {
+   "accepted": 544,
+   "handler_p95_ms": 1.019,
+   "missed": 0,
+   "process_p95_ms": 0.569,
+   "rejected": 0
+  },
+  "sim_s": 108.6,
+  "source_split": "test",
+  "variant": "close_safe",
+  "wall_s": 29.1
+ },
+ {
+  "configuration_id": "543c97f414da702e769e",
+  "ok": true,
+  "run_bytes": 1912991,
+  "run_id": "lht-combined-1120-0e86d60588e6",
+  "samples": 491,
+  "sensor_frames": {
+   "lines": 491,
+   "sha256": "2cdd6fbcc5041c3a172f99f2b7553aee07fbee011b7fda85e83c726175f3228c"
+  },
+  "server": {
+   "accepted": 492,
+   "handler_p95_ms": 0.53,
+   "missed": 0,
+   "process_p95_ms": 0.267,
+   "rejected": 0
+  },
+  "sim_s": 98.2,
+  "source_split": "test",
+  "variant": "resolving",
+  "wall_s": 15.0
+ },
+ {
+  "configuration_id": "0c75ff326be43b6259be",
+  "ok": true,
+  "run_bytes": 2505390,
+  "run_id": "lht-mixed-1121-d69a19ea781d",
+  "samples": 482,
+  "sensor_frames": {
+   "lines": 482,
+   "sha256": "862644d7fa6c3983118525875c2048f011472b564a3eb9bb4027efade6b9bb17"
+  },
+  "server": {
+   "accepted": 483,
+   "handler_p95_ms": 0.716,
+   "missed": 0,
+   "process_p95_ms": 0.396,
+   "rejected": 0
+  },
+  "sim_s": 96.4,
+  "source_split": "test",
+  "variant": "dense_mixed",
+  "wall_s": 18.3
+ },
+ {
+  "configuration_id": "8bf95815e7f57681630d",
+  "ok": true,
+  "run_bytes": 1565854,
+  "run_id": "lht-combined-1122-933ebc0dbf4d",
+  "samples": 502,
+  "sensor_frames": {
+   "lines": 502,
+   "sha256": "4a30305d5045a84fd17654f6b9382e7079ae7e61a488496dd93ce1ad6f803e33"
+  },
+  "server": {
+   "accepted": 503,
+   "handler_p95_ms": 0.333,
+   "missed": 0,
+   "process_p95_ms": 0.157,
+   "rejected": 0
+  },
+  "sim_s": 100.4,
+  "source_split": "stress",
+  "variant": "combined_dual",
+  "wall_s": 12.2
+ },
+ {
+  "configuration_id": "016e9572bae8f08ed19e",
+  "ok": true,
+  "run_bytes": 1717835,
+  "run_id": "lht-cut_in-1123-d182c2e45275",
+  "samples": 591,
+  "sensor_frames": {
+   "lines": 591,
+   "sha256": "05742e925a14aaa1bf0c9675271c1b7584857bfc4084b1aeb4bcbe51b7e94070"
+  },
+  "server": {
+   "accepted": 592,
+   "handler_p95_ms": 0.348,
+   "missed": 0,
+   "process_p95_ms": 0.169,
+   "rejected": 0
+  },
+  "sim_s": 118.2,
+  "source_split": "stress",
+  "variant": "cut_motorcycle",
+  "wall_s": 11.5
+ },
+ {
+  "configuration_id": "3e54ff52883a7b1f02af",
+  "ok": true,
+  "run_bytes": 2787354,
+  "run_id": "lht-cut_in-1124-104c033c3b57",
+  "samples": 478,
+  "sensor_frames": {
+   "lines": 478,
+   "sha256": "4f986c5730355c22ea344f3968ea2db934b5d14ef38eca08aa836fd56f68e3ab"
+  },
+  "server": {
+   "accepted": 479,
+   "handler_p95_ms": 0.655,
+   "missed": 0,
+   "process_p95_ms": 0.372,
+   "rejected": 0
+  },
+  "sim_s": 95.6,
+  "source_split": "stress",
+  "variant": "cut_autorickshaw",
+  "wall_s": 16.5
+ },
+ {
+  "configuration_id": "30537da78aa259bacfe7",
+  "ok": true,
+  "run_bytes": 2431941,
+  "run_id": "lht-sudden_brake-1125-cd8e9f73b0ad",
+  "samples": 612,
+  "sensor_frames": {
+   "lines": 612,
+   "sha256": "293ded903a1530d287f4fa34d7b13fb888f8a85b32ca7f251bf1ea2a761ccfac"
+  },
+  "server": {
+   "accepted": 613,
+   "handler_p95_ms": 0.358,
+   "missed": 0,
+   "process_p95_ms": 0.177,
+   "rejected": 0
+  },
+  "sim_s": 122.4,
+  "source_split": "stress",
+  "variant": "brake_severe",
+  "wall_s": 15.1
+ },
+ {
+  "configuration_id": "70a99397481ed2ae05df",
+  "ok": true,
+  "run_bytes": 6119771,
+  "run_id": "lht-cut_in-1126-36ad3b1d74b7",
+  "samples": 611,
+  "sensor_frames": {
+   "lines": 611,
+   "sha256": "8f505503c33081821e28ce4331260fc6e47a8d02fa65df6ed13463783b4a2b78"
+  },
+  "server": {
+   "accepted": 612,
+   "handler_p95_ms": 0.943,
+   "missed": 0,
+   "process_p95_ms": 0.561,
+   "rejected": 0
+  },
+  "sim_s": 122.2,
+  "source_split": "stress",
+  "variant": "slow_entry",
+  "wall_s": 34.3
+ },
+ {
+  "configuration_id": "22dc49651c05aeade55f",
+  "ok": true,
+  "run_bytes": 2735849,
+  "run_id": "lht-combined-1127-807e05579f11",
+  "samples": 611,
+  "sensor_frames": {
+   "lines": 611,
+   "sha256": "d026453e20cfe05bc7bc32aff66d1e70581a7cd176cf7b9cc73c327c04299d3a"
+  },
+  "server": {
+   "accepted": 612,
+   "handler_p95_ms": 0.565,
+   "missed": 0,
+   "process_p95_ms": 0.3,
+   "rejected": 0
+  },
+  "sim_s": 122.2,
+  "source_split": "stress",
+  "variant": "combined_dual",
+  "wall_s": 18.5
+ },
+ {
+  "configuration_id": "8a83f741e31604fb5c65",
+  "ok": true,
+  "run_bytes": 1584698,
+  "run_id": "lht-cut_in-1128-7134baf381f6",
+  "samples": 508,
+  "sensor_frames": {
+   "lines": 508,
+   "sha256": "8021f66e8679fea471bf1fa87329d952be76d67988377d6ee8479596c4b1015b"
+  },
+  "server": {
+   "accepted": 509,
+   "handler_p95_ms": 0.363,
+   "missed": 0,
+   "process_p95_ms": 0.172,
+   "rejected": 0
+  },
+  "sim_s": 101.6,
+  "source_split": "stress",
+  "variant": "cut_motorcycle",
+  "wall_s": 12.5
+ },
+ {
+  "configuration_id": "19c428d276c26081a92d",
+  "ok": true,
+  "run_bytes": 3182905,
+  "run_id": "lht-cut_in-1129-ceea76814dbd",
+  "samples": 484,
+  "sensor_frames": {
+   "lines": 484,
+   "sha256": "de6433c4415f1271dc89e4a9dc661a7d84fb04f5a7d3f53b9e2dfa59d6f50f62"
+  },
+  "server": {
+   "accepted": 485,
+   "handler_p95_ms": 0.712,
+   "missed": 0,
+   "process_p95_ms": 0.413,
+   "rejected": 0
+  },
+  "sim_s": 96.8,
+  "source_split": "stress",
+  "variant": "cut_autorickshaw",
+  "wall_s": 18.9
+ },
+ {
+  "configuration_id": "9f042ed493ead4daea65",
+  "ok": true,
+  "run_bytes": 1692266,
+  "run_id": "lht-sudden_brake-1130-cf311ecb9e07",
+  "samples": 618,
+  "sensor_frames": {
+   "lines": 618,
+   "sha256": "7f16b0de8f502d5f59dcf996ae7edc60b1428659640d64dc8addcd019b98f8d6"
+  },
+  "server": {
+   "accepted": 619,
+   "handler_p95_ms": 0.424,
+   "missed": 0,
+   "process_p95_ms": 0.208,
+   "rejected": 0
+  },
+  "sim_s": 123.6,
+  "source_split": "stress",
+  "variant": "brake_severe",
+  "wall_s": 14.7
+ },
+ {
+  "configuration_id": "0f3d0f48a8dfc941b4c5",
+  "ok": true,
+  "run_bytes": 2597466,
+  "run_id": "lht-cut_in-1131-749154c2558a",
+  "samples": 617,
+  "sensor_frames": {
+   "lines": 617,
+   "sha256": "a17b075820becf164d665088669693110e0b2d0143c05a7932d58f4b4fde73b3"
+  },
+  "server": {
+   "accepted": 618,
+   "handler_p95_ms": 0.438,
+   "missed": 0,
+   "process_p95_ms": 0.226,
+   "rejected": 0
+  },
+  "sim_s": 123.4,
+  "source_split": "stress",
+  "variant": "slow_entry",
+  "wall_s": 16.9
+ }
+]
