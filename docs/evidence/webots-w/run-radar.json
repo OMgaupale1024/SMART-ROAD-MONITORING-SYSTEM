@@ -1,0 +1,18 @@
+{
+ "returncode": 0,
+ "wall_s": 19.12,
+ "sim_s": 908.46,
+ "usage": {
+  "real_s": 18.58,
+  "user_s": 15.07,
+  "sys_s": 12.88,
+  "max_rss_mb": 649.5,
+  "peak_footprint_mb": 839.6
+ },
+ "gpu_util_pct": {
+  "n": 37,
+  "median": 32,
+  "max": 82
+ },
+ "errors": []
+}

@@ -1,0 +1,33 @@
+--- a/simulation/webots/controllers/roadsense_ego/roadsense_ego.py	2026-11-17 18:30:38
++++ b/simulation/webots/controllers/roadsense_ego/roadsense_ego.py (W6 scratch copy)	2026-11-18 15:28:52
+@@ -43,7 +43,7 @@
+ PERCEPTION_PERIOD_S = 1.0  # simulated seconds between perception summaries
+ # Radar sampling period, the SUMO step: SUMO moves its cars every 200 ms, and a Webots radar computes the
+ # range rate from the movement between two refreshes, so a shorter period sees cars stand still, then jump.
+-RADAR_PERIOD_MS = 200
++RADAR_PERIOD_MS = int(os.environ.get("W6_RADAR_PERIOD_MS", "200"))  # W6 scratch probe
+ 
+ sensorsNames = [
+     "front",
+@@ -178,6 +178,9 @@
+ frameCapture = open(captureTo, "xb") if captureTo and edgeMode else None
+ 
+ 
++import json
++_probe = open(os.environ["W6_PROBE"], "x", buffering=1) if os.environ.get("W6_PROBE") else None
++_probe_stop = float(os.environ.get("W6_STOP_S", "60"))
+ while driver.step() != -1:
+     # adjust speed according to front vehicle
+     frontDistance = sensors["front"].getValue()
+@@ -262,6 +265,11 @@
+                       for side in ("left", "right")}  # the car's physical sides
+             if edgeMode else None,
+         }
++        if _probe is not None:
++            _probe.write(json.dumps({"t": frame["timestamp"], "ego": frame["ego"]["position"], "v": frame["ego"]["speed_mps"],
++                                     "radars": {k: v["targets"] for k, v in frame["radars"].items()}}) + "\n")
++            if now >= _probe_stop:
++                _probe.close(); _probe = None; print("W6 PROBE DONE", flush=True)
+         if localPipeline is not None:
+             cycle = localPipeline.process(frame)
+             for hazard in cycle.discoveries:
