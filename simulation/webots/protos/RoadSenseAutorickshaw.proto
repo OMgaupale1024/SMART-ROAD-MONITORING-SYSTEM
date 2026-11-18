@@ -1,0 +1,102 @@
+#VRML_SIM R2025b utf8
+# A simple three-wheeled autorickshaw for the RoadSense experimental sensor world (Stage W9): RoadSense's own model,
+# built from primitives (no external assets). Its size matches the scenario generator's SUMO vType "autorickshaw"
+# (tools/scenarios.py: length 2.8 m, width 1.4 m); height 1.75 m (SUMO has none; typical of the class). Like the Webots
+# vehicle models the origin is the centre of the rear axle, 0.2 m (the wheel radius) above the ground; the body spans
+# x = -0.45 .. 2.35 m, so its centre is 0.95 m ahead of the origin.
+#
+# Radar: one bounding Box covering the whole vehicle (what Webots' radar and collisions use) and a radar cross-section
+# of 30 m^2, between Webots' motorcycle (10) and car (100) models. The 30 m^2 is an assumption, not a measurement.
+# Lidar and cameras see the visual shapes: closed lower body, open upper sides between the pillars, a canopy roof.
+
+PROTO RoadSenseAutorickshaw [
+  field SFVec3f    translation       0 0 0.2
+  field SFRotation rotation          0 0 1 0
+  field SFString   name              "autorickshaw"
+  field SFColor    color             0.95 0.78 0.05   # body
+  field SFColor    canopyColor       0.1 0.35 0.15    # roof
+  field MFColor    recognitionColors [ 0.95 0.78 0.05 ]
+  field SFFloat    radarCrossSection 30
+  # sumo_supervisor resets these on every vehicle it hides; the model's wheels do not turn
+  hiddenField SFVec3f frontRightWheelAngularVelocity 0 0 0
+  hiddenField SFVec3f frontLeftWheelAngularVelocity  0 0 0
+  hiddenField SFVec3f rearRightWheelAngularVelocity  0 0 0
+  hiddenField SFVec3f rearLeftWheelAngularVelocity   0 0 0
+]
+{
+  Solid {
+    translation IS translation
+    rotation IS rotation
+    name IS name
+    model "autorickshaw"
+    recognitionColors IS recognitionColors
+    radarCrossSection IS radarCrossSection
+    children [
+      DEF BODY_APPEARANCE Pose {  # lower body and floor
+        translation 0.95 0 0.275
+        children [
+          Shape {
+            appearance PBRAppearance { baseColor IS color roughness 0.5 metalness 0 }
+            geometry Box { size 2.8 1.4 0.55 }
+          }
+        ]
+      }
+      Pose {  # driver's front cowl and windscreen frame
+        translation 2.1 0 1.0
+        children [
+          Shape {
+            appearance PBRAppearance { baseColor IS color roughness 0.5 metalness 0 }
+            geometry Box { size 0.5 1.1 0.9 }
+          }
+        ]
+      }
+      Pose {  # rear panel behind the passenger bench
+        translation -0.4 0 0.95
+        children [
+          Shape {
+            appearance PBRAppearance { baseColor 0.15 0.15 0.15 roughness 0.8 metalness 0 }
+            geometry Box { size 0.1 1.36 0.8 }
+          }
+        ]
+      }
+      Pose {  # canopy roof
+        translation 0.9 0 1.51
+        children [
+          Shape {
+            appearance PBRAppearance { baseColor IS canopyColor roughness 0.9 metalness 0 }
+            geometry Box { size 2.6 1.4 0.08 }
+          }
+        ]
+      }
+      %< for (const [x, y] of [[-0.38, 0.65], [-0.38, -0.65], [1.85, 0.6], [1.85, -0.6]]) { >%
+      Pose {  # pillar
+        translation %<= x >% %<= y >% 1.01
+        children [
+          Shape {
+            appearance PBRAppearance { baseColor 0.2 0.2 0.2 roughness 0.6 metalness 0.3 }
+            geometry Box { size 0.05 0.05 0.92 }
+          }
+        ]
+      }
+      %< } >%
+      %< for (const [x, y] of [[0, 0.6], [0, -0.6], [2.0, 0]]) { >%
+      Pose {  # wheel
+        translation %<= x >% %<= y >% 0
+        rotation 1 0 0 1.5708
+        children [
+          Shape {
+            appearance PBRAppearance { baseColor 0.05 0.05 0.05 roughness 1 metalness 0 }
+            geometry Cylinder { height 0.12 radius 0.2 }
+          }
+        ]
+      }
+      %< } >%
+    ]
+    boundingObject Pose {
+      translation 0.95 0 0.775
+      children [
+        Box { size 2.8 1.4 1.55 }
+      ]
+    }
+  }
+}
