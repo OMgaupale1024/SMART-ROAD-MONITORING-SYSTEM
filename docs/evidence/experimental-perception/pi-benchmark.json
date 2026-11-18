@@ -1,0 +1,124 @@
+{
+ "schema": "roadsense.experimental-pi-benchmark.v1",
+ "date": "2026-11-18",
+ "host": "Raspberry Pi 5 Model B Rev 1.1, 4 GB, Raspberry Pi OS (kernel 6.18), system python3 + python3-numpy, nice 10",
+ "note": "one process per recording; no tracemalloc; deployed roadsense-edge service running alongside, idle",
+ "service_before": {
+  "MainPID": 1038,
+  "NRestarts": 0,
+  "ActiveState": "active",
+  "api_system": 200
+ },
+ "service_after": {
+  "MainPID": 1038,
+  "NRestarts": 0,
+  "ActiveState": "active",
+  "api_system": 200
+ },
+ "throttled": "0x0 before and after",
+ "decision_parity_with_mac": "identical (30-line demo output, both runs)",
+ "runs": [
+  {
+   "run": "corr-stationary",
+   "python": "3.13.5",
+   "numpy": "2.2.4",
+   "machine": "aarch64",
+   "cycles": 709,
+   "fused_ms": {
+    "p50": 53.939519999403274,
+    "p95": 57.980288000180735,
+    "p99": 72.56864800001495,
+    "max": 77.05035099934321
+   },
+   "over_100ms": 0,
+   "over_100ms_share": 0.0,
+   "stage_ms_p95": {
+    "decode": 0.5861,
+    "lidar": 56.4962,
+    "radar_model": 0.0492,
+    "reports": 0.2608,
+    "total": 57.9749,
+    "tracking": 3.0963
+   },
+   "queue_10hz_cap2": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 708,
+     "p50": 0.0539,
+     "p99": 0.0726
+    }
+   },
+   "rejected_frames": 0,
+   "authoritative_ms": {
+    "cycles": 354,
+    "p50": 0.028980999559280463,
+    "p95": 0.08736999916436616,
+    "p99": 0.09860999853117391
+   },
+   "peak_rss_mb": 119.0,
+   "replay_wall_s": 37.5
+  },
+  {
+   "run": "corr-truck_brake",
+   "python": "3.13.5",
+   "numpy": "2.2.4",
+   "machine": "aarch64",
+   "cycles": 681,
+   "fused_ms": {
+    "p50": 59.45311699906597,
+    "p95": 95.71649999998044,
+    "p99": 117.84217499916849,
+    "max": 131.49163699927158
+   },
+   "over_100ms": 23,
+   "over_100ms_share": 0.033773861967694566,
+   "stage_ms_p95": {
+    "decode": 0.5911,
+    "lidar": 59.6338,
+    "radar_model": 0.1314,
+    "reports": 1.7394,
+    "total": 95.7165,
+    "tracking": 34.9448
+   },
+   "queue_10hz_cap2": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 680,
+     "p50": 0.0595,
+     "p99": 0.1719
+    }
+   },
+   "rejected_frames": 0,
+   "authoritative_ms": {
+    "cycles": 340,
+    "p50": 0.2748119986790698,
+    "p95": 0.7282689985004254,
+    "p99": 0.7804340002621757
+   },
+   "peak_rss_mb": 144.5,
+   "replay_wall_s": 47.2
+  }
+ ],
+ "live_demo_check": {
+  "world": "roadsense_highway.wbt on installed Webots, Mac -> Pi over Wi-Fi, ~3 min",
+  "frames_accepted": 762,
+  "rejected": 0,
+  "missed": 47,
+  "publisher_outages": 2,
+  "pi_process_p95_ms": 2.12,
+  "pi_handler_p95_ms": 6.673,
+  "ollama_qwen3_0_6b_latency_ms": {
+   "p50": 2893.1,
+   "p95": 6319.5
+  },
+  "history_rows": {
+   "decisions": 33,
+   "hazard_updates": 10
+  },
+  "history_lost": 0,
+  "live_state_tracks": 7,
+  "live_state_hazards": 4
+ }
+}

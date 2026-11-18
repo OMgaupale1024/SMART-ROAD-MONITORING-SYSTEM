@@ -127,12 +127,50 @@ def prepare(run_dir, params, sumo_ms, webots):
     return worlds / "profile.wbt"
 
 
+def _with(p, **event):
+    p["event"].update(event)
+    p.pop("configuration_id", None)
+    return p
+
+
+def _mixed_potholes(seed):
+    p = scenarios.draw("mixed", seed)
+    p["potholes"] = scenarios.draw("potholes", seed)["potholes"]
+    return p
+
+
+def _hs(builder, seed):
+    import phase7a3_highspeed as hs  # Stage 9's builders (the previously failing diagnostic configurations)
+    return hs.build(builder, seed)
+
+
+# Bounded validation cases (approved: at most 12 simulation attempts), each a scenario-generator configuration.
+CASES = {
+    "normal": lambda s: scenarios.draw("normal", s),
+    "stationary": lambda s: _hs("stationary", s),  # a lead brakes to a standstill and stays
+    "truck_brake": lambda s: _with(scenarios.draw("sudden_brake", s), vehicle_type="truck"),
+    "moto_cutin": lambda s: _with(_hs("gradual", s), vehicle_type="motorcycle"),
+    "rickshaw_cutin": lambda s: _with(_hs("assertive", s), vehicle_type="autorickshaw"),
+    "mixed_potholes": _mixed_potholes,  # dense mixed traffic: adjacent lanes, blind zone, occlusion, potholes
+    "expressway": lambda s: _hs("expressway", s),  # traffic to 130 km/h: high-speed approaches from behind
+}
+
+
+def event_time_s(params):
+    """When the ego reaches the event's trigger distance, at its set speed (an estimate for the run length)."""
+    e = params.get("event")
+    return None if not e else e["at_m"] / (params.get("ego_speed_kmh", 80) / 3.6) + e.get("settle_s", 3.0)
+
+
 def run(a):
     run_dir = Path(a.out).resolve()
     if run_dir.exists():
         sys.exit("%s exists: a run is never overwritten" % run_dir)
-    params = scenarios.draw("normal", a.seed, "highway_lht")
-    params.update(duration_s=a.duration, run_id="profile-%d-%d-%d-%s" % (a.seed, a.sumo_ms, a.radar_ms, a.sync))
+    params = CASES[a.case](a.seed)
+    duration = a.duration
+    if a.after_event is not None and event_time_s(params) is not None:
+        duration = round(event_time_s(params) + a.after_event, 1)
+    params.update(duration_s=duration, run_id="profile-%s-%d-%d-%d-%s" % (a.case, a.seed, a.sumo_ms, a.radar_ms, a.sync))
     wbt = prepare(run_dir, params, a.sumo_ms, a.webots)
     rec = run_dir / "rec"
     rec.mkdir()
@@ -146,6 +184,11 @@ def run(a):
                ROADSENSE_PROFILE_SUMO_LOG=str(run_dir / "sumo_state.jsonl"), PYTHONDONTWRITEBYTECODE="1")
     for key in ("ROADSENSE_EDGE_URL", "ROADSENSE_LIVE_PUBLISH", "ROADSENSE_FRAME_CAPTURE"):
         env.pop(key, None)
+    if a.capture_frames:  # RoadSense's own sensor frames (roadsense.sensors.v1), exactly as its controller builds
+        # them, for offline replay through the unchanged pipeline. Edge mode needs a URL: a closed local port, so
+        # nothing is ever received; the publisher drops what it can't send and the simulation never waits.
+        env.update(ROADSENSE_EDGE_URL="http://127.0.0.1:9/api/sensors", ROADSENSE_FRAME_CAPTURE=str(run_dir / "frames.jsonl"),
+                   ROADSENSE_RUN_ID=params["run_id"][:64])
     before = resource.getrusage(resource.RUSAGE_CHILDREN)
     t0 = time.monotonic()
     with open(run_dir / "webots.log", "w") as log:
@@ -166,7 +209,7 @@ def run(a):
     info = {"webots": a.webots, "returncode": rc, "wall_s": round(time.monotonic() - t0, 2),
             "cpu_user_s": round(after.ru_utime - before.ru_utime, 2), "cpu_sys_s": round(after.ru_stime - before.ru_stime, 2),
             "max_rss_mb_children": round(after.ru_maxrss / 2 ** 20, 1), "sumo_ms": a.sumo_ms, "radar_ms": a.radar_ms, "lidar_ms": a.lidar_ms, "camera_s": a.camera_s,
-            "sync": a.sync, "stock_models": a.stock_models, "seed": a.seed, "duration_s": a.duration}
+            "sync": a.sync, "stock_models": a.stock_models, "case": a.case, "seed": a.seed, "duration_s": duration}
     (run_dir / "run.json").write_text(json.dumps(info, indent=1) + "\n")
     print(json.dumps(info))
 
@@ -261,7 +304,7 @@ def _sumo_at(track, t):
 def analyse(run_dir, lidar_frames=None):
     import time as _time
     import numpy as np
-    import lidar_geometry as lg
+    from roadsense.experimental import lidar as lg
     import radar_measurement_model as rmm
     run_dir = Path(run_dir)
     info = json.loads((run_dir / "run.json").read_text())
@@ -462,11 +505,11 @@ def analyse(run_dir, lidar_frames=None):
 
 
 def lab_lidar(run_dir, sensor="exp lidar roof"):
-    """The W4 calibration-lab lidar cases (static targets) through lidar_geometry: near face from all clusters on the
+    """The W4 calibration-lab lidar cases (static targets) through roadsense.experimental.lidar: near face from all clusters on the
     body (a fragmented truck is still one obstacle at its nearest point) and from the single cluster the W4 scoring
     picked (the first one on the footprint, which for a truck was often the cab)."""
     import numpy as np
-    import lidar_geometry as lg
+    from roadsense.experimental import lidar as lg
     import webots_calibration as wc
     cases, samples, _ends = wc.load(run_dir)
     run_dir = Path(run_dir)
@@ -504,6 +547,93 @@ def lab_lidar(run_dir, sensor="exp lidar roof"):
     return rows
 
 
+def sync_check(run_dir):
+    """W10 verification of a sync mode (scoring only), from one run's records and SUMO log:
+
+    sensor_vs_display  front-radar range residual against the drawn body at the radar's own timestamp, and with the
+                       truth shifted by -3..+3 records: the minimum must be at 0 (sensors see the displayed pose then)
+    display_vs_sumo    displayed (wrapper) position minus SUMO's state at the same time, along track, split by SUMO's
+                       acceleration: a causal extrapolation errs at braking onsets; one using future states would not
+    velocity           the node velocity Webots reports minus the finite difference of displayed positions
+    heading            displayed yaw minus the direction of motion (above 3 m/s)
+    accel / lateral    accelerations and lateral speeds of the displayed bodies (second differences, 0.1 s)
+    """
+    run_dir = Path(run_dir)
+    info = json.loads((run_dir / "run.json").read_text())
+    recs = [json.loads(l) for l in open(run_dir / "rec/records.jsonl")][1:]
+    recs = [r for r in recs if r["type"] == "sample"]
+    tracks = _sumo_tracks(run_dir)
+    dt = recs[1]["t"] - recs[0]["t"]
+    by_t = {round(r["t"], 3): r for r in recs}
+    hist = {}
+    for r in recs:
+        for g in r["gt"]:
+            if g["wrapper"][0] < 9000:
+                hist.setdefault(g["node"], {})[round(r["t"], 3)] = g
+    shifts = {k: [] for k in range(-3, 4)}
+    x, y, z, yaw = PROFILE_RADARS["profile radar front"][:4]
+    for r in recs:
+        if "radars" not in r:
+            continue
+        for d, az, _v, _p in r["radars"]["profile radar front"]:
+            a = yaw - az
+            px, py = x + d * math.cos(a), y + d * math.sin(a)
+            for k in shifts:
+                other = by_t.get(round(r["t"] + k * dt, 3))
+                if other is None:
+                    continue
+                best = None
+                for g in r["gt"]:
+                    if g["model_type"] not in MODEL_BOXES or g["wrapper"][0] > 9000:
+                        continue
+                    g2 = hist.get(g["node"], {}).get(round(other["t"], 3))
+                    if g2 is None:
+                        continue
+                    b = _body(r["ego"], g["model_type"], g2["model"])  # body at t + k dt, ego frame at t
+                    cx, cy = b["centre"]
+                    rr = math.hypot(cx - x, cy - y) - d
+                    if math.hypot(cx - px, cy - py) < 4 and (best is None or abs(rr) < abs(best)):
+                        best = rr
+                if best is not None:
+                    shifts[k].append(best)
+    along = {"steady": [], "braking": [], "onset": []}
+    vel, head, acc, lat_v = [], [], [], []
+    for node, h in hist.items():
+        ts = sorted(h)
+        for t0, t1, t2 in zip(ts, ts[1:], ts[2:]):
+            if t2 - t0 > 2 * dt + 1e-6:
+                continue
+            p0, p1, p2 = (h[t]["wrapper"] for t in (t0, t1, t2))
+            v1 = ((p2[0] - p0[0]) / (2 * dt), (p2[1] - p0[1]) / (2 * dt))
+            vel.append(math.hypot(h[t1]["v"][0] - v1[0], h[t1]["v"][1] - v1[1]))
+            sp = math.hypot(*v1)
+            if sp > 3:
+                head.append(abs(math.remainder(p1[3] - math.atan2(v1[1], v1[0]), 2 * math.pi)))
+            a = ((p2[0] - 2 * p1[0] + p0[0]) / dt ** 2, (p2[1] - 2 * p1[1] + p0[1]) / dt ** 2)
+            c, s_ = math.cos(p1[3]), math.sin(p1[3])
+            acc.append(a[0] * c + a[1] * s_)
+            lat_v.append(abs(-v1[0] * s_ + v1[1] * c))
+        for t in ts:
+            g = h[t]
+            st = _sumo_at(tracks.get(node, []), t)
+            if st is None:
+                continue
+            cx, cy = g["wrapper"][0], g["wrapper"][1]
+            e = (cx - st["cx"]) * math.cos(st["yaw"]) + (cy - st["cy"]) * math.sin(st["yaw"])
+            prev = _sumo_at(tracks.get(node, []), t - 3 * info["sumo_ms"] / 1000.0)
+            onset = prev is not None and prev["accel"] > -0.5 and st["accel"] < -2.0
+            along["onset" if onset else "braking" if st["accel"] < -2.0 else "steady"].append(abs(e))
+    rms = lambda v: round(math.sqrt(sum(x * x for x in v) / len(v)), 4) if v else None  # noqa: E731
+    return {"sync": info["sync"], "sumo_ms": info["sumo_ms"],
+            "sensor_vs_display_range_rms_m": {k: rms(v) for k, v in shifts.items()},
+            "display_vs_sumo_along_m": {k: dict(_st(v), p99=_pct(v, 0.99)) for k, v in along.items()},
+            "velocity_minus_displacement_mps": dict(_st(vel), p99=_pct(vel, 0.99)),
+            "heading_minus_motion_rad": dict(_st(head), p99=_pct(head, 0.99)),
+            "longitudinal_accel_mps2": {"p01": _pct(acc, 0.01), "p99": _pct(acc, 0.99), "min": min(acc, default=None),
+                                        "max": max(acc, default=None)},
+            "lateral_speed_mps": {"p99": _pct(lat_v, 0.99), "max": max(lat_v, default=None)}}
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -514,8 +644,11 @@ def main():
     r.add_argument("--sync", choices=("stock", "current", "aligned", "smooth"), default="stock")
     r.add_argument("--stock-models", action="store_true", help="autorickshaws drawn as cars, bodies not aligned")
     r.add_argument("--webots", default=INSTALLED)
+    r.add_argument("--case", choices=sorted(CASES), default="normal")
     r.add_argument("--seed", type=int, default=1)
     r.add_argument("--duration", type=float, default=60.0)
+    r.add_argument("--after-event", type=float, help="end this many seconds after the estimated event time")
+    r.add_argument("--capture-frames", action="store_true", help="also capture RoadSense's own sensor frames")
     r.add_argument("--camera-s", type=float, default=0.0)
     r.add_argument("--lidar-ms", type=int, default=100, help="0: lidar off")
     r.add_argument("--timeout", type=float, default=900.0)
@@ -524,9 +657,17 @@ def main():
     an.add_argument("--out")
     lab = sub.add_parser("lab-lidar")
     lab.add_argument("run")
+    sc = sub.add_parser("sync-check")
+    sc.add_argument("runs", nargs="+")
+    sc.add_argument("--out")
     a = ap.parse_args()
     if a.cmd == "run":
         run(a)
+    elif a.cmd == "sync-check":
+        result = {Path(d).name: sync_check(d) for d in a.runs}
+        if a.out:
+            Path(a.out).write_text(json.dumps(result, indent=1) + "\n")
+        print(json.dumps(result, indent=1))
     elif a.cmd == "lab-lidar":
         print(json.dumps(lab_lidar(a.run)))
     else:

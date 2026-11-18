@@ -1,4 +1,4 @@
-"""Stage W11: the experimental lidar format and geometry processing (tools/lidar_geometry.py)."""
+"""Stage W11: the experimental lidar format and geometry processing (src/roadsense/experimental/lidar.py, moved from tools/lidar_geometry.py)."""
 import math
 import sys
 from pathlib import Path
@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-import lidar_geometry as lg  # noqa: E402
+from roadsense.experimental import lidar as lg  # noqa: E402
 
 W, L = 1800, 16
 

@@ -199,7 +199,7 @@ Ego frame: origin at the rear-axle centre (where `telemetry gps` sits), x forwar
 | profile radar rear | −1.16 | 0 | 0.33 | π | 100 | 2.6 | 0.0785 | Exactly `radar rear` |
 | profile radar corner fl / fr | 3.85 | ±0.85 | 0.142 | ±0.785 | 80 | 1.6 | 0.25 | Experimental |
 | profile radar corner rl / rr | −1.1 | ±0.85 | 0.33 | ±2.356 | 80 | 1.6 | 0.25 | Experimental |
-| profile lidar roof | 1.11 | 0 | 1.51 | 0 | 0.5–100 | 2π (1800 columns) | 0.5236 (16 layers) | Noise 0.0003 of range. Beam elevations calibrated: ±0.2653 rad in 0.03537 steps (`lidar_geometry.ROOF16_ELEVATIONS`) |
+| profile lidar roof | 1.11 | 0 | 1.51 | 0 | 0.5–100 | 2π (1800 columns) | 0.5236 (16 layers) | Noise 0.0003 of range. Beam elevations calibrated: ±0.2653 rad in 0.03537 steps (`roadsense.experimental.lidar.ROOF16_ELEVATIONS`) |
 | profile camera 720p | 1.61 | 0 | 1.16 | 0 | 0.5–300 | 1.05 | — | 1280×720, recording only; no Recognition |
 | profile gps, profile imu | 0 | 0 | 0 | — | — | — | — | — |
 
@@ -364,7 +364,7 @@ worth it. B (radar faster than SUMO) only works with `smooth`; with `aligned` it
 
 ## 5. W11: LiDAR geometry processing (no fusion, no learning)
 
-`tools/lidar_geometry.py` (numpy only, no simulator imports) processes one range image as follows:
+`src/roadsense/experimental/lidar.py` (was `tools/lidar_geometry.py`) (numpy only, no simulator imports) processes one range image as follows:
 1. **Transform:** calibrated beam elevations and Webots' column convention give ego-frame points.
 2. **Ground removal:** estimate the ground height as the median of the lowest four beams' returns 3–25 m out (one
    flat plane, marked `ponytail:`), then keep 0.2–4.0 m above it. That drops the road, gantries and sign faces.
@@ -446,7 +446,7 @@ Each cell is p50 / p95.
   - All six radars reached 0.44 (self-clutter flagged, §6).
   - No vehicle used the right zone in this scenario.
 
-### 5.3 Compact binary format (`tools/lidar_geometry.py`, version 1)
+### 5.3 Compact binary format (`src/roadsense/experimental/lidar.py` (was `tools/lidar_geometry.py`), version 1)
 
 There are three message types:
 - `RSLC`: the sensor configuration, sent once.
@@ -702,7 +702,7 @@ It changes camera Recognition near the image border, which RoadSense's hazard ca
 | 4 | Build status and provenance | §2.3, `tools/webots_w8/` |
 | 5 | Experimental sensor configuration | §3, `tools/sensor_profile.py`, `roadsense_sensor_recorder`, `RoadSenseAutorickshaw.proto` |
 | 6 | Synchronisation comparison | §4 |
-| 7 | LiDAR results | §5, `tools/lidar_geometry.py`, `lab-lidar.json` |
+| 7 | LiDAR results | §5, `src/roadsense/experimental/lidar.py` (was `tools/lidar_geometry.py`), `lab-lidar.json` |
 | 8 | Camera feasibility | §3.2 |
 | 9 | Resources and payloads | §5.3, §8 |
 | 10 | Recommended configuration | §9 |

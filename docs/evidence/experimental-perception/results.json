@@ -1,0 +1,9265 @@
+{
+ "corr-expressway": {
+  "scenario": "expressway_100",
+  "run": {
+   "webots": "Webots-W8-AB.app/Contents/MacOS/webots (patched build, local)",
+   "returncode": 0,
+   "wall_s": 50.61,
+   "cpu_user_s": 40.33,
+   "cpu_sys_s": 29.28,
+   "max_rss_mb_children": 1211.3,
+   "sumo_ms": 100,
+   "radar_ms": 100,
+   "lidar_ms": 100,
+   "camera_s": 0.0,
+   "sync": "smooth",
+   "stock_models": false,
+   "case": "expressway",
+   "seed": 11,
+   "duration_s": 90.0
+  },
+  "ego_collision_t": null,
+  "events": [],
+  "rtf": 1.78,
+  "B": {
+   "frames": 450,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 28
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 42
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 18
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 8
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 1.0,
+     "n": 96
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 96,
+    "p50": 0.1601,
+    "p95": 0.5527
+   },
+   "pos_err_lat_m": {
+    "n": 96,
+    "p50": 0.0549,
+    "p95": 0.13
+   },
+   "vel_err_mps": {
+    "n": 96,
+    "p50": 0.1749,
+    "p95": 0.5277
+   },
+   "point_clearance_optimism_m": {
+    "n": 96,
+    "p50": 1.3942,
+    "p95": 1.7829
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 450,
+     "p50": 0.0333,
+     "p95": 0.0759,
+     "p99": 0.0959
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 450,
+    "CAUTION": 0,
+    "HIGH": 0,
+    "CRITICAL": 0
+   }
+  },
+  "C": {
+   "frames": 900,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 56
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 83
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 36
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 1.0,
+     "n": 191
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.01,
+   "duplicates_ungrouped_per_frame": 0.01,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 191,
+    "p50": 0.0418,
+    "p95": 0.1763
+   },
+   "pos_err_lat_m": {
+    "n": 191,
+    "p50": 0.015,
+    "p95": 0.075
+   },
+   "vel_err_mps": {
+    "n": 191,
+    "p50": 0.0866,
+    "p95": 0.2892
+   },
+   "point_clearance_optimism_m": {
+    "n": 191,
+    "p50": 1.4806,
+    "p95": 1.5904
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 191,
+     "p50": 3.54,
+     "p95": 3.61
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 11,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 900,
+     "p50": 0.3701,
+     "p95": 0.4415,
+     "p99": 0.5609
+    },
+    "lidar": {
+     "n": 900,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "radar_model": {
+     "n": 900,
+     "p50": 0.0619,
+     "p95": 0.1148,
+     "p99": 0.1316
+    },
+    "reports": {
+     "n": 900,
+     "p50": 0.5682,
+     "p95": 0.9777,
+     "p99": 1.2087
+    },
+    "total": {
+     "n": 900,
+     "p50": 1.849,
+     "p95": 3.9761,
+     "p99": 5.1565
+    },
+    "tracking": {
+     "n": 900,
+     "p50": 1.1655,
+     "p95": 2.8864,
+     "p99": 3.9132
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 900,
+     "p50": 22348.0,
+     "p95": 22699.15,
+     "p100": 22898
+    },
+    "decode_ms": {
+     "n": 900,
+     "p50": 0.3701,
+     "p95": 0.4415,
+     "p99": 0.5609
+    },
+    "receiver": {
+     "accepted": 900,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 0,
+     "rr_rejected": 4,
+     "born": 103,
+     "deleted": 98,
+     "merged": 1
+    }
+   },
+   "python_peak_mb": 9.2,
+   "queue": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 899,
+     "p50": 0.0018,
+     "p99": 0.0052
+    }
+   },
+   "observation_age_s": {
+    "n": 900,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "D": {
+   "frames": 900,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 56
+    },
+    "ahead_other": {
+     "recall": 0.2771,
+     "n": 83
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 36
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.6859,
+     "n": 191
+    }
+   },
+   "false_tracks_per_frame": 0.0211,
+   "duplicates_per_frame": 0.0189,
+   "duplicates_ungrouped_per_frame": 0.0189,
+   "id_switches": 1,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 6.0,
+    "p95": 6.0
+   },
+   "pos_err_lon_m": {
+    "n": 131,
+    "p50": 0.1653,
+    "p95": 0.8634
+   },
+   "pos_err_lat_m": {
+    "n": 131,
+    "p50": 0.035,
+    "p95": 0.505
+   },
+   "vel_err_mps": {
+    "n": 121,
+    "p50": 0.0993,
+    "p95": 0.5854
+   },
+   "point_clearance_optimism_m": {
+    "n": 131,
+    "p50": 1.638,
+    "p95": 2.3223
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 131,
+     "p50": 2.32,
+     "p95": 20.015
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 5,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 900,
+     "p50": 0.4039,
+     "p95": 0.4517,
+     "p99": 0.5252
+    },
+    "lidar": {
+     "n": 900,
+     "p50": 163.3593,
+     "p95": 173.2467,
+     "p99": 178.887
+    },
+    "radar_model": {
+     "n": 900,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "reports": {
+     "n": 900,
+     "p50": 0.0039,
+     "p95": 0.2753,
+     "p99": 0.4937
+    },
+    "total": {
+     "n": 900,
+     "p50": 163.5792,
+     "p95": 173.7625,
+     "p99": 178.942
+    },
+    "tracking": {
+     "n": 900,
+     "p50": 0.044,
+     "p95": 0.5239,
+     "p99": 7.4287
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 900,
+     "p50": 22348.0,
+     "p95": 22699.15,
+     "p100": 22898
+    },
+    "decode_ms": {
+     "n": 900,
+     "p50": 0.4039,
+     "p95": 0.4517,
+     "p99": 0.5252
+    },
+    "receiver": {
+     "accepted": 900,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 29,
+     "rr_rejected": 0,
+     "born": 7,
+     "deleted": 6,
+     "slivers": 42
+    }
+   },
+   "python_peak_mb": 5.7,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 346,
+    "latency_s": {
+     "n": 552,
+     "p50": 0.3139,
+     "p99": 0.3666
+    }
+   },
+   "observation_age_s": {
+    "n": 900,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E": {
+   "frames": 900,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 56
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 83
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 36
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 1.0,
+     "n": 191
+    }
+   },
+   "false_tracks_per_frame": 0.0211,
+   "duplicates_per_frame": 0.0078,
+   "duplicates_ungrouped_per_frame": 0.0078,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 191,
+    "p50": 0.1221,
+    "p95": 0.2703
+   },
+   "pos_err_lat_m": {
+    "n": 191,
+    "p50": 0.0249,
+    "p95": 0.085
+   },
+   "vel_err_mps": {
+    "n": 191,
+    "p50": 0.0851,
+    "p95": 0.2119
+   },
+   "point_clearance_optimism_m": {
+    "n": 191,
+    "p50": 1.5841,
+    "p95": 1.7771
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 0.9948,
+    "width_m": {
+     "n": 191,
+     "p50": 2.5,
+     "p95": 3.27
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 5,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 900,
+     "p50": 0.387,
+     "p95": 0.4325,
+     "p99": 0.51
+    },
+    "lidar": {
+     "n": 900,
+     "p50": 158.5742,
+     "p95": 167.378,
+     "p99": 172.604
+    },
+    "radar_model": {
+     "n": 900,
+     "p50": 0.0695,
+     "p95": 0.1195,
+     "p99": 0.1428
+    },
+    "reports": {
+     "n": 900,
+     "p50": 0.6515,
+     "p95": 1.075,
+     "p99": 1.3099
+    },
+    "total": {
+     "n": 900,
+     "p50": 160.976,
+     "p95": 171.551,
+     "p99": 177.7389
+    },
+    "tracking": {
+     "n": 900,
+     "p50": 1.6141,
+     "p95": 4.533,
+     "p99": 13.8303
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 900,
+     "p50": 22348.0,
+     "p95": 22699.15,
+     "p100": 22898
+    },
+    "decode_ms": {
+     "n": 900,
+     "p50": 0.387,
+     "p95": 0.4325,
+     "p99": 0.51
+    },
+    "receiver": {
+     "accepted": 900,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 21,
+     "rr_rejected": 4,
+     "born": 111,
+     "deleted": 106,
+     "slivers": 10,
+     "merged": 1
+    }
+   },
+   "python_peak_mb": 10.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 337,
+    "latency_s": {
+     "n": 561,
+     "p50": 0.3121,
+     "p99": 0.3635
+    }
+   },
+   "observation_age_s": {
+    "n": 900,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-radar_front_outage": {
+   "frames": 900,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 56
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 83
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 36
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 1.0,
+     "n": 191
+    }
+   },
+   "false_tracks_per_frame": 0.0211,
+   "duplicates_per_frame": 0.0144,
+   "duplicates_ungrouped_per_frame": 0.0144,
+   "id_switches": 1,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 191,
+    "p50": 0.1238,
+    "p95": 0.9548
+   },
+   "pos_err_lat_m": {
+    "n": 191,
+    "p50": 0.025,
+    "p95": 0.325
+   },
+   "vel_err_mps": {
+    "n": 183,
+    "p50": 0.0962,
+    "p95": 0.5852
+   },
+   "point_clearance_optimism_m": {
+    "n": 191,
+    "p50": 1.6051,
+    "p95": 2.3919
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 0.9948,
+    "width_m": {
+     "n": 191,
+     "p50": 2.67,
+     "p95": 27.44
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 9,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 900,
+     "p50": 0.3812,
+     "p95": 0.4228,
+     "p99": 0.4791
+    },
+    "lidar": {
+     "n": 900,
+     "p50": 156.4762,
+     "p95": 164.145,
+     "p99": 171.4072
+    },
+    "radar_model": {
+     "n": 900,
+     "p50": 0.0602,
+     "p95": 0.1164,
+     "p99": 0.1301
+    },
+    "reports": {
+     "n": 900,
+     "p50": 0.4822,
+     "p95": 1.0288,
+     "p99": 1.2765
+    },
+    "total": {
+     "n": 900,
+     "p50": 158.6096,
+     "p95": 168.5931,
+     "p99": 174.1657
+    },
+    "tracking": {
+     "n": 900,
+     "p50": 1.3889,
+     "p95": 4.588,
+     "p99": 13.5928
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 900,
+     "p50": 22326.5,
+     "p95": 22691.1,
+     "p100": 22898
+    },
+    "decode_ms": {
+     "n": 900,
+     "p50": 0.3812,
+     "p95": 0.4228,
+     "p99": 0.4791
+    },
+    "receiver": {
+     "accepted": 900,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 29,
+     "rr_rejected": 3,
+     "born": 104,
+     "deleted": 99,
+     "slivers": 10,
+     "merged": 1
+    }
+   },
+   "python_peak_mb": 10.2,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 328,
+    "latency_s": {
+     "n": 570,
+     "p50": 0.3065,
+     "p99": 0.3611
+    }
+   },
+   "observation_age_s": {
+    "n": 900,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_outage": {
+   "frames": 900,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 56
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 83
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 36
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 1.0,
+     "n": 191
+    }
+   },
+   "false_tracks_per_frame": 0.0211,
+   "duplicates_per_frame": 0.01,
+   "duplicates_ungrouped_per_frame": 0.01,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 191,
+    "p50": 0.0389,
+    "p95": 0.1763
+   },
+   "pos_err_lat_m": {
+    "n": 191,
+    "p50": 0.0249,
+    "p95": 0.085
+   },
+   "vel_err_mps": {
+    "n": 191,
+    "p50": 0.0885,
+    "p95": 0.2892
+   },
+   "point_clearance_optimism_m": {
+    "n": 191,
+    "p50": 1.4911,
+    "p95": 1.5894
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 191,
+     "p50": 2.99,
+     "p95": 3.6
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 11,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 900,
+     "p50": 0.3615,
+     "p95": 0.3815,
+     "p99": 0.412
+    },
+    "lidar": {
+     "n": 900,
+     "p50": 145.9655,
+     "p95": 155.7064,
+     "p99": 162.0106
+    },
+    "radar_model": {
+     "n": 900,
+     "p50": 0.063,
+     "p95": 0.1078,
+     "p99": 0.1216
+    },
+    "reports": {
+     "n": 900,
+     "p50": 0.5911,
+     "p95": 0.9728,
+     "p99": 1.1938
+    },
+    "total": {
+     "n": 900,
+     "p50": 147.9744,
+     "p95": 159.4946,
+     "p99": 166.0987
+    },
+    "tracking": {
+     "n": 900,
+     "p50": 1.332,
+     "p95": 3.9011,
+     "p99": 11.4467
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 900,
+     "p50": 22316.0,
+     "p95": 22691.1,
+     "p100": 22898
+    },
+    "decode_ms": {
+     "n": 900,
+     "p50": 0.3615,
+     "p95": 0.3815,
+     "p99": 0.412
+    },
+    "receiver": {
+     "accepted": 900,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 17,
+     "rr_rejected": 4,
+     "born": 110,
+     "deleted": 105,
+     "merged": 1,
+     "slivers": 1
+    }
+   },
+   "python_peak_mb": 10.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 259,
+    "latency_s": {
+     "n": 639,
+     "p50": 0.2878,
+     "p99": 0.3521
+    }
+   },
+   "observation_age_s": {
+    "n": 900,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_late": {
+   "frames": 900,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 56
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 83
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 36
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 1.0,
+     "n": 191
+    }
+   },
+   "false_tracks_per_frame": 0.0033,
+   "duplicates_per_frame": 0.0167,
+   "duplicates_ungrouped_per_frame": 0.0167,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 191,
+    "p50": 0.0418,
+    "p95": 0.1763
+   },
+   "pos_err_lat_m": {
+    "n": 191,
+    "p50": 0.015,
+    "p95": 0.075
+   },
+   "vel_err_mps": {
+    "n": 191,
+    "p50": 0.0866,
+    "p95": 0.2892
+   },
+   "point_clearance_optimism_m": {
+    "n": 191,
+    "p50": 1.4806,
+    "p95": 1.5904
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 191,
+     "p50": 3.54,
+     "p95": 3.61
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 6,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 15,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 900,
+     "p50": 0.3508,
+     "p95": 0.366,
+     "p99": 0.3852
+    },
+    "lidar": {
+     "n": 900,
+     "p50": 142.9479,
+     "p95": 149.1497,
+     "p99": 155.126
+    },
+    "radar_model": {
+     "n": 900,
+     "p50": 0.0616,
+     "p95": 0.1047,
+     "p99": 0.1189
+    },
+    "reports": {
+     "n": 900,
+     "p50": 0.5931,
+     "p95": 0.9733,
+     "p99": 1.1904
+    },
+    "total": {
+     "n": 900,
+     "p50": 144.6552,
+     "p95": 153.172,
+     "p99": 157.2084
+    },
+    "tracking": {
+     "n": 900,
+     "p50": 1.1932,
+     "p95": 3.5171,
+     "p99": 5.0471
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 900,
+     "p50": 22349.0,
+     "p95": 22692.05,
+     "p100": 22906
+    },
+    "decode_ms": {
+     "n": 900,
+     "p50": 0.3508,
+     "p95": 0.366,
+     "p99": 0.3852
+    },
+    "receiver": {
+     "accepted": 900,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 3136,
+     "fragments": 0,
+     "rr_rejected": 10,
+     "born": 263,
+     "deleted": 252,
+     "slivers": 135,
+     "merged": 6
+    }
+   },
+   "python_peak_mb": 10.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 272,
+    "latency_s": {
+     "n": 626,
+     "p50": 0.2941,
+     "p99": 0.3469
+    }
+   },
+   "observation_age_s": {
+    "n": 900,
+    "p50": 0.1,
+    "p99": 0.1
+   },
+   "effective_hz": 10.01
+  },
+  "E-corrupt_1pct": {
+   "frames": 893,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 56
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 81
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 36
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 1.0,
+     "n": 189
+    }
+   },
+   "false_tracks_per_frame": 0.0213,
+   "duplicates_per_frame": 0.0078,
+   "duplicates_ungrouped_per_frame": 0.0078,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 189,
+    "p50": 0.1307,
+    "p95": 0.2706
+   },
+   "pos_err_lat_m": {
+    "n": 189,
+    "p50": 0.0249,
+    "p95": 0.085
+   },
+   "vel_err_mps": {
+    "n": 189,
+    "p50": 0.0848,
+    "p95": 0.2124
+   },
+   "point_clearance_optimism_m": {
+    "n": 189,
+    "p50": 1.5861,
+    "p95": 1.7774
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 0.9947,
+    "width_m": {
+     "n": 189,
+     "p50": 2.47,
+     "p95": 3.272
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 5,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 893,
+     "p50": 0.3459,
+     "p95": 0.3605,
+     "p99": 0.3787
+    },
+    "lidar": {
+     "n": 893,
+     "p50": 141.8136,
+     "p95": 148.8832,
+     "p99": 154.0304
+    },
+    "radar_model": {
+     "n": 893,
+     "p50": 0.0593,
+     "p95": 0.1019,
+     "p99": 0.1172
+    },
+    "reports": {
+     "n": 893,
+     "p50": 0.5847,
+     "p95": 0.9635,
+     "p99": 1.1514
+    },
+    "total": {
+     "n": 893,
+     "p50": 143.5388,
+     "p95": 152.8644,
+     "p99": 157.922
+    },
+    "tracking": {
+     "n": 893,
+     "p50": 1.356,
+     "p95": 3.9915,
+     "p99": 12.5505
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 900,
+     "p50": 22348.0,
+     "p95": 22699.15,
+     "p100": 22898
+    },
+    "decode_ms": {
+     "n": 893,
+     "p50": 0.3459,
+     "p95": 0.3605,
+     "p99": 0.3787
+    },
+    "receiver": {
+     "accepted": 893,
+     "rejected": {
+      "corrupt": 7
+     },
+     "dropped_sections": {},
+     "sequence_gaps": 7
+    },
+    "rejected_frames": 7,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 21,
+     "rr_rejected": 4,
+     "born": 110,
+     "deleted": 105,
+     "slivers": 10,
+     "merged": 1
+    }
+   },
+   "python_peak_mb": 10.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 266,
+    "latency_s": {
+     "n": 625,
+     "p50": 0.2917,
+     "p99": 0.3463
+    }
+   },
+   "observation_age_s": {
+    "n": 893,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 9.93
+  }
+ },
+ "corr-mixed_potholes": {
+  "scenario": "mixed",
+  "run": {
+   "webots": "Webots-W8-AB.app/Contents/MacOS/webots (patched build, local)",
+   "returncode": 0,
+   "wall_s": 163.46,
+   "cpu_user_s": 135.4,
+   "cpu_sys_s": 92.77,
+   "max_rss_mb_children": 1477.2,
+   "sumo_ms": 100,
+   "radar_ms": 100,
+   "lidar_ms": 100,
+   "camera_s": 0.0,
+   "sync": "smooth",
+   "stock_models": false,
+   "case": "mixed_potholes",
+   "seed": 3,
+   "duration_s": 125.0
+  },
+  "ego_collision_t": null,
+  "events": [],
+  "rtf": 0.76,
+  "B": {
+   "frames": 625,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9893,
+     "n": 747
+    },
+    "ahead_other": {
+     "recall": 0.8058,
+     "n": 1169
+    },
+    "behind": {
+     "recall": 0.9949,
+     "n": 391
+    },
+    "blind_left": {
+     "recall": 0.9815,
+     "n": 54
+    },
+    "blind_right": {
+     "recall": 0.5283,
+     "n": 265
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8589,
+     "n": 829
+    },
+    "ego_lane_far": {
+     "recall": 0.7818,
+     "n": 307
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.8645,
+     "n": 849
+    },
+    "car": {
+     "recall": 0.8755,
+     "n": 779
+    },
+    "motorcycle": {
+     "recall": 0.8327,
+     "n": 1231
+    },
+    "truck": {
+     "recall": 0.8571,
+     "n": 903
+    }
+   },
+   "false_tracks_per_frame": 0.0384,
+   "duplicates_per_frame": 0.0288,
+   "duplicates_ungrouped_per_frame": 0.0288,
+   "id_switches": 22,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 2,
+   "confirm_latency_s": {
+    "n": 14,
+    "p50": 0.0,
+    "p95": 0.81
+   },
+   "pos_err_lon_m": {
+    "n": 3215,
+    "p50": 0.1855,
+    "p95": 0.7121
+   },
+   "pos_err_lat_m": {
+    "n": 3215,
+    "p50": 0.0395,
+    "p95": 0.3007
+   },
+   "vel_err_mps": {
+    "n": 3140,
+    "p50": 0.2211,
+    "p95": 0.847
+   },
+   "point_clearance_optimism_m": {
+    "n": 3215,
+    "p50": 1.7197,
+    "p95": 4.2533
+   },
+   "lane_accuracy": 0.9988,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 154,
+     "missed_high_frames": 34,
+     "false_high_frames": 43,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 1
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 625,
+     "p50": 0.1927,
+     "p95": 0.2649,
+     "p99": 0.3334
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 328,
+    "CAUTION": 129,
+    "HIGH": 57,
+    "CRITICAL": 111
+   }
+  },
+  "C": {
+   "frames": 1250,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 1494
+    },
+    "ahead_other": {
+     "recall": 0.8221,
+     "n": 2338
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 783
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 108
+    },
+    "blind_right": {
+     "recall": 0.8945,
+     "n": 531
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8665,
+     "n": 1656
+    },
+    "ego_lane_far": {
+     "recall": 0.8455,
+     "n": 615
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.8981,
+     "n": 1698
+    },
+    "car": {
+     "recall": 0.8827,
+     "n": 1560
+    },
+    "motorcycle": {
+     "recall": 0.9232,
+     "n": 2462
+    },
+    "truck": {
+     "recall": 0.8654,
+     "n": 1805
+    }
+   },
+   "false_tracks_per_frame": 0.0456,
+   "duplicates_per_frame": 0.116,
+   "duplicates_ungrouped_per_frame": 0.116,
+   "id_switches": 24,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.0,
+    "p95": 1.43
+   },
+   "pos_err_lon_m": {
+    "n": 6737,
+    "p50": 0.1101,
+    "p95": 0.6099
+   },
+   "pos_err_lat_m": {
+    "n": 6737,
+    "p50": 0.0233,
+    "p95": 0.1602
+   },
+   "vel_err_mps": {
+    "n": 6558,
+    "p50": 0.2094,
+    "p95": 0.5618
+   },
+   "point_clearance_optimism_m": {
+    "n": 6737,
+    "p50": 1.5904,
+    "p95": 4.1294
+   },
+   "lane_accuracy": 0.9997,
+   "lane_uncertain_share": 0.0042,
+   "clearance": {
+    "optimistic_share": 0.0845,
+    "coverage": 0.9053,
+    "width_m": {
+     "n": 6737,
+     "p50": 3.54,
+     "p95": 7.5
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 310,
+     "missed_high_frames": 41,
+     "false_high_frames": 30,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 228,
+     "missed_high_frames": 13,
+     "false_high_frames": 362,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 1250,
+     "p50": 0.345,
+     "p95": 0.402,
+     "p99": 0.4369
+    },
+    "lidar": {
+     "n": 1250,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "radar_model": {
+     "n": 1250,
+     "p50": 0.1703,
+     "p95": 0.2473,
+     "p99": 0.2765
+    },
+    "reports": {
+     "n": 1250,
+     "p50": 2.1078,
+     "p95": 3.0999,
+     "p99": 3.4535
+    },
+    "total": {
+     "n": 1250,
+     "p50": 14.7944,
+     "p95": 30.1984,
+     "p99": 35.5153
+    },
+    "tracking": {
+     "n": 1250,
+     "p50": 12.6723,
+     "p95": 27.1214,
+     "p99": 31.9342
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 1250,
+     "p50": 23859.0,
+     "p95": 25312.55,
+     "p100": 26246
+    },
+    "decode_ms": {
+     "n": 1250,
+     "p50": 0.345,
+     "p95": 0.402,
+     "p99": 0.4369
+    },
+    "receiver": {
+     "accepted": 1250,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 0,
+     "rr_rejected": 57,
+     "born": 301,
+     "deleted": 260,
+     "merged": 30
+    }
+   },
+   "python_peak_mb": 46.9,
+   "queue": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 1249,
+     "p50": 0.0148,
+     "p99": 0.0355
+    }
+   },
+   "observation_age_s": {
+    "n": 1250,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "D": {
+   "frames": 1250,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9906,
+     "n": 1494
+    },
+    "ahead_other": {
+     "recall": 0.5697,
+     "n": 2338
+    },
+    "behind": {
+     "recall": 0.7075,
+     "n": 783
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 108
+    },
+    "blind_right": {
+     "recall": 0.9906,
+     "n": 531
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9257,
+     "n": 1656
+    },
+    "ego_lane_far": {
+     "recall": 0.1317,
+     "n": 615
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.5489,
+     "n": 1698
+    },
+    "car": {
+     "recall": 0.7558,
+     "n": 1560
+    },
+    "motorcycle": {
+     "recall": 0.7015,
+     "n": 2462
+    },
+    "truck": {
+     "recall": 0.9839,
+     "n": 1805
+    }
+   },
+   "false_tracks_per_frame": 0.2064,
+   "duplicates_per_frame": 1.3328,
+   "duplicates_ungrouped_per_frame": 0.848,
+   "id_switches": 38,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 3,
+   "confirm_latency_s": {
+    "n": 13,
+    "p50": 6.5,
+    "p95": 22.8
+   },
+   "pos_err_lon_m": {
+    "n": 5614,
+    "p50": 0.7379,
+    "p95": 2.9889
+   },
+   "pos_err_lat_m": {
+    "n": 5614,
+    "p50": 0.1131,
+    "p95": 0.5596
+   },
+   "vel_err_mps": {
+    "n": 5539,
+    "p50": 0.2092,
+    "p95": 1.2011
+   },
+   "point_clearance_optimism_m": {
+    "n": 5614,
+    "p50": 2.329,
+    "p95": 6.8641
+   },
+   "lane_accuracy": 0.9995,
+   "lane_uncertain_share": 0.0021,
+   "clearance": {
+    "optimistic_share": 0.0867,
+    "coverage": 0.8434,
+    "width_m": {
+     "n": 5614,
+     "p50": 1.43,
+     "p95": 20.2135
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 310,
+     "missed_high_frames": 88,
+     "false_high_frames": 15,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 228,
+     "missed_high_frames": 33,
+     "false_high_frames": 173,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 1250,
+     "p50": 0.3769,
+     "p95": 0.4116,
+     "p99": 0.4752
+    },
+    "lidar": {
+     "n": 1250,
+     "p50": 148.9188,
+     "p95": 159.9685,
+     "p99": 233.7324
+    },
+    "radar_model": {
+     "n": 1250,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "reports": {
+     "n": 1250,
+     "p50": 1.3197,
+     "p95": 1.7227,
+     "p99": 1.9288
+    },
+    "total": {
+     "n": 1250,
+     "p50": 153.911,
+     "p95": 167.2161,
+     "p99": 238.6252
+    },
+    "tracking": {
+     "n": 1250,
+     "p50": 3.2757,
+     "p95": 7.9859,
+     "p99": 14.9165
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 1250,
+     "p50": 23859.0,
+     "p95": 25312.55,
+     "p100": 26246
+    },
+    "decode_ms": {
+     "n": 1250,
+     "p50": 0.3769,
+     "p95": 0.4116,
+     "p99": 0.4752
+    },
+    "receiver": {
+     "accepted": 1250,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 1526,
+     "rr_rejected": 0,
+     "born": 226,
+     "deleted": 169,
+     "slivers": 837,
+     "merged": 51
+    }
+   },
+   "python_peak_mb": 28.6,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 433,
+    "latency_s": {
+     "n": 815,
+     "p50": 0.3017,
+     "p99": 0.3615
+    }
+   },
+   "observation_age_s": {
+    "n": 1250,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E": {
+   "frames": 1250,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 1494
+    },
+    "ahead_other": {
+     "recall": 0.8678,
+     "n": 2338
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 783
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 108
+    },
+    "blind_right": {
+     "recall": 1.0,
+     "n": 531
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9909,
+     "n": 1656
+    },
+    "ego_lane_far": {
+     "recall": 0.8358,
+     "n": 615
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.927,
+     "n": 1698
+    },
+    "car": {
+     "recall": 0.9083,
+     "n": 1560
+    },
+    "motorcycle": {
+     "recall": 0.9366,
+     "n": 2462
+    },
+    "truck": {
+     "recall": 0.9989,
+     "n": 1805
+    }
+   },
+   "false_tracks_per_frame": 0.1816,
+   "duplicates_per_frame": 1.5096,
+   "duplicates_ungrouped_per_frame": 0.8464,
+   "id_switches": 23,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.0,
+    "p95": 1.43
+   },
+   "pos_err_lon_m": {
+    "n": 7100,
+    "p50": 0.1538,
+    "p95": 2.8955
+   },
+   "pos_err_lat_m": {
+    "n": 7100,
+    "p50": 0.0485,
+    "p95": 0.3117
+   },
+   "vel_err_mps": {
+    "n": 6982,
+    "p50": 0.2116,
+    "p95": 0.5966
+   },
+   "point_clearance_optimism_m": {
+    "n": 7100,
+    "p50": 1.8028,
+    "p95": 6.7601
+   },
+   "lane_accuracy": 0.9997,
+   "lane_uncertain_share": 0.0027,
+   "clearance": {
+    "optimistic_share": 0.0941,
+    "coverage": 0.8793,
+    "width_m": {
+     "n": 7100,
+     "p50": 2.14,
+     "p95": 9.94
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 310,
+     "missed_high_frames": 58,
+     "false_high_frames": 26,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 228,
+     "missed_high_frames": 15,
+     "false_high_frames": 163,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 1250,
+     "p50": 0.3797,
+     "p95": 0.4152,
+     "p99": 0.4565
+    },
+    "lidar": {
+     "n": 1250,
+     "p50": 150.3937,
+     "p95": 162.3377,
+     "p99": 183.022
+    },
+    "radar_model": {
+     "n": 1250,
+     "p50": 0.1967,
+     "p95": 0.2829,
+     "p99": 0.3174
+    },
+    "reports": {
+     "n": 1250,
+     "p50": 2.6781,
+     "p95": 3.7563,
+     "p99": 4.5063
+    },
+    "total": {
+     "n": 1250,
+     "p50": 178.2421,
+     "p95": 208.7466,
+     "p99": 225.1334
+    },
+    "tracking": {
+     "n": 1250,
+     "p50": 23.9477,
+     "p95": 46.4133,
+     "p99": 63.3355
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 1250,
+     "p50": 23859.0,
+     "p95": 25312.55,
+     "p100": 26246
+    },
+    "decode_ms": {
+     "n": 1250,
+     "p50": 0.3797,
+     "p95": 0.4152,
+     "p99": 0.4565
+    },
+    "receiver": {
+     "accepted": 1250,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 1694,
+     "rr_rejected": 46,
+     "born": 504,
+     "deleted": 411,
+     "slivers": 426,
+     "merged": 78
+    }
+   },
+   "python_peak_mb": 55.4,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 542,
+    "latency_s": {
+     "n": 706,
+     "p50": 0.3279,
+     "p99": 0.3933
+    }
+   },
+   "observation_age_s": {
+    "n": 1250,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-radar_front_outage": {
+   "frames": 1250,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 1494
+    },
+    "ahead_other": {
+     "recall": 0.8302,
+     "n": 2338
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 783
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 108
+    },
+    "blind_right": {
+     "recall": 1.0,
+     "n": 531
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9885,
+     "n": 1656
+    },
+    "ego_lane_far": {
+     "recall": 0.7984,
+     "n": 615
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9005,
+     "n": 1698
+    },
+    "car": {
+     "recall": 0.9071,
+     "n": 1560
+    },
+    "motorcycle": {
+     "recall": 0.9131,
+     "n": 2462
+    },
+    "truck": {
+     "recall": 0.9934,
+     "n": 1805
+    }
+   },
+   "false_tracks_per_frame": 0.204,
+   "duplicates_per_frame": 1.552,
+   "duplicates_ungrouped_per_frame": 0.8848,
+   "id_switches": 29,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.0,
+    "p95": 2.89
+   },
+   "pos_err_lon_m": {
+    "n": 6985,
+    "p50": 0.1568,
+    "p95": 2.9007
+   },
+   "pos_err_lat_m": {
+    "n": 6985,
+    "p50": 0.0485,
+    "p95": 0.3212
+   },
+   "vel_err_mps": {
+    "n": 6853,
+    "p50": 0.2111,
+    "p95": 0.6499
+   },
+   "point_clearance_optimism_m": {
+    "n": 6985,
+    "p50": 1.8906,
+    "p95": 6.7622
+   },
+   "lane_accuracy": 0.9997,
+   "lane_uncertain_share": 0.0027,
+   "clearance": {
+    "optimistic_share": 0.0936,
+    "coverage": 0.8762,
+    "width_m": {
+     "n": 6985,
+     "p50": 2.1,
+     "p95": 12.174
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 310,
+     "missed_high_frames": 58,
+     "false_high_frames": 26,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 228,
+     "missed_high_frames": 15,
+     "false_high_frames": 161,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 1250,
+     "p50": 0.3769,
+     "p95": 0.4115,
+     "p99": 0.4425
+    },
+    "lidar": {
+     "n": 1250,
+     "p50": 150.8065,
+     "p95": 161.4731,
+     "p99": 189.8211
+    },
+    "radar_model": {
+     "n": 1250,
+     "p50": 0.1846,
+     "p95": 0.2729,
+     "p99": 0.3119
+    },
+    "reports": {
+     "n": 1250,
+     "p50": 2.5602,
+     "p95": 3.8007,
+     "p99": 4.3934
+    },
+    "total": {
+     "n": 1250,
+     "p50": 178.4153,
+     "p95": 207.1317,
+     "p99": 227.0613
+    },
+    "tracking": {
+     "n": 1250,
+     "p50": 22.2237,
+     "p95": 47.5805,
+     "p99": 62.9189
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 1250,
+     "p50": 23854.0,
+     "p95": 25312.55,
+     "p100": 26246
+    },
+    "decode_ms": {
+     "n": 1250,
+     "p50": 0.3769,
+     "p95": 0.4115,
+     "p99": 0.4425
+    },
+    "receiver": {
+     "accepted": 1250,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 1633,
+     "rr_rejected": 46,
+     "born": 500,
+     "deleted": 405,
+     "slivers": 474,
+     "merged": 80
+    }
+   },
+   "python_peak_mb": 53.7,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 536,
+    "latency_s": {
+     "n": 712,
+     "p50": 0.3257,
+     "p99": 0.3944
+    }
+   },
+   "observation_age_s": {
+    "n": 1250,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_outage": {
+   "frames": 1250,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 1494
+    },
+    "ahead_other": {
+     "recall": 0.8751,
+     "n": 2338
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 783
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 108
+    },
+    "blind_right": {
+     "recall": 1.0,
+     "n": 531
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9909,
+     "n": 1656
+    },
+    "ego_lane_far": {
+     "recall": 0.8358,
+     "n": 615
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.927,
+     "n": 1698
+    },
+    "car": {
+     "recall": 0.9192,
+     "n": 1560
+    },
+    "motorcycle": {
+     "recall": 0.9366,
+     "n": 2462
+    },
+    "truck": {
+     "recall": 0.9989,
+     "n": 1805
+    }
+   },
+   "false_tracks_per_frame": 0.188,
+   "duplicates_per_frame": 1.42,
+   "duplicates_ungrouped_per_frame": 0.756,
+   "id_switches": 22,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.0,
+    "p95": 1.43
+   },
+   "pos_err_lon_m": {
+    "n": 7117,
+    "p50": 0.145,
+    "p95": 2.8897
+   },
+   "pos_err_lat_m": {
+    "n": 7117,
+    "p50": 0.0417,
+    "p95": 0.3104
+   },
+   "vel_err_mps": {
+    "n": 7004,
+    "p50": 0.2105,
+    "p95": 0.5896
+   },
+   "point_clearance_optimism_m": {
+    "n": 7117,
+    "p50": 1.7515,
+    "p95": 6.7565
+   },
+   "lane_accuracy": 0.9997,
+   "lane_uncertain_share": 0.0027,
+   "clearance": {
+    "optimistic_share": 0.0968,
+    "coverage": 0.8778,
+    "width_m": {
+     "n": 7117,
+     "p50": 2.31,
+     "p95": 10.22
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 310,
+     "missed_high_frames": 58,
+     "false_high_frames": 28,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 228,
+     "missed_high_frames": 15,
+     "false_high_frames": 168,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 1250,
+     "p50": 0.3674,
+     "p95": 0.3951,
+     "p99": 0.4094
+    },
+    "lidar": {
+     "n": 1250,
+     "p50": 149.8679,
+     "p95": 159.6003,
+     "p99": 185.5671
+    },
+    "radar_model": {
+     "n": 1250,
+     "p50": 0.1868,
+     "p95": 0.2668,
+     "p99": 0.2912
+    },
+    "reports": {
+     "n": 1250,
+     "p50": 2.5735,
+     "p95": 3.65,
+     "p99": 4.2323
+    },
+    "total": {
+     "n": 1250,
+     "p50": 176.478,
+     "p95": 203.095,
+     "p99": 227.5632
+    },
+    "tracking": {
+     "n": 1250,
+     "p50": 22.8613,
+     "p95": 45.0316,
+     "p99": 62.0763
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 1250,
+     "p50": 23810.0,
+     "p95": 25291.65,
+     "p100": 26246
+    },
+    "decode_ms": {
+     "n": 1250,
+     "p50": 0.3674,
+     "p95": 0.3951,
+     "p99": 0.4094
+    },
+    "receiver": {
+     "accepted": 1250,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 1627,
+     "rr_rejected": 48,
+     "born": 491,
+     "deleted": 403,
+     "slivers": 433,
+     "merged": 73
+    }
+   },
+   "python_peak_mb": 55.1,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 493,
+    "latency_s": {
+     "n": 755,
+     "p50": 0.3153,
+     "p99": 0.4007
+    }
+   },
+   "observation_age_s": {
+    "n": 1250,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_late": {
+   "frames": 1250,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 1494
+    },
+    "ahead_other": {
+     "recall": 0.8272,
+     "n": 2338
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 783
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 108
+    },
+    "blind_right": {
+     "recall": 0.9021,
+     "n": 531
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8774,
+     "n": 1656
+    },
+    "ego_lane_far": {
+     "recall": 0.8455,
+     "n": 615
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9005,
+     "n": 1698
+    },
+    "car": {
+     "recall": 0.8865,
+     "n": 1560
+    },
+    "motorcycle": {
+     "recall": 0.9249,
+     "n": 2462
+    },
+    "truck": {
+     "recall": 0.8765,
+     "n": 1805
+    }
+   },
+   "false_tracks_per_frame": 0.1008,
+   "duplicates_per_frame": 0.1888,
+   "duplicates_ungrouped_per_frame": 0.1888,
+   "id_switches": 26,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.0,
+    "p95": 1.43
+   },
+   "pos_err_lon_m": {
+    "n": 6771,
+    "p50": 0.1132,
+    "p95": 0.6041
+   },
+   "pos_err_lat_m": {
+    "n": 6771,
+    "p50": 0.0237,
+    "p95": 0.1814
+   },
+   "vel_err_mps": {
+    "n": 6581,
+    "p50": 0.2079,
+    "p95": 0.5635
+   },
+   "point_clearance_optimism_m": {
+    "n": 6771,
+    "p50": 1.6042,
+    "p95": 4.1308
+   },
+   "lane_accuracy": 0.9996,
+   "lane_uncertain_share": 0.0052,
+   "clearance": {
+    "optimistic_share": 0.086,
+    "coverage": 0.904,
+    "width_m": {
+     "n": 6771,
+     "p50": 3.42,
+     "p95": 7.69
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 310,
+     "missed_high_frames": 49,
+     "false_high_frames": 38,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 228,
+     "missed_high_frames": 8,
+     "false_high_frames": 380,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 1250,
+     "p50": 0.3675,
+     "p95": 0.3993,
+     "p99": 0.4233
+    },
+    "lidar": {
+     "n": 1250,
+     "p50": 148.1885,
+     "p95": 158.5974,
+     "p99": 181.8735
+    },
+    "radar_model": {
+     "n": 1250,
+     "p50": 0.1909,
+     "p95": 0.2609,
+     "p99": 0.2873
+    },
+    "reports": {
+     "n": 1250,
+     "p50": 2.2821,
+     "p95": 3.3962,
+     "p99": 3.7907
+    },
+    "total": {
+     "n": 1250,
+     "p50": 182.9062,
+     "p95": 219.2316,
+     "p99": 234.6805
+    },
+    "tracking": {
+     "n": 1250,
+     "p50": 31.259,
+     "p95": 64.4283,
+     "p99": 74.5243
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 1250,
+     "p50": 23864.5,
+     "p95": 25325.65,
+     "p100": 26246
+    },
+    "decode_ms": {
+     "n": 1250,
+     "p50": 0.3675,
+     "p95": 0.3993,
+     "p99": 0.4233
+    },
+    "receiver": {
+     "accepted": 1250,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 26261,
+     "fragments": 770,
+     "rr_rejected": 137,
+     "born": 7004,
+     "deleted": 4937,
+     "slivers": 2444,
+     "merged": 2049
+    }
+   },
+   "python_peak_mb": 49.2,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 557,
+    "latency_s": {
+     "n": 691,
+     "p50": 0.3303,
+     "p99": 0.4091
+    }
+   },
+   "observation_age_s": {
+    "n": 1250,
+    "p50": 0.1,
+    "p99": 0.1
+   },
+   "effective_hz": 10.01
+  },
+  "E-corrupt_1pct": {
+   "frames": 1237,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 1476
+    },
+    "ahead_other": {
+     "recall": 0.8687,
+     "n": 2315
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 774
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 108
+    },
+    "blind_right": {
+     "recall": 1.0,
+     "n": 526
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9908,
+     "n": 1636
+    },
+    "ego_lane_far": {
+     "recall": 0.8353,
+     "n": 607
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9267,
+     "n": 1677
+    },
+    "car": {
+     "recall": 0.9087,
+     "n": 1544
+    },
+    "motorcycle": {
+     "recall": 0.9372,
+     "n": 2437
+    },
+    "truck": {
+     "recall": 0.9989,
+     "n": 1784
+    }
+   },
+   "false_tracks_per_frame": 0.177,
+   "duplicates_per_frame": 1.4341,
+   "duplicates_ungrouped_per_frame": 0.8019,
+   "id_switches": 23,
+   "tracked_vehicles": 9,
+   "episodes": 16,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.0,
+    "p95": 1.43
+   },
+   "pos_err_lon_m": {
+    "n": 7023,
+    "p50": 0.1529,
+    "p95": 2.8933
+   },
+   "pos_err_lat_m": {
+    "n": 7023,
+    "p50": 0.0491,
+    "p95": 0.3117
+   },
+   "vel_err_mps": {
+    "n": 6907,
+    "p50": 0.2109,
+    "p95": 0.5966
+   },
+   "point_clearance_optimism_m": {
+    "n": 7023,
+    "p50": 1.8025,
+    "p95": 6.761
+   },
+   "lane_accuracy": 0.9997,
+   "lane_uncertain_share": 0.0027,
+   "clearance": {
+    "optimistic_share": 0.0938,
+    "coverage": 0.8793,
+    "width_m": {
+     "n": 7023,
+     "p50": 2.14,
+     "p95": 9.949
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 308,
+     "missed_high_frames": 57,
+     "false_high_frames": 26,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 226,
+     "missed_high_frames": 15,
+     "false_high_frames": 163,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 1237,
+     "p50": 0.3663,
+     "p95": 0.4081,
+     "p99": 0.4402
+    },
+    "lidar": {
+     "n": 1237,
+     "p50": 147.9104,
+     "p95": 158.124,
+     "p99": 180.23
+    },
+    "radar_model": {
+     "n": 1237,
+     "p50": 0.1869,
+     "p95": 0.2734,
+     "p99": 0.3166
+    },
+    "reports": {
+     "n": 1237,
+     "p50": 2.5736,
+     "p95": 3.6069,
+     "p99": 4.3002
+    },
+    "total": {
+     "n": 1237,
+     "p50": 174.7341,
+     "p95": 203.9445,
+     "p99": 222.1817
+    },
+    "tracking": {
+     "n": 1237,
+     "p50": 23.4979,
+     "p95": 45.8186,
+     "p99": 61.6756
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 1250,
+     "p50": 23859.0,
+     "p95": 25312.55,
+     "p100": 26246
+    },
+    "decode_ms": {
+     "n": 1237,
+     "p50": 0.3663,
+     "p95": 0.4081,
+     "p99": 0.4402
+    },
+    "receiver": {
+     "accepted": 1237,
+     "rejected": {
+      "corrupt": 13
+     },
+     "dropped_sections": {},
+     "sequence_gaps": 13
+    },
+    "rejected_frames": 13,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 1710,
+     "rr_rejected": 46,
+     "born": 499,
+     "deleted": 408,
+     "slivers": 427,
+     "merged": 77
+    }
+   },
+   "python_peak_mb": 54.5,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 522,
+    "latency_s": {
+     "n": 713,
+     "p50": 0.3238,
+     "p99": 0.3908
+    }
+   },
+   "observation_age_s": {
+    "n": 1237,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 9.9
+  }
+ },
+ "corr-moto_cutin": {
+  "scenario": "cutin_v2_gradual_100",
+  "run": {
+   "webots": "Webots-W8-AB.app/Contents/MacOS/webots (patched build, local)",
+   "returncode": 0,
+   "wall_s": 29.39,
+   "cpu_user_s": 24.08,
+   "cpu_sys_s": 23.57,
+   "max_rss_mb_children": 1387.5,
+   "sumo_ms": 100,
+   "radar_ms": 100,
+   "lidar_ms": 100,
+   "camera_s": 0.0,
+   "sync": "smooth",
+   "stock_models": false,
+   "case": "moto_cutin",
+   "seed": 11,
+   "duration_s": 43.1
+  },
+  "ego_collision_t": null,
+  "events": [
+   {
+    "record": "event",
+    "t": 15.1,
+    "kind": "cut_in",
+    "what": "spawn_requested",
+    "ego_lane": 2,
+    "ego_speed": 22.222,
+    "ego_travelled_m": 291.2,
+    "waited_s": 0.0
+   },
+   {
+    "record": "event",
+    "t": 15.2,
+    "kind": "cut_in",
+    "what": "inserted",
+    "vehicle": "rs_cutter",
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 20.3,
+    "kind": "cut_in",
+    "what": "act",
+    "vehicle": "rs_cutter",
+    "speed": 18.31,
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 28.3,
+    "kind": "cut_in",
+    "what": "released",
+    "vehicle": "rs_cutter",
+    "lane": 2
+   }
+  ],
+  "rtf": 1.47,
+  "B": {
+   "frames": 215,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 19
+    },
+    "ahead_other": {
+     "recall": 0.9707,
+     "n": 205
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 105
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 25
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.986,
+     "n": 214
+    },
+    "motorcycle": {
+     "recall": 0.9786,
+     "n": 140
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.6,
+    "p95": 0.6
+   },
+   "pos_err_lon_m": {
+    "n": 348,
+    "p50": 0.1661,
+    "p95": 0.5102
+   },
+   "pos_err_lat_m": {
+    "n": 348,
+    "p50": 0.025,
+    "p95": 0.105
+   },
+   "vel_err_mps": {
+    "n": 342,
+    "p50": 0.2275,
+    "p95": 0.8548
+   },
+   "point_clearance_optimism_m": {
+    "n": 348,
+    "p50": 4.7366,
+    "p95": 5.2813
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 215,
+     "p50": 0.0649,
+     "p95": 0.1168,
+     "p99": 0.1581
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 211,
+    "CAUTION": 4,
+    "HIGH": 0,
+    "CRITICAL": 0
+   }
+  },
+  "C": {
+   "frames": 431,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 39
+    },
+    "ahead_other": {
+     "recall": 0.9828,
+     "n": 408
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 211
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 50
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.993,
+     "n": 428
+    },
+    "motorcycle": {
+     "recall": 0.9857,
+     "n": 280
+    }
+   },
+   "false_tracks_per_frame": 0.0139,
+   "duplicates_per_frame": 0.0116,
+   "duplicates_ungrouped_per_frame": 0.0116,
+   "id_switches": 1,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.35,
+    "p95": 0.395
+   },
+   "pos_err_lon_m": {
+    "n": 701,
+    "p50": 0.0385,
+    "p95": 0.1375
+   },
+   "pos_err_lat_m": {
+    "n": 701,
+    "p50": 0.015,
+    "p95": 0.0914
+   },
+   "vel_err_mps": {
+    "n": 681,
+    "p50": 0.1045,
+    "p95": 0.4831
+   },
+   "point_clearance_optimism_m": {
+    "n": 701,
+    "p50": 4.912,
+    "p95": 5.0636
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0029,
+   "clearance": {
+    "optimistic_share": 0.5977,
+    "coverage": 0.3752,
+    "width_m": {
+     "n": 701,
+     "p50": 3.54,
+     "p95": 3.59
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 6,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": 4.1
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 431,
+     "p50": 0.3699,
+     "p95": 0.4481,
+     "p99": 0.5022
+    },
+    "lidar": {
+     "n": 431,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "radar_model": {
+     "n": 431,
+     "p50": 0.0695,
+     "p95": 0.1248,
+     "p99": 0.1541
+    },
+    "reports": {
+     "n": 431,
+     "p50": 0.5865,
+     "p95": 1.3215,
+     "p99": 1.5371
+    },
+    "total": {
+     "n": 431,
+     "p50": 1.8968,
+     "p95": 4.7502,
+     "p99": 6.25
+    },
+    "tracking": {
+     "n": 431,
+     "p50": 1.2327,
+     "p95": 3.3817,
+     "p99": 4.9382
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 431,
+     "p50": 22477.0,
+     "p95": 22898.5,
+     "p100": 24130
+    },
+    "decode_ms": {
+     "n": 431,
+     "p50": 0.3699,
+     "p95": 0.4481,
+     "p99": 0.5022
+    },
+    "receiver": {
+     "accepted": 431,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 0,
+     "rr_rejected": 5,
+     "born": 44,
+     "deleted": 40
+    }
+   },
+   "python_peak_mb": 6.4,
+   "queue": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 430,
+     "p50": 0.0019,
+     "p99": 0.0063
+    }
+   },
+   "observation_age_s": {
+    "n": 431,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "D": {
+   "frames": 431,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9487,
+     "n": 39
+    },
+    "ahead_other": {
+     "recall": 0.8162,
+     "n": 408
+    },
+    "ego_lane_ahead": {
+     "recall": 0.891,
+     "n": 211
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 50
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.9813,
+     "n": 428
+    },
+    "motorcycle": {
+     "recall": 0.6714,
+     "n": 280
+    }
+   },
+   "false_tracks_per_frame": 0.0046,
+   "duplicates_per_frame": 0.1462,
+   "duplicates_ungrouped_per_frame": 0.1462,
+   "id_switches": 0,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 3.9,
+    "p95": 6.69
+   },
+   "pos_err_lon_m": {
+    "n": 608,
+    "p50": 2.6832,
+    "p95": 2.7765
+   },
+   "pos_err_lat_m": {
+    "n": 608,
+    "p50": 0.055,
+    "p95": 0.322
+   },
+   "vel_err_mps": {
+    "n": 604,
+    "p50": 0.1557,
+    "p95": 1.3368
+   },
+   "point_clearance_optimism_m": {
+    "n": 608,
+    "p50": 2.2477,
+    "p95": 3.0807
+   },
+   "lane_accuracy": 0.9901,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0016,
+    "coverage": 0.9605,
+    "width_m": {
+     "n": 608,
+     "p50": 5.65,
+     "p95": 39.573
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 431,
+     "p50": 0.4142,
+     "p95": 0.4584,
+     "p99": 0.5288
+    },
+    "lidar": {
+     "n": 431,
+     "p50": 168.3797,
+     "p95": 178.6273,
+     "p99": 182.7264
+    },
+    "radar_model": {
+     "n": 431,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "reports": {
+     "n": 431,
+     "p50": 0.3201,
+     "p95": 0.7051,
+     "p99": 0.7677
+    },
+    "total": {
+     "n": 431,
+     "p50": 170.0382,
+     "p95": 180.2793,
+     "p99": 184.443
+    },
+    "tracking": {
+     "n": 431,
+     "p50": 0.6338,
+     "p95": 3.1859,
+     "p99": 4.5968
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 431,
+     "p50": 22477.0,
+     "p95": 22898.5,
+     "p100": 24130
+    },
+    "decode_ms": {
+     "n": 431,
+     "p50": 0.4142,
+     "p95": 0.4584,
+     "p99": 0.5288
+    },
+    "receiver": {
+     "accepted": 431,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 210,
+     "rr_rejected": 0,
+     "born": 23,
+     "deleted": 15,
+     "slivers": 132,
+     "merged": 3
+    }
+   },
+   "python_peak_mb": 6.5,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 172,
+    "latency_s": {
+     "n": 257,
+     "p50": 0.32,
+     "p99": 0.3741
+    }
+   },
+   "observation_age_s": {
+    "n": 431,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E": {
+   "frames": 431,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 39
+    },
+    "ahead_other": {
+     "recall": 0.9828,
+     "n": 408
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 211
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 50
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.993,
+     "n": 428
+    },
+    "motorcycle": {
+     "recall": 0.9857,
+     "n": 280
+    }
+   },
+   "false_tracks_per_frame": 0.0487,
+   "duplicates_per_frame": 0.6659,
+   "duplicates_ungrouped_per_frame": 0.1995,
+   "id_switches": 1,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.35,
+    "p95": 0.395
+   },
+   "pos_err_lon_m": {
+    "n": 701,
+    "p50": 0.0935,
+    "p95": 0.3215
+   },
+   "pos_err_lat_m": {
+    "n": 701,
+    "p50": 0.025,
+    "p95": 0.265
+   },
+   "vel_err_mps": {
+    "n": 681,
+    "p50": 0.1086,
+    "p95": 0.463
+   },
+   "point_clearance_optimism_m": {
+    "n": 701,
+    "p50": 4.7315,
+    "p95": 5.0436
+   },
+   "lane_accuracy": 0.9971,
+   "lane_uncertain_share": 0.0029,
+   "clearance": {
+    "optimistic_share": 0.4023,
+    "coverage": 0.5578,
+    "width_m": {
+     "n": 701,
+     "p50": 3.54,
+     "p95": 40.65
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 2,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 431,
+     "p50": 0.3996,
+     "p95": 0.4394,
+     "p99": 0.5168
+    },
+    "lidar": {
+     "n": 431,
+     "p50": 163.0868,
+     "p95": 171.6481,
+     "p99": 175.7379
+    },
+    "radar_model": {
+     "n": 431,
+     "p50": 0.0817,
+     "p95": 0.1415,
+     "p99": 0.166
+    },
+    "reports": {
+     "n": 431,
+     "p50": 0.8716,
+     "p95": 1.7121,
+     "p99": 2.0152
+    },
+    "total": {
+     "n": 431,
+     "p50": 167.0166,
+     "p95": 179.5123,
+     "p99": 185.8162
+    },
+    "tracking": {
+     "n": 431,
+     "p50": 2.6989,
+     "p95": 7.3463,
+     "p99": 13.4335
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 431,
+     "p50": 22477.0,
+     "p95": 22898.5,
+     "p100": 24130
+    },
+    "decode_ms": {
+     "n": 431,
+     "p50": 0.3996,
+     "p95": 0.4394,
+     "p99": 0.5168
+    },
+    "receiver": {
+     "accepted": 431,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 221,
+     "rr_rejected": 8,
+     "born": 69,
+     "deleted": 54,
+     "slivers": 40,
+     "merged": 5
+    }
+   },
+   "python_peak_mb": 9.0,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 169,
+    "latency_s": {
+     "n": 260,
+     "p50": 0.3189,
+     "p99": 0.3726
+    }
+   },
+   "observation_age_s": {
+    "n": 431,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E-radar_front_outage": {
+   "frames": 431,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9487,
+     "n": 39
+    },
+    "ahead_other": {
+     "recall": 0.8284,
+     "n": 408
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9953,
+     "n": 211
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 50
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.993,
+     "n": 428
+    },
+    "motorcycle": {
+     "recall": 0.75,
+     "n": 280
+    }
+   },
+   "false_tracks_per_frame": 0.0418,
+   "duplicates_per_frame": 0.2691,
+   "duplicates_ungrouped_per_frame": 0.2506,
+   "id_switches": 2,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 3.65,
+    "p95": 6.665
+   },
+   "pos_err_lon_m": {
+    "n": 635,
+    "p50": 0.173,
+    "p95": 2.7034
+   },
+   "pos_err_lat_m": {
+    "n": 635,
+    "p50": 0.0351,
+    "p95": 0.275
+   },
+   "vel_err_mps": {
+    "n": 621,
+    "p50": 0.1097,
+    "p95": 0.4978
+   },
+   "point_clearance_optimism_m": {
+    "n": 635,
+    "p50": 4.6064,
+    "p95": 4.8648
+   },
+   "lane_accuracy": 0.9968,
+   "lane_uncertain_share": 0.0016,
+   "clearance": {
+    "optimistic_share": 0.1276,
+    "coverage": 0.8299,
+    "width_m": {
+     "n": 635,
+     "p50": 5.55,
+     "p95": 41.827
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 2,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 431,
+     "p50": 0.3871,
+     "p95": 0.4435,
+     "p99": 0.6236
+    },
+    "lidar": {
+     "n": 431,
+     "p50": 160.3386,
+     "p95": 169.6792,
+     "p99": 172.7973
+    },
+    "radar_model": {
+     "n": 431,
+     "p50": 0.0714,
+     "p95": 0.1351,
+     "p99": 0.1545
+    },
+    "reports": {
+     "n": 431,
+     "p50": 0.6853,
+     "p95": 1.5477,
+     "p99": 1.8712
+    },
+    "total": {
+     "n": 431,
+     "p50": 163.5025,
+     "p95": 176.456,
+     "p99": 182.289
+    },
+    "tracking": {
+     "n": 431,
+     "p50": 2.1667,
+     "p95": 7.4635,
+     "p99": 13.2353
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 431,
+     "p50": 22442.0,
+     "p95": 22898.5,
+     "p100": 24130
+    },
+    "decode_ms": {
+     "n": 431,
+     "p50": 0.3871,
+     "p95": 0.4435,
+     "p99": 0.6236
+    },
+    "receiver": {
+     "accepted": 431,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 181,
+     "rr_rejected": 8,
+     "born": 73,
+     "deleted": 58,
+     "slivers": 86,
+     "merged": 5
+    }
+   },
+   "python_peak_mb": 8.0,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 164,
+    "latency_s": {
+     "n": 265,
+     "p50": 0.3124,
+     "p99": 0.3655
+    }
+   },
+   "observation_age_s": {
+    "n": 431,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E-lidar_outage": {
+   "frames": 431,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 39
+    },
+    "ahead_other": {
+     "recall": 0.9828,
+     "n": 408
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 211
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 50
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.993,
+     "n": 428
+    },
+    "motorcycle": {
+     "recall": 0.9857,
+     "n": 280
+    }
+   },
+   "false_tracks_per_frame": 0.0418,
+   "duplicates_per_frame": 0.181,
+   "duplicates_ungrouped_per_frame": 0.1485,
+   "id_switches": 1,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.35,
+    "p95": 0.395
+   },
+   "pos_err_lon_m": {
+    "n": 701,
+    "p50": 0.0949,
+    "p95": 0.3236
+   },
+   "pos_err_lat_m": {
+    "n": 701,
+    "p50": 0.0251,
+    "p95": 0.265
+   },
+   "vel_err_mps": {
+    "n": 681,
+    "p50": 0.1073,
+    "p95": 0.4911
+   },
+   "point_clearance_optimism_m": {
+    "n": 701,
+    "p50": 4.7311,
+    "p95": 5.0242
+   },
+   "lane_accuracy": 0.9971,
+   "lane_uncertain_share": 0.0029,
+   "clearance": {
+    "optimistic_share": 0.2511,
+    "coverage": 0.7118,
+    "width_m": {
+     "n": 701,
+     "p50": 3.55,
+     "p95": 40.65
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 6,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": 4.1
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 431,
+     "p50": 0.3856,
+     "p95": 0.4453,
+     "p99": 0.5086
+    },
+    "lidar": {
+     "n": 431,
+     "p50": 157.2134,
+     "p95": 168.6069,
+     "p99": 174.9246
+    },
+    "radar_model": {
+     "n": 431,
+     "p50": 0.0768,
+     "p95": 0.1386,
+     "p99": 0.1669
+    },
+    "reports": {
+     "n": 431,
+     "p50": 0.6827,
+     "p95": 1.5234,
+     "p99": 1.7452
+    },
+    "total": {
+     "n": 431,
+     "p50": 161.0199,
+     "p95": 177.4753,
+     "p99": 184.3229
+    },
+    "tracking": {
+     "n": 431,
+     "p50": 2.1541,
+     "p95": 7.4599,
+     "p99": 13.1841
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 431,
+     "p50": 22399.0,
+     "p95": 22851.5,
+     "p100": 24130
+    },
+    "decode_ms": {
+     "n": 431,
+     "p50": 0.3856,
+     "p95": 0.4453,
+     "p99": 0.5086
+    },
+    "receiver": {
+     "accepted": 431,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 182,
+     "rr_rejected": 8,
+     "born": 71,
+     "deleted": 55,
+     "merged": 6,
+     "slivers": 41
+    }
+   },
+   "python_peak_mb": 8.3,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 126,
+    "latency_s": {
+     "n": 303,
+     "p50": 0.2887,
+     "p99": 0.3642
+    }
+   },
+   "observation_age_s": {
+    "n": 431,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E-lidar_late": {
+   "frames": 431,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 39
+    },
+    "ahead_other": {
+     "recall": 0.9828,
+     "n": 408
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 211
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 50
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.993,
+     "n": 428
+    },
+    "motorcycle": {
+     "recall": 0.9857,
+     "n": 280
+    }
+   },
+   "false_tracks_per_frame": 0.0139,
+   "duplicates_per_frame": 0.0162,
+   "duplicates_ungrouped_per_frame": 0.0162,
+   "id_switches": 1,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.35,
+    "p95": 0.395
+   },
+   "pos_err_lon_m": {
+    "n": 701,
+    "p50": 0.0385,
+    "p95": 0.1355
+   },
+   "pos_err_lat_m": {
+    "n": 701,
+    "p50": 0.015,
+    "p95": 0.0891
+   },
+   "vel_err_mps": {
+    "n": 683,
+    "p50": 0.1047,
+    "p95": 0.4826
+   },
+   "point_clearance_optimism_m": {
+    "n": 701,
+    "p50": 4.9102,
+    "p95": 5.0636
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0029,
+   "clearance": {
+    "optimistic_share": 0.5977,
+    "coverage": 0.3752,
+    "width_m": {
+     "n": 701,
+     "p50": 3.54,
+     "p95": 3.59
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 6,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": 4.1
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 431,
+     "p50": 0.3902,
+     "p95": 0.4354,
+     "p99": 0.4787
+    },
+    "lidar": {
+     "n": 431,
+     "p50": 159.4505,
+     "p95": 168.7273,
+     "p99": 172.2058
+    },
+    "radar_model": {
+     "n": 431,
+     "p50": 0.0815,
+     "p95": 0.1418,
+     "p99": 0.1643
+    },
+    "reports": {
+     "n": 431,
+     "p50": 0.6799,
+     "p95": 1.4579,
+     "p99": 1.6991
+    },
+    "total": {
+     "n": 431,
+     "p50": 162.8923,
+     "p95": 175.0724,
+     "p99": 178.5997
+    },
+    "tracking": {
+     "n": 431,
+     "p50": 2.5013,
+     "p95": 6.0241,
+     "p99": 7.0885
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 431,
+     "p50": 22476.0,
+     "p95": 22896.5,
+     "p100": 24130
+    },
+    "decode_ms": {
+     "n": 431,
+     "p50": 0.3902,
+     "p95": 0.4354,
+     "p99": 0.4787
+    },
+    "receiver": {
+     "accepted": 431,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 2852,
+     "fragments": 0,
+     "rr_rejected": 5,
+     "born": 670,
+     "deleted": 581,
+     "slivers": 438,
+     "merged": 82
+    }
+   },
+   "python_peak_mb": 8.1,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 163,
+    "latency_s": {
+     "n": 266,
+     "p50": 0.316,
+     "p99": 0.3692
+    }
+   },
+   "observation_age_s": {
+    "n": 431,
+    "p50": 0.1,
+    "p99": 0.1
+   },
+   "effective_hz": 10.02
+  },
+  "E-corrupt_1pct": {
+   "frames": 427,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 37
+    },
+    "ahead_other": {
+     "recall": 0.9828,
+     "n": 406
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 209
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 49
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.9929,
+     "n": 424
+    },
+    "motorcycle": {
+     "recall": 0.9856,
+     "n": 277
+    }
+   },
+   "false_tracks_per_frame": 0.0468,
+   "duplicates_per_frame": 0.6651,
+   "duplicates_ungrouped_per_frame": 0.1967,
+   "id_switches": 1,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.35,
+    "p95": 0.395
+   },
+   "pos_err_lon_m": {
+    "n": 694,
+    "p50": 0.0936,
+    "p95": 0.3176
+   },
+   "pos_err_lat_m": {
+    "n": 694,
+    "p50": 0.025,
+    "p95": 0.2572
+   },
+   "vel_err_mps": {
+    "n": 674,
+    "p50": 0.1087,
+    "p95": 0.4605
+   },
+   "point_clearance_optimism_m": {
+    "n": 694,
+    "p50": 4.7439,
+    "p95": 5.0439
+   },
+   "lane_accuracy": 0.9971,
+   "lane_uncertain_share": 0.0029,
+   "clearance": {
+    "optimistic_share": 0.402,
+    "coverage": 0.5591,
+    "width_m": {
+     "n": 694,
+     "p50": 3.54,
+     "p95": 40.7305
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 2,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 427,
+     "p50": 0.3892,
+     "p95": 0.4386,
+     "p99": 0.4976
+    },
+    "lidar": {
+     "n": 427,
+     "p50": 159.1019,
+     "p95": 168.7615,
+     "p99": 171.8856
+    },
+    "radar_model": {
+     "n": 427,
+     "p50": 0.0789,
+     "p95": 0.1407,
+     "p99": 0.1615
+    },
+    "reports": {
+     "n": 427,
+     "p50": 0.851,
+     "p95": 1.6943,
+     "p99": 1.9574
+    },
+    "total": {
+     "n": 427,
+     "p50": 162.4908,
+     "p95": 176.8303,
+     "p99": 181.1117
+    },
+    "tracking": {
+     "n": 427,
+     "p50": 2.6398,
+     "p95": 7.1712,
+     "p99": 13.4659
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 431,
+     "p50": 22477.0,
+     "p95": 22898.5,
+     "p100": 24130
+    },
+    "decode_ms": {
+     "n": 427,
+     "p50": 0.3892,
+     "p95": 0.4386,
+     "p99": 0.4976
+    },
+    "receiver": {
+     "accepted": 427,
+     "rejected": {
+      "corrupt": 4
+     },
+     "dropped_sections": {},
+     "sequence_gaps": 4
+    },
+    "rejected_frames": 4,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 202,
+     "rr_rejected": 8,
+     "born": 70,
+     "deleted": 54,
+     "slivers": 39,
+     "merged": 6
+    }
+   },
+   "python_peak_mb": 8.9,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 162,
+    "latency_s": {
+     "n": 263,
+     "p50": 0.3095,
+     "p99": 0.3716
+    }
+   },
+   "observation_age_s": {
+    "n": 427,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 9.93
+  }
+ },
+ "corr-rickshaw_cutin": {
+  "scenario": "cutin_v2_assertive_100",
+  "run": {
+   "webots": "Webots-W8-AB.app/Contents/MacOS/webots (patched build, local)",
+   "returncode": 0,
+   "wall_s": 30.63,
+   "cpu_user_s": 24.57,
+   "cpu_sys_s": 24.36,
+   "max_rss_mb_children": 1357.9,
+   "sumo_ms": 100,
+   "radar_ms": 100,
+   "lidar_ms": 100,
+   "camera_s": 0.0,
+   "sync": "smooth",
+   "stock_models": false,
+   "case": "rickshaw_cutin",
+   "seed": 11,
+   "duration_s": 56.8
+  },
+  "ego_collision_t": null,
+  "events": [
+   {
+    "record": "event",
+    "t": 30.5,
+    "kind": "cut_in",
+    "what": "spawn_requested",
+    "ego_lane": 2,
+    "ego_speed": 15.277,
+    "ego_travelled_m": 444.9,
+    "waited_s": 0.0
+   },
+   {
+    "record": "event",
+    "t": 30.6,
+    "kind": "cut_in",
+    "what": "inserted",
+    "vehicle": "rs_cutter",
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 33.4,
+    "kind": "cut_in",
+    "what": "act",
+    "vehicle": "rs_cutter",
+    "speed": 10.11,
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 41.4,
+    "kind": "cut_in",
+    "what": "released",
+    "vehicle": "rs_cutter",
+    "lane": 2
+   }
+  ],
+  "rtf": 1.85,
+  "B": {
+   "frames": 284,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9512,
+     "n": 41
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 102
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 58
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 13
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 20
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9915,
+     "n": 234
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 2,
+   "episodes": 3,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 3,
+    "p50": 0.0,
+    "p95": 0.36
+   },
+   "pos_err_lon_m": {
+    "n": 232,
+    "p50": 0.1558,
+    "p95": 0.4433
+   },
+   "pos_err_lat_m": {
+    "n": 232,
+    "p50": 0.0599,
+    "p95": 0.1866
+   },
+   "vel_err_mps": {
+    "n": 229,
+    "p50": 0.2247,
+    "p95": 1.5926
+   },
+   "point_clearance_optimism_m": {
+    "n": 232,
+    "p50": 1.5165,
+    "p95": 1.9687
+   },
+   "lane_accuracy": 0.9957,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 10,
+     "missed_high_frames": 3,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.6
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 284,
+     "p50": 0.0445,
+     "p95": 0.0809,
+     "p99": 0.1401
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 277,
+    "CAUTION": 0,
+    "HIGH": 1,
+    "CRITICAL": 6
+   }
+  },
+  "C": {
+   "frames": 568,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9639,
+     "n": 83
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 205
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 115
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 26
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 39
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9936,
+     "n": 468
+    }
+   },
+   "false_tracks_per_frame": 0.0229,
+   "duplicates_per_frame": 0.0211,
+   "duplicates_ungrouped_per_frame": 0.0211,
+   "id_switches": 3,
+   "tracked_vehicles": 2,
+   "episodes": 3,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 3,
+    "p50": 0.0,
+    "p95": 0.18
+   },
+   "pos_err_lon_m": {
+    "n": 465,
+    "p50": 0.0382,
+    "p95": 0.1375
+   },
+   "pos_err_lat_m": {
+    "n": 465,
+    "p50": 0.025,
+    "p95": 0.1539
+   },
+   "vel_err_mps": {
+    "n": 438,
+    "p50": 0.0936,
+    "p95": 0.624
+   },
+   "point_clearance_optimism_m": {
+    "n": 465,
+    "p50": 1.4686,
+    "p95": 1.7133
+   },
+   "lane_accuracy": 0.9978,
+   "lane_uncertain_share": 0.0022,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 465,
+     "p50": 2.99,
+     "p95": 3.61
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 20,
+     "missed_high_frames": 4,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.5
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 15,
+     "missed_high_frames": 3,
+     "false_high_frames": 20,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.5
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 568,
+     "p50": 0.3653,
+     "p95": 0.4391,
+     "p99": 0.5326
+    },
+    "lidar": {
+     "n": 568,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "radar_model": {
+     "n": 568,
+     "p50": 0.0639,
+     "p95": 0.1127,
+     "p99": 0.1424
+    },
+    "reports": {
+     "n": 568,
+     "p50": 0.4664,
+     "p95": 0.8495,
+     "p99": 1.1574
+    },
+    "total": {
+     "n": 568,
+     "p50": 1.6375,
+     "p95": 3.3733,
+     "p99": 3.936
+    },
+    "tracking": {
+     "n": 568,
+     "p50": 1.1043,
+     "p95": 2.4814,
+     "p99": 2.9086
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 568,
+     "p50": 22446.5,
+     "p95": 23616.85,
+     "p100": 25676
+    },
+    "decode_ms": {
+     "n": 568,
+     "p50": 0.3653,
+     "p95": 0.4391,
+     "p99": 0.5326
+    },
+    "receiver": {
+     "accepted": 568,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 0,
+     "rr_rejected": 8,
+     "born": 33,
+     "deleted": 29
+    }
+   },
+   "python_peak_mb": 6.2,
+   "queue": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 567,
+     "p50": 0.0016,
+     "p99": 0.0039
+    }
+   },
+   "observation_age_s": {
+    "n": 568,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "D": {
+   "frames": 568,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9036,
+     "n": 83
+    },
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 205
+    },
+    "behind": {
+     "recall": 0.9826,
+     "n": 115
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 26
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9744,
+     "n": 39
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.5385,
+     "n": 468
+    }
+   },
+   "false_tracks_per_frame": 0.0405,
+   "duplicates_per_frame": 0.0352,
+   "duplicates_ungrouped_per_frame": 0.0317,
+   "id_switches": 4,
+   "tracked_vehicles": 1,
+   "episodes": 3,
+   "never_tracked_episodes": 2,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.8,
+    "p95": 0.8
+   },
+   "pos_err_lon_m": {
+    "n": 252,
+    "p50": 0.8218,
+    "p95": 1.314
+   },
+   "pos_err_lat_m": {
+    "n": 252,
+    "p50": 0.3062,
+    "p95": 1.3639
+   },
+   "vel_err_mps": {
+    "n": 242,
+    "p50": 0.1466,
+    "p95": 2.3035
+   },
+   "point_clearance_optimism_m": {
+    "n": 252,
+    "p50": 2.4008,
+    "p95": 2.894
+   },
+   "lane_accuracy": 0.9562,
+   "lane_uncertain_share": 0.004,
+   "clearance": {
+    "optimistic_share": 0.0437,
+    "coverage": 0.9524,
+    "width_m": {
+     "n": 252,
+     "p50": 1.545,
+     "p95": 8.742
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 20,
+     "missed_high_frames": 6,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 15,
+     "missed_high_frames": 2,
+     "false_high_frames": 14,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 568,
+     "p50": 0.4065,
+     "p95": 0.4541,
+     "p99": 0.6474
+    },
+    "lidar": {
+     "n": 568,
+     "p50": 158.0474,
+     "p95": 174.3988,
+     "p99": 182.7029
+    },
+    "radar_model": {
+     "n": 568,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "reports": {
+     "n": 568,
+     "p50": 0.004,
+     "p95": 0.491,
+     "p99": 0.7056
+    },
+    "total": {
+     "n": 568,
+     "p50": 158.3963,
+     "p95": 174.7058,
+     "p99": 183.5296
+    },
+    "tracking": {
+     "n": 568,
+     "p50": 0.0499,
+     "p95": 2.8101,
+     "p99": 4.4004
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 568,
+     "p50": 22446.5,
+     "p95": 23616.85,
+     "p100": 25676
+    },
+    "decode_ms": {
+     "n": 568,
+     "p50": 0.4065,
+     "p95": 0.4541,
+     "p99": 0.6474
+    },
+    "receiver": {
+     "accepted": 568,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 90,
+     "rr_rejected": 0,
+     "born": 16,
+     "deleted": 13,
+     "slivers": 8,
+     "merged": 2
+    }
+   },
+   "python_peak_mb": 5.5,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 206,
+    "latency_s": {
+     "n": 360,
+     "p50": 0.3068,
+     "p99": 0.3665
+    }
+   },
+   "observation_age_s": {
+    "n": 568,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E": {
+   "frames": 568,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.988,
+     "n": 83
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 205
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 115
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 26
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 39
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9979,
+     "n": 468
+    }
+   },
+   "false_tracks_per_frame": 0.0211,
+   "duplicates_per_frame": 0.0123,
+   "duplicates_ungrouped_per_frame": 0.0123,
+   "id_switches": 4,
+   "tracked_vehicles": 2,
+   "episodes": 3,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 3,
+    "p50": 0.0,
+    "p95": 0.09
+   },
+   "pos_err_lon_m": {
+    "n": 467,
+    "p50": 0.0475,
+    "p95": 0.4614
+   },
+   "pos_err_lat_m": {
+    "n": 467,
+    "p50": 0.0368,
+    "p95": 0.1841
+   },
+   "vel_err_mps": {
+    "n": 430,
+    "p50": 0.0979,
+    "p95": 0.6319
+   },
+   "point_clearance_optimism_m": {
+    "n": 467,
+    "p50": 1.4943,
+    "p95": 1.9985
+   },
+   "lane_accuracy": 0.9914,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0086,
+    "coverage": 0.9893,
+    "width_m": {
+     "n": 467,
+     "p50": 2.77,
+     "p95": 3.209
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 20,
+     "missed_high_frames": 3,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 15,
+     "missed_high_frames": 2,
+     "false_high_frames": 16,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 568,
+     "p50": 0.3894,
+     "p95": 0.433,
+     "p99": 0.4933
+    },
+    "lidar": {
+     "n": 568,
+     "p50": 153.4553,
+     "p95": 166.0716,
+     "p99": 171.1999
+    },
+    "radar_model": {
+     "n": 568,
+     "p50": 0.0743,
+     "p95": 0.1196,
+     "p99": 0.1367
+    },
+    "reports": {
+     "n": 568,
+     "p50": 0.5254,
+     "p95": 0.951,
+     "p99": 1.2912
+    },
+    "total": {
+     "n": 568,
+     "p50": 155.3951,
+     "p95": 168.6405,
+     "p99": 180.5548
+    },
+    "tracking": {
+     "n": 568,
+     "p50": 1.5591,
+     "p95": 4.1764,
+     "p99": 12.6915
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 568,
+     "p50": 22446.5,
+     "p95": 23616.85,
+     "p100": 25676
+    },
+    "decode_ms": {
+     "n": 568,
+     "p50": 0.3894,
+     "p95": 0.433,
+     "p99": 0.4933
+    },
+    "receiver": {
+     "accepted": 568,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 101,
+     "rr_rejected": 7,
+     "born": 50,
+     "deleted": 42,
+     "slivers": 13,
+     "merged": 4
+    }
+   },
+   "python_peak_mb": 7.9,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 199,
+    "latency_s": {
+     "n": 367,
+     "p50": 0.3049,
+     "p99": 0.3611
+    }
+   },
+   "observation_age_s": {
+    "n": 568,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E-radar_front_outage": {
+   "frames": 568,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9036,
+     "n": 83
+    },
+    "ahead_other": {
+     "recall": 0.8049,
+     "n": 205
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 115
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 26
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9744,
+     "n": 39
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.8953,
+     "n": 468
+    }
+   },
+   "false_tracks_per_frame": 0.0211,
+   "duplicates_per_frame": 0.0423,
+   "duplicates_ungrouped_per_frame": 0.0387,
+   "id_switches": 6,
+   "tracked_vehicles": 2,
+   "episodes": 3,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 3,
+    "p50": 0.0,
+    "p95": 0.72
+   },
+   "pos_err_lon_m": {
+    "n": 419,
+    "p50": 0.0769,
+    "p95": 0.851
+   },
+   "pos_err_lat_m": {
+    "n": 419,
+    "p50": 0.0392,
+    "p95": 0.5152
+   },
+   "vel_err_mps": {
+    "n": 394,
+    "p50": 0.0994,
+    "p95": 1.861
+   },
+   "point_clearance_optimism_m": {
+    "n": 419,
+    "p50": 1.5234,
+    "p95": 2.5767
+   },
+   "lane_accuracy": 0.9809,
+   "lane_uncertain_share": 0.0024,
+   "clearance": {
+    "optimistic_share": 0.0263,
+    "coverage": 0.9714,
+    "width_m": {
+     "n": 419,
+     "p50": 2.65,
+     "p95": 7.079
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 20,
+     "missed_high_frames": 6,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 15,
+     "missed_high_frames": 2,
+     "false_high_frames": 16,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 568,
+     "p50": 0.3823,
+     "p95": 0.4266,
+     "p99": 0.6116
+    },
+    "lidar": {
+     "n": 568,
+     "p50": 150.8757,
+     "p95": 164.455,
+     "p99": 169.2529
+    },
+    "radar_model": {
+     "n": 568,
+     "p50": 0.0684,
+     "p95": 0.1175,
+     "p99": 0.1452
+    },
+    "reports": {
+     "n": 568,
+     "p50": 0.4709,
+     "p95": 0.8886,
+     "p99": 1.0285
+    },
+    "total": {
+     "n": 568,
+     "p50": 152.9077,
+     "p95": 166.4604,
+     "p99": 172.3669
+    },
+    "tracking": {
+     "n": 568,
+     "p50": 1.5101,
+     "p95": 3.6557,
+     "p99": 12.5215
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 568,
+     "p50": 22424.5,
+     "p95": 23496.7,
+     "p100": 25552
+    },
+    "decode_ms": {
+     "n": 568,
+     "p50": 0.3823,
+     "p95": 0.4266,
+     "p99": 0.6116
+    },
+    "receiver": {
+     "accepted": 568,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 92,
+     "rr_rejected": 5,
+     "born": 47,
+     "deleted": 37,
+     "slivers": 7,
+     "merged": 6
+    }
+   },
+   "python_peak_mb": 7.5,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 194,
+    "latency_s": {
+     "n": 372,
+     "p50": 0.3015,
+     "p99": 0.3615
+    }
+   },
+   "observation_age_s": {
+    "n": 568,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E-lidar_outage": {
+   "frames": 568,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9639,
+     "n": 83
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 205
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 115
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 26
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 39
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9936,
+     "n": 468
+    }
+   },
+   "false_tracks_per_frame": 0.0229,
+   "duplicates_per_frame": 0.0211,
+   "duplicates_ungrouped_per_frame": 0.0211,
+   "id_switches": 4,
+   "tracked_vehicles": 2,
+   "episodes": 3,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 3,
+    "p50": 0.0,
+    "p95": 0.18
+   },
+   "pos_err_lon_m": {
+    "n": 465,
+    "p50": 0.0474,
+    "p95": 0.4619
+   },
+   "pos_err_lat_m": {
+    "n": 465,
+    "p50": 0.0387,
+    "p95": 0.2195
+   },
+   "vel_err_mps": {
+    "n": 430,
+    "p50": 0.0996,
+    "p95": 0.677
+   },
+   "point_clearance_optimism_m": {
+    "n": 465,
+    "p50": 1.4918,
+    "p95": 2.0022
+   },
+   "lane_accuracy": 0.9914,
+   "lane_uncertain_share": 0.0022,
+   "clearance": {
+    "optimistic_share": 0.0086,
+    "coverage": 0.9914,
+    "width_m": {
+     "n": 465,
+     "p50": 2.86,
+     "p95": 3.442
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 20,
+     "missed_high_frames": 4,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.5
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 15,
+     "missed_high_frames": 3,
+     "false_high_frames": 20,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.5
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 568,
+     "p50": 0.3811,
+     "p95": 0.4308,
+     "p99": 0.5974
+    },
+    "lidar": {
+     "n": 568,
+     "p50": 145.5403,
+     "p95": 162.1329,
+     "p99": 165.465
+    },
+    "radar_model": {
+     "n": 568,
+     "p50": 0.0707,
+     "p95": 0.1184,
+     "p99": 0.1378
+    },
+    "reports": {
+     "n": 568,
+     "p50": 0.5245,
+     "p95": 0.8962,
+     "p99": 1.1802
+    },
+    "total": {
+     "n": 568,
+     "p50": 148.208,
+     "p95": 164.1675,
+     "p99": 167.011
+    },
+    "tracking": {
+     "n": 568,
+     "p50": 1.4317,
+     "p95": 3.1489,
+     "p99": 12.1315
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 568,
+     "p50": 22353.0,
+     "p95": 22883.25,
+     "p100": 23485
+    },
+    "decode_ms": {
+     "n": 568,
+     "p50": 0.3811,
+     "p95": 0.4308,
+     "p99": 0.5974
+    },
+    "receiver": {
+     "accepted": 568,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 83,
+     "rr_rejected": 8,
+     "born": 40,
+     "deleted": 32,
+     "merged": 4
+    }
+   },
+   "python_peak_mb": 7.9,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 155,
+    "latency_s": {
+     "n": 411,
+     "p50": 0.2807,
+     "p99": 0.3571
+    }
+   },
+   "observation_age_s": {
+    "n": 568,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.02
+  },
+  "E-lidar_late": {
+   "frames": 568,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9759,
+     "n": 83
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 205
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 115
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 26
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 39
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9957,
+     "n": 468
+    }
+   },
+   "false_tracks_per_frame": 0.0106,
+   "duplicates_per_frame": 0.037,
+   "duplicates_ungrouped_per_frame": 0.037,
+   "id_switches": 4,
+   "tracked_vehicles": 2,
+   "episodes": 3,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 3,
+    "p50": 0.0,
+    "p95": 0.18
+   },
+   "pos_err_lon_m": {
+    "n": 466,
+    "p50": 0.0403,
+    "p95": 0.1535
+   },
+   "pos_err_lat_m": {
+    "n": 466,
+    "p50": 0.0249,
+    "p95": 0.1215
+   },
+   "vel_err_mps": {
+    "n": 427,
+    "p50": 0.0911,
+    "p95": 0.6325
+   },
+   "point_clearance_optimism_m": {
+    "n": 466,
+    "p50": 1.4688,
+    "p95": 1.7184
+   },
+   "lane_accuracy": 0.9978,
+   "lane_uncertain_share": 0.0021,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 466,
+     "p50": 2.87,
+     "p95": 3.61
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 20,
+     "missed_high_frames": 3,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.5
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 15,
+     "missed_high_frames": 3,
+     "false_high_frames": 22,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.5
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 568,
+     "p50": 0.3819,
+     "p95": 0.4338,
+     "p99": 0.5251
+    },
+    "lidar": {
+     "n": 568,
+     "p50": 150.4736,
+     "p95": 164.0876,
+     "p99": 169.6032
+    },
+    "radar_model": {
+     "n": 568,
+     "p50": 0.0719,
+     "p95": 0.1212,
+     "p99": 0.1458
+    },
+    "reports": {
+     "n": 568,
+     "p50": 0.5803,
+     "p95": 0.9024,
+     "p99": 1.2858
+    },
+    "total": {
+     "n": 568,
+     "p50": 152.6083,
+     "p95": 167.3347,
+     "p99": 175.7478
+    },
+    "tracking": {
+     "n": 568,
+     "p50": 1.3548,
+     "p95": 4.5511,
+     "p99": 6.7339
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 568,
+     "p50": 22444.5,
+     "p95": 23622.8,
+     "p100": 25659
+    },
+    "decode_ms": {
+     "n": 568,
+     "p50": 0.3819,
+     "p95": 0.4338,
+     "p99": 0.5251
+    },
+    "receiver": {
+     "accepted": 568,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 1995,
+     "fragments": 166,
+     "rr_rejected": 6,
+     "born": 261,
+     "deleted": 213,
+     "slivers": 29,
+     "merged": 44
+    }
+   },
+   "python_peak_mb": 7.9,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 190,
+    "latency_s": {
+     "n": 376,
+     "p50": 0.3005,
+     "p99": 0.3572
+    }
+   },
+   "observation_age_s": {
+    "n": 568,
+    "p50": 0.1,
+    "p99": 0.1
+   },
+   "effective_hz": 10.02
+  },
+  "E-corrupt_1pct": {
+   "frames": 564,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9878,
+     "n": 82
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 205
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 115
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 25
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 39
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9979,
+     "n": 466
+    }
+   },
+   "false_tracks_per_frame": 0.0213,
+   "duplicates_per_frame": 0.0124,
+   "duplicates_ungrouped_per_frame": 0.0124,
+   "id_switches": 4,
+   "tracked_vehicles": 2,
+   "episodes": 3,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 3,
+    "p50": 0.0,
+    "p95": 0.09
+   },
+   "pos_err_lon_m": {
+    "n": 465,
+    "p50": 0.0476,
+    "p95": 0.4604
+   },
+   "pos_err_lat_m": {
+    "n": 465,
+    "p50": 0.0368,
+    "p95": 0.1826
+   },
+   "vel_err_mps": {
+    "n": 428,
+    "p50": 0.0979,
+    "p95": 0.6373
+   },
+   "point_clearance_optimism_m": {
+    "n": 465,
+    "p50": 1.4923,
+    "p95": 1.995
+   },
+   "lane_accuracy": 0.9914,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0086,
+    "coverage": 0.9892,
+    "width_m": {
+     "n": 465,
+     "p50": 2.79,
+     "p95": 3.216
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 20,
+     "missed_high_frames": 3,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 15,
+     "missed_high_frames": 2,
+     "false_high_frames": 16,
+     "first_high_after_event_s": {
+      "oracle": 0.2,
+      "tracker": 0.4
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 564,
+     "p50": 0.3695,
+     "p95": 0.3861,
+     "p99": 0.4426
+    },
+    "lidar": {
+     "n": 564,
+     "p50": 143.4802,
+     "p95": 155.5248,
+     "p99": 160.4503
+    },
+    "radar_model": {
+     "n": 564,
+     "p50": 0.0682,
+     "p95": 0.1074,
+     "p99": 0.1255
+    },
+    "reports": {
+     "n": 564,
+     "p50": 0.4589,
+     "p95": 0.8631,
+     "p99": 1.2341
+    },
+    "total": {
+     "n": 564,
+     "p50": 145.318,
+     "p95": 158.3573,
+     "p99": 168.8136
+    },
+    "tracking": {
+     "n": 564,
+     "p50": 1.4662,
+     "p95": 4.0263,
+     "p99": 11.7513
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 568,
+     "p50": 22446.5,
+     "p95": 23616.85,
+     "p100": 25676
+    },
+    "decode_ms": {
+     "n": 564,
+     "p50": 0.3695,
+     "p95": 0.3861,
+     "p99": 0.4426
+    },
+    "receiver": {
+     "accepted": 564,
+     "rejected": {
+      "corrupt": 4
+     },
+     "dropped_sections": {},
+     "sequence_gaps": 4
+    },
+    "rejected_frames": 4,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 100,
+     "rr_rejected": 7,
+     "born": 50,
+     "deleted": 42,
+     "slivers": 13,
+     "merged": 4
+    }
+   },
+   "python_peak_mb": 7.9,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 172,
+    "latency_s": {
+     "n": 390,
+     "p50": 0.292,
+     "p99": 0.3536
+    }
+   },
+   "observation_age_s": {
+    "n": 564,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 9.95
+  }
+ },
+ "corr-stationary": {
+  "scenario": "stationary_lead_100",
+  "run": {
+   "webots": "Webots-W8-AB.app/Contents/MacOS/webots (patched build, local)",
+   "returncode": 0,
+   "wall_s": 38.63,
+   "cpu_user_s": 29.77,
+   "cpu_sys_s": 24.95,
+   "max_rss_mb_children": 913.7,
+   "sumo_ms": 100,
+   "radar_ms": 100,
+   "lidar_ms": 100,
+   "camera_s": 0.0,
+   "sync": "smooth",
+   "stock_models": false,
+   "case": "stationary",
+   "seed": 11,
+   "duration_s": 70.9
+  },
+  "ego_collision_t": 49.8,
+  "events": [
+   {
+    "record": "event",
+    "t": 44.9,
+    "kind": "sudden_brake",
+    "what": "spawn_requested",
+    "ego_lane": 2,
+    "ego_speed": 22.222,
+    "ego_travelled_m": 953.4,
+    "waited_s": 0.0
+   },
+   {
+    "record": "event",
+    "t": 45.0,
+    "kind": "sudden_brake",
+    "what": "inserted",
+    "vehicle": "rs_lead",
+    "lane": 2
+   },
+   {
+    "record": "event",
+    "t": 48.0,
+    "kind": "sudden_brake",
+    "what": "act",
+    "vehicle": "rs_lead",
+    "speed": 22.22,
+    "lane": 2
+   },
+   {
+    "record": "event",
+    "t": 57.9,
+    "kind": "sudden_brake",
+    "what": "released",
+    "vehicle": "rs_lead",
+    "lane": 2
+   }
+  ],
+  "rtf": 1.84,
+  "B": {
+   "frames": 248,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.875,
+     "n": 24
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.84,
+     "n": 25
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.6,
+    "p95": 0.6
+   },
+   "pos_err_lon_m": {
+    "n": 21,
+    "p50": 0.1415,
+    "p95": 0.2921
+   },
+   "pos_err_lat_m": {
+    "n": 21,
+    "p50": 0.025,
+    "p95": 0.085
+   },
+   "vel_err_mps": {
+    "n": 18,
+    "p50": 0.3174,
+    "p95": 4.4921
+   },
+   "point_clearance_optimism_m": {
+    "n": 21,
+    "p50": 2.5074,
+    "p95": 2.7561
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 4,
+     "missed_high_frames": 3,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.6
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 354,
+     "p50": 0.0097,
+     "p95": 0.0293,
+     "p99": 0.0597
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 298,
+    "CAUTION": 2,
+    "HIGH": 4,
+    "CRITICAL": 50
+   }
+  },
+  "C": {
+   "frames": 497,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9167,
+     "n": 48
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.898,
+     "n": 49
+    }
+   },
+   "false_tracks_per_frame": 0.008,
+   "duplicates_per_frame": 0.0121,
+   "duplicates_ungrouped_per_frame": 0.0121,
+   "id_switches": 1,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.4,
+    "p95": 0.4
+   },
+   "pos_err_lon_m": {
+    "n": 44,
+    "p50": 0.0571,
+    "p95": 1.0976
+   },
+   "pos_err_lat_m": {
+    "n": 44,
+    "p50": 0.015,
+    "p95": 0.025
+   },
+   "vel_err_mps": {
+    "n": 29,
+    "p50": 0.0788,
+    "p95": 3.9426
+   },
+   "point_clearance_optimism_m": {
+    "n": 44,
+    "p50": 2.4528,
+    "p95": 3.5616
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 44,
+     "p50": 3.59,
+     "p95": 3.77
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 1,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.1
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.0
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 709,
+     "p50": 0.3456,
+     "p95": 0.4308,
+     "p99": 0.5807
+    },
+    "lidar": {
+     "n": 709,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "radar_model": {
+     "n": 709,
+     "p50": 0.0279,
+     "p95": 0.0603,
+     "p99": 0.0719
+    },
+    "reports": {
+     "n": 709,
+     "p50": 0.0034,
+     "p95": 0.2761,
+     "p99": 0.4778
+    },
+    "total": {
+     "n": 709,
+     "p50": 0.3585,
+     "p95": 0.9672,
+     "p99": 1.4338
+    },
+    "tracking": {
+     "n": 709,
+     "p50": 0.1958,
+     "p95": 0.6561,
+     "p99": 0.9132
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 709,
+     "p50": 22340.0,
+     "p95": 28322.6,
+     "p100": 29377
+    },
+    "decode_ms": {
+     "n": 709,
+     "p50": 0.3456,
+     "p95": 0.4308,
+     "p99": 0.5807
+    },
+    "receiver": {
+     "accepted": 709,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 0,
+     "rr_rejected": 18,
+     "born": 16,
+     "deleted": 16
+    }
+   },
+   "python_peak_mb": 3.2,
+   "queue": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 708,
+     "p50": 0.0004,
+     "p99": 0.0014
+    }
+   },
+   "observation_age_s": {
+    "n": 709,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "D": {
+   "frames": 497,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8125,
+     "n": 48
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.7959,
+     "n": 49
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.9,
+    "p95": 0.9
+   },
+   "pos_err_lon_m": {
+    "n": 39,
+    "p50": 0.1386,
+    "p95": 2.9365
+   },
+   "pos_err_lat_m": {
+    "n": 39,
+    "p50": 0.015,
+    "p95": 0.056
+   },
+   "vel_err_mps": {
+    "n": 38,
+    "p50": 0.7421,
+    "p95": 6.1478
+   },
+   "point_clearance_optimism_m": {
+    "n": 39,
+    "p50": 2.5711,
+    "p95": 5.4006
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 0.9744,
+    "width_m": {
+     "n": 39,
+     "p50": 5.03,
+     "p95": 7.222
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 8,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 7,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.7
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 709,
+     "p50": 0.3998,
+     "p95": 0.437,
+     "p99": 0.4686
+    },
+    "lidar": {
+     "n": 709,
+     "p50": 159.6966,
+     "p95": 171.0426,
+     "p99": 175.0248
+    },
+    "radar_model": {
+     "n": 709,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "reports": {
+     "n": 709,
+     "p50": 0.0039,
+     "p95": 0.2888,
+     "p99": 0.4883
+    },
+    "total": {
+     "n": 709,
+     "p50": 160.1145,
+     "p95": 171.606,
+     "p99": 177.9823
+    },
+    "tracking": {
+     "n": 709,
+     "p50": 0.0431,
+     "p95": 4.9892,
+     "p99": 12.6123
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 709,
+     "p50": 22340.0,
+     "p95": 28322.6,
+     "p100": 29377
+    },
+    "decode_ms": {
+     "n": 709,
+     "p50": 0.3998,
+     "p95": 0.437,
+     "p99": 0.4686
+    },
+    "receiver": {
+     "accepted": 709,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 16,
+     "rr_rejected": 0,
+     "born": 77,
+     "deleted": 57,
+     "slivers": 8,
+     "merged": 20
+    }
+   },
+   "python_peak_mb": 5.2,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 231,
+    "latency_s": {
+     "n": 477,
+     "p50": 0.2991,
+     "p99": 0.3675
+    }
+   },
+   "observation_age_s": {
+    "n": 709,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E": {
+   "frames": 497,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9792,
+     "n": 48
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.9592,
+     "n": 49
+    }
+   },
+   "false_tracks_per_frame": 0.0282,
+   "duplicates_per_frame": 0.0241,
+   "duplicates_ungrouped_per_frame": 0.0241,
+   "id_switches": 2,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.1,
+    "p95": 0.1
+   },
+   "pos_err_lon_m": {
+    "n": 47,
+    "p50": 0.0508,
+    "p95": 1.3993
+   },
+   "pos_err_lat_m": {
+    "n": 47,
+    "p50": 0.015,
+    "p95": 0.035
+   },
+   "vel_err_mps": {
+    "n": 31,
+    "p50": 0.0878,
+    "p95": 4.3329
+   },
+   "point_clearance_optimism_m": {
+    "n": 47,
+    "p50": 2.4543,
+    "p95": 3.8633
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 0.9574,
+    "width_m": {
+     "n": 47,
+     "p50": 1.69,
+     "p95": 2.485
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 1,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.1
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.0
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 709,
+     "p50": 0.3833,
+     "p95": 0.4165,
+     "p99": 0.4653
+    },
+    "lidar": {
+     "n": 709,
+     "p50": 154.1981,
+     "p95": 162.9911,
+     "p99": 167.625
+    },
+    "radar_model": {
+     "n": 709,
+     "p50": 0.0371,
+     "p95": 0.063,
+     "p99": 0.0778
+    },
+    "reports": {
+     "n": 709,
+     "p50": 0.0038,
+     "p95": 0.4724,
+     "p99": 0.5282
+    },
+    "total": {
+     "n": 709,
+     "p50": 155.0345,
+     "p95": 163.7849,
+     "p99": 170.5036
+    },
+    "tracking": {
+     "n": 709,
+     "p50": 0.1351,
+     "p95": 6.3899,
+     "p99": 13.0782
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 709,
+     "p50": 22340.0,
+     "p95": 28322.6,
+     "p100": 29377
+    },
+    "decode_ms": {
+     "n": 709,
+     "p50": 0.3833,
+     "p95": 0.4165,
+     "p99": 0.4653
+    },
+    "receiver": {
+     "accepted": 709,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 20,
+     "rr_rejected": 14,
+     "born": 98,
+     "deleted": 75,
+     "merged": 23,
+     "slivers": 3
+    }
+   },
+   "python_peak_mb": 4.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 218,
+    "latency_s": {
+     "n": 490,
+     "p50": 0.2932,
+     "p99": 0.3564
+    }
+   },
+   "observation_age_s": {
+    "n": 709,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-radar_front_outage": {
+   "frames": 497,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8125,
+     "n": 48
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.7959,
+     "n": 49
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.9,
+    "p95": 0.9
+   },
+   "pos_err_lon_m": {
+    "n": 39,
+    "p50": 0.1386,
+    "p95": 2.9365
+   },
+   "pos_err_lat_m": {
+    "n": 39,
+    "p50": 0.015,
+    "p95": 0.056
+   },
+   "vel_err_mps": {
+    "n": 38,
+    "p50": 0.7421,
+    "p95": 6.1478
+   },
+   "point_clearance_optimism_m": {
+    "n": 39,
+    "p50": 2.5711,
+    "p95": 5.4006
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 0.9744,
+    "width_m": {
+     "n": 39,
+     "p50": 5.03,
+     "p95": 7.222
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 8,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 7,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.7
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 709,
+     "p50": 0.3762,
+     "p95": 0.4166,
+     "p99": 0.4563
+    },
+    "lidar": {
+     "n": 709,
+     "p50": 152.8607,
+     "p95": 162.0895,
+     "p99": 168.5
+    },
+    "radar_model": {
+     "n": 709,
+     "p50": 0.0342,
+     "p95": 0.0606,
+     "p99": 0.0768
+    },
+    "reports": {
+     "n": 709,
+     "p50": 0.0039,
+     "p95": 0.3171,
+     "p99": 0.5098
+    },
+    "total": {
+     "n": 709,
+     "p50": 153.4778,
+     "p95": 162.9725,
+     "p99": 171.0483
+    },
+    "tracking": {
+     "n": 709,
+     "p50": 0.1392,
+     "p95": 5.4367,
+     "p99": 13.1796
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 709,
+     "p50": 22333.0,
+     "p95": 28322.6,
+     "p100": 29377
+    },
+    "decode_ms": {
+     "n": 709,
+     "p50": 0.3762,
+     "p95": 0.4166,
+     "p99": 0.4563
+    },
+    "receiver": {
+     "accepted": 709,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 19,
+     "rr_rejected": 4,
+     "born": 92,
+     "deleted": 72,
+     "merged": 20,
+     "slivers": 3
+    }
+   },
+   "python_peak_mb": 4.5,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 215,
+    "latency_s": {
+     "n": 493,
+     "p50": 0.2917,
+     "p99": 0.357
+    }
+   },
+   "observation_age_s": {
+    "n": 709,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_outage": {
+   "frames": 497,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9167,
+     "n": 48
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.898,
+     "n": 49
+    }
+   },
+   "false_tracks_per_frame": 0.008,
+   "duplicates_per_frame": 0.0121,
+   "duplicates_ungrouped_per_frame": 0.0121,
+   "id_switches": 1,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.4,
+    "p95": 0.4
+   },
+   "pos_err_lon_m": {
+    "n": 44,
+    "p50": 0.0571,
+    "p95": 1.0976
+   },
+   "pos_err_lat_m": {
+    "n": 44,
+    "p50": 0.015,
+    "p95": 0.025
+   },
+   "vel_err_mps": {
+    "n": 29,
+    "p50": 0.0788,
+    "p95": 3.9426
+   },
+   "point_clearance_optimism_m": {
+    "n": 44,
+    "p50": 2.4528,
+    "p95": 3.5616
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 44,
+     "p50": 3.59,
+     "p95": 3.77
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 1,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.1
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.0
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 709,
+     "p50": 0.3754,
+     "p95": 0.4121,
+     "p99": 0.4447
+    },
+    "lidar": {
+     "n": 709,
+     "p50": 150.0521,
+     "p95": 160.7415,
+     "p99": 166.1749
+    },
+    "radar_model": {
+     "n": 709,
+     "p50": 0.0357,
+     "p95": 0.0611,
+     "p99": 0.0784
+    },
+    "reports": {
+     "n": 709,
+     "p50": 0.0037,
+     "p95": 0.4099,
+     "p99": 0.5511
+    },
+    "total": {
+     "n": 709,
+     "p50": 150.4746,
+     "p95": 161.2821,
+     "p99": 166.9153
+    },
+    "tracking": {
+     "n": 709,
+     "p50": 0.1361,
+     "p95": 5.4588,
+     "p99": 13.5735
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 709,
+     "p50": 22301.0,
+     "p95": 27559.6,
+     "p100": 29377
+    },
+    "decode_ms": {
+     "n": 709,
+     "p50": 0.3754,
+     "p95": 0.4121,
+     "p99": 0.4447
+    },
+    "receiver": {
+     "accepted": 709,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 16,
+     "rr_rejected": 16,
+     "born": 73,
+     "deleted": 73,
+     "slivers": 3
+    }
+   },
+   "python_peak_mb": 4.6,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 176,
+    "latency_s": {
+     "n": 532,
+     "p50": 0.2712,
+     "p99": 0.3528
+    }
+   },
+   "observation_age_s": {
+    "n": 709,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_late": {
+   "frames": 497,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9583,
+     "n": 48
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.9388,
+     "n": 49
+    }
+   },
+   "false_tracks_per_frame": 0.008,
+   "duplicates_per_frame": 0.0121,
+   "duplicates_ungrouped_per_frame": 0.0121,
+   "id_switches": 1,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.2,
+    "p95": 0.2
+   },
+   "pos_err_lon_m": {
+    "n": 46,
+    "p50": 0.0571,
+    "p95": 1.0613
+   },
+   "pos_err_lat_m": {
+    "n": 46,
+    "p50": 0.015,
+    "p95": 0.025
+   },
+   "vel_err_mps": {
+    "n": 31,
+    "p50": 0.0778,
+    "p95": 3.8848
+   },
+   "point_clearance_optimism_m": {
+    "n": 46,
+    "p50": 2.4527,
+    "p95": 3.5254
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 1.0,
+    "width_m": {
+     "n": 46,
+     "p50": 3.59,
+     "p95": 3.95
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 1,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.1
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.0
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 709,
+     "p50": 0.3673,
+     "p95": 0.3861,
+     "p99": 0.4167
+    },
+    "lidar": {
+     "n": 709,
+     "p50": 147.225,
+     "p95": 157.4555,
+     "p99": 162.8322
+    },
+    "radar_model": {
+     "n": 709,
+     "p50": 0.0348,
+     "p95": 0.0603,
+     "p99": 0.0747
+    },
+    "reports": {
+     "n": 709,
+     "p50": 0.0037,
+     "p95": 0.4372,
+     "p99": 0.4608
+    },
+    "total": {
+     "n": 709,
+     "p50": 147.7539,
+     "p95": 158.1402,
+     "p99": 163.6023
+    },
+    "tracking": {
+     "n": 709,
+     "p50": 0.2747,
+     "p95": 2.0804,
+     "p99": 6.4956
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 709,
+     "p50": 22341.0,
+     "p95": 28312.4,
+     "p100": 29377
+    },
+    "decode_ms": {
+     "n": 709,
+     "p50": 0.3673,
+     "p95": 0.3861,
+     "p99": 0.4167
+    },
+    "receiver": {
+     "accepted": 709,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 1086,
+     "fragments": 0,
+     "rr_rejected": 18,
+     "born": 443,
+     "deleted": 272,
+     "slivers": 153,
+     "merged": 171
+    }
+   },
+   "python_peak_mb": 4.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 198,
+    "latency_s": {
+     "n": 510,
+     "p50": 0.282,
+     "p99": 0.3537
+    }
+   },
+   "observation_age_s": {
+    "n": 709,
+    "p50": 0.1,
+    "p99": 0.1
+   },
+   "effective_hz": 10.01
+  },
+  "E-corrupt_1pct": {
+   "frames": 493,
+   "recall_by_zone": {
+    "ahead_other": {
+     "recall": 0.0,
+     "n": 1
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9792,
+     "n": 48
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.9592,
+     "n": 49
+    }
+   },
+   "false_tracks_per_frame": 0.0284,
+   "duplicates_per_frame": 0.0243,
+   "duplicates_ungrouped_per_frame": 0.0243,
+   "id_switches": 2,
+   "tracked_vehicles": 1,
+   "episodes": 2,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.1,
+    "p95": 0.1
+   },
+   "pos_err_lon_m": {
+    "n": 47,
+    "p50": 0.0508,
+    "p95": 1.3993
+   },
+   "pos_err_lat_m": {
+    "n": 47,
+    "p50": 0.015,
+    "p95": 0.035
+   },
+   "vel_err_mps": {
+    "n": 31,
+    "p50": 0.0878,
+    "p95": 4.3329
+   },
+   "point_clearance_optimism_m": {
+    "n": 47,
+    "p50": 2.4543,
+    "p95": 3.8633
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "clearance": {
+    "optimistic_share": 0.0,
+    "coverage": 0.9574,
+    "width_m": {
+     "n": 47,
+     "p50": 1.69,
+     "p95": 2.485
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 1,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.1
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.0,
+      "tracker": 1.0
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 704,
+     "p50": 0.3514,
+     "p95": 0.3718,
+     "p99": 0.3901
+    },
+    "lidar": {
+     "n": 704,
+     "p50": 140.8224,
+     "p95": 149.5492,
+     "p99": 153.1173
+    },
+    "radar_model": {
+     "n": 704,
+     "p50": 0.0334,
+     "p95": 0.0572,
+     "p99": 0.0711
+    },
+    "reports": {
+     "n": 704,
+     "p50": 0.0037,
+     "p95": 0.4354,
+     "p99": 0.4534
+    },
+    "total": {
+     "n": 704,
+     "p50": 141.4523,
+     "p95": 150.5361,
+     "p99": 154.3816
+    },
+    "tracking": {
+     "n": 704,
+     "p50": 0.1186,
+     "p95": 5.7089,
+     "p99": 12.2346
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 709,
+     "p50": 22340.0,
+     "p95": 28322.6,
+     "p100": 29377
+    },
+    "decode_ms": {
+     "n": 704,
+     "p50": 0.3514,
+     "p95": 0.3718,
+     "p99": 0.3901
+    },
+    "receiver": {
+     "accepted": 704,
+     "rejected": {
+      "corrupt": 5
+     },
+     "dropped_sections": {},
+     "sequence_gaps": 5
+    },
+    "rejected_frames": 5,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 20,
+     "rr_rejected": 14,
+     "born": 98,
+     "deleted": 75,
+     "merged": 23,
+     "slivers": 3
+    }
+   },
+   "python_peak_mb": 4.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 178,
+    "latency_s": {
+     "n": 525,
+     "p50": 0.2802,
+     "p99": 0.3445
+    }
+   },
+   "observation_age_s": {
+    "n": 704,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 9.94
+  }
+ },
+ "corr-truck_brake": {
+  "scenario": "sudden_brake",
+  "run": {
+   "webots": "Webots-W8-AB.app/Contents/MacOS/webots (patched build, local)",
+   "returncode": 0,
+   "wall_s": 46.91,
+   "cpu_user_s": 35.86,
+   "cpu_sys_s": 30.62,
+   "max_rss_mb_children": 1181.5,
+   "sumo_ms": 100,
+   "radar_ms": 100,
+   "lidar_ms": 100,
+   "camera_s": 0.0,
+   "sync": "smooth",
+   "stock_models": false,
+   "case": "truck_brake",
+   "seed": 12,
+   "duration_s": 68.1
+  },
+  "ego_collision_t": 52.5,
+  "events": [
+   {
+    "record": "event",
+    "t": 47.7,
+    "kind": "sudden_brake",
+    "what": "spawn_requested",
+    "ego_lane": 2,
+    "ego_speed": 17.907,
+    "ego_travelled_m": 976.8,
+    "waited_s": 5.5
+   },
+   {
+    "record": "event",
+    "t": 47.8,
+    "kind": "sudden_brake",
+    "what": "inserted",
+    "vehicle": "rs_lead",
+    "lane": 2
+   },
+   {
+    "record": "event",
+    "t": 50.8,
+    "kind": "sudden_brake",
+    "what": "act",
+    "vehicle": "rs_lead",
+    "speed": 17.91,
+    "lane": 2
+   },
+   {
+    "record": "event",
+    "t": 62.3,
+    "kind": "sudden_brake",
+    "what": "released",
+    "vehicle": "rs_lead",
+    "lane": 2
+   }
+  ],
+  "rtf": 1.45,
+  "B": {
+   "frames": 262,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9921,
+     "n": 127
+    },
+    "ahead_other": {
+     "recall": 0.8688,
+     "n": 480
+    },
+    "behind": {
+     "recall": 0.9412,
+     "n": 85
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 16
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8898,
+     "n": 127
+    },
+    "ego_lane_far": {
+     "recall": 0.633,
+     "n": 109
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.8738,
+     "n": 412
+    },
+    "car": {
+     "recall": 0.8845,
+     "n": 433
+    },
+    "motorcycle": {
+     "recall": 0.9792,
+     "n": 48
+    },
+    "truck": {
+     "recall": 0.6078,
+     "n": 51
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 4,
+   "tracked_vehicles": 14,
+   "episodes": 18,
+   "never_tracked_episodes": 3,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.2,
+    "p95": 1.44
+   },
+   "pos_err_lon_m": {
+    "n": 821,
+    "p50": 0.1958,
+    "p95": 0.5463
+   },
+   "pos_err_lat_m": {
+    "n": 821,
+    "p50": 0.0411,
+    "p95": 0.2147
+   },
+   "vel_err_mps": {
+    "n": 781,
+    "p50": 0.3093,
+    "p95": 1.5153
+   },
+   "point_clearance_optimism_m": {
+    "n": 821,
+    "p50": 1.837,
+    "p95": 2.7448
+   },
+   "lane_accuracy": 0.9976,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 8,
+     "missed_high_frames": 5,
+     "false_high_frames": 3,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.4
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 340,
+     "p50": 0.0942,
+     "p95": 0.2589,
+     "p99": 0.3571
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 270,
+    "CAUTION": 37,
+    "HIGH": 11,
+    "CRITICAL": 22
+   }
+  },
+  "C": {
+   "frames": 524,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.996,
+     "n": 250
+    },
+    "ahead_other": {
+     "recall": 0.9266,
+     "n": 954
+    },
+    "behind": {
+     "recall": 0.9643,
+     "n": 168
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 32
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8937,
+     "n": 254
+    },
+    "ego_lane_far": {
+     "recall": 0.7778,
+     "n": 216
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9267,
+     "n": 818
+    },
+    "car": {
+     "recall": 0.9082,
+     "n": 861
+    },
+    "motorcycle": {
+     "recall": 0.9895,
+     "n": 95
+    },
+    "truck": {
+     "recall": 0.88,
+     "n": 100
+    }
+   },
+   "false_tracks_per_frame": 0.042,
+   "duplicates_per_frame": 0.0248,
+   "duplicates_ungrouped_per_frame": 0.0248,
+   "id_switches": 6,
+   "tracked_vehicles": 14,
+   "episodes": 18,
+   "never_tracked_episodes": 2,
+   "confirm_latency_s": {
+    "n": 16,
+    "p50": 0.0,
+    "p95": 0.4
+   },
+   "pos_err_lon_m": {
+    "n": 1722,
+    "p50": 0.0667,
+    "p95": 0.4515
+   },
+   "pos_err_lat_m": {
+    "n": 1722,
+    "p50": 0.0299,
+    "p95": 0.224
+   },
+   "vel_err_mps": {
+    "n": 1622,
+    "p50": 0.1694,
+    "p95": 0.655
+   },
+   "point_clearance_optimism_m": {
+    "n": 1722,
+    "p50": 1.6915,
+    "p95": 3.71
+   },
+   "lane_accuracy": 0.9982,
+   "lane_uncertain_share": 0.0099,
+   "clearance": {
+    "optimistic_share": 0.011,
+    "coverage": 0.9826,
+    "width_m": {
+     "n": 1722,
+     "p50": 3.15,
+     "p95": 8.479
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 4,
+     "false_high_frames": 12,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -3.4
+     },
+     "insertion_artefact_frames": 7
+    },
+    "clearance": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 3,
+     "false_high_frames": 27,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -3.4
+     },
+     "insertion_artefact_frames": 7
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 681,
+     "p50": 0.3911,
+     "p95": 0.4753,
+     "p99": 0.5974
+    },
+    "lidar": {
+     "n": 681,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "radar_model": {
+     "n": 681,
+     "p50": 0.1044,
+     "p95": 0.2902,
+     "p99": 0.3262
+    },
+    "reports": {
+     "n": 681,
+     "p50": 1.0573,
+     "p95": 3.1527,
+     "p99": 3.7644
+    },
+    "total": {
+     "n": 681,
+     "p50": 4.5423,
+     "p95": 27.1412,
+     "p99": 33.5411
+    },
+    "tracking": {
+     "n": 681,
+     "p50": 3.4296,
+     "p95": 23.5864,
+     "p99": 30.022
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 681,
+     "p50": 22609.0,
+     "p95": 27240.0,
+     "p100": 29895
+    },
+    "decode_ms": {
+     "n": 681,
+     "p50": 0.3911,
+     "p95": 0.4753,
+     "p99": 0.5974
+    },
+    "receiver": {
+     "accepted": 681,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 0,
+     "rr_rejected": 97,
+     "born": 127,
+     "deleted": 108,
+     "merged": 17
+    }
+   },
+   "python_peak_mb": 14.5,
+   "queue": {
+    "max_queue": 1,
+    "dropped": 0,
+    "latency_s": {
+     "n": 680,
+     "p50": 0.0046,
+     "p99": 0.0335
+    }
+   },
+   "observation_age_s": {
+    "n": 681,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "D": {
+   "frames": 524,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.968,
+     "n": 250
+    },
+    "ahead_other": {
+     "recall": 0.2579,
+     "n": 954
+    },
+    "behind": {
+     "recall": 0.8869,
+     "n": 168
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 32
+    },
+    "ego_lane_ahead": {
+     "recall": 0.7874,
+     "n": 254
+    },
+    "ego_lane_far": {
+     "recall": 0.1389,
+     "n": 216
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.5477,
+     "n": 818
+    },
+    "car": {
+     "recall": 0.4367,
+     "n": 861
+    },
+    "motorcycle": {
+     "recall": 0.2211,
+     "n": 95
+    },
+    "truck": {
+     "recall": 0.54,
+     "n": 100
+    }
+   },
+   "false_tracks_per_frame": 0.0057,
+   "duplicates_per_frame": 0.1355,
+   "duplicates_ungrouped_per_frame": 0.1202,
+   "id_switches": 7,
+   "tracked_vehicles": 11,
+   "episodes": 18,
+   "never_tracked_episodes": 7,
+   "confirm_latency_s": {
+    "n": 11,
+    "p50": 1.0,
+    "p95": 8.95
+   },
+   "pos_err_lon_m": {
+    "n": 899,
+    "p50": 0.6662,
+    "p95": 2.0329
+   },
+   "pos_err_lat_m": {
+    "n": 899,
+    "p50": 0.0721,
+    "p95": 0.395
+   },
+   "vel_err_mps": {
+    "n": 877,
+    "p50": 0.3102,
+    "p95": 2.6987
+   },
+   "point_clearance_optimism_m": {
+    "n": 899,
+    "p50": 2.2908,
+    "p95": 4.5505
+   },
+   "lane_accuracy": 0.9877,
+   "lane_uncertain_share": 0.0033,
+   "clearance": {
+    "optimistic_share": 0.0345,
+    "coverage": 0.9399,
+    "width_m": {
+     "n": 899,
+     "p50": 3.78,
+     "p95": 23.821
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 2,
+     "false_high_frames": 9,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.7
+     },
+     "insertion_artefact_frames": 0
+    },
+    "clearance": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 0,
+     "false_high_frames": 22,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.9
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 681,
+     "p50": 0.4172,
+     "p95": 0.4657,
+     "p99": 0.6367
+    },
+    "lidar": {
+     "n": 681,
+     "p50": 163.5288,
+     "p95": 175.462,
+     "p99": 183.7308
+    },
+    "radar_model": {
+     "n": 681,
+     "p50": 0.0,
+     "p95": 0.0,
+     "p99": 0.0
+    },
+    "reports": {
+     "n": 681,
+     "p50": 0.4757,
+     "p95": 2.8367,
+     "p99": 3.4798
+    },
+    "total": {
+     "n": 681,
+     "p50": 167.3025,
+     "p95": 192.4678,
+     "p99": 215.4547
+    },
+    "tracking": {
+     "n": 681,
+     "p50": 0.896,
+     "p95": 30.8596,
+     "p99": 55.2554
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 681,
+     "p50": 22609.0,
+     "p95": 27240.0,
+     "p100": 29895
+    },
+    "decode_ms": {
+     "n": 681,
+     "p50": 0.4172,
+     "p95": 0.4657,
+     "p99": 0.6367
+    },
+    "receiver": {
+     "accepted": 681,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 220,
+     "rr_rejected": 0,
+     "born": 177,
+     "deleted": 146,
+     "slivers": 408,
+     "merged": 23
+    }
+   },
+   "python_peak_mb": 12.0,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 261,
+    "latency_s": {
+     "n": 419,
+     "p50": 0.3125,
+     "p99": 0.3863
+    }
+   },
+   "observation_age_s": {
+    "n": 681,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E": {
+   "frames": 524,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 250
+    },
+    "ahead_other": {
+     "recall": 0.9539,
+     "n": 954
+    },
+    "behind": {
+     "recall": 0.9702,
+     "n": 168
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 32
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9173,
+     "n": 254
+    },
+    "ego_lane_far": {
+     "recall": 0.787,
+     "n": 216
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9609,
+     "n": 818
+    },
+    "car": {
+     "recall": 0.9175,
+     "n": 861
+    },
+    "motorcycle": {
+     "recall": 0.9368,
+     "n": 95
+    },
+    "truck": {
+     "recall": 0.93,
+     "n": 100
+    }
+   },
+   "false_tracks_per_frame": 0.0763,
+   "duplicates_per_frame": 0.1202,
+   "duplicates_ungrouped_per_frame": 0.1088,
+   "id_switches": 8,
+   "tracked_vehicles": 15,
+   "episodes": 18,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 17,
+    "p50": 0.0,
+    "p95": 0.22
+   },
+   "pos_err_lon_m": {
+    "n": 1758,
+    "p50": 0.0918,
+    "p95": 0.5559
+   },
+   "pos_err_lat_m": {
+    "n": 1758,
+    "p50": 0.0351,
+    "p95": 0.195
+   },
+   "vel_err_mps": {
+    "n": 1652,
+    "p50": 0.174,
+    "p95": 0.6282
+   },
+   "point_clearance_optimism_m": {
+    "n": 1758,
+    "p50": 1.9798,
+    "p95": 3.7579
+   },
+   "lane_accuracy": 0.9983,
+   "lane_uncertain_share": 0.0046,
+   "clearance": {
+    "optimistic_share": 0.0074,
+    "coverage": 0.9699,
+    "width_m": {
+     "n": 1758,
+     "p50": 2.87,
+     "p95": 12.421
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 3,
+     "false_high_frames": 1,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.5
+     },
+     "insertion_artefact_frames": 4
+    },
+    "clearance": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 3,
+     "false_high_frames": 5,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.6
+     },
+     "insertion_artefact_frames": 4
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 681,
+     "p50": 0.4012,
+     "p95": 0.4456,
+     "p99": 0.4946
+    },
+    "lidar": {
+     "n": 681,
+     "p50": 157.1877,
+     "p95": 168.8837,
+     "p99": 175.9155
+    },
+    "radar_model": {
+     "n": 681,
+     "p50": 0.1125,
+     "p95": 0.2954,
+     "p99": 0.325
+    },
+    "reports": {
+     "n": 681,
+     "p50": 1.2953,
+     "p95": 4.274,
+     "p99": 5.7839
+    },
+    "total": {
+     "n": 681,
+     "p50": 166.4486,
+     "p95": 234.6624,
+     "p99": 278.9955
+    },
+    "tracking": {
+     "n": 681,
+     "p50": 5.7652,
+     "p95": 72.6729,
+     "p99": 127.4741
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 681,
+     "p50": 22609.0,
+     "p95": 27240.0,
+     "p100": 29895
+    },
+    "decode_ms": {
+     "n": 681,
+     "p50": 0.4012,
+     "p95": 0.4456,
+     "p99": 0.4946
+    },
+    "receiver": {
+     "accepted": 681,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 234,
+     "rr_rejected": 105,
+     "born": 285,
+     "deleted": 239,
+     "slivers": 98,
+     "merged": 38
+    }
+   },
+   "python_peak_mb": 19.0,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 271,
+    "latency_s": {
+     "n": 409,
+     "p50": 0.3171,
+     "p99": 0.428
+    }
+   },
+   "observation_age_s": {
+    "n": 681,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-radar_front_outage": {
+   "frames": 524,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.992,
+     "n": 250
+    },
+    "ahead_other": {
+     "recall": 0.8218,
+     "n": 954
+    },
+    "behind": {
+     "recall": 0.9702,
+     "n": 168
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 32
+    },
+    "ego_lane_ahead": {
+     "recall": 0.8189,
+     "n": 254
+    },
+    "ego_lane_far": {
+     "recall": 0.6389,
+     "n": 216
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.8606,
+     "n": 818
+    },
+    "car": {
+     "recall": 0.9117,
+     "n": 861
+    },
+    "motorcycle": {
+     "recall": 0.3053,
+     "n": 95
+    },
+    "truck": {
+     "recall": 0.55,
+     "n": 100
+    }
+   },
+   "false_tracks_per_frame": 0.0401,
+   "duplicates_per_frame": 0.1183,
+   "duplicates_ungrouped_per_frame": 0.1126,
+   "id_switches": 11,
+   "tracked_vehicles": 13,
+   "episodes": 18,
+   "never_tracked_episodes": 3,
+   "confirm_latency_s": {
+    "n": 15,
+    "p50": 0.0,
+    "p95": 0.66
+   },
+   "pos_err_lon_m": {
+    "n": 1573,
+    "p50": 0.1271,
+    "p95": 1.0979
+   },
+   "pos_err_lat_m": {
+    "n": 1573,
+    "p50": 0.0461,
+    "p95": 0.2453
+   },
+   "vel_err_mps": {
+    "n": 1506,
+    "p50": 0.1769,
+    "p95": 1.4535
+   },
+   "point_clearance_optimism_m": {
+    "n": 1573,
+    "p50": 2.1326,
+    "p95": 2.9744
+   },
+   "lane_accuracy": 0.9917,
+   "lane_uncertain_share": 0.0045,
+   "clearance": {
+    "optimistic_share": 0.0197,
+    "coverage": 0.958,
+    "width_m": {
+     "n": 1573,
+     "p50": 2.86,
+     "p95": 19.374
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 3,
+     "false_high_frames": 4,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.6
+     },
+     "insertion_artefact_frames": 4
+    },
+    "clearance": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 3,
+     "false_high_frames": 10,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.8
+     },
+     "insertion_artefact_frames": 4
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 681,
+     "p50": 0.3945,
+     "p95": 0.4389,
+     "p99": 0.4946
+    },
+    "lidar": {
+     "n": 681,
+     "p50": 156.2635,
+     "p95": 168.5719,
+     "p99": 174.5275
+    },
+    "radar_model": {
+     "n": 681,
+     "p50": 0.1088,
+     "p95": 0.1891,
+     "p99": 0.2311
+    },
+    "reports": {
+     "n": 681,
+     "p50": 1.294,
+     "p95": 3.7506,
+     "p99": 4.1662
+    },
+    "total": {
+     "n": 681,
+     "p50": 165.5163,
+     "p95": 216.6433,
+     "p99": 259.8058
+    },
+    "tracking": {
+     "n": 681,
+     "p50": 5.6715,
+     "p95": 60.2912,
+     "p99": 106.2182
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 681,
+     "p50": 22605.0,
+     "p95": 27239.0,
+     "p100": 29895
+    },
+    "decode_ms": {
+     "n": 681,
+     "p50": 0.3945,
+     "p95": 0.4389,
+     "p99": 0.4946
+    },
+    "receiver": {
+     "accepted": 681,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 232,
+     "rr_rejected": 101,
+     "born": 285,
+     "deleted": 230,
+     "slivers": 117,
+     "merged": 47
+    }
+   },
+   "python_peak_mb": 17.3,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 263,
+    "latency_s": {
+     "n": 417,
+     "p50": 0.3128,
+     "p99": 0.4147
+    }
+   },
+   "observation_age_s": {
+    "n": 681,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_outage": {
+   "frames": 524,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 250
+    },
+    "ahead_other": {
+     "recall": 0.9591,
+     "n": 954
+    },
+    "behind": {
+     "recall": 0.9643,
+     "n": 168
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 32
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9055,
+     "n": 254
+    },
+    "ego_lane_far": {
+     "recall": 0.7778,
+     "n": 216
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9609,
+     "n": 818
+    },
+    "car": {
+     "recall": 0.9152,
+     "n": 861
+    },
+    "motorcycle": {
+     "recall": 1.0,
+     "n": 95
+    },
+    "truck": {
+     "recall": 0.88,
+     "n": 100
+    }
+   },
+   "false_tracks_per_frame": 0.0439,
+   "duplicates_per_frame": 0.0401,
+   "duplicates_ungrouped_per_frame": 0.0401,
+   "id_switches": 6,
+   "tracked_vehicles": 14,
+   "episodes": 18,
+   "never_tracked_episodes": 2,
+   "confirm_latency_s": {
+    "n": 16,
+    "p50": 0.0,
+    "p95": 0.325
+   },
+   "pos_err_lon_m": {
+    "n": 1757,
+    "p50": 0.0874,
+    "p95": 0.5295
+   },
+   "pos_err_lat_m": {
+    "n": 1757,
+    "p50": 0.0351,
+    "p95": 0.2175
+   },
+   "vel_err_mps": {
+    "n": 1664,
+    "p50": 0.1697,
+    "p95": 0.6222
+   },
+   "point_clearance_optimism_m": {
+    "n": 1757,
+    "p50": 1.9705,
+    "p95": 3.706
+   },
+   "lane_accuracy": 0.9983,
+   "lane_uncertain_share": 0.0063,
+   "clearance": {
+    "optimistic_share": 0.0108,
+    "coverage": 0.975,
+    "width_m": {
+     "n": 1757,
+     "p50": 2.89,
+     "p95": 10.89
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 4,
+     "false_high_frames": 5,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -3.4
+     },
+     "insertion_artefact_frames": 5
+    },
+    "clearance": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 4,
+     "false_high_frames": 9,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -3.4
+     },
+     "insertion_artefact_frames": 5
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 681,
+     "p50": 0.3846,
+     "p95": 0.419,
+     "p99": 0.4511
+    },
+    "lidar": {
+     "n": 681,
+     "p50": 150.6957,
+     "p95": 162.0004,
+     "p99": 168.1162
+    },
+    "radar_model": {
+     "n": 681,
+     "p50": 0.1051,
+     "p95": 0.2459,
+     "p99": 0.2765
+    },
+    "reports": {
+     "n": 681,
+     "p50": 1.2425,
+     "p95": 2.98,
+     "p99": 3.5788
+    },
+    "total": {
+     "n": 681,
+     "p50": 157.6739,
+     "p95": 193.3778,
+     "p99": 247.8644
+    },
+    "tracking": {
+     "n": 681,
+     "p50": 5.4328,
+     "p95": 43.9145,
+     "p99": 102.6728
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 681,
+     "p50": 22451.0,
+     "p95": 26983.0,
+     "p100": 29895
+    },
+    "decode_ms": {
+     "n": 681,
+     "p50": 0.3846,
+     "p95": 0.419,
+     "p99": 0.4511
+    },
+    "receiver": {
+     "accepted": 681,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 115,
+     "rr_rejected": 97,
+     "born": 269,
+     "deleted": 227,
+     "slivers": 64,
+     "merged": 34
+    }
+   },
+   "python_peak_mb": 17.2,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 208,
+    "latency_s": {
+     "n": 472,
+     "p50": 0.29,
+     "p99": 0.3817
+    }
+   },
+   "observation_age_s": {
+    "n": 681,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 10.01
+  },
+  "E-lidar_late": {
+   "frames": 524,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 250
+    },
+    "ahead_other": {
+     "recall": 0.9287,
+     "n": 954
+    },
+    "behind": {
+     "recall": 0.9702,
+     "n": 168
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 32
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9094,
+     "n": 254
+    },
+    "ego_lane_far": {
+     "recall": 0.787,
+     "n": 216
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9267,
+     "n": 818
+    },
+    "car": {
+     "recall": 0.9141,
+     "n": 861
+    },
+    "motorcycle": {
+     "recall": 1.0,
+     "n": 95
+    },
+    "truck": {
+     "recall": 0.92,
+     "n": 100
+    }
+   },
+   "false_tracks_per_frame": 0.0744,
+   "duplicates_per_frame": 0.1679,
+   "duplicates_ungrouped_per_frame": 0.1679,
+   "id_switches": 8,
+   "tracked_vehicles": 15,
+   "episodes": 18,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 17,
+    "p50": 0.0,
+    "p95": 0.22
+   },
+   "pos_err_lon_m": {
+    "n": 1732,
+    "p50": 0.0656,
+    "p95": 0.4631
+   },
+   "pos_err_lat_m": {
+    "n": 1732,
+    "p50": 0.0301,
+    "p95": 0.2153
+   },
+   "vel_err_mps": {
+    "n": 1617,
+    "p50": 0.1687,
+    "p95": 0.6512
+   },
+   "point_clearance_optimism_m": {
+    "n": 1732,
+    "p50": 1.6864,
+    "p95": 3.7347
+   },
+   "lane_accuracy": 0.9983,
+   "lane_uncertain_share": 0.0087,
+   "clearance": {
+    "optimistic_share": 0.011,
+    "coverage": 0.9792,
+    "width_m": {
+     "n": 1732,
+     "p50": 3.15,
+     "p95": 9.0425
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 4,
+     "false_high_frames": 12,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -3.4
+     },
+     "insertion_artefact_frames": 7
+    },
+    "clearance": {
+     "oracle_high_frames": 13,
+     "missed_high_frames": 3,
+     "false_high_frames": 26,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -3.4
+     },
+     "insertion_artefact_frames": 7
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 681,
+     "p50": 0.3733,
+     "p95": 0.399,
+     "p99": 0.4144
+    },
+    "lidar": {
+     "n": 681,
+     "p50": 145.6685,
+     "p95": 156.1857,
+     "p99": 163.4781
+    },
+    "radar_model": {
+     "n": 681,
+     "p50": 0.1004,
+     "p95": 0.2596,
+     "p99": 0.2911
+    },
+    "reports": {
+     "n": 681,
+     "p50": 1.203,
+     "p95": 3.0775,
+     "p99": 3.6953
+    },
+    "total": {
+     "n": 681,
+     "p50": 155.4275,
+     "p95": 205.524,
+     "p99": 218.1609
+    },
+    "tracking": {
+     "n": 681,
+     "p50": 6.63,
+     "p95": 55.7341,
+     "p99": 65.416
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 681,
+     "p50": 22605.0,
+     "p95": 27273.0,
+     "p100": 29878
+    },
+    "decode_ms": {
+     "n": 681,
+     "p50": 0.3733,
+     "p95": 0.399,
+     "p99": 0.4144
+    },
+    "receiver": {
+     "accepted": 681,
+     "rejected": {},
+     "dropped_sections": {},
+     "sequence_gaps": 0
+    },
+    "rejected_frames": 0,
+    "tracker": {
+     "late_batches": 7826,
+     "fragments": 99,
+     "rr_rejected": 120,
+     "born": 1760,
+     "deleted": 1391,
+     "slivers": 849,
+     "merged": 362
+    }
+   },
+   "python_peak_mb": 16.8,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 238,
+    "latency_s": {
+     "n": 442,
+     "p50": 0.3038,
+     "p99": 0.3964
+    }
+   },
+   "observation_age_s": {
+    "n": 681,
+    "p50": 0.1,
+    "p99": 0.1
+   },
+   "effective_hz": 10.01
+  },
+  "E-corrupt_1pct": {
+   "frames": 520,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 250
+    },
+    "ahead_other": {
+     "recall": 0.9534,
+     "n": 945
+    },
+    "behind": {
+     "recall": 0.9701,
+     "n": 167
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 32
+    },
+    "ego_lane_ahead": {
+     "recall": 0.924,
+     "n": 250
+    },
+    "ego_lane_far": {
+     "recall": 0.787,
+     "n": 216
+    }
+   },
+   "recall_by_class": {
+    "autorickshaw": {
+     "recall": 0.9605,
+     "n": 811
+    },
+    "car": {
+     "recall": 0.9192,
+     "n": 854
+    },
+    "motorcycle": {
+     "recall": 0.9368,
+     "n": 95
+    },
+    "truck": {
+     "recall": 0.93,
+     "n": 100
+    }
+   },
+   "false_tracks_per_frame": 0.0769,
+   "duplicates_per_frame": 0.1212,
+   "duplicates_ungrouped_per_frame": 0.1096,
+   "id_switches": 8,
+   "tracked_vehicles": 15,
+   "episodes": 18,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 17,
+    "p50": 0.0,
+    "p95": 0.22
+   },
+   "pos_err_lon_m": {
+    "n": 1746,
+    "p50": 0.0918,
+    "p95": 0.5808
+   },
+   "pos_err_lat_m": {
+    "n": 1746,
+    "p50": 0.0349,
+    "p95": 0.195
+   },
+   "vel_err_mps": {
+    "n": 1637,
+    "p50": 0.1747,
+    "p95": 0.6388
+   },
+   "point_clearance_optimism_m": {
+    "n": 1746,
+    "p50": 1.9809,
+    "p95": 3.7606
+   },
+   "lane_accuracy": 0.9983,
+   "lane_uncertain_share": 0.0046,
+   "clearance": {
+    "optimistic_share": 0.0074,
+    "coverage": 0.9696,
+    "width_m": {
+     "n": 1746,
+     "p50": 2.87,
+     "p95": 12.3925
+    }
+   },
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 12,
+     "missed_high_frames": 2,
+     "false_high_frames": 1,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.5
+     },
+     "insertion_artefact_frames": 4
+    },
+    "clearance": {
+     "oracle_high_frames": 12,
+     "missed_high_frames": 2,
+     "false_high_frames": 4,
+     "first_high_after_event_s": {
+      "oracle": 0.8,
+      "tracker": -2.6
+     },
+     "insertion_artefact_frames": 4
+    }
+   },
+   "timing_ms": {
+    "decode": {
+     "n": 676,
+     "p50": 0.3611,
+     "p95": 0.394,
+     "p99": 0.4068
+    },
+    "lidar": {
+     "n": 676,
+     "p50": 141.0616,
+     "p95": 152.5426,
+     "p99": 158.0463
+    },
+    "radar_model": {
+     "n": 676,
+     "p50": 0.0968,
+     "p95": 0.2563,
+     "p99": 0.2845
+    },
+    "reports": {
+     "n": 676,
+     "p50": 1.1796,
+     "p95": 3.7279,
+     "p99": 5.0149
+    },
+    "total": {
+     "n": 676,
+     "p50": 148.9378,
+     "p95": 211.5684,
+     "p99": 254.3915
+    },
+    "tracking": {
+     "n": 676,
+     "p50": 5.0825,
+     "p95": 65.6339,
+     "p99": 118.1696
+    }
+   },
+   "transport": {
+    "payload_bytes": {
+     "n": 681,
+     "p50": 22609.0,
+     "p95": 27240.0,
+     "p100": 29895
+    },
+    "decode_ms": {
+     "n": 676,
+     "p50": 0.3611,
+     "p95": 0.394,
+     "p99": 0.4068
+    },
+    "receiver": {
+     "accepted": 676,
+     "rejected": {
+      "corrupt": 5
+     },
+     "dropped_sections": {},
+     "sequence_gaps": 5
+    },
+    "rejected_frames": 5,
+    "tracker": {
+     "late_batches": 0,
+     "fragments": 232,
+     "rr_rejected": 99,
+     "born": 283,
+     "deleted": 238,
+     "slivers": 100,
+     "merged": 38
+    }
+   },
+   "python_peak_mb": 18.9,
+   "queue": {
+    "max_queue": 2,
+    "dropped": 228,
+    "latency_s": {
+     "n": 447,
+     "p50": 0.2998,
+     "p99": 0.4099
+    }
+   },
+   "observation_age_s": {
+    "n": 676,
+    "p50": 0.0,
+    "p99": 0.0
+   },
+   "effective_hz": 9.94
+  }
+ },
+ "orig-expressway": {
+  "scenario": "expressway_100",
+  "run": {
+   "webots": "/Applications/Webots.app/Contents/MacOS/webots",
+   "returncode": 0,
+   "wall_s": 28.03,
+   "cpu_user_s": 24.69,
+   "cpu_sys_s": 22.7,
+   "max_rss_mb_children": 1258.4,
+   "sumo_ms": 200,
+   "radar_ms": 200,
+   "lidar_ms": 0,
+   "camera_s": 0.0,
+   "sync": "stock",
+   "stock_models": true,
+   "case": "expressway",
+   "seed": 11,
+   "duration_s": 90.0
+  },
+  "ego_collision_t": null,
+  "events": [],
+  "rtf": 3.21,
+  "A": {
+   "frames": 450,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 25
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 42
+    },
+    "behind": {
+     "recall": 1.0,
+     "n": 18
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 10
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 1.0,
+     "n": 95
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 1,
+   "episodes": 1,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 1,
+    "p50": 0.0,
+    "p95": 0.0
+   },
+   "pos_err_lon_m": {
+    "n": 95,
+    "p50": 0.1965,
+    "p95": 0.9057
+   },
+   "pos_err_lat_m": {
+    "n": 95,
+    "p50": 0.205,
+    "p95": 1.364
+   },
+   "vel_err_mps": {
+    "n": 95,
+    "p50": 0.2371,
+    "p95": 0.887
+   },
+   "point_clearance_optimism_m": {
+    "n": 95,
+    "p50": 3.3981,
+    "p95": 3.729
+   },
+   "lane_accuracy": 0.9684,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 450,
+     "p50": 0.0307,
+     "p95": 0.0788,
+     "p99": 0.1727
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 450,
+    "CAUTION": 0,
+    "HIGH": 0,
+    "CRITICAL": 0
+   }
+  }
+ },
+ "orig-mixed_potholes": {
+  "scenario": "mixed",
+  "run": {
+   "webots": "/Applications/Webots.app/Contents/MacOS/webots",
+   "returncode": 0,
+   "wall_s": 79.46,
+   "cpu_user_s": 72.21,
+   "cpu_sys_s": 57.16,
+   "max_rss_mb_children": 1351.4,
+   "sumo_ms": 200,
+   "radar_ms": 200,
+   "lidar_ms": 0,
+   "camera_s": 0.0,
+   "sync": "stock",
+   "stock_models": true,
+   "case": "mixed_potholes",
+   "seed": 3,
+   "duration_s": 125.0
+  },
+  "ego_collision_t": 28.4,
+  "events": [],
+  "rtf": 1.57,
+  "A": {
+   "frames": 141,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.9826,
+     "n": 115
+    },
+    "ahead_other": {
+     "recall": 0.8859,
+     "n": 368
+    },
+    "behind": {
+     "recall": 0.6296,
+     "n": 27
+    },
+    "blind_left": {
+     "recall": 1.0,
+     "n": 12
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 109
+    },
+    "ego_lane_far": {
+     "recall": 0.875,
+     "n": 32
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.8675,
+     "n": 249
+    },
+    "motorcycle": {
+     "recall": 0.9167,
+     "n": 276
+    },
+    "truck": {
+     "recall": 0.9855,
+     "n": 138
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 3,
+   "tracked_vehicles": 6,
+   "episodes": 6,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 6,
+    "p50": 0.2,
+    "p95": 0.7
+   },
+   "pos_err_lon_m": {
+    "n": 605,
+    "p50": 0.215,
+    "p95": 0.6674
+   },
+   "pos_err_lat_m": {
+    "n": 605,
+    "p50": 0.2048,
+    "p95": 0.9119
+   },
+   "vel_err_mps": {
+    "n": 587,
+    "p50": 0.2522,
+    "p95": 0.7972
+   },
+   "point_clearance_optimism_m": {
+    "n": 605,
+    "p50": 1.9404,
+    "p95": 4.3749
+   },
+   "lane_accuracy": 0.9934,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 18,
+     "missed_high_frames": 1,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 625,
+     "p50": 0.0075,
+     "p95": 0.2459,
+     "p99": 0.2901
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 578,
+    "CAUTION": 20,
+    "HIGH": 12,
+    "CRITICAL": 15
+   }
+  }
+ },
+ "orig-moto_cutin": {
+  "scenario": "cutin_v2_gradual_100",
+  "run": {
+   "webots": "/Applications/Webots.app/Contents/MacOS/webots",
+   "returncode": 0,
+   "wall_s": 17.42,
+   "cpu_user_s": 14.97,
+   "cpu_sys_s": 12.28,
+   "max_rss_mb_children": 1362.1,
+   "sumo_ms": 200,
+   "radar_ms": 200,
+   "lidar_ms": 0,
+   "camera_s": 0.0,
+   "sync": "stock",
+   "stock_models": true,
+   "case": "moto_cutin",
+   "seed": 11,
+   "duration_s": 43.1
+  },
+  "ego_collision_t": null,
+  "events": [
+   {
+    "record": "event",
+    "t": 15.2,
+    "kind": "cut_in",
+    "what": "spawn_requested",
+    "ego_lane": 2,
+    "ego_speed": 22.222,
+    "ego_travelled_m": 293.4,
+    "waited_s": 0.0
+   },
+   {
+    "record": "event",
+    "t": 15.4,
+    "kind": "cut_in",
+    "what": "inserted",
+    "vehicle": "rs_cutter",
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 20.6,
+    "kind": "cut_in",
+    "what": "act",
+    "vehicle": "rs_cutter",
+    "speed": 18.31,
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 28.6,
+    "kind": "cut_in",
+    "what": "released",
+    "vehicle": "rs_cutter",
+    "lane": 2
+   }
+  ],
+  "rtf": 2.48,
+  "A": {
+   "frames": 216,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 66
+    },
+    "ahead_other": {
+     "recall": 0.9828,
+     "n": 233
+    },
+    "ego_lane_ahead": {
+     "recall": 1.0,
+     "n": 34
+    },
+    "ego_lane_far": {
+     "recall": 1.0,
+     "n": 20
+    }
+   },
+   "recall_by_class": {
+    "bus": {
+     "recall": 0.9906,
+     "n": 213
+    },
+    "motorcycle": {
+     "recall": 0.9857,
+     "n": 140
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.4,
+    "p95": 0.4
+   },
+   "pos_err_lon_m": {
+    "n": 349,
+    "p50": 0.1699,
+    "p95": 0.7642
+   },
+   "pos_err_lat_m": {
+    "n": 349,
+    "p50": 0.2201,
+    "p95": 0.8764
+   },
+   "vel_err_mps": {
+    "n": 343,
+    "p50": 0.2291,
+    "p95": 1.143
+   },
+   "point_clearance_optimism_m": {
+    "n": 349,
+    "p50": 4.6614,
+    "p95": 5.3603
+   },
+   "lane_accuracy": 0.9943,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 216,
+     "p50": 0.0481,
+     "p95": 0.0907,
+     "p99": 0.1102
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 210,
+    "CAUTION": 6,
+    "HIGH": 0,
+    "CRITICAL": 0
+   }
+  }
+ },
+ "orig-rickshaw_cutin": {
+  "scenario": "cutin_v2_assertive_100",
+  "run": {
+   "webots": "/Applications/Webots.app/Contents/MacOS/webots",
+   "returncode": 0,
+   "wall_s": 17.09,
+   "cpu_user_s": 14.79,
+   "cpu_sys_s": 12.42,
+   "max_rss_mb_children": 1253.2,
+   "sumo_ms": 200,
+   "radar_ms": 200,
+   "lidar_ms": 0,
+   "camera_s": 0.0,
+   "sync": "stock",
+   "stock_models": true,
+   "case": "rickshaw_cutin",
+   "seed": 11,
+   "duration_s": 56.8
+  },
+  "ego_collision_t": 33.8,
+  "events": [
+   {
+    "record": "event",
+    "t": 30.6,
+    "kind": "cut_in",
+    "what": "spawn_requested",
+    "ego_lane": 2,
+    "ego_speed": 15.277,
+    "ego_travelled_m": 446.5,
+    "waited_s": 0.0
+   },
+   {
+    "record": "event",
+    "t": 30.8,
+    "kind": "cut_in",
+    "what": "inserted",
+    "vehicle": "rs_cutter",
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 33.6,
+    "kind": "cut_in",
+    "what": "act",
+    "vehicle": "rs_cutter",
+    "speed": 10.11,
+    "lane": 3
+   },
+   {
+    "record": "event",
+    "t": 41.6,
+    "kind": "cut_in",
+    "what": "released",
+    "vehicle": "rs_cutter",
+    "lane": 2
+   }
+  ],
+  "rtf": 3.32,
+  "A": {
+   "frames": 168,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 0.8667,
+     "n": 15
+    },
+    "ahead_other": {
+     "recall": 1.0,
+     "n": 63
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.9744,
+     "n": 78
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 2,
+   "episodes": 2,
+   "never_tracked_episodes": 0,
+   "confirm_latency_s": {
+    "n": 2,
+    "p50": 0.2,
+    "p95": 0.38
+   },
+   "pos_err_lon_m": {
+    "n": 76,
+    "p50": 0.1983,
+    "p95": 0.5665
+   },
+   "pos_err_lat_m": {
+    "n": 76,
+    "p50": 0.1051,
+    "p95": 0.5025
+   },
+   "vel_err_mps": {
+    "n": 73,
+    "p50": 0.1979,
+    "p95": 0.4854
+   },
+   "point_clearance_optimism_m": {
+    "n": 76,
+    "p50": 2.5294,
+    "p95": 2.9528
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 0,
+     "missed_high_frames": 0,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": null,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 284,
+     "p50": 0.0275,
+     "p95": 0.0576,
+     "p99": 0.0871
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 284,
+    "CAUTION": 0,
+    "HIGH": 0,
+    "CRITICAL": 0
+   }
+  }
+ },
+ "orig-stationary": {
+  "scenario": "stationary_lead_100",
+  "run": {
+   "webots": "/Applications/Webots.app/Contents/MacOS/webots",
+   "returncode": 0,
+   "wall_s": 21.38,
+   "cpu_user_s": 18.4,
+   "cpu_sys_s": 15.35,
+   "max_rss_mb_children": 1160.2,
+   "sumo_ms": 200,
+   "radar_ms": 200,
+   "lidar_ms": 0,
+   "camera_s": 0.0,
+   "sync": "stock",
+   "stock_models": true,
+   "case": "stationary",
+   "seed": 11,
+   "duration_s": 70.9
+  },
+  "ego_collision_t": 50.2,
+  "events": [
+   {
+    "record": "event",
+    "t": 45.0,
+    "kind": "sudden_brake",
+    "what": "spawn_requested",
+    "ego_lane": 2,
+    "ego_speed": 22.222,
+    "ego_travelled_m": 955.6,
+    "waited_s": 0.0
+   },
+   {
+    "record": "event",
+    "t": 45.2,
+    "kind": "sudden_brake",
+    "what": "inserted",
+    "vehicle": "rs_lead",
+    "lane": 2
+   },
+   {
+    "record": "event",
+    "t": 48.2,
+    "kind": "sudden_brake",
+    "what": "act",
+    "vehicle": "rs_lead",
+    "speed": 22.22,
+    "lane": 2
+   },
+   {
+    "record": "event",
+    "t": 58.2,
+    "kind": "sudden_brake",
+    "what": "released",
+    "vehicle": "rs_lead",
+    "lane": 2
+   }
+  ],
+  "rtf": 3.32,
+  "A": {
+   "frames": 250,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 16
+    },
+    "ahead_other": {
+     "recall": 0.9753,
+     "n": 81
+    },
+    "blind_left": {
+     "recall": 0.129,
+     "n": 31
+    },
+    "ego_lane_ahead": {
+     "recall": 0.9524,
+     "n": 21
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.9735,
+     "n": 113
+    },
+    "motorcycle": {
+     "recall": 0.25,
+     "n": 36
+    }
+   },
+   "false_tracks_per_frame": 0.0,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 0,
+   "tracked_vehicles": 4,
+   "episodes": 5,
+   "never_tracked_episodes": 1,
+   "confirm_latency_s": {
+    "n": 4,
+    "p50": 0.1,
+    "p95": 4.62
+   },
+   "pos_err_lon_m": {
+    "n": 119,
+    "p50": 0.1637,
+    "p95": 0.5605
+   },
+   "pos_err_lat_m": {
+    "n": 119,
+    "p50": 0.0951,
+    "p95": 0.335
+   },
+   "vel_err_mps": {
+    "n": 113,
+    "p50": 0.199,
+    "p95": 2.8463
+   },
+   "point_clearance_optimism_m": {
+    "n": 119,
+    "p50": 2.3982,
+    "p95": 2.9269
+   },
+   "lane_accuracy": 1.0,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 4,
+     "missed_high_frames": 4,
+     "false_high_frames": 0,
+     "first_high_after_event_s": {
+      "oracle": 1.2,
+      "tracker": null
+     },
+     "insertion_artefact_frames": 0
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 355,
+     "p50": 0.0115,
+     "p95": 0.0945,
+     "p99": 0.1248
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 332,
+    "CAUTION": 0,
+    "HIGH": 1,
+    "CRITICAL": 22
+   }
+  }
+ },
+ "orig-truck_brake": {
+  "scenario": "sudden_brake",
+  "run": {
+   "webots": "/Applications/Webots.app/Contents/MacOS/webots",
+   "returncode": 0,
+   "wall_s": 24.62,
+   "cpu_user_s": 21.83,
+   "cpu_sys_s": 18.57,
+   "max_rss_mb_children": 1303.1,
+   "sumo_ms": 200,
+   "radar_ms": 200,
+   "lidar_ms": 0,
+   "camera_s": 0.0,
+   "sync": "stock",
+   "stock_models": true,
+   "case": "truck_brake",
+   "seed": 12,
+   "duration_s": 68.1
+  },
+  "ego_collision_t": null,
+  "events": [
+   {
+    "record": "event",
+    "t": 53.4,
+    "kind": "sudden_brake",
+    "what": "slot_never_clear",
+    "ego_lane": 3,
+    "blocked_by": [
+     "v71",
+     1140.2,
+     4.5,
+     1141.8
+    ]
+   }
+  ],
+  "rtf": 2.77,
+  "A": {
+   "frames": 341,
+   "recall_by_zone": {
+    "adjacent_near": {
+     "recall": 1.0,
+     "n": 93
+    },
+    "ahead_other": {
+     "recall": 0.9114,
+     "n": 756
+    },
+    "behind": {
+     "recall": 0.9925,
+     "n": 398
+    },
+    "blind_left": {
+     "recall": 0.5062,
+     "n": 81
+    },
+    "ego_lane_ahead": {
+     "recall": 0.7809,
+     "n": 251
+    },
+    "ego_lane_far": {
+     "recall": 0.4854,
+     "n": 206
+    }
+   },
+   "recall_by_class": {
+    "car": {
+     "recall": 0.854,
+     "n": 1555
+    },
+    "motorcycle": {
+     "recall": 0.7299,
+     "n": 137
+    },
+    "truck": {
+     "recall": 0.9247,
+     "n": 93
+    }
+   },
+   "false_tracks_per_frame": 0.0029,
+   "duplicates_per_frame": 0.0,
+   "duplicates_ungrouped_per_frame": 0.0,
+   "id_switches": 4,
+   "tracked_vehicles": 15,
+   "episodes": 18,
+   "never_tracked_episodes": 2,
+   "confirm_latency_s": {
+    "n": 16,
+    "p50": 0.3,
+    "p95": 5.15
+   },
+   "pos_err_lon_m": {
+    "n": 1514,
+    "p50": 0.1988,
+    "p95": 1.0255
+   },
+   "pos_err_lat_m": {
+    "n": 1514,
+    "p50": 0.1624,
+    "p95": 0.8146
+   },
+   "vel_err_mps": {
+    "n": 1470,
+    "p50": 0.301,
+    "p95": 1.2891
+   },
+   "point_clearance_optimism_m": {
+    "n": 1514,
+    "p50": 2.3841,
+    "p95": 3.9176
+   },
+   "lane_accuracy": 0.9947,
+   "lane_uncertain_share": 0.0,
+   "safety": {
+    "centre": {
+     "oracle_high_frames": 6,
+     "missed_high_frames": 6,
+     "false_high_frames": 7,
+     "first_high_after_event_s": {},
+     "insertion_artefact_frames": 1
+    }
+   },
+   "timing_ms": {
+    "total": {
+     "n": 341,
+     "p50": 0.1221,
+     "p95": 0.2517,
+     "p99": 0.3561
+    }
+   },
+   "authoritative_levels": {
+    "SAFE": 302,
+    "CAUTION": 31,
+    "HIGH": 2,
+    "CRITICAL": 6
+   }
+  }
+ }
+}

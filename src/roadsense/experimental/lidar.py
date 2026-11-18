@@ -119,8 +119,10 @@ def decode_frame(cfg, data):
     return seq, t, r.reshape(cfg.layers, cfg.width), valid.reshape(cfg.layers, cfg.width)
 
 
-def points(cfg, ranges):
-    """Ego-frame points (N, 3) and their (layer, column) from a range image (mount yaw only: roll = pitch = 0)."""
+def points(cfg, ranges, attitude=(0.0, 0.0)):
+    """Ego-frame points (N, 3) and their (layer, column) from a range image (mount yaw only: roll = pitch = 0).
+    attitude: the vehicle's (roll, pitch) from its IMU; the points are levelled with it (a braking car pitches by
+    several degrees, which otherwise puts the road surface into the obstacle height band)."""
     r = np.asarray(ranges, dtype=np.float64)
     ok = np.isfinite(r) & (r > 0)
     layer, col = np.nonzero(ok)
@@ -130,7 +132,13 @@ def points(cfg, ranges):
     x, y, z = rr * np.cos(el) * np.cos(az), rr * np.cos(el) * np.sin(az), rr * np.sin(el)
     mx, my, mz, _roll, _pitch, yaw = cfg.mount
     c, s = math.cos(yaw), math.sin(yaw)
-    return np.stack([mx + c * x - s * y, my + s * x + c * y, mz + z], 1), layer, col
+    pts = np.stack([mx + c * x - s * y, my + s * x + c * y, mz + z], 1)
+    roll, pitch = attitude
+    if roll or pitch:  # level frame = Ry(pitch) Rx(roll) vehicle frame (Webots roll-pitch-yaw)
+        cr, sr, cp, sp = math.cos(roll), math.sin(roll), math.cos(pitch), math.sin(pitch)
+        rot = np.array([[cp, sp * sr, sp * cr], [0, cr, -sr], [-sp, cp * sr, cp * cr]])
+        pts = pts @ rot.T
+    return pts, layer, col
 
 
 def ground_height(pts, layer, lowest_layers=4, near=3.0, far=25.0):
@@ -169,14 +177,14 @@ def clusters(pts, cell=0.4):
     return out
 
 
-def process(cfg, ranges, ego_box, min_points=3, height=(0.2, 4.0), ground=None):
+def process(cfg, ranges, ego_box, min_points=3, height=(0.2, 4.0), ground=None, attitude=(0.0, 0.0)):
     """Range image -> obstacle clusters. ego_box = (rear x, front x, half width) of the ego's own body, removed with
     a 0.3 m margin. Heights are above the estimated ground; points higher than height[1] (gantries, signs) and
     lower than height[0] (road) are not obstacles. Each cluster: dict of near point (the obstacle point closest to
     the ego's footprint: what clearance depends on), its extent (visible surfaces only: a lower bound on the body),
     point count, a confidence, per-axis 1-sigma uncertainties of the near point from the beam spacing there, and
     near_range_interval: horizontal range from the sensor within which the object's nearest surface lies."""
-    pts, layer, col = points(cfg, ranges)
+    pts, layer, col = points(cfg, ranges, attitude)
     g = ground_height(pts, layer) if ground is None else ground
     if g is None:
         return {"ground": None, "clusters": [], "obstacle_points": 0}
@@ -214,12 +222,13 @@ def process(cfg, ranges, ego_box, min_points=3, height=(0.2, 4.0), ground=None):
             below = lay[low] + 1
             if c[low, 2] - g > 0.3 and below < cfg.layers and el[below] < 0:
                 hidden_from = min(hidden_from, max(0.0, (cfg.mount[2] - g) / math.tan(-el[below])))
+        face_low = float(c[horiz < horiz.min() + 1.0, 2].min() - g)  # lowest visible point of the near face
         out.append({"near": (float(near[0]), float(near[1])), "x": (float(c[:, 0].min()), float(c[:, 0].max())),
                     "y": (float(c[:, 1].min()), float(c[:, 1].max())), "z": (float(c[:, 2].min() - g),
                                                                             float(c[:, 2].max() - g)),
                     "n": int(len(c)), "range": rng, "confidence": float(1 - math.exp(-len(c) / 8.0)),
                     "sigma_lateral": lateral_sigma, "sigma_line_of_sight": 0.05, "unseen_vertical_gap": unseen_gap,
-                    "near_range_interval": (float(hidden_from), rng),
+                    "near_range_interval": (float(hidden_from), rng), "face_low": face_low,
                     "near_edge": edge})
     return {"ground": g, "clusters": out, "obstacle_points": int(keep.sum())}
 
@@ -249,3 +258,50 @@ def decode_objects(data):
         out.append({"near": (f[0] / 100, f[1] / 100), "x": (f[2] / 100, f[3] / 100), "y": (f[4] / 100, f[5] / 100),
                     "z": (f[6] / 100, f[7] / 100), "n": f[9], "confidence": f[10] / 255, "near_edge": bool(f[11] & 1)})
     return config_id, seq, t, out
+
+
+SEEN_THROUGH, OCCUPIED, OCCLUDED, UNKNOWN = "seen_through", "occupied", "occluded", "unknown"
+
+
+def free_space(cfg, ranges, ground, lon, lat, radius=1.0, height=(0.4, 2.0)):
+    """What the range image says about a disc of `radius` at ego-frame (lon, lat), for an object standing between
+    height[0] and height[1] above the ground: OCCUPIED (a return inside the disc), SEEN_THROUGH (beams that would hit
+    such an object there returned from beyond it, and none inside), OCCLUDED (they returned from nearer: something in
+    front) or UNKNOWN (no beam crosses that height band there, or no returns: sky, out of range, absorbing). Absence
+    of a return is never taken as an empty road."""
+    if ground is None:
+        return UNKNOWN
+    mx, my, mz = cfg.mount[0], cfg.mount[1], cfg.mount[2]
+    dx, dy = lon - mx, lat - my
+    rho = math.hypot(dx, dy)
+    if rho <= radius:
+        return UNKNOWN
+    az = math.atan2(dy, dx) - cfg.mount[5]
+    half = math.asin(min(1.0, radius / rho))
+    c0 = (az - half - cfg.az0) / cfg.az_step
+    c1 = (az + half - cfg.az0) / cfg.az_step
+    lo, hi = int(math.floor(min(c0, c1))), int(math.ceil(max(c0, c1)))
+    cols = [c % cfg.width for c in range(lo, hi + 1)] if cfg.fov > 6.28 else \
+        [c for c in range(lo, hi + 1) if 0 <= c < cfg.width]
+    seen = {OCCUPIED: 0, SEEN_THROUGH: 0, OCCLUDED: 0}
+    r = np.asarray(ranges)
+    for layer, el in enumerate(cfg.elevations):
+        z = mz + rho * math.tan(el) - ground
+        if not height[0] <= z <= height[1]:
+            continue
+        for c in cols:
+            v = r[layer, c]
+            if not np.isfinite(v):
+                continue
+            h = v * math.cos(el)
+            if h > rho + radius:
+                seen[SEEN_THROUGH] += 1
+            elif h >= rho - radius:
+                seen[OCCUPIED] += 1
+            else:
+                seen[OCCLUDED] += 1
+    if seen[OCCUPIED]:
+        return OCCUPIED
+    if seen[SEEN_THROUGH] >= 2 and seen[SEEN_THROUGH] >= seen[OCCLUDED]:
+        return SEEN_THROUGH
+    return OCCLUDED if seen[OCCLUDED] else UNKNOWN

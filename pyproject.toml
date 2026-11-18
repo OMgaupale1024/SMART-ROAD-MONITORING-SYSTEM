@@ -30,6 +30,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "roadsense.web" = ["static/**/*"]  # the dashboard, with its vendored three.js: no internet needed
+"roadsense.experimental" = ["calibration.json"]  # shadow perception slack tables (development calibration)
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

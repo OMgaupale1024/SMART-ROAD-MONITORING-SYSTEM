@@ -1,0 +1,156 @@
+{
+ "schema": "roadsense.experimental-calibration.v1",
+ "about": "measured clearance - true surface clearance (m), quantiles q01/q50/q99: radar by group, geometry and range; lidar (nearest cluster point on each body) by the lowest visible face height and range. Calibrated on W9 development runs only, never on the validation runs",
+ "runs": [
+  "C-smooth-AB",
+  "C-aligned-AB"
+ ],
+ "samples": {
+  "front inline 30-80": 274,
+  "front all": 3768,
+  "front inline 80-": 729,
+  "front side 80-": 930,
+  "front side 0-30": 629,
+  "front side 30-80": 1206,
+  "rear side 0-30": 364,
+  "rear all": 1034,
+  "rear side 30-80": 521,
+  "rear side 80-": 149,
+  "corner_rr side 0-30": 4,
+  "corner_rr all": 4,
+  "corner_rl side 0-30": 372,
+  "corner_rl all": 883,
+  "corner_rl side 30-80": 495,
+  "corner_rl side 80-": 16,
+  "lidar face 0.5-1 range 0-20": 381,
+  "lidar all": 5708,
+  "lidar face 1-99 range 20-40": 607,
+  "lidar face 0.5-1 range 40-": 1714,
+  "lidar face 0.5-1 range 20-40": 425,
+  "lidar face 0-0.5 range 20-40": 470,
+  "lidar face 0-0.5 range 0-20": 769,
+  "lidar face 1-99 range 40-": 698,
+  "lidar face 0-0.5 range 40-": 641,
+  "lidar face 1-99 range 0-20": 3
+ },
+ "radar_slack_m": {
+  "front": {
+   "inline 30-80": [
+    1.199,
+    2.434,
+    4.343
+   ],
+   "all": [
+    0.67,
+    1.778,
+    4.261
+   ],
+   "inline 80-": [
+    1.279,
+    2.464,
+    4.366
+   ],
+   "side 80-": [
+    0.675,
+    1.584,
+    3.541
+   ],
+   "side 0-30": [
+    0.629,
+    1.56,
+    3.62
+   ],
+   "side 30-80": [
+    0.616,
+    1.573,
+    4.162
+   ]
+  },
+  "rear": {
+   "side 0-30": [
+    0.616,
+    1.669,
+    3.885
+   ],
+   "all": [
+    0.482,
+    1.863,
+    3.779
+   ],
+   "side 30-80": [
+    0.466,
+    1.86,
+    3.705
+   ],
+   "side 80-": [
+    0.512,
+    2.28,
+    3.708
+   ]
+  },
+  "corner_rl": {
+   "side 0-30": [
+    0.184,
+    1.627,
+    3.787
+   ],
+   "all": [
+    0.389,
+    1.752,
+    3.749
+   ],
+   "side 30-80": [
+    0.556,
+    1.95,
+    3.675
+   ]
+  }
+ },
+ "lidar_slack_m": {
+  "face 0.5-1 range 0-20": [
+   -0.225,
+   0.039,
+   0.739
+  ],
+  "all": [
+   -0.241,
+   0.102,
+   4.576
+  ],
+  "face 1-99 range 20-40": [
+   -0.029,
+   0.539,
+   1.968
+  ],
+  "face 0.5-1 range 40-": [
+   -0.243,
+   0.088,
+   1.28
+  ],
+  "face 0.5-1 range 20-40": [
+   -0.18,
+   0.134,
+   0.914
+  ],
+  "face 0-0.5 range 20-40": [
+   -0.283,
+   0.114,
+   0.827
+  ],
+  "face 0-0.5 range 0-20": [
+   -0.281,
+   0.036,
+   0.455
+  ],
+  "face 1-99 range 40-": [
+   -0.185,
+   0.486,
+   4.823
+  ],
+  "face 0-0.5 range 40-": [
+   -0.238,
+   0.012,
+   0.9
+  ]
+ }
+}
