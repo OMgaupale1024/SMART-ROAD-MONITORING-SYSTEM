@@ -1,0 +1,153 @@
+{
+ "about": "tools/webots_w8/sync_emulate.py: SUMO->Webots display rules emulated from the SUMO log alone (causal); along-track error vs SUMO at display time and displayed acceleration",
+ "runs": {
+  "C-smooth": {
+   "stock": {
+    "along_err_p50": 3.2616,
+    "along_err_p95": 3.7295,
+    "along_err_p99": 3.8313,
+    "accel_p01": -1.67,
+    "accel_p99": 1.7278
+   },
+   "smooth": {
+    "along_err_p50": 0.0062,
+    "along_err_p95": 0.0217,
+    "along_err_p99": 0.0334,
+    "accel_p01": -7.0678,
+    "accel_p99": 7.0778
+   },
+   "ema0.7": {
+    "along_err_p50": 0.0051,
+    "along_err_p95": 0.0188,
+    "along_err_p99": 0.0286,
+    "accel_p01": -4.8437,
+    "accel_p99": 5.0128
+   },
+   "ema0.5": {
+    "along_err_p50": 0.0046,
+    "along_err_p95": 0.0177,
+    "along_err_p99": 0.0283,
+    "accel_p01": -3.6855,
+    "accel_p99": 3.8821
+   },
+   "ema0.3": {
+    "along_err_p50": 0.0042,
+    "along_err_p95": 0.0168,
+    "along_err_p99": 0.0315,
+    "accel_p01": -2.797,
+    "accel_p99": 2.8889
+   }
+  },
+  "A-smooth": {
+   "stock": {
+    "along_err_p50": 6.4932,
+    "along_err_p95": 7.4374,
+    "along_err_p99": 7.6312,
+    "accel_p01": -1.609,
+    "accel_p99": 1.7158
+   },
+   "smooth": {
+    "along_err_p50": 0.0246,
+    "along_err_p95": 0.0871,
+    "along_err_p99": 0.1377,
+    "accel_p01": -6.7887,
+    "accel_p99": 7.2241
+   },
+   "ema0.7": {
+    "along_err_p50": 0.0197,
+    "along_err_p95": 0.0746,
+    "along_err_p99": 0.1165,
+    "accel_p01": -4.8269,
+    "accel_p99": 4.9764
+   },
+   "ema0.5": {
+    "along_err_p50": 0.0181,
+    "along_err_p95": 0.0702,
+    "along_err_p99": 0.1144,
+    "accel_p01": -3.6178,
+    "accel_p99": 3.8081
+   },
+   "ema0.3": {
+    "along_err_p50": 0.0168,
+    "along_err_p95": 0.0673,
+    "along_err_p99": 0.113,
+    "accel_p01": -2.7126,
+    "accel_p99": 2.8812
+   }
+  },
+  "corr-truck_brake": {
+   "stock": {
+    "along_err_p50": 3.9893,
+    "along_err_p95": 4.6343,
+    "along_err_p99": 4.9734,
+    "accel_p01": -4.5,
+    "accel_p99": 2.4392
+   },
+   "smooth": {
+    "along_err_p50": 0.0081,
+    "along_err_p95": 0.0548,
+    "along_err_p99": 0.135,
+    "accel_p01": -10.74,
+    "accel_p99": 9.7592
+   },
+   "ema0.7": {
+    "along_err_p50": 0.0068,
+    "along_err_p95": 0.0609,
+    "along_err_p99": 0.172,
+    "accel_p01": -7.848,
+    "accel_p99": 6.6999
+   },
+   "ema0.5": {
+    "along_err_p50": 0.0064,
+    "along_err_p95": 0.076,
+    "along_err_p99": 0.2142,
+    "accel_p01": -6.7088,
+    "accel_p99": 5.117
+   },
+   "ema0.3": {
+    "along_err_p50": 0.0064,
+    "along_err_p95": 0.1099,
+    "along_err_p99": 0.2962,
+    "accel_p01": -5.9078,
+    "accel_p99": 3.9826
+   }
+  },
+  "corr-stationary": {
+   "stock": {
+    "along_err_p50": 4.2486,
+    "along_err_p95": 5.7969,
+    "along_err_p99": 5.8675,
+    "accel_p01": -5.78,
+    "accel_p99": 2.581
+   },
+   "smooth": {
+    "along_err_p50": 0.0111,
+    "along_err_p95": 0.0657,
+    "along_err_p99": 0.1734,
+    "accel_p01": -9.185,
+    "accel_p99": 8.464
+   },
+   "ema0.7": {
+    "along_err_p50": 0.0109,
+    "along_err_p95": 0.0849,
+    "along_err_p99": 0.2229,
+    "accel_p01": -6.3715,
+    "accel_p99": 6.8468
+   },
+   "ema0.5": {
+    "along_err_p50": 0.0118,
+    "along_err_p95": 0.109,
+    "along_err_p99": 0.289,
+    "accel_p01": -5.7862,
+    "accel_p99": 5.6705
+   },
+   "ema0.3": {
+    "along_err_p50": 0.0164,
+    "along_err_p95": 0.1659,
+    "along_err_p99": 1.0479,
+    "accel_p01": -5.792,
+    "accel_p99": 9.693
+   }
+  }
+ }
+}

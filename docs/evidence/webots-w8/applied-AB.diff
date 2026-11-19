@@ -1,0 +1,44 @@
+diff --git a/src/webots/maths/WbAffinePlane.hpp b/src/webots/maths/WbAffinePlane.hpp
+index bb04a81..6ad4e03 100644
+--- a/src/webots/maths/WbAffinePlane.hpp
++++ b/src/webots/maths/WbAffinePlane.hpp
+@@ -69,7 +69,7 @@ public:
+   double distance(const WbVector3 &v) const { return mA * v.x() + mB * v.y() + mC * v.z() - mD; }
+ 
+   // project a vector on this plane, returns the project vector
+-  WbVector3 vectorProjection(const WbVector3 &v) const { return v + normal() * v.dot(normal()); }
++  WbVector3 vectorProjection(const WbVector3 &v) const { return v - normal() * v.dot(normal()); }
+ 
+ private:
+   double mA, mB, mC, mD;
+diff --git a/src/webots/nodes/WbRadar.cpp b/src/webots/nodes/WbRadar.cpp
+index c96d227..98d04a8 100644
+--- a/src/webots/nodes/WbRadar.cpp
++++ b/src/webots/nodes/WbRadar.cpp
+@@ -476,7 +476,10 @@ bool WbRadar::setTargetProperties(const WbVector3 &radarPosition, const WbMatrix
+   WbVector3 radarVelocity = (radarPosition - mPreviousRadarPosition) * (1000 / mSensorElapsedTime);
+   WbVector3 relativeVelocity = targetVelocity - radarVelocity;
+ 
+-  double relativeSpeed = targetToRadarVector.normalized().dot(relativeVelocity);
++  // RoadSense W8 patch B: range, bearing and radial speed all refer to one point, the centre of the target's
++  // bounding box clipped to the beam (objectRelativePosition, device frame), the point the range already measures.
++  const WbVector3 &measuredPoint = radarTarget->objectRelativePosition();
++  double relativeSpeed = (radarRotation * measuredPoint).normalized().dot(relativeVelocity);
+   relativeSpeed += mSpeedNoise->value() * WbRandom::nextGaussian();
+   // check speed is in the radial speed range
+   if (mMinRadialSpeed->value() != 0.0 || mMaxRadialSpeed->value() != 0.0) {
+@@ -490,12 +493,8 @@ bool WbRadar::setTargetProperties(const WbVector3 &radarPosition, const WbMatrix
+   if (mMinAbsoluteRadialSpeed->value() > 0 && fabs(relativeSpeed) < mMinAbsoluteRadialSpeed->value())
+     return false;
+ 
+-  // compute horizontal angle
+-  WbVector3 projectedTargetToRadarVector = radarPlane.vectorProjection(targetToRadarVector);
+-  projectedTargetToRadarVector.normalize();
+-  double azimuth = radarAxis.angle(projectedTargetToRadarVector);
+-  if (projectedTargetToRadarVector.dot(radarRotation * WbVector3(0.0, 1.0, 0.0)) > 0.0)
+-    azimuth = -azimuth;
++  // compute horizontal angle of the measured point (positive to the right, as before)
++  double azimuth = -atan2(measuredPoint.y(), measuredPoint.x());
+ 
+   // checks that azimuth is not out of the detection frustum,
+   // this can happen if the object's center is outside but a part of the object is inside.

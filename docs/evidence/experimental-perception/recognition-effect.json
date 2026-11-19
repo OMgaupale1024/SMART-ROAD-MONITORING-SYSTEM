@@ -1,0 +1,162 @@
+{
+ "camera": {
+  "hfov": 0.87,
+  "vfov": 0.4566,
+  "height_m": 1.72,
+  "max_range_m": 60.0
+ },
+ "potholes": {
+  "ego lane, 0.74 x 0.58 m": {
+   "installed": {
+    "visible_from_m": 7.1000000000000005,
+    "visible_to_m": 59.900000000000006,
+    "centre_error_max_m": 0.017,
+    "at_m": 7.1,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "patched_A": {
+    "visible_from_m": 7.1000000000000005,
+    "visible_to_m": 59.900000000000006,
+    "centre_error_max_m": 0.017,
+    "at_m": 7.1,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "ego lane, 1.56 x 0.82 m": {
+   "installed": {
+    "visible_from_m": 6.6000000000000005,
+    "visible_to_m": 59.900000000000006,
+    "centre_error_max_m": 0.041,
+    "at_m": 6.6,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "patched_A": {
+    "visible_from_m": 6.6000000000000005,
+    "visible_to_m": 59.900000000000006,
+    "centre_error_max_m": 0.04,
+    "at_m": 6.6,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "adjacent lane, 0.74 x 0.58 m": {
+   "installed": {
+    "visible_from_m": 7.1000000000000005,
+    "visible_to_m": 59.800000000000004,
+    "centre_error_max_m": 0.426,
+    "at_m": 7.1,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "patched_A": {
+    "visible_from_m": 7.1000000000000005,
+    "visible_to_m": 59.800000000000004,
+    "centre_error_max_m": 0.415,
+    "at_m": 7.1,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "adjacent lane, 1.56 x 0.82 m": {
+   "installed": {
+    "visible_from_m": 6.6000000000000005,
+    "visible_to_m": 59.800000000000004,
+    "centre_error_max_m": 0.685,
+    "at_m": 6.6,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   "patched_A": {
+    "visible_from_m": 6.6000000000000005,
+    "visible_to_m": 59.800000000000004,
+    "centre_error_max_m": 0.634,
+    "at_m": 6.6,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "two over lane, 0.74 x 0.58 m": {
+   "installed": {
+    "visible_from_m": 15.200000000000001,
+    "visible_to_m": 59.5,
+    "centre_error_max_m": 0.408,
+    "at_m": 15.2,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0
+    ]
+   },
+   "patched_A": {
+    "visible_from_m": 15.200000000000001,
+    "visible_to_m": 59.5,
+    "centre_error_max_m": 0.396,
+    "at_m": 15.2,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "two over lane, 1.56 x 0.82 m": {
+   "installed": {
+    "visible_from_m": 14.5,
+    "visible_to_m": 59.5,
+    "centre_error_max_m": 0.696,
+    "at_m": 14.5,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0
+    ]
+   },
+   "patched_A": {
+    "visible_from_m": 14.5,
+    "visible_to_m": 59.5,
+    "centre_error_max_m": 0.691,
+    "at_m": 14.5,
+    "error_over_merge_radius_m": null,
+    "error_at_10_20_40_m": [
+     0.0,
+     0.0
+    ]
+   }
+  }
+ }
+}

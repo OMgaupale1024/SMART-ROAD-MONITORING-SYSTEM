@@ -24,7 +24,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 WORLD = ROOT / "simulation/webots/worlds/roadsense_calibration.wbt"
-WEBOTS = "/Applications/Webots.app/Contents/MacOS/webots"
+# ROADSENSE_WEBOTS: another Webots executable (e.g. a W8 patched copy); the installed one by default
+WEBOTS = os.environ.get("ROADSENSE_WEBOTS", "/Applications/Webots.app/Contents/MacOS/webots")
 
 # ---------------------------------------------------------------------------------------------------------------
 # Geometry, from the installed Webots assets (838bb6f) and roadsense_calibration.wbt. Model frame: x forward,
@@ -307,7 +308,7 @@ def run(plan_path, out_dir):
         if rec.get("type") == "sample":
             sim_t = rec["t"]
             break
-    meta = {"returncode": proc.returncode, "wall_s": round(wall, 2), "sim_s": sim_t, "usage": usage,
+    meta = {"webots": WEBOTS, "returncode": proc.returncode, "wall_s": round(wall, 2), "sim_s": sim_t, "usage": usage,
             "gpu_util_pct": {"n": len(gpu), "median": statistics.median(gpu) if gpu else None,
                              "max": max(gpu) if gpu else None},
             "errors": [l for l in text.splitlines() if l.startswith("ERROR") or "Traceback" in l][:20]}
@@ -367,6 +368,93 @@ def body_points(kind, model_pose):
                 for dz in (-0.5, 0.5):
                     pts.append(to_world(model_pose, (c[0] + dx * s[0], c[1] + dy * s[1], c[2] + dz * s[2])))
     return pts
+
+
+def _cross(a, b):
+    return (a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0])
+
+
+def _unit(v):
+    n = math.sqrt(dot(v, v))
+    return (v[0] / n, v[1] / n, v[2] / n)
+
+
+def frustum_normals(hfov, vfov, max_range):
+    """WbObjectDetection::computeFrustumPlanes in the device frame (planes through the device, inward normals), in
+    Webots' order LEFT, BOTTOM, RIGHT, TOP. Webots computes the half angles in float."""
+    import struct
+    f32 = lambda x: struct.unpack("f", struct.pack("f", x))[0]
+    X = max_range
+    Y, Z = X * math.tan(f32(hfov / 2.0)), X * math.tan(f32(vfov / 2.0))
+    tr, tl, br, bl = (X, -Y, Z), (X, Y, Z), (X, -Y, -Z), (X, Y, -Z)
+    right, bottom, left, top = (_unit(_cross(a, b)) for a, b in ((tr, br), (br, bl), (bl, tl), (tl, tr)))
+    return [left, bottom, right, top]
+
+
+def webots_box_bounds(local_corners, normals, projection_fixed):
+    """WbObjectDetection::isWithinBounds for one Box (planar device), in the device frame: returns the clipped AABB
+    (min, max) or None. The installed R2025b projects a point outside a plane with v + n (v.n) (it moves further out);
+    the corrected projection is v - n (v.n)."""
+    LEFT, BOTTOM, RIGHT, TOP = range(4)
+    front, back, inside_n = [], [], 0
+    outside, correct = [False] * 4, [False] * 4
+    for p in local_corners:
+        if p[0] <= 0:  # PARALLEL plane: at the back of the device
+            back.append(p)
+            continue
+        inside = True
+        for j, n in enumerate(normals):
+            d = dot(n, p)
+            if d < 0:
+                k = -d if projection_fixed else d
+                p = (p[0] + n[0] * k, p[1] + n[1] * k, p[2] + n[2] * k)
+                outside[j], inside = True, False
+            else:
+                correct[j] = True
+        inside_n += inside
+        front.append(p)
+    if not front:
+        return None
+    if inside_n == 0 and not (outside[RIGHT] and outside[LEFT] and correct[BOTTOM] and correct[TOP]) and not (
+            outside[BOTTOM] and outside[TOP] and correct[RIGHT] and correct[LEFT]):
+        return None
+    pts = front + back
+    return tuple(min(q[i] for q in pts) for i in range(3)), tuple(max(q[i] for q in pts) for i in range(3))
+
+
+def webots_measure(name, ego, kind, model_pose, variant):
+    """Predicted noise-free radar (distance, azimuth) for a simulator variant: 'orig' (installed R2025b), 'A' (shared
+    projection corrected) or 'AB' (A + range, bearing and radial speed of the one clipped-box-centre point), plus the
+    measured point in the device frame. Ported from WbObjectDetection/WbRadar at 838bb6f; scoring only."""
+    pos, ax, ay, az = radar_pose(ego, name)
+    _, _, _, _, max_range, hfov, vfov = RADARS[name]
+    normals = frustum_normals(hfov, vfov, max_range)
+    lo = hi = None
+    for i, (c, sz) in enumerate(KINDS[kind]["boxes"]):
+        corners = []
+        for dx in (-0.5, 0.5):
+            for dy in (-0.5, 0.5):
+                for dz in (-0.5, 0.5):
+                    w = sub(to_world(model_pose, (c[0] + dx * sz[0], c[1] + dy * sz[1], c[2] + dz * sz[2])), pos)
+                    corners.append((dot(w, ax), dot(w, ay), dot(w, az)))
+        b = webots_box_bounds(corners, normals, variant != "orig")
+        if b is not None:
+            lo = b[0] if lo is None else tuple(min(x, y) for x, y in zip(lo, b[0]))
+            hi = b[1] if hi is None else tuple(max(x, y) for x, y in zip(hi, b[1]))
+    if lo is None:
+        return None
+    centre = tuple((x + y) / 2 for x, y in zip(lo, hi))
+    o = sub(model_pose[:3], pos)
+    ox, oy, oz = dot(o, ax), dot(o, ay), dot(o, az)
+    if variant == "orig":
+        a = math.acos(max(-1.0, min(1.0, ox / math.sqrt(ox * ox + oy * oy + 4 * oz * oz))))
+        a = -a if oy > 0 else a
+    elif variant == "A":
+        a = -math.atan2(oy, ox)
+    else:
+        a = -math.atan2(centre[1], centre[0])
+    return {"d": math.sqrt(dot(centre, centre)), "az": max(-hfov / 2, min(hfov / 2, a)), "point": centre,
+            "origin": (ox, oy, oz)}
 
 
 def expected(name, ego, kind, model_pose):
@@ -465,8 +553,9 @@ def match(raw, exp_list, name):
         for i, (d, az, sp, pw) in enumerate(raw):
             if d <= 1.0001:  # the ego's own body, clamped to the minimum range
                 continue
-            err = abs(d - e["dist_bbox_centre"])
-            across = e["dist_bbox_centre"] * min(abs(az - e["az_webots_model"]), abs(az + e["az_webots_model"]))
+            pd, paz = e.get("pred_d", e["dist_bbox_centre"]), e.get("pred_az", e["az_webots_model"])
+            err = abs(d - pd)
+            across = pd * min(abs(az - paz), abs(az + paz))
             if err < 2.0 and across < 1.5:
                 cands.append((err + across, tname, i))
     for err, tname, i in sorted(cands):
@@ -501,7 +590,8 @@ def ego_point(name, d, az):
     return mx + d * math.cos(a), my + d * math.sin(a)
 
 
-def analyse_radar(run_dir):
+def analyse_radar(run_dir, variant="orig"):
+    """variant: the simulator build that produced run_dir (orig = installed R2025b, A, AB: W8 patches)."""
     from roadsense.autonomy import perception
     cases, samples, ends = load(run_dir)
     rows = []
@@ -515,6 +605,9 @@ def analyse_radar(run_dir):
                 exps = {}
                 for tname in target_kinds(case):
                     exps[tname] = expected(name, s["gt"]["ego"], tname, s["gt"]["targets"][tname]["model"])
+                    pred = webots_measure(name, s["gt"]["ego"], tname, s["gt"]["targets"][tname]["model"], variant)
+                    if pred is not None:
+                        exps[tname].update(pred_d=pred["d"], pred_az=pred["az"])
                 pairs, extra = match(raw, exps, name)
                 own = sum(1 for t in raw if t[0] <= 1.0001)
                 for tname, e in exps.items():
@@ -539,6 +632,9 @@ def analyse_radar(run_dir):
                                    err_az_model_deg=math.degrees(az - e["az_webots_model"]),
                                    # the sign is decided by a lateral component that is ~0 dead ahead: magnitude
                                    err_az_model_mag_deg=math.degrees(abs(az) - abs(e["az_webots_model"])),
+                                   err_d_pred=d - e["pred_d"] if "pred_d" in e else None,
+                                   err_az_pred_mag_deg=math.degrees(abs(az) - abs(e["pred_az"]))
+                                   if "pred_az" in e else None,
                                    elev_origin_deg=math.degrees(e["elev_origin"]),
                                    az_clamped=abs(abs(az) - RADARS[name][5] / 2) < 0.006)
                         if name in perception.RADARS:  # what RoadSense makes of it, with RoadSense's own pose input
@@ -552,6 +648,10 @@ def analyse_radar(run_dir):
                             lon, lat = ego_point(name, d, az)  # identical to perception.radar_detections (tested)
                             row.update(rs_lon=lon, rs_lat=lat, err_lon=lon - ce[0], err_lat=lat - ce[1],
                                        lane_rs=lane_of(lat))
+                            # historical reference (the SUMO-style wrapper, what earlier oracles scored against)
+                            wr = rot_t(mat(s["gt"]["ego"]), sub(s["gt"]["targets"][tname]["wrapper"][:3],
+                                                                 s["gt"]["ego"][:3]))
+                            row.update(hist_err_lon=lon - wr[0], hist_err_lat=lat - wr[1])
                             lon2, lat2 = ego_point(name, d, corrected_azimuth(name, d, az))
                             row.update(cor_err_lon=lon2 - ce[0], cor_err_lat=lat2 - ce[1], lane_cor=lane_of(lat2))
                         # true radial velocity of the origin (Webots' definition) and of the body centre
@@ -583,7 +683,7 @@ def summarise_radar(rows, cases, ends):
         rr = [r for r in diag if r["target"] == kind and r["group"] in ("static", "static_rear", "orientation")]
         ref[kind] = {k: stats([abs(r[k]) for r in rr]) for k in (
             "err_d_bbox", "err_d_origin", "err_d_nearest", "err_az_origin_deg", "err_az_bbox_deg",
-            "err_az_model_deg", "err_az_model_mag_deg")}
+            "err_az_model_deg", "err_az_model_mag_deg", "err_d_pred", "err_az_pred_mag_deg")}
     out["reference_points_abs_error"] = ref
     # Azimuth bug: dead-ahead targets
     ahead = [r for r in diag if abs(r["centre_lat"]) < 0.01 and r["group"] in ("static", "both_stopped")]
@@ -657,10 +757,13 @@ def compare_configurations(rows):
                     t[key]["lat"].append(abs(best["err_lat"]))
                     t[key]["lon"].append(abs(best["err_lon"]))
                     t[key]["cor_lat"].append(abs(best["cor_err_lat"]))
+                    t[key]["hist_lat"].append(abs(best["hist_err_lat"]))
+                    t[key]["hist_lon"].append(abs(best["hist_err_lon"]))
                     t[key]["lane"].append(best["lane_rs"] == best["lane_true"])
                     t[key]["lane_cor"].append(best["lane_cor"] == best["lane_true"])
         out[cname] = {"%s | %s" % k: {"n": len(v["seen"]), "seen": round(statistics.fmean(v["seen"]), 3),
                                       "lat": stats(v["lat"]), "lon": stats(v["lon"]), "cor_lat": stats(v["cor_lat"]),
+                                      "hist_lat": stats(v["hist_lat"]), "hist_lon": stats(v["hist_lon"]),
                                       "lane": round(statistics.fmean(v["lane"]), 3) if v["lane"] else None,
                                       "lane_cor": round(statistics.fmean(v["lane_cor"]), 3) if v["lane_cor"] else None}
                       for k, v in sorted(t.items())}
@@ -852,6 +955,8 @@ def main():
     a.add_argument("kind", choices=["radar", "lidar"])
     a.add_argument("run_dir")
     a.add_argument("out")
+    a.add_argument("--variant", default="orig", choices=["orig", "A", "AB"],
+                   help="simulator build that produced the run (W8)")
     args = ap.parse_args()
     if args.cmd == "plan":
         plan = {"radar": build_plan, "lidar": lidar_plan, "camera": camera_plan}.get(args.kind)
@@ -862,7 +967,7 @@ def main():
     elif args.cmd == "run":
         sys.exit(run(args.plan, args.out_dir))
     elif args.kind == "radar":
-        cases, rows, ends = analyse_radar(args.run_dir)
+        cases, rows, ends = analyse_radar(args.run_dir, args.variant)
         summary = summarise_radar(rows, cases, ends)
         with open(Path(args.out).with_suffix(".rows.jsonl"), "w") as f:
             for row in rows:
